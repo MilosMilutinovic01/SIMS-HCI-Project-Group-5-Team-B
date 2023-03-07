@@ -54,6 +54,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             }
         }
 
+        private int _id;
+        public int Id
+        {
+            get { return _id; }
+            set
+            {
+                if(_id != value)
+                {
+                    _id = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public User(string Name, string Password, Type Type)
         {
             this.Name = Name;

@@ -2,6 +2,7 @@
 {
     public interface ISerializable
     {
+        public int Id { get; set; }
         string[] ToCSV();
         void FromCSV(string[] values);
 
