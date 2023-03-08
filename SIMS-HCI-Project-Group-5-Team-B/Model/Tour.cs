@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Serializer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO.Packaging;
@@ -8,8 +9,20 @@ using System.Threading.Tasks;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Model
 {
-    internal class Tour
+    public class Tour : ISerializable
     {
+        private int _id;
+        public int Id
+        {
+            get { return _id; }
+            set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                }
+            }
+        }
         private string name;
         public string Name
         {
@@ -86,6 +99,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         }
 
         public List<string> ImageURL;
+
+
+        public Tour()
+        {
+
+        }
         public Tour(string name, string location, string description, string language, int maxGuests, List<KeyPoints> keyPoints, List<DateTime> start, double duration, List<string> imageURL)
         {
             this.name = name;

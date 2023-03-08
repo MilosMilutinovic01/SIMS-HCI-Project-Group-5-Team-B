@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Model
 {
-    internal class KeyPoints
+    public class KeyPoints
     {
         private string name;
         public string Name
