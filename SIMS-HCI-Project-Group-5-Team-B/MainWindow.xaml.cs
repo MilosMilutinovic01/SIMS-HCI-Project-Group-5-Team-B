@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using SIMS_HCI_Project_Group_5_Team_B.View;
 namespace SIMS_HCI_Project_Group_5_Team_B
 {
     /// <summary>
@@ -46,6 +46,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B
             {
 
                 //Pozovi funkciju koju hoces za VLASNIKA
+                OwnerWindow ownerWindow = new OwnerWindow();
+                ownerWindow.Show();
+
 
             }
             else if(ComboBoxType.SelectedIndex == 3)//Owner_Guest is selected

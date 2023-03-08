@@ -9,9 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="View\" />
     <Folder Include="Resources\Data\" />
     <Folder Include="Resources\Images\" />
+    <Folder Include="Resources\NewFolder\" />
   </ItemGroup>
 
 </Project>
