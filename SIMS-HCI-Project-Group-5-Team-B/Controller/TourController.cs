@@ -17,7 +17,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             repository = new Repository<Tour>();
         }
 
-        public void Add(Tour tour)
+        public void Save(Tour tour)
         {
             repository.Save(tour);
         }

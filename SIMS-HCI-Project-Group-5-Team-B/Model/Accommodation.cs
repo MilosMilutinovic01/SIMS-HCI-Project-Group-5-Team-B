@@ -14,6 +14,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
 {
     public class Accommodation : ISerializable, IDataErrorInfo
     {
+        public int Id { get; set; }
+
         private string name;
         public String Name
         {

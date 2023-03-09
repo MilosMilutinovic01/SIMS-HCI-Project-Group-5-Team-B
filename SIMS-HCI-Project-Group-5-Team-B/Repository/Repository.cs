@@ -152,5 +152,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             return result;
         }
 
+        public T FindId(int id)
+        {
+            return _data.Find(d => d.Id == id);
+        }
+
     }
 }
