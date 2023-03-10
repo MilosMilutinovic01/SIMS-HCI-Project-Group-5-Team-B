@@ -56,7 +56,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B
             {
 
                 //Pozovi funkciju koju hoces za GOSTA 1
-
+               OwnerGuestWindow ownerGuestWindow = new OwnerGuestWindow();
+                ownerGuestWindow.Show();
             }
             
         }
