@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SIMS_HCI_Project_Group_5_Team_B.Model;
 using SIMS_HCI_Project_Group_5_Team_B.Serializer;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 public enum TYPE {Apartment = 0,House, Cottage };
 
@@ -78,7 +79,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return maxGuests; }
             set
             {
-                if (value != maxGuests || maxGuests < 1 )
+                if (value != maxGuests)
                 {
                     maxGuests = value;
                     OnPropertyChanged();
@@ -93,7 +94,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return minReservationDays; }
             set
             {
-                if (value != minReservationDays || minReservationDays < 1)
+                if (value != minReservationDays)
                 {
                     minReservationDays = value;
                     OnPropertyChanged();
@@ -109,7 +110,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return noticePeriod; }
             set
             {
-                if (value != noticePeriod || noticePeriod < 1)
+                if (value != noticePeriod)
                 {
                     noticePeriod = value;
                     OnPropertyChanged();
@@ -133,6 +134,24 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+
+
+        /*public string locationString;
+
+        public string LocationString
+        {
+            get { return locationString; }
+            set
+            {
+                if (locationString != value)
+                {
+                    locationString = value;
+                    OnPropertyChanged();
+
+                }
+
+            }
+        }*/
 
         public List<string> pictureURLs;
 
@@ -250,7 +269,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             
         }
         public string Error => null;
-
+        //Regex adresa_regex = new Regex("[A-Z].{0,20},[A-Z].{0,20}");
         public string this[string columnName]
         {
             get
@@ -274,14 +293,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
                 else if (columnName == "MinReservationDays")
                 {
-                    if(MinReservationDays < 1)
+                    if (MinReservationDays < 1)
                     {
                         return "Value must be greater than zero";
                     }
                 }
-                else if(columnName == "NoticePeriod")
+                else if (columnName == "NoticePeriod")
                 {
-                    if(NoticePeriod < 1)
+                    if (NoticePeriod < 1)
                     {
                         return "Value must be greater than zero";
                     }
