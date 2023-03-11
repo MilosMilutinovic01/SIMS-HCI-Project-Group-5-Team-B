@@ -41,7 +41,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         {
            return accomodationRepository.FindBy(propertyNames, values);
         }
-        private Accommodation getById(int id)
+        public Accommodation getById(int id)
         {
             return GetAll().Find(acmd => acmd.Id == id);
         }
