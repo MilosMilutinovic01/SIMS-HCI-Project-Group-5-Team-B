@@ -16,17 +16,18 @@ using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.Model;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using SIMS_HCI_Project_Group_5_Team_B.Controller;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
     /// <summary>
     /// Interaction logic for AccommodationForm.xaml
     /// </summary>
-    public partial class AccommodationForm : Window, IDataErrorInfo, INotifyPropertyChanged
+    public partial class AccommodationForm : Window,/*IDataErrorInfo, */INotifyPropertyChanged
     {
 
-        Repository<Accommodation> accommodationRepository;
-        Repository<Location> locationRepository;
+        private AccommodationController accommodationController;
+        private LocationController locationController;
 
         public Accommodation accommodation { get; set; }
         public Location location { get; set; }
@@ -48,58 +49,29 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         }
 
 
-        public AccommodationForm(Repository<Accommodation> accommodationRepository, Repository<Location> locationRepository)
+        public AccommodationForm()
         {
             locationString = "";
             accommodation = new Accommodation();
             InitializeComponent();
             this.DataContext = this;
-            this.accommodationRepository =accommodationRepository;
-            this.locationRepository = locationRepository;
+            locationController = new LocationController();
+            accommodationController = new AccommodationController(locationController);
         }
 
         
 
         private void Create_Accommodation_Click(object sender, RoutedEventArgs e)
         {
-            if (accommodation.IsValid && this.IsValid)
+            if (accommodation.IsValid && IsValid)
             {
                 int count = 2;
                 String delimeter = ",";
                 string[] locationValues = locationString.Split(delimeter, count);
                 location = new Location(locationValues[0], locationValues[1]);
 
-                List<Location> savedLocations = locationRepository.GetAll();
-
-
-                if (savedLocations.Count() != 0)
-                {
-                    for (int i = 0; i < savedLocations.Count(); i++)
-                    {
-                        if (savedLocations[i].City == location.City && savedLocations[i].State == location.State)
-                        {
-                            //location already exists in data
-                            accommodation.LocationId = savedLocations[i].Id;
-                            accommodationRepository.Save(accommodation);
-                            break;
-                        }
-                        else if (i == savedLocations.Count() - 1)
-                        {
-                            locationRepository.Save(location);
-                            accommodation.LocationId = location.Id;
-                            accommodationRepository.Save(accommodation);
-                        }
-                    }
-                }
-                else
-                {
-                    locationRepository.Save(location);
-                    accommodation.LocationId = location.Id;
-                    accommodationRepository.Save(accommodation);
-                }
-                /*locationRepository.Save(location);
-                accommodation.LocationId = location.Id;
-                accommodationRepository.Save(accommodation);*/
+                accommodationController.AddAccommodation(accommodation, location);
+               
                 Close();
             }
             else
@@ -170,7 +142,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             }
         }
         
-
+        
 
 
     }

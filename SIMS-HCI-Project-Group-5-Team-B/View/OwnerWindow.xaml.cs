@@ -22,21 +22,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class OwnerWindow : Window
     {
 
-        Repository<Accommodation> accommodationRepository;
-        Repository<Location> locationRepository;
+        
         
         public OwnerWindow()
         {
             InitializeComponent();
-            accommodationRepository = new Repository<Accommodation>();
-            locationRepository = new Repository<Location>();
+            
            
         }
 
         private void Create_Accommodation_Click(object sender, RoutedEventArgs e)
         {
             
-            AccommodationForm accommodationForm = new AccommodationForm(accommodationRepository,locationRepository);
+            AccommodationForm accommodationForm = new AccommodationForm();
             accommodationForm.Show();
         }
     }

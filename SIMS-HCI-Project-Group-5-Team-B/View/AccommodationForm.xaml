@@ -64,7 +64,7 @@
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Height="30">
             </TextBox>
-            <ComboBox Name="TypeComboBox" Grid.Row="1" Grid.Column="1"
+            <ComboBox Name="Type_ComboBox" Grid.Row="1" Grid.Column="1"
                      SelectionChanged="TypeChanged_ComboBox"
                      Height="30">
                 <ComboBoxItem Content="Apartment"></ComboBoxItem>
