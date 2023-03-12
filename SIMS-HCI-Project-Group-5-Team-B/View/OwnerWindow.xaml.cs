@@ -39,5 +39,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             AccommodationForm accommodationForm = new AccommodationForm(accommodationRepository,locationRepository);
             accommodationForm.Show();
         }
+
+        private void Grade_Guest_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
