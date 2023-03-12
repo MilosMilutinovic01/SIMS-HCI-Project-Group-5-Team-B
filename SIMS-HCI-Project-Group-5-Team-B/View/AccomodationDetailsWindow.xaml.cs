@@ -22,13 +22,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class AccomodationDetailsWindow : Window
     {
         public Accommodation SelectedAccommodation { get; set; }
+        private ReservationController reservationController;
         
-        public AccomodationDetailsWindow(Accommodation SelectedAccomodation)
+        public AccomodationDetailsWindow(Accommodation SelectedAccomodation, ReservationController reservationController)
         {
             InitializeComponent();
             DataContext = this;
             this.SelectedAccommodation = SelectedAccomodation;
+            this.reservationController = reservationController;
             ShowImages();
+
         }
 
         private void ShowImages()
@@ -39,6 +42,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 imageListBox.Items.Add(imageSource);
             }
+        }
+
+        private void Reserve_Click(object sender, RoutedEventArgs e)
+        {
+            ReservationFormWindow reservationForm = new ReservationFormWindow(reservationController, SelectedAccommodation);
+            reservationForm.Show();
+
         }
     }
 }
