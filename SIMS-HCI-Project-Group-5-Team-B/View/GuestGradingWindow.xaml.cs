@@ -11,36 +11,29 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using SIMS_HCI_Project_Group_5_Team_B.Model;
-using SIMS_HCI_Project_Group_5_Team_B.Repository;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
     /// <summary>
-    /// Interaction logic for OwnerWindow.xaml
+    /// Interaction logic for GuestGradingWindow.xaml
     /// </summary>
-    public partial class OwnerWindow : Window
+    public partial class GuestGradingWindow : Window
     {
-
-        
-        
-        public OwnerWindow()
+         
+        public GuestGradingWindow()
         {
             InitializeComponent();
-            
-           
         }
 
-        private void Create_Accommodation_Click(object sender, RoutedEventArgs e)
-        {
-            
-            AccommodationForm accommodationForm = new AccommodationForm();
-            accommodationForm.Show();
-        }
-
-        private void Grade_Guest_Click(object sender, RoutedEventArgs e)
+        private void Grade_Click(object sender, RoutedEventArgs e)
         {
 
         }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
     }
 }

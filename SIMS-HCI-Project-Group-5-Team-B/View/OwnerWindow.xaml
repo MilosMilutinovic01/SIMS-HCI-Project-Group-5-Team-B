@@ -8,7 +8,7 @@
         Title="OwnerWindow" Height="450" Width="800">
     <Grid>
         <Button Content="Create Accommodation" HorizontalAlignment="Left" Margin="121,105,0,0" VerticalAlignment="Top" Click="Create_Accommodation_Click"/>
-        <Button Content="Grade Guest" HorizontalAlignment="Left" Margin="121,155,0,0" VerticalAlignment="Top"/>
+        <Button Content="Grade Guest" HorizontalAlignment="Left" Margin="121,155,0,0" VerticalAlignment="Top" Click="Grade_Guest_Click"/>
 
     </Grid>
 </Window>
