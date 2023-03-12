@@ -25,6 +25,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     {
         private AccommodationController accommodationController;
         private LocationController locationController;
+        private ReservationController reservationController;
         public ObservableCollection<Accommodation> Accomodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
 
@@ -35,6 +36,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             locationController = new LocationController();
             accommodationController = new AccommodationController(locationController);
             Accomodations = new ObservableCollection<Accommodation>(accommodationController.GetAll());
+            reservationController = new ReservationController(accommodationController);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -53,7 +55,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             if(SelectedAccommodation != null)
             {
-                AccomodationDetailsWindow accomodationDetailsWindow = new AccomodationDetailsWindow(SelectedAccommodation);
+                AccomodationDetailsWindow accomodationDetailsWindow = new AccomodationDetailsWindow(SelectedAccommodation, reservationController);
                 accomodationDetailsWindow.Show();
             }
         }

@@ -28,8 +28,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         public OwnerGuest OwnerGuest;
         private Accommodation accommodation;
         public Accommodation Accommodation { get { return accommodation; } set { accommodation = value; } }
-        private DateOnly startDate;
-        public DateOnly StartDate
+        private DateTime startDate;
+        public DateTime StartDate
         {
             get
             { return startDate; }
@@ -43,8 +43,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             }
         }
 
-        private DateOnly endDate;
-        public DateOnly EndDate
+        private DateTime endDate;
+        public DateTime EndDate
         {
             get
             { return endDate; }
@@ -86,13 +86,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             }
         }
 
+        public bool IsGraded { get; set; }
+
         public Reservation() 
         { 
             OwnerGuest = new OwnerGuest();
             ownerGuestId = 0;
+            StartDate = DateTime.Today;
+            EndDate = DateTime.Today;
         }
 
-        public Reservation(int accomodationId, DateOnly startDate, DateOnly endDate, int reservationDays, int guestsNumber) 
+        public Reservation(int accomodationId, DateTime startDate, DateTime endDate, int reservationDays, int guestsNumber) 
         {
             this.accommodationId = accomodationId;
             this.startDate = startDate;
@@ -101,6 +105,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             this.guestsNumber = guestsNumber;
             OwnerGuest = new OwnerGuest();
             ownerGuestId=0;
+            IsGraded = false;
         }
 
         public string[] ToCSV()
@@ -112,7 +117,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 startDate.ToString(),
                 endDate.ToString(),
                 reservationDays.ToString(),
-                guestsNumber.ToString()
+                guestsNumber.ToString(),
+                IsGraded.ToString()
             };
             return csvValues;
         }
@@ -121,10 +127,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         {
             Id = int.Parse(values[0]);
             accommodationId = int.Parse(values[1]);
-            startDate = DateOnly.Parse(values[2]);
-            endDate = DateOnly.Parse(values[3]);
+            startDate = DateTime.Parse(values[2]);
+            endDate = DateTime.Parse(values[3]);
             reservationDays = int.Parse(values[4]);
             guestsNumber = int.Parse(values[5]);
+            IsGraded=bool.Parse(values[6]);
         }
 
         public string Error => null;
@@ -134,20 +141,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             {
                 if (columnName == "StartDate")
                 {
-                   // if (DateOnly.(StartDate))
-                       // return "The field must be filled";
+                   if(StartDate < DateTime.Today)
+                    {
+                        return "The reservation can not be in the past";
+                    }
                        
                 }
                 else if (columnName == "EndDate")
                 {
-                    if (StartDate > EndDate)
-                        return "End Date must be greater than Start Date";
+                    if (StartDate.AddDays(Accommodation.MinReservationDays) > EndDate)
+                    {
+                        if (StartDate > EndDate)
+                            return "End Date must be greater than Start Date";
+                        return String.Format("Minimal reservation days is {0}", Accommodation.MinReservationDays);
+                    }
+                    
                 }
                 else if (columnName == "ReservationDays")
                 {
                     if (reservationDays < Accommodation.MinReservationDays)
                     {
-                        return "Value must be greater than zero";
+                        return "Value must be greater than minimal reservation days";
                     }
                 }
                 else if (columnName == "GuestsNumber")
@@ -161,7 +175,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             }
         }
 
-        private readonly string[] _validatedProperties = { "EndDate", "ReservationDays", "GuestsNumber" };
+        private readonly string[] _validatedProperties = { "EndDate", "ReservationDays", "GuestsNumber", "StartDate" };
 
         public bool IsValid
         {

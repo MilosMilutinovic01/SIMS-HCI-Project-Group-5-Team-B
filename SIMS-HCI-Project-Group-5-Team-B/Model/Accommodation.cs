@@ -304,12 +304,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                     {
                         return "Value must be greater than zero";
                     }
+                }else if(columnName == "PictureURLsString")
+                {
+                    if (string.IsNullOrEmpty(PictureURLsString))
+                    {
+                        return "This field must be filled";
+                    }
                 }
                 return null;
             }
         }
 
-        private readonly string[] _validatedProperties = { "Name", "Type", "MaxGuests", "MinReservationDays", "NoticePeriod" };
+        private readonly string[] _validatedProperties = { "Name", "Type", "MaxGuests", "MinReservationDays", "NoticePeriod", "PictureURLsString" };
 
         public bool IsValid
         {
