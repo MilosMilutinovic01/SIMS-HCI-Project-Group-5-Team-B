@@ -1,4 +1,5 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Model;
+using SIMS_HCI_Project_Group_5_Team_B.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B
             {
 
                 //Pozovi funkciju koju hoces za GOSTA 2
+                TourWindow tourWindow = new TourWindow();
+                tourWindow.Show();
 
             }
             else if(ComboBoxType.SelectedIndex == 2)//Owner is selected
