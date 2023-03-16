@@ -11,6 +11,12 @@
   <ItemGroup>
     <Folder Include="Resources\Data\" />
     <Folder Include="Resources\Images\" />
+    <Folder Include="Resources\NewFolder\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ToastNotifications" Version="2.5.1" />
+    <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
   </ItemGroup>
 
 </Project>

@@ -1,18 +1,15 @@
-﻿using System;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Serializer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SIMS_HCI_Project_Group_5_Team_B.Model;
-using SIMS_HCI_Project_Group_5_Team_B.Serializer;
+using System.Runtime.CompilerServices;
 
-public enum TYPE {Apartment = 0,House, Cottage };
+public enum TYPE { Apartment = 0, House, Cottage };
 
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Model
 {
-    public class Accommodation : ISerializable, IDataErrorInfo
+    public class Accommodation : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
 
@@ -22,9 +19,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return name; }
             set
             {
-                if(value != name)
+                if (value != name)
                 {
                     name = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -37,32 +35,36 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             {
                 if (type == TYPE.Apartment)
                 {
-                    return "apartment";
+                    return "Apartment";
                 }
                 else if (type == TYPE.House)
                 {
-                    return "house";
+                    return "House";
 
-                } else
-                {
-                    return "cottage";
                 }
-                
+                else
+                {
+                    return "Cottage";
+                }
+
             }
 
             set
             {
-                if(value == "apartment" && type != TYPE.Apartment)
+                if (value == "Apartment" && type != TYPE.Apartment)
                 {
                     type = TYPE.Apartment;
+                    OnPropertyChanged();
                 }
-                else if (value == "house" && type != TYPE.House)
+                else if (value == "House" && type != TYPE.House)
                 {
                     type = TYPE.House;
+                    OnPropertyChanged();
                 }
-                else if(value == "cottage" && type != TYPE.Cottage)
+                else if (value == "Cottage" && type != TYPE.Cottage)
                 {
                     type = TYPE.Cottage;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -73,9 +75,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return maxGuests; }
             set
             {
-                if (value != maxGuests && maxGuests < 1 )
+                if (value != maxGuests)
                 {
                     maxGuests = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -87,9 +90,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return minReservationDays; }
             set
             {
-                if (value != minReservationDays && minReservationDays < 1)
+                if (value != minReservationDays)
                 {
                     minReservationDays = value;
+                    OnPropertyChanged();
                 }
             }
 
@@ -102,14 +106,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return noticePeriod; }
             set
             {
-                if (value != noticePeriod && noticePeriod < 1)
+                if (value != noticePeriod)
                 {
                     noticePeriod = value;
+                    OnPropertyChanged();
                 }
             }
         }
 
         private Location location;
+        public Location Location
+        {
+            get { return location; }
+            set { location = value; }
+        }
 
         private int locationId;
         public int LocationId
@@ -120,18 +130,54 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 if (value != locationId)
                 {
                     locationId = value;
+                    OnPropertyChanged();
                 }
             }
         }
 
+
+        /*public string locationString;
+
+        public string LocationString
+        {
+            get { return locationString; }
+            set
+            {
+                if (locationString != value)
+                {
+                    locationString = value;
+                    OnPropertyChanged();
+
+                }
+
+            }
+        }*/
+
         public List<string> pictureURLs;
+
+        private string pictureURLsString;
+
+        public string PictureURLsString
+        {
+            get { return pictureURLsString; }
+            set
+            {
+                if (value != pictureURLsString)
+                {
+                    pictureURLsString = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
 
         public Accommodation()
         {
             pictureURLs = new List<string>();
         }
 
-        public Accommodation(string name,TYPE type,int maxGuests, int minReservationDays, int noticePeriod, int locationId)
+        public Accommodation(string name, TYPE type, int maxGuests, int minReservationDays, int noticePeriod, int locationId)
         {
             this.name = name;
             this.type = type;
@@ -140,6 +186,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             this.noticePeriod = noticePeriod;
             this.locationId = locationId;
             pictureURLs = new List<string>();
+            location = new Location();
         }
 
         public string[] ToCSV()
@@ -147,11 +194,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         {
 
             string tempType;
-            if(type == TYPE.Apartment)
+            if (type == TYPE.Apartment)
             {
                 tempType = "Apartment";
             }
-            else if(type == TYPE.House)
+            else if (type == TYPE.House)
             {
                 tempType = "House";
             }
@@ -161,26 +208,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             }
 
 
-            StringBuilder stringBuilder = new StringBuilder();
+            /*StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append(pictureURLs[0]);
 
             for(int i = 1 ;i < pictureURLs.Count; i++)
             {
                 stringBuilder.Append("," + pictureURLs[i]);
-            }
+            }*/
 
-            
+
 
             string[] csvValues =
             {
-                Name,
+                Id.ToString(),
+                name,
                 tempType,
                 locationId.ToString(),
                 maxGuests.ToString(),
                 minReservationDays.ToString(),
                 noticePeriod.ToString(),
-                stringBuilder.ToString()
-                
+                PictureURLsString
+
 
             };
             return csvValues;
@@ -189,38 +237,39 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
 
         public void FromCSV(string[] values)
         {
-            name = values[0];
-            if(values[1] == "Apartment")
+            Id = int.Parse(values[0]);
+            name = values[1];
+            if (values[2] == "Apartment")
             {
                 type = TYPE.Apartment;
             }
-            else if(values[1] == "House")
+            else if (values[2] == "House")
             {
                 type = TYPE.House;
             }
-            else if(values[1] == "Cottage")
+            else if (values[2] == "Cottage")
             {
                 type = TYPE.Cottage;
             }
-            locationId = int.Parse(values[2]);
-            maxGuests = int.Parse(values[3]);
-            minReservationDays = int.Parse(values[4]);
-            noticePeriod = int.Parse(values[5]);
+            locationId = int.Parse(values[3]);
+            maxGuests = int.Parse(values[4]);
+            minReservationDays = int.Parse(values[5]);
+            noticePeriod = int.Parse(values[6]);
 
 
-            string pURLs = values[6];
+            PictureURLsString = values[7];
 
-            string[] URLs = pURLs.Split(",");
+            string[] URLs = PictureURLsString.Split(",");
 
-            foreach(string url in URLs)
+            foreach (string url in URLs)
             {
                 pictureURLs.Add(url);
             }
 
-            
+
         }
         public string Error => null;
-
+        //Regex adresa_regex = new Regex("[A-Z].{0,20},[A-Z].{0,20}");
         public string this[string columnName]
         {
             get
@@ -244,23 +293,29 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
                 else if (columnName == "MinReservationDays")
                 {
-                    if(MinReservationDays < 1)
+                    if (MinReservationDays < 1)
                     {
                         return "Value must be greater than zero";
                     }
                 }
-                else if(columnName == "NoticePeriod")
+                else if (columnName == "NoticePeriod")
                 {
-                    if(NoticePeriod < 1)
+                    if (NoticePeriod < 1)
                     {
                         return "Value must be greater than zero";
+                    }
+                }else if(columnName == "PictureURLsString")
+                {
+                    if (string.IsNullOrEmpty(PictureURLsString))
+                    {
+                        return "This field must be filled";
                     }
                 }
                 return null;
             }
         }
 
-        private readonly string[] _validatedProperties = { "Name", "Type", "MaxGuests", "MinReservationDays", "NoticePeriod"};
+        private readonly string[] _validatedProperties = { "Name", "Type", "MaxGuests", "MinReservationDays", "NoticePeriod", "PictureURLsString" };
 
         public bool IsValid
         {
@@ -276,6 +331,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             }
         }
 
-       
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
     }
 }

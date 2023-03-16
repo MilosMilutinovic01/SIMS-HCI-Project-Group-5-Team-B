@@ -1,28 +1,20 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Serializer;
+using Microsoft.VisualBasic;
+using SIMS_HCI_Project_Group_5_Team_B.Serializer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO.Packaging;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Model
 {
-    public class Tour : ISerializable
+    public class Tour : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
-        private int _id;
-        public int Id
-        {
-            get { return _id; }
-            set
-            {
-                if (_id != value)
-                {
-                    _id = value;
-                }
-            }
-        }
+        public int Id { get; set; }
         private string name;
         public string Name
         {
@@ -32,18 +24,34 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 if (name != value)
                 {
                     name = value;
+                    OnPropertyChanged();
                 }
             }
         }
-        private string location;
-        public string Location
+        private Location location;
+        private string locationString;
+        public string LocationString
         {
-            get { return location; }
+            get { return locationString; }
             set
             {
-                if (location != value)
+                if (value != locationString)
                 {
-                    location = value;
+                    locationString = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int locationId;
+        public int LocationId
+        {
+            get { return locationId; }
+            set
+            {
+                if (value != locationId)
+                {
+                    locationId = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -56,6 +64,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 if (description != value)
                 {
                     description = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -68,6 +77,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 if (language != value)
                 {
                     language = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -80,11 +90,26 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 if (maxGuests != value && maxGuests <= 0)
                 {
                     maxGuests = value;
+                    OnPropertyChanged();
                 }
             }
         }
-        public List<KeyPoints> KeyPoints;
-        public List<DateTime> Start;
+        public List<KeyPoints> keyPoints;
+
+        private string keyPointIds;
+        public string KeyPointIds
+        {
+            get { return keyPointIds; }
+            set
+            {
+                if (value != keyPointIds)
+                {
+                    keyPointIds = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public List<string> starts;
         private double duration;
         public double Duration
         {
@@ -98,27 +123,39 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             }
         }
 
-        public List<string> ImageURL;
+        private string pictureURLsString;
 
+        public string PictureURLsString
+        {
+            get { return pictureURLsString; }
+            set
+            {
+                if (value != pictureURLsString)
+                {
+                    pictureURLsString = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public Tour()
         {
-
+            keyPoints = new List<KeyPoints>();
+            starts = new List<string>();
         }
-        public Tour(string name, string location, string description, string language, int maxGuests, List<KeyPoints> keyPoints, List<DateTime> start, double duration, List<string> imageURL)
+        public Tour(string name, string description, string language, int maxGuests, double duration, string pictureURLsString)
         {
             this.name = name;
-            this.location = location;
+            location = new Location();
             this.description = description;
             this.language = language;
             this.maxGuests = maxGuests;
-            KeyPoints = keyPoints;
-            Start = start;
+            keyPoints = new List<KeyPoints>();
             this.duration = duration;
-            ImageURL = imageURL;
+            this.pictureURLsString = pictureURLsString;
         }
 
-        public string FormatingKeyPoints(List<KeyPoints> keyPoints) 
+        /*public string FormatingKeyPoints(List<KeyPoints> keyPoints) 
         {
             string stringBuilder = "";
             foreach (KeyPoints kp in keyPoints) 
@@ -127,48 +164,145 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             }
             return stringBuilder;
         }
-        public string FormatingStart(List<DateTime> start)
+        
+        */
+
+        //This method format start of tour for storage
+        public string FormatingStart(List<String> start)
         {
             string stringBuilder = "";
-            foreach (DateTime s in start)
+            foreach (String s in start)
             {
-                stringBuilder = string.Join(',', s.ToString("dd/MM/yyyy HH:mm"));
+                stringBuilder = string.Join(',', s);
             }
             return stringBuilder;
         }
-        public List<KeyPoints> LoadFromString(string keyPointList) 
+
+        // This method loads start of tours in list
+        public List<String> Load(string startsString)
         {
-            List <KeyPoints> keyPoints = new List <KeyPoints>();
-            string[] parts = keyPointList.Split(',');
-            for(int i = 0; i <  parts.Length; i++) 
+            string[] parts = startsString.Split(',');
+            List<string> starts = new List<string>();
+            starts.AddRange(parts);
+            return starts;
+        }
+
+        //This method create string from Key Points, used for storage
+        public string CreateKeyPointIds(List<KeyPoints> keyPoints) 
+        {
+            List<string> ids = new List<string>();
+            foreach (KeyPoints keyPoint in keyPoints) 
             {
-                keyPoints.Add(new Model.KeyPoints(parts[i]));
+                ids.Add(keyPoint.Id.ToString());
             }
-            return keyPoints;
+            string result = string.Join(",", ids);
+            return result;
         }
         public string[] ToCSV()
         {
             string[] csvValues =
             {
+                Id.ToString(),
                 name,
-                location,
+                locationId.ToString(),
                 description,
                 language,
                 maxGuests.ToString(),
-                FormatingKeyPoints(KeyPoints),
-                FormatingStart(Start),
-                duration.ToString()
+                keyPointIds,
+                FormatingStart(starts),
+                duration.ToString(),
+                pictureURLsString
             };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-            name = values[0];
-            location = values[1];
-            description = values[2];
-            language = values[3];
-            maxGuests = Convert.ToInt32(values[4]);
+            Id = int.Parse(values[0]);
+            name = values[1];
+            locationId = int.Parse(values[2]);
+            description = values[3];
+            language = values[4];
+            maxGuests = int.Parse(values[5]);
+            keyPointIds = values[6];
+            starts = Load(values[7]);
+            duration = double.Parse(values[8]);
+            pictureURLsString = values[9];
+        }
+
+        Regex locationRegex = new Regex("[A-Za-z\\s]+,[A-Za-z]+");
+        public string Error => null;
+
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Name")
+                {
+                    if (string.IsNullOrEmpty(Name))
+                        return "The field must be filled";
+                }
+                else if (columnName == "Description")
+                {
+                    if (string.IsNullOrEmpty(Description))
+                        return "The field must be filled";
+                }
+                else if (columnName == "Language")
+                {
+                    if (string.IsNullOrEmpty(Language))
+                        return "The field must be filled";
+                }
+                else if(columnName == "MaxGuests")
+                {
+                    if(MaxGuests < 1)
+                        return "Value must be greater than zero";
+                }
+                else if (columnName == "Duration")
+                {
+                    if (Duration < 1)
+                    {
+                        return "Value must be greater than zero";
+                    }
+                }
+                else if (columnName == "PictureURLsString")
+                {
+                    if (string.IsNullOrEmpty(PictureURLsString))
+                        return "The field must be filled";
+                }
+                else if( columnName == "LocationString")
+                {
+                    if (string.IsNullOrEmpty(LocationString))
+                        return "The field must be filled";
+
+                    Match match = locationRegex.Match(LocationString);
+                    if (!match.Success)
+                        return "Location needs to be in format: city, state";
+                }
+                return null;
+            }
+        }
+
+        private readonly string[] _validatedProperties = { "Name", "Description", "Language", "MaxGuests", "Duration", "PictureURLsString" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

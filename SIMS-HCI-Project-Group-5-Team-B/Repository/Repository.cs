@@ -48,6 +48,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             _serializer.ToCSV(FilePath, _data);
         }
 
+        public void SaveAll(List<T> obj)
+        {
+            foreach (T item in obj)
+            {
+                item.Id = NextId();
+                _data = _serializer.FromCSV(FilePath);
+                _data.Add(item);
+                _serializer.ToCSV(FilePath, _data);
+            }
+        }
         public void Delete(T obj)
         {
             _data = _serializer.FromCSV(FilePath);
