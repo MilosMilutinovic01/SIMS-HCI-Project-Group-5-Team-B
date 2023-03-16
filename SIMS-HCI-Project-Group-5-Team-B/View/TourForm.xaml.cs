@@ -81,7 +81,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void CreateTourClick(object sender, RoutedEventArgs e)
         {
-            if (tour.IsValid && this.IsValid && keyPoints.Count() >= 2 && tour.starts.Count() > 0)
+            if (tour.IsValid && this.IsValid && keyPoints.Count() >= 2 && tour.Starts.Count() > 0)
             {
                 int count = 2;
                 String delimiter = ",";
@@ -121,9 +121,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                     tour.LocationId = location.Id;
                     tourRepository.Save(tour);
                 }
-                /*locationRepository.Save(location);
-                accommodation.LocationId = location.Id;
-                accommodationRepository.Save(accommodation);*/
                 Close();
             }
             else
@@ -213,8 +210,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 MessageBox.Show("You must add date and time that is after currently!");
             }else
             {
-                tour.starts.Add(StartTextBox.Text);
-                DateLabel.Content = "Added " + tour.starts.Count;
+                tour.Starts.Add(StartTextBox.Text);
+                DateLabel.Content = "Added " + tour.Starts.Count;
             }
         }
     }

@@ -29,6 +29,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             }
         }
         private Location location;
+        public Location Location
+        {
+            get { return location; }
+            set { location = value; }
+        }
         private string locationString;
         public string LocationString
         {
@@ -109,7 +114,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
-        public List<string> starts;
+        private List<string> starts;
+        public List<string> Starts
+        {
+            get { return starts; }
+            set { starts = value; }
+        }
         private double duration;
         public double Duration
         {
@@ -168,10 +178,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         */
 
         //This method format start of tour for storage
-        public string FormatingStart(List<String> start)
+        public string FormatingStart(List<string> start)
         {
             string stringBuilder = "";
-            foreach (String s in start)
+            foreach (string s in start)
             {
                 stringBuilder = string.Join(',', s);
             }
