@@ -18,6 +18,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Column="0" Grid.Row="0" Content="Location" Padding="15 0 10 0"/>
@@ -25,11 +26,12 @@
                 <Label Grid.Column="0" Grid.Row="2" Content="Language" Padding="15 0 10 0"/>
                 <Label Grid.Column="0" Grid.Row="3" Content="Number of people" Padding="15 0 10 0"/>
 
-                <TextBox Grid.Column="1" Grid.Row="0" Width="300"/>
-                <TextBox Grid.Column="1" Grid.Row="1" Width="300"/>
-                <TextBox Grid.Column="1" Grid.Row="2" Width="300"/>
-                <TextBox Grid.Column="1" Grid.Row="3" Width="300"/>
+                <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Location, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" Width="300"/>
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=TourLength, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" Width="300"/>
+                <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Lang, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" Width="300"/>
+                <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=NumberOfPeople, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" Width="300"/>
 
+                <Button x:Name="SearchButtom" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Content="Search" Width="150" Margin="50, 5, 5, 5" Click="SearchButtom_Click"/>
             </Grid>
         </DockPanel>
 

@@ -19,10 +19,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class TourWindow : Window
     {
+        public string Location { get; set; }
+        public string TourLength { get; set; }
+        public string Lang { get; set; }
+        public string NumberOfPeople { get; set; }
+
         public TourWindow()
         {
             InitializeComponent();
             this.DataContext = this;
+        }
+
+        private void SearchButtom_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO Search
         }
     }
 }
