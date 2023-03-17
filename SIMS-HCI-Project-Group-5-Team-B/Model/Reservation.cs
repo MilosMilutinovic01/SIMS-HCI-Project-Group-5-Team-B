@@ -149,7 +149,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
                 else if (columnName == "EndDate")
                 {
-                    if (StartDate.AddDays(Accommodation.MinReservationDays) > EndDate)
+                    if (StartDate.AddDays(Accommodation.MinReservationDays - 1) > EndDate)
                     {
                         if (StartDate > EndDate)
                             return "End Date must be greater than Start Date";
