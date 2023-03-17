@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         mc:Ignorable="d"
-        Title="ReservationFormWindow" Height="450" Width="450">
+        Title="ReservationFormWindow" Height="450" Width="600">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -20,7 +20,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="2.5*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -40,22 +40,48 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Content="Start Date" Height="30" FontSize="15" HorizontalAlignment="Center"></Label>
             <Label Grid.Row="1" Grid.Column="0" Content="End Date" Height="30" FontSize="15" HorizontalAlignment="Center"></Label>
-            <Label Grid.Row="2" Grid.Column="0" Content="Number Of Guests" Height="30" FontSize="15" HorizontalAlignment="Center"></Label>
+            <Label Grid.Row="2" Grid.Column="0" Content="Reservation Days" Height="30" FontSize="15" HorizontalAlignment="Center"></Label>
             <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding Path=NewReservation.StartDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15"></DatePicker>
             <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Path=NewReservation.EndDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15"></DatePicker>
             <WrapPanel Grid.Row="2" Grid.Column="1" FlowDirection="LeftToRight" Margin="20">
-                <Button Content="-" Margin="15 0 0 0" Width="15" Click="Decrease_Click"></Button>
-                <TextBox Name="guestsNumberTextBox" Width="30" Text="{Binding Path=NewReservation.GuestsNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
-                <Button Content="+" Width="15" Click="Increase_Click"></Button>
+                <Button Content="-" Margin="15 0 0 0" Width="15" Click="ReservationDaysDecrease_Click"></Button>
+                <TextBox Name="reservationDaysTextBox" Width="30" Text="{Binding Path=NewReservation.ReservationDays, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" IsReadOnly="True"></TextBox>
+                <Button Content="+" Width="15" Click="ReservationDaysIncrease_Click"></Button>
             </WrapPanel>
             
         </Grid>
         <WrapPanel Grid.Row="2" Grid.Column="1" FlowDirection="RightToLeft" Margin="0 50 0 0">
             <Button Content="Cancel" Margin="15 0" Click="Cancel_Click"></Button>
-            <Button Content="Create" Click="Create_CLick"></Button>
+            <Button Content="Search" Click="Search_CLick"></Button>
         </WrapPanel>
+
+        <DataGrid Grid.Row="1" Grid.Column ="2" Width="auto" ItemsSource="{Binding Path=ReservationRecommendations, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedDate, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged" 
+                      AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Start" Binding="{Binding Start}" Width="2*"></DataGridTextColumn>
+                <DataGridTextColumn Header="End" Binding="{Binding End}" Width="2*"></DataGridTextColumn>
+
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="2" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <WrapPanel Grid.Row="0" Grid.Column="0" FlowDirection="RightToLeft">
+                <Button Name="guestNumberIncreaseButton" Content="+" Margin="15 0 0 0" Width="15" Click="GuestNumberIncrease_Click"></Button>
+                <TextBox Name="guestNumberTextBox" Width="30" Text="{Binding Path=NewReservation.GuestsNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" IsReadOnly="True"></TextBox>
+                <Button x:Name="guestNumberDecreaseButton" Content="-" Width="15" Click="GuestNumberDecrease_Click" ></Button>
+                <Label Content="Guest Number" Margin="15 0"></Label>
+            </WrapPanel>
+            <Button Name="reservationButton" Grid.Row="1" Height="20" Width="44" HorizontalAlignment="Center" Content="Reserve" Click="Reserve_Click"></Button>
+        </Grid>
     </Grid>
 </Window>
