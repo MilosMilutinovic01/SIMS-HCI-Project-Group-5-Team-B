@@ -15,7 +15,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         public string Surname
         {
             get { return surname; }
-            set { name = value; }
+            set { surname = value; }
         }
         
         public OwnerGuest()

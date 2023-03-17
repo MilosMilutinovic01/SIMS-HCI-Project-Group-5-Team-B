@@ -29,6 +29,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             reservationRepository = new Repository<Reservation>();
             this.accommodationController = accommodationController;
             GetAccomodationReference();
+            GetOwnerGuestReference();
         }
 
         public List<Reservation> GetAll()
@@ -38,6 +39,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public void Save(Reservation newReservation)
         {
             reservationRepository.Save(newReservation);
+        }
+
+        public void SaveAll(List<Reservation> reservations)
+        {
+            reservationRepository.SaveAll(reservations);
         }
         public void Delete(Reservation reservation)
         {
@@ -69,6 +75,29 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
                 }
             }
         }
+
+
+        private void GetOwnerGuestReference()
+        {
+            OwnerGuest ownerGuest = new OwnerGuest();
+            foreach(Reservation reservation in GetAll())
+            {
+                reservation.OwnerGuest = ownerGuest;
+            }
+        }
+
+        public List<Reservation> GetSuiableReservationsForGrading()
+        {
+            List<Reservation> reservations = GetAll();
+            List<Reservation> suitableReservations = new List<Reservation>();
+            foreach(Reservation reservation in reservations)
+            {
+                if(reservation.IsGraded == false && reservation.EndDate.AddDays(5) > DateTime.Today  && reservation.EndDate <= DateTime.Today)
+                {
+                    suitableReservations.Add(reservation);
+                }
+            }
+            return suitableReservations;
 
         public List<ReservationRecommendation> GetReservationRecommendations(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int reservationDays)
         {
@@ -153,6 +182,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
                 }
             }
             return true;
+
         }
     }
 }
