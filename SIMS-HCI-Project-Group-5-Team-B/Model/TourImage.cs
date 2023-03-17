@@ -3,107 +3,99 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
-using System.Xml.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Model
 {
-    public class Location : ISerializable, IDataErrorInfo, INotifyPropertyChanged
+    public class TourImage : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        private string city;
-        public string City
+        private string name;
+        public string Name
         {
-            get { return city; }
+            get { return name; }
             set
             {
-                if (city != value)
+                if (name != value)
                 {
-                    city = value;
+                    name = value;
+                }
+            }
+        }
+        private string url;
+        public string Url
+        {
+            get { return url; }
+            set
+            {
+                if (url != value)
+                {
+                    url = value;
                     OnPropertyChanged();
                 }
             }
         }
-
-        public string state;
-
-        public string State
+        private int tourId;
+        public int TourId
         {
-            get { return state; }
+            get { return tourId; }
             set
             {
-                if(state != value)
+                if (tourId != value)
                 {
-                    state = value;
-                    OnPropertyChanged();
+                    tourId = value;
                 }
             }
         }
-
-        public Location() {}
-
-        public Location(string city, string state)
+        public TourImage() { }
+        public TourImage(string url,int tourId, string name = "image")
         {
-            this.city = city;
-            this.state = state;
+            Name = name;
+            Url = url;
+            this.tourId = tourId;
         }
-
 
         public string[] ToCSV()
         {
             string[] csvValues =
             {
                 Id.ToString(),
-                city,
-                state,
+                Name,
+                Url,
+                TourId.ToString()
             };
 
             return csvValues;
         }
-
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            city = values[1];
-            state = values[2];
+            Name = values[1];
+            Url = values[2];
+            TourId = int.Parse(values[3]);
         }
-        public override string ToString()
-        {
-            return State + ", " +  City;
-        }
-        Regex locationRegex = new Regex("[A-Za-z\\s]+");
+        Regex urlRegex = new Regex("[A-Za-z\\s]+");
         public string Error => null;
-
         public string this[string columnName]
         {
             get
             {
-                if (columnName == "City")
+                if (columnName == "Url")
                 {
-                    if (string.IsNullOrEmpty(City))
+                    if (string.IsNullOrEmpty(Url))
                         return "The field must be filled";
 
-                    Match match = locationRegex.Match(City);
+                    Match match = urlRegex.Match(Url);
                     if (!match.Success)
-                        return "City needs to be string";
+                        return "Url needs to be string";
                 }
-                else if (columnName == "State")
-                {
-                    if (string.IsNullOrEmpty(State))
-                        return "The field must be filled";
-
-                    Match match = locationRegex.Match(State);
-                    if (!match.Success)
-                        return "State needs to be string";
-                }
-                    return null;
+                return null;
             }
         }
-
-        private readonly string[] _validatedProperties = { "City", "State"};
+        private readonly string[] _validatedProperties = { "Url" };
 
         public bool IsValid
         {

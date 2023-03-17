@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SIMS_HCI_Project_Group_5_Team_B.View;
+using SIMS_HCI_Project_Group_5_Team_B.Controller;
+
 namespace SIMS_HCI_Project_Group_5_Team_B
 {
     /// <summary>
@@ -22,11 +24,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B
     public partial class MainWindow : Window
     {
         public User user;
+        //public KeyPointsController keyPointsController;
+        //public LocationController locationController;
+        //public TourController tourController;
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = this;
             ComboBoxType.SelectedIndex = 0;
+            //keyPointsController = new KeyPointsController();
+            //locationController = new LocationController();
+            //tourController = new TourController(locationController);
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)

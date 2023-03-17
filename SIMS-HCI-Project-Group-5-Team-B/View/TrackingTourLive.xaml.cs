@@ -37,7 +37,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             locationController = new LocationController();
             keyPointsController = new KeyPointsController();
             tourController = new TourController(locationController);
-            AvailableTours = new ObservableCollection<Tour>(tourController.GetAvailableTours());
+            //AvailableTours = new ObservableCollection<Tour>(tourController.GetAvailableTours());
             KeyPoints = new ObservableCollection<KeyPoints>();
             //GuestsListBox.Items.Add();    //add guests to listbox
             TourStartButton.IsEnabled = false;

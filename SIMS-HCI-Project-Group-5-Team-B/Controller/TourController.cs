@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 {
-    class TourController
+    public class TourController
     {
         private Repository<Tour> tourRepository;
         private LocationController locationController;
@@ -17,7 +17,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         {
             tourRepository = new Repository<Tour>();
             this.locationController = locationController;
-            GetLocationReference();
+            //GetLocationReference();
         }
         public List<Tour> GetAll()
         {
@@ -43,36 +43,35 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         {
             return GetAll().Find(to => to.Id == id);
         }
-        public List<Tour> GetAvailableTours()
+        public int makeId()
         {
-            List<Tour> tours = tourRepository.GetAll();
-            List<Tour> availableTours = new List<Tour>();
-            foreach (Tour tour in tours)
-            {
-                foreach(string start in tour.Starts)
-                {
-                    string[] parts = start.Split(" ");
-                    if (parts[0].Equals(DateTime.Now.ToString("MM/dd/yyyy")))
-                    {
-                        availableTours.Add(tour);
-                        break;
-                    }
-                }
-            }
-            return availableTours;
+            return tourRepository.NextId();
         }
-        private void GetLocationReference()
-        {
-            List<Tour> tours = tourRepository.GetAll();
-            foreach (Tour tour in tours)
-            {
-                Location location = locationController.getById(tour.LocationId);
-                if (location != null)
-                {
-                    tour.Location = location;
-                }
-            }
+        //public List<Tour> GetAvailableTours()
+        //{
+        //    List<Tour> tours = tourRepository.GetAll();
+        //    List<Tour> availableTours = new List<Tour>();
+        //    foreach (Tour tour in tours)
+        //    {
+        //        if (tour.Start.Equals(DateTime.Now.ToString("MM/dd/yyyy")))
+        //        {
+        //            availableTours.Add(tour);
+        //        }
+        //    }
+        //    return availableTours;
+        //}
+        //private void GetLocationReference()
+        //{
+        //    List<Tour> tours = tourRepository.GetAll();
+        //    foreach (Tour tour in tours)
+        //    {
+        //        Location location = locationController.getById(tour.LocationId);
+        //        if (location != null)
+        //        {
+        //            tour.Location = location;
+        //        }
+        //    }
 
-        }
+        //}
     }
 }

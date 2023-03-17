@@ -2,53 +2,55 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Model
 {
-    public class KeyPoints : ISerializable, IDataErrorInfo, INotifyPropertyChanged
+    public class TourStart : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
-        public int Id { get; set; }
-        public string name;
-        public string Name
+        private int id;
+        public int Id
         {
-            get { return name; }
+            get { return id; }
             set
             {
-                if (name != value)
+                if (id != value)
                 {
-                    name = value;
+                    id = value;
+                    //OnPropertyChanged();
+                }
+            }
+        }
+        private DateTime start;
+        public DateTime Start
+        {
+            get { return start; }
+            set
+            {
+                if (start != value)
+                {
+                    start = value;
+                    //OnPropertyChanged();
+                }
+            }
+        }
+        private string clock;   //used for validation
+        public string Clock
+        {
+            get { return clock; }
+            set
+            {
+                if (clock != value)
+                {
+                    clock = value;
                     OnPropertyChanged();
-                }
-            }
-        }
-
-        public int order;
-        public int Order
-        {
-            get { return order; }
-            set
-            {
-                if (order != value)
-                {
-                    order = value;
-                }
-            }
-        }
-
-        public bool selected;
-        public bool Selected
-        {
-            get { return selected; }
-            set
-            {
-                if (selected != value)
-                {
-                    selected = value;
                 }
             }
         }
@@ -59,62 +61,59 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return tourId; }
             set
             {
-                if (value != tourId)
+                if (tourId != value)
                 {
                     tourId = value;
+                    //OnPropertyChanged();
                 }
             }
         }
-        public KeyPoints() { }
-        public KeyPoints(string name, bool selected, int order, int tourId)
+
+        // constructor to initialize the attributes
+        public TourStart(int tourId, DateTime start)
         {
-            this.name = name;
-            this.order = order;
-            this.selected = selected;
             this.tourId = tourId;
+            this.start = start;
         }
+
+        public TourStart(){}
         public string[] ToCSV()
         {
             string[] csvValues =
             {
                 Id.ToString(),
-                name,
-                order.ToString(),
-                selected.ToString(),
-                tourId.ToString()
+                Start.ToString(),
+                TourId.ToString()
             };
 
             return csvValues;
         }
-
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            name = values[1];
-            order = int.Parse(values[2]);
-            selected = Convert.ToBoolean(values[3]);
-            tourId = int.Parse(values[4]);
+            Start = Convert.ToDateTime(values[1], CultureInfo.GetCultureInfo("en-US"));
+            TourId = int.Parse(values[2]);
         }
-
-        Regex nameRegex = new Regex("[A-Za-z\\s]+");
+        Regex clockRegex = new Regex("[0-9]{2}:[0-9]{2}:[0-9]{2}");
         public string Error => null;
         public string this[string columnName]
         {
             get
             {
-                if (columnName == "Name")
+                if (columnName == "Clock")
                 {
-                    if (string.IsNullOrEmpty(Name))
+                    if (string.IsNullOrEmpty(Clock))
                         return "The field must be filled";
 
-                    Match match = nameRegex.Match(Name);
+                    Match match = clockRegex.Match(Clock);
                     if (!match.Success)
-                        return "Name needs to be string";
+                        return "Clock needs to be in format xx:xx:xx";
                 }
                 return null;
             }
         }
-        private readonly string[] _validatedProperties = { "Name" };
+
+        private readonly string[] _validatedProperties = { "Clock" };
 
         public bool IsValid
         {

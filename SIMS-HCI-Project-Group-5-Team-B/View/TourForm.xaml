@@ -43,35 +43,46 @@
         <Label Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">Start</Label>
         <Label Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">Duration</Label>
         <Label Grid.Row="8" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">Images</Label>
-        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Text="{Binding Path=tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"></TextBox>
-        <TextBox Grid.Row="1" Grid.Column="1" Width="150" Text="{Binding Path=LocationString, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <TextBox Width="150" Text="{Binding Path=Location.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"></TextBox>
+            <TextBox Width="150" Text="{Binding Path=Location.State, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"></TextBox>
 
-            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Text="{Binding Path=tour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+        </StackPanel>
+        
+            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Text="{Binding Path=Tour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Text="{Binding Path=tour.Language, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+        <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Text="{Binding Path=Tour.Language, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Text="{Binding Path=tour.MaxGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+        <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Text="{Binding Path=Tour.MaxGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"></TextBox>
         <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" >
-            <TextBox x:Name="KeyPointTextBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Margin="0,0,10,0" ></TextBox>
+            <TextBox x:Name="KeyPointTextBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Text="{Binding Path=KeyPoint.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,0,10,0" ></TextBox>
             <Button Content="Add" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Click="AddKeyPointsButton_Click"></Button>
             <Label x:Name="KeyPointsLabel" HorizontalAlignment="Left" Margin="10,0,0,0"></Label>
         </StackPanel>
         <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" >
-            <TextBox x:Name="StartTextBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Margin="0,0,10,0" Text="{Binding Path=StartString, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+            <DatePicker x:Name="StartDatePicker" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Margin="0,0,10,0" ></DatePicker>
+            <TextBox x:Name="StartTextBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Text="{Binding Path=TourStart.Clock, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
             <Button Content="Add" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Click="AddStartButton_Click"></Button>
             <Label x:Name="DateLabel" HorizontalAlignment="Left" Margin="10,0,0,0"></Label>
         </StackPanel>
-        <TextBox Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Text="{Binding Path=tour.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+        <TextBox Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Text="{Binding Path=Tour.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"></TextBox>
-        <TextBox Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Text="{Binding Path=tour.PictureURLsString, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0" ></TextBox>
-            <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Width="70" Height="20" Margin="0,0,20,0" Content="Create" Click="CreateTourClick"></Button>
-            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Width="70" Height="20" Margin="20,0,0,0" Content="Cancel" Click="CancelTourClick"></Button>
+        <StackPanel Grid.Row="8" Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" >
+            <TextBox x:Name="ImageTextBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Text="{Binding Path=TourImage.Url, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,0,10,0"/>
+            <Button Content="Add" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Click="AddImageButton_Click"></Button>
+            <Label x:Name="ImageLabel" HorizontalAlignment="Left" Margin="10,0,0,0"></Label>
+        </StackPanel>
+        <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Width="70" Height="20" Margin="0,0,20,0" Content="Create" Click="CreateTourButton_Click"></Button>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Width="70" Height="20" Margin="20,0,0,0" Content="Cancel" Click="CancelTourButton_Click"></Button>
         </StackPanel>
     </Grid>
 </Window>

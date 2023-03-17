@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Model;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
+using SIMS_HCI_Project_Group_5_Team_B.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 {
-    class KeyPointsController
+    public class KeyPointsController
     {
         private Repository<KeyPoints> keyPointsRepository;
 
@@ -24,6 +25,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public void Save(KeyPoints newKeyPoints)
         {
             keyPointsRepository.Save(newKeyPoints);
+        }
+        public void SaveAll(List<KeyPoints> keyPoints) 
+        {
+            keyPointsRepository.SaveAll(keyPoints);
         }
         public void Delete(KeyPoints KeyPoints)
         {
