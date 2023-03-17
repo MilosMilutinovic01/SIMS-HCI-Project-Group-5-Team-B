@@ -19,6 +19,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Column="0" Grid.Row="0" Content="Location" Padding="15 0 10 0"/>
@@ -29,20 +30,16 @@
                 <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Location, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" Width="300"/>
                 <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=TourLength, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" Width="300"/>
                 <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Lang, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" Width="300"/>
-                <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=NumberOfPeople, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" Width="300"/>
+                <TextBox x:Name="NumberOfPeopleTextBox" Grid.Column="1" Grid.Row="3" Text="{Binding Path=NumberOfPeople, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" Width="300"/>
 
-                <Button x:Name="SearchButtom" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Content="Search" Width="150" Margin="50, 5, 5, 5" Click="SearchButtom_Click"/>
+                <Button x:Name="SearchButton" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Content="Search" Width="150" Margin="30, 5, 5, 5" Click="SearchButton_Click" IsEnabled="{Binding ElementName=NumberOfPeopleTextBox, Path=IsArrangeValid}"/>
+                <Button x:Name="ShowImageButton" Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" Content="Show Image" Width="150" Margin="30, 5, 5, 5" Click="ShowImageButton_Click"/>
+                <Button x:Name="TourReservationButton" Grid.Column="3" Grid.Row="2" Grid.RowSpan="2" Content="Tour Reservation" Width="150" Margin="30, 5, 5, 5" Click="TourReservationButton_Click"/>
             </Grid>
         </DockPanel>
 
         <DockPanel DockPanel.Dock="Bottom">
-            <DataGrid  x:Name="DataGridTour" SelectionMode="Single" IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Width="1*"/>
-                    <DataGridTextColumn Header="Description" Width="2*"/>
-                    <DataGridTextColumn Header="Language" Width="1*"/>
-                    <DataGridTextColumn Header="Max guest" Width="0.5*"/>
-                </DataGrid.Columns>
+            <DataGrid  x:Name="DataGridTour" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding Path=tours}">
             </DataGrid>
             
         </DockPanel>
