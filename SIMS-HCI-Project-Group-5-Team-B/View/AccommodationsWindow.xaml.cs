@@ -105,7 +105,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
                     Match match = locationRegex.Match(SearchLocationString);
                     if (!match.Success)
-                        return "Location needs to be in format: city, state";
+                        return "Format: city, state";
                 }
                 else if (columnName == "SearchGuestsNumber")
                 {

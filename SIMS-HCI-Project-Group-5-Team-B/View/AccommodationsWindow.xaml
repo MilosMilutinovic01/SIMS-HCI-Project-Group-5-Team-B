@@ -45,16 +45,20 @@
             <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" FontSize="13">Guest Number</Label>
             <Label Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" FontSize="12">Reservation Days</Label>
 
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=SearchName ,Mode=TwoWay }"></TextBox>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=SearchLocationString, Mode=TwoWay }"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=SearchName ,Mode=TwoWay, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Height="20"></TextBox>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=SearchLocationString, Mode=TwoWay , ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Height="20"></TextBox>
             <ComboBox Grid.Row="3" Grid.Column="1" SelectedValue="{Binding SearchType, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValuePath ="Content">
                 <ComboBoxItem>Apartment</ComboBoxItem>
                 <ComboBoxItem>House</ComboBoxItem>
                 <ComboBoxItem>Cottage</ComboBoxItem>
             </ComboBox>
-            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=SearchGuestsNumber, Mode=TwoWay}"></TextBox>
-            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=SearchDays, Mode=TwoWay}"></TextBox>
+            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=SearchGuestsNumber, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Height="20"></TextBox>
+            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=SearchDays, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Height="20"></TextBox>
             <Button Grid.Row="6" Grid.Column="0" Height="25" Width="45" Content="Reset" Click="Reset_Click"></Button>
             <Button Grid.Row="6" Grid.Column="1" Height="25" Width="45" Content="Search" Click="Search_Click"></Button>
         </Grid>

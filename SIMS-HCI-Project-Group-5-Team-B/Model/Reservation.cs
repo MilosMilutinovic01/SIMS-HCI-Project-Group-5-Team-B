@@ -161,7 +161,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 {
                     if (reservationDays < Accommodation.MinReservationDays)
                     {
-                        return "Value must be greater than minimal reservation days";
+                        return String.Format("Minimal reservation days is {0}", Accommodation.MinReservationDays);
                     }
                 }
                 else if (columnName == "GuestsNumber")
