@@ -25,7 +25,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         private int ownerGuestId;
         public int OwnerGuestId { get { return ownerGuestId; } set { ownerGuestId = value; } }
 
-        public OwnerGuest OwnerGuest;
+        public OwnerGuest OwnerGuest { get; set; }
         private Accommodation accommodation;
         public Accommodation Accommodation { get { return accommodation; } set { accommodation = value; } }
         private DateTime startDate;
