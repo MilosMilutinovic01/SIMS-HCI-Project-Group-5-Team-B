@@ -10,7 +10,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// <summary>
     /// Interaction logic for ReservationFormWindow.xaml
     /// </summary>
-    public partial class ReservationFormWindow : Window
+    public partial class ReservationForm : Window
     {
         private ReservationController reservationController;
         public Reservation NewReservation { get; set; }
@@ -19,7 +19,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public Accommodation SelectedAccomodation { get; set; }
         public ObservableCollection<ReservationRecommendation> ReservationRecommendations { get; set; }
         public ReservationRecommendation SelectedDate { get; set; }
-        public ReservationFormWindow(ReservationController reservationController, Accommodation SelectedAccomodation)
+        public ReservationForm(ReservationController reservationController, Accommodation SelectedAccomodation)
         {
             InitializeComponent();
             this.DataContext = this;
