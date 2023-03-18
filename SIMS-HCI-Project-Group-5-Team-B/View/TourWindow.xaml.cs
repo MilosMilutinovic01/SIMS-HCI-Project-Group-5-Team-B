@@ -33,7 +33,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             tours = new ObservableCollection<Tour>(tc.GetAll());
         }
 
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        public void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             tours.Clear();
             foreach(Tour tour in tc.Search(Location, Lang, TourLength, NumberOfPeople))
@@ -48,6 +48,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 TourAttendanceWindow tourAttendanceWindow = new TourAttendanceWindow(SelectedTour);
                 tourAttendanceWindow.Show();
+                tourAttendanceWindow.Owner = this;
             }
         }
     }

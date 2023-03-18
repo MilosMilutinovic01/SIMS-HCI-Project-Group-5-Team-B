@@ -16,7 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        
+
         <Grid Grid.Row="0" Grid.Column="0" Margin="10,50,0,38" HorizontalAlignment="Left" Width="563" RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>
                 <TransformGroup>
@@ -34,8 +34,9 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -47,6 +48,7 @@
             <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Current Guests" ></Label>
             <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Language" ></Label>
             <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Description" ></Label>
+            <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Select availabel dates"/>
 
 
             <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedTour.Name}" Height="30">
@@ -62,12 +64,15 @@
             <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding SelectedTour.Description}" Height="30">
             </TextBlock>
 
-            <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding NumberOfPeople}" Width="200" Height="30"/>
-            <Button Grid.Row="6" Grid.Column="0" Content="Reserve" Width="100" Height="30" Click="Attendance_Click"></Button>
+
+            <ComboBox Grid.Row="6" Grid.Column="1" Height="30" Width="200" IsEditable="False" ItemsSource="{Binding Path=Available}"/>
+
+            <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding NumberOfPeople}" Width="200" Height="30"/>
+            <Button Grid.Row="7" Grid.Column="0" Content="Reserve" Width="100" Height="30" Click="Attendance_Click"></Button>
 
 
         </Grid>
-        
+
         <ListBox Grid.Column="1" Name="imageListBox" d:ItemsSource="{d:SampleData ItemCount=5}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
