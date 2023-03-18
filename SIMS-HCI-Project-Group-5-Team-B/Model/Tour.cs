@@ -95,9 +95,24 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+        private string imageUrls;
+        public string ImageUrls
+        {
+            get { return imageUrls; }
+            set
+            {
+                if (imageUrls != value)
+                {
+                    imageUrls = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public List<KeyPoint> KeyPoints { get; set; }
+        
         public Tour()
         {
-            
+            KeyPoints = new List<KeyPoint>();
         }
         public Tour(string name, string description, string language, int maxGuests, DateTime start, double duration, string pictureURLsString)
         {
@@ -107,53 +122,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             this.maxGuests = maxGuests;
             this.duration = duration;
         }
-
-        /*public string FormatingKeyPoints(List<KeyPoints> keyPoints) 
-        {
-            string stringBuilder = "";
-            foreach (KeyPoints kp in keyPoints) 
-            {
-                stringBuilder = string.Join(',', kp.ToString());   
-            }
-            return stringBuilder;
-        }
-        
-        */
-
-        //This method format start of tour for storage
-        //public string FormatingStart(List<string> start)
-        //{
-        //    string stringBuilder = "";
-        //    foreach (string s in start)
-        //    {
-        //        stringBuilder = string.Join(',', s);
-        //    }
-        //    return stringBuilder;
-        //}
-
-        // This method loads start of tours in list
-        //public List<String> Load(string startsString)
-        //{
-        //    string[] parts = startsString.Split(',');
-        //    List<string> starts = new List<string>();
-        //    starts.AddRange(parts);
-        //    return starts;
-        //}
-
-        //This method create string from Key Points, used for storage
-        public string CreateKeyPointIds(List<KeyPoints> keyPoints) 
-        {
-            List<string> ids = new List<string>();
-            foreach (KeyPoints keyPoint in keyPoints) 
-            {
-                ids.Add(keyPoint.Id.ToString());
-            }
-            string result = string.Join(",", ids);
-            return result;
-        }
-        LocationController locationController = new LocationController();
         public string[] ToCSV()
         {
+            string stringBuilder = "";
+            foreach (KeyPoint kp in KeyPoints)
+            {
+                stringBuilder += kp.Name + ",";
+            }
+            stringBuilder = stringBuilder.Substring(0, stringBuilder.Length - 1);
             string[] csvValues =
             {
                 Id.ToString(),
@@ -162,10 +138,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 description,
                 language,
                 maxGuests.ToString(),
-                //keyPointIds,
-                //start.ToString(),
+                stringBuilder,
                 duration.ToString(),
-                //pictureURLsString
+                imageUrls
             };
             return csvValues;
         }
@@ -178,14 +153,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             description = values[3];
             language = values[4];
             maxGuests = int.Parse(values[5]);
-            //keyPointIds = values[6];
-            //CultureInfo provider = new CultureInfo("en-US");
-            //start = DateTime.ParseExact(values[7], "MM/dd/yyyy HH:mm:ss", provider);
-            duration = double.Parse(values[6]);
-            //pictureURLsString = values[9];
+            string[] parts = values[6].Split(',');
+            for(int i = 0; i < parts.Length; i++)
+            {
+                KeyPoints.Add(new KeyPoint(parts[i]));
+            }
+            duration = double.Parse(values[7]);
+            imageUrls = values[8];
         }
-
-        Regex locationRegex = new Regex("[A-Za-z\\s]+");
         Regex maxGuestsRegex = new Regex("^([1-9][0-9]*)$");
         public string Error => null;
 
@@ -224,25 +199,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                         return "Value must be greater than zero";
                     }
                 }
-                //else if (columnName == "PictureURLsString")
-                //{
-                //    if (string.IsNullOrEmpty(PictureURLsString))
-                //        return "The field must be filled";
-                //}
-                //else if (columnName == "Location")
-                //{
-                //    if (string.IsNullOrEmpty(Location.City))
-                //        return "The field must be filled";
-
-                //    Match match = locationRegex.Match(Location.City);
-                //    if (!match.Success)
-                //        return "City needs to be string";
-                //}
+                else if (columnName == "ImageUrls")
+                {
+                    if (string.IsNullOrEmpty(ImageUrls))
+                        return "The field must be filled";
+                }
                 return null;
             }
         }
 
-        private readonly string[] _validatedProperties = { "Name", "Description", "Language", "MaxGuests", "Duration" };
+        private readonly string[] _validatedProperties = { "Name", "Description", "Language", "MaxGuests", "Duration", "ImageUrls" };
 
         public bool IsValid
         {
@@ -257,9 +223,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 return true;
             }
         }
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

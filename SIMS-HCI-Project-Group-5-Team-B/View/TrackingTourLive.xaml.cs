@@ -28,10 +28,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private KeyPointsController keyPointsController;
         private AppointmentController appointmentController;
         public ObservableCollection<Appointment> AvailableAppointemnts { get; set; }
-        public ObservableCollection<KeyPoints> KeyPoints { get; set; }
+        public ObservableCollection<KeyPoint> KeyPoints { get; set; }
         public ObservableCollection<GuideGuest> GuideGuest { get; set; }
         public Appointment SelectedAppointment { get; set; }
-        public KeyPoints SelectedKeyPoint { get; set; }
+        public KeyPoint SelectedKeyPoint { get; set; }
         public GuideGuest SelectedGuest { get; set; }
         public TrackingTourLive()
         {
@@ -42,7 +42,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             //tourController = new TourController(locationController);
             appointmentController = new AppointmentController();
             AvailableAppointemnts = new ObservableCollection<Appointment>(appointmentController.GetAll());
-            KeyPoints = new ObservableCollection<KeyPoints>();
+            KeyPoints = new ObservableCollection<KeyPoint>();
             GuideGuest = new ObservableCollection<GuideGuest>();
             //GuestsListBox.Items.Add();    //add guests to listbox
             TourStartButton.IsEnabled = false;
@@ -58,7 +58,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             KeyPoints.Clear();
-            foreach (KeyPoints keyPoint in keyPointsController.getByTourId(SelectedAppointment.TourId))
+            foreach (KeyPoint keyPoint in keyPointsController.getByTourId(SelectedAppointment.TourId))
             {
                 KeyPoints.Add(keyPoint);
             }
@@ -80,7 +80,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             KeyPoints[0].Selected = true;
             keyPointsController.Update(KeyPoints[0]);
             KeyPoints.Clear();
-            foreach (KeyPoints keyPoint in keyPointsController.getByTourId(SelectedAppointment.TourId))
+            foreach (KeyPoint keyPoint in keyPointsController.getByTourId(SelectedAppointment.TourId))
             {
                 KeyPoints.Add(keyPoint);
             }
@@ -93,25 +93,25 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             if (SelectedKeyPoint == KeyPoints[0] || SelectedKeyPoint.Selected == true)
                 MessageBox.Show("Already selected!");
-            else if(KeyPoints[SelectedKeyPoint.Order - 1].Selected == true && SelectedKeyPoint.Order + 1 == KeyPoints.Count())
-            {
-                TourStartButton.IsEnabled = true;
-                SelectedKeyPoint.Selected = true;
-                keyPointsController.Update(SelectedKeyPoint);
-                MessageBox.Show("Tour ended!");
-            }
-            else if (KeyPoints[SelectedKeyPoint.Order - 1].Selected == true)
-            {
-                SelectedKeyPoint.Selected = true;
-                keyPointsController.Update(SelectedKeyPoint);
-            }
-            else
-                MessageBox.Show("Can't select this key point before previous is selected!");
-            KeyPoints.Clear();
-            foreach (KeyPoints keyPoint in keyPointsController.getByTourId(SelectedAppointment.TourId))
-            {
-                KeyPoints.Add(keyPoint);
-            }
+            //else if(KeyPoints[SelectedKeyPoint.Order - 1].Selected == true && SelectedKeyPoint.Order + 1 == KeyPoints.Count())
+            //{
+            //    TourStartButton.IsEnabled = true;
+            //    SelectedKeyPoint.Selected = true;
+            //    keyPointsController.Update(SelectedKeyPoint);
+            //    MessageBox.Show("Tour ended!");
+            //}
+            //else if (KeyPoints[SelectedKeyPoint.Order - 1].Selected == true)
+            //{
+            //    SelectedKeyPoint.Selected = true;
+            //    keyPointsController.Update(SelectedKeyPoint);
+            //}
+            //else
+            //    MessageBox.Show("Can't select this key point before previous is selected!");
+            //KeyPoints.Clear();
+            //foreach (KeyPoint keyPoint in keyPointsController.getByTourId(SelectedAppointment.TourId))
+            //{
+            //    KeyPoints.Add(keyPoint);
+            //}
         }
 
         private void SendRequestButton_Click(object sender, RoutedEventArgs e)

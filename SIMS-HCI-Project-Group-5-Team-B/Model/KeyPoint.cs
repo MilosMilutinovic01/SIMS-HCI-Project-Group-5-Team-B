@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Model
 {
-    public class KeyPoints : ISerializable, IDataErrorInfo, INotifyPropertyChanged
+    public class KeyPoint : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public string name;
@@ -26,20 +26,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
-
-        public int order;
-        public int Order
-        {
-            get { return order; }
-            set
-            {
-                if (order != value)
-                {
-                    order = value;
-                }
-            }
-        }
-
         public bool selected;
         public bool Selected
         {
@@ -65,11 +51,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
-        public KeyPoints() { }
-        public KeyPoints(string name, bool selected, int order, int tourId)
+        public KeyPoint() { }
+        public KeyPoint(KeyPoint copy)
+        {
+            this.Name = copy.Name;
+            this.Selected = copy.Selected;
+            this.TourId = copy.TourId;
+        }
+        public KeyPoint(string name)
+        {
+            this.Name = name;
+        }
+        public KeyPoint(string name, bool selected, int tourId)
         {
             this.name = name;
-            this.order = order;
             this.selected = selected;
             this.tourId = tourId;
         }
@@ -79,7 +74,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             {
                 Id.ToString(),
                 name,
-                order.ToString(),
                 selected.ToString(),
                 tourId.ToString()
             };
@@ -91,9 +85,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         {
             Id = int.Parse(values[0]);
             name = values[1];
-            order = int.Parse(values[2]);
-            selected = Convert.ToBoolean(values[3]);
-            tourId = int.Parse(values[4]);
+            selected = Convert.ToBoolean(values[2]);
+            tourId = int.Parse(values[3]);
         }
 
         Regex nameRegex = new Regex("[A-Za-z\\s]+");

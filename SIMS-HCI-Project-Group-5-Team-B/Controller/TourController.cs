@@ -41,7 +41,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         }
         public Tour getById(int id)
         {
-            return GetAll().Find(to => to.Id == id);
+            return GetAll().Find(tour => tour.Id == id);
         }
         public int makeId()
         {

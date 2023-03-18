@@ -11,40 +11,40 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 {
     public class KeyPointsController
     {
-        private Repository<KeyPoints> keyPointsRepository;
+        private Repository<KeyPoint> keyPointsRepository;
 
         public KeyPointsController()
         {
-            keyPointsRepository = new Repository<KeyPoints>();
+            keyPointsRepository = new Repository<KeyPoint>();
         }
 
-        public List<KeyPoints> GetAll()
+        public List<KeyPoint> GetAll()
         {
             return keyPointsRepository.GetAll();
         }
-        public void Save(KeyPoints newKeyPoints)
+        public void Save(KeyPoint newKeyPoints)
         {
             keyPointsRepository.Save(newKeyPoints);
         }
-        public void SaveAll(List<KeyPoints> keyPoints) 
+        public void SaveAll(List<KeyPoint> keyPoints) 
         {
             keyPointsRepository.SaveAll(keyPoints);
         }
-        public void Delete(KeyPoints KeyPoints)
+        public void Delete(KeyPoint KeyPoints)
         {
             keyPointsRepository.Delete(KeyPoints);
         }
-        public void Update(KeyPoints KeyPoints)
+        public void Update(KeyPoint KeyPoints)
         {
             keyPointsRepository.Update(KeyPoints);
         }
 
-        public List<KeyPoints> FindBy(string[] propertyNames, string[] values)
+        public List<KeyPoint> FindBy(string[] propertyNames, string[] values)
         {
             return keyPointsRepository.FindBy(propertyNames, values);
         }
 
-        public List<KeyPoints> getByTourId(int id)
+        public List<KeyPoint> getByTourId(int id)
         {
             return GetAll().FindAll(kp => kp.TourId == id);
         }

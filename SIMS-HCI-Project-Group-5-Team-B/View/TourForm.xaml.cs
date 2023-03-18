@@ -30,33 +30,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private TourController tourController;
         private LocationController locationController;
         private KeyPointsController keyPointsController;
-        private TourImageController imageController;
         private TourStartController tourStartController;
         public Tour Tour { get; set; }
         public Location Location { get; set; }
-        public KeyPoints KeyPoint { get; set; }
-        public TourImage TourImage { get; set; }
+        public KeyPoint KeyPoint { get; set; }
         public TourStart TourStart { get; set; }
         
-        public List<KeyPoints> keyPoints;
+        public List<KeyPoint> keyPoints;
         public List<TourStart> tourStarts;
-        public List<TourImage> images;
         public TourForm()
         {
             Tour = new Tour();
             Location = new Location();
-            KeyPoint = new KeyPoints();
-            TourImage = new TourImage();
+            KeyPoint = new KeyPoint();
             TourStart = new TourStart();
 
-            keyPoints = new List<KeyPoints>();
-            images = new List<TourImage>();
+            keyPoints = new List<KeyPoint>();
             tourStarts = new List<TourStart>();
             
             locationController = new LocationController();
             tourController = new TourController(locationController);
             keyPointsController = new KeyPointsController();
-            imageController = new TourImageController();
             tourStartController = new TourStartController();
 
             InitializeComponent();
@@ -65,7 +59,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
         {
-            bool isValid = Tour.IsValid && Location.IsValid && KeyPoint.IsValid && TourImage.IsValid && TourStart.IsValid;
+            bool isValid = Tour.IsValid && Location.IsValid && KeyPoint.IsValid && TourStart.IsValid;
             if (keyPoints.Count() < 2)
             {
                 MessageBox.Show("Must enter two or more keypoints!");
@@ -74,11 +68,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             if (tourStarts.Count() == 0)
             {
                 MessageBox.Show("Must enter at least one tour start!");
-                return;
-            }
-            if(images.Count() == 0) 
-            {
-                MessageBox.Show("Must enter at least one image!");
                 return;
             }
             if(!isValid)
@@ -98,17 +87,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 Tour.LocationId = locationController.makeId();
                 locationController.Save(Location);
             }
-
-            SaveEntities();
-            Close();
-        }
-
-        private void SaveEntities()
-        {
+            Tour.KeyPoints.AddRange(keyPoints);
             keyPointsController.SaveAll(keyPoints);
-            imageController.SaveAll(images);
             tourStartController.SaveAll(tourStarts);
             tourController.Save(Tour);
+            Close();
         }
 
         private void CancelTourButton_Click(object sender, RoutedEventArgs e)
@@ -117,12 +100,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         }
         private void AddKeyPointsButton_Click(object sender, RoutedEventArgs e)
         {
-            int tourId = tourController.makeId();
+            //int tourId = tourController.makeId();
+            KeyPoint.TourId = tourController.makeId();
             if (KeyPointTextBox.Text.Equals(""))
                 MessageBox.Show("You should fill the field!");
             else
             {
-                keyPoints.Add(new KeyPoints(KeyPointTextBox.Text, false, keyPoints.Count(), tourId));
+                keyPoints.Add(new KeyPoint(KeyPoint));
                 KeyPointsLabel.Content = "Added " + keyPoints.Count().ToString();
             }
         }
@@ -144,18 +128,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             }
             else
                 MessageBox.Show("You must add date and time that is after currently!");
-        }
-
-        private void AddImageButton_Click(object sender, RoutedEventArgs e)
-        {
-            int tourId = tourController.makeId();
-            if (ImageTextBox.Text.Equals(""))
-                MessageBox.Show("You should fill the field!");
-            else
-            {
-                images.Add(new TourImage(ImageTextBox.Text, tourId));
-                ImageLabel.Content = "Added " + images.Count();
-            }
         }
     }
 }
