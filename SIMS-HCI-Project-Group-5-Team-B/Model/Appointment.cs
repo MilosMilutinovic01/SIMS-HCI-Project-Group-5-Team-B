@@ -37,6 +37,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+        private string tourName;
+        public string TourName
+        {
+            get { return tourName; }
+            set
+            {
+                if (tourName != value)
+                {
+                    tourName = value;
+                }
+            }
+        }
         private int guideId;
         public int GuideId
         {
@@ -66,6 +78,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         {
         }
 
+        public Appointment(DateTime start, int tourId, string tourName, int guideId, int guestsNumber)
+        {
+            this.start = start;
+            this.tourId = tourId;
+            this.tourName = tourName;
+            this.guideId = guideId;
+            this.guestsNumber = guestsNumber;
+        }
+
         public string[] ToCSV()
         {
             string[] csvValues =
@@ -73,6 +94,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 Id.ToString(),
                 start.ToString(),
                 tourId.ToString(),
+                tourName,
                 guideId.ToString(),
                 guestsNumber.ToString()
             };
@@ -85,8 +107,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             Id = int.Parse(values[0]);
             Start = Convert.ToDateTime(values[1], CultureInfo.GetCultureInfo("en-US"));
             TourId = int.Parse(values[2]);
-            GuideId = int.Parse(values[3]);
-            GuestsNumber = int.Parse(values[4]);
+            TourName = values[3];
+            GuideId = int.Parse(values[4]);
+            GuestsNumber = int.Parse(values[5]);
         }
     }
 }

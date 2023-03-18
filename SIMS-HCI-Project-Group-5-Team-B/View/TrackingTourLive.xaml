@@ -10,6 +10,7 @@
         <ToolBar DockPanel.Dock="Top" Height="30">
             <Button x:Name="TourStartButton" Content="Start" Click="TourStartButton_Click"></Button>
             <Button x:Name="KeyPointCheckButton" Content="Check" Click="KeyPointCheckButton_Click"></Button>
+            <Button x:Name="SendRequestButton" Content="Send request" Click="SendRequestButton_Click"></Button>
         </ToolBar>
         <Grid>
             <Grid.RowDefinitions>
@@ -21,10 +22,10 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <DataGrid x:Name="AvailableToursDataGrid" Grid.Row="0" ItemsSource="{Binding Path=AvailableTours}" SelectedItem="{Binding Path=SelectedTour}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged" Grid.ColumnSpan="2" Margin="0,0,0,234" Grid.RowSpan="2">
+            <DataGrid x:Name="AvailableToursDataGrid" Grid.Row="0" ItemsSource="{Binding Path=AvailableAppointemnts}" SelectedItem="{Binding Path=SelectedAppointment}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged" Grid.ColumnSpan="2" Margin="0,0,0,234" Grid.RowSpan="2">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Location" Binding="{Binding Location}" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding TourName}" />
+                    <DataGridTextColumn Header="Location" Binding="{Binding Start}" />
                     <DataGridTemplateColumn Header="View">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -40,7 +41,12 @@
                     <DataGridTextColumn Header="Check" Binding="{Binding Selected}" />
                 </DataGrid.Columns>
             </DataGrid>
-            <ListBox x:Name="GuestsListBox" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,234,0,0" Grid.RowSpan="2"></ListBox>
+            <DataGrid x:Name="guestsDataGrid" Grid.Row="2" ItemsSource="{Binding Path=GuideGuest}" SelectedItem="{Binding Path=SelectedGuest}" SelectionMode="Extended" SelectionChanged="guestsDataGrid_SelectionChanged" IsReadOnly="True" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" />
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
     </DockPanel>
 </Window>

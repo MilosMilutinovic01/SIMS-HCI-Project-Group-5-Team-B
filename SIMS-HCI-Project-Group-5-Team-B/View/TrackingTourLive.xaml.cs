@@ -23,25 +23,31 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class TrackingTourLive : Window
     {
-        private TourController tourController;
-        private LocationController locationController;
+        //private TourController tourController;
+        //private LocationController locationController;
         private KeyPointsController keyPointsController;
-        public ObservableCollection<Tour> AvailableTours { get; set; }
+        private AppointmentController appointmentController;
+        public ObservableCollection<Appointment> AvailableAppointemnts { get; set; }
         public ObservableCollection<KeyPoints> KeyPoints { get; set; }
-        public Tour SelectedTour { get; set; }
+        public ObservableCollection<GuideGuest> GuideGuest { get; set; }
+        public Appointment SelectedAppointment { get; set; }
         public KeyPoints SelectedKeyPoint { get; set; }
+        public GuideGuest SelectedGuest { get; set; }
         public TrackingTourLive()
         {
             InitializeComponent();
             DataContext = this;
-            locationController = new LocationController();
+            //locationController = new LocationController();
             keyPointsController = new KeyPointsController();
-            tourController = new TourController(locationController);
-            //AvailableTours = new ObservableCollection<Tour>(tourController.GetAvailableTours());
+            //tourController = new TourController(locationController);
+            appointmentController = new AppointmentController();
+            AvailableAppointemnts = new ObservableCollection<Appointment>(appointmentController.GetAll());
             KeyPoints = new ObservableCollection<KeyPoints>();
+            GuideGuest = new ObservableCollection<GuideGuest>();
             //GuestsListBox.Items.Add();    //add guests to listbox
             TourStartButton.IsEnabled = false;
             KeyPointCheckButton.IsEnabled = false;
+            SendRequestButton.IsEnabled = false;
         }
 
         private void buttonView_Click(object sender, RoutedEventArgs e)
@@ -52,7 +58,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             KeyPoints.Clear();
-            foreach (KeyPoints keyPoint in keyPointsController.getByTourId(SelectedTour.Id))
+            foreach (KeyPoints keyPoint in keyPointsController.getByTourId(SelectedAppointment.TourId))
             {
                 KeyPoints.Add(keyPoint);
             }
@@ -66,13 +72,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 KeyPointCheckButton.IsEnabled = true;
                 TourStartButton.IsEnabled = false;
             }
+
+            GuideGuest.Add(new GuideGuest(0, "Uros", "Nikolovski"));
         }
         private void TourStartButton_Click(object sender, RoutedEventArgs e)
         {
             KeyPoints[0].Selected = true;
             keyPointsController.Update(KeyPoints[0]);
             KeyPoints.Clear();
-            foreach (KeyPoints keyPoint in keyPointsController.getByTourId(SelectedTour.Id))
+            foreach (KeyPoints keyPoint in keyPointsController.getByTourId(SelectedAppointment.TourId))
             {
                 KeyPoints.Add(keyPoint);
             }
@@ -100,10 +108,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             else
                 MessageBox.Show("Can't select this key point before previous is selected!");
             KeyPoints.Clear();
-            foreach (KeyPoints keyPoint in keyPointsController.getByTourId(SelectedTour.Id))
+            foreach (KeyPoints keyPoint in keyPointsController.getByTourId(SelectedAppointment.TourId))
             {
                 KeyPoints.Add(keyPoint);
             }
+        }
+
+        private void SendRequestButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void guestsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SendRequestButton.IsEnabled = true;
+            if (SelectedGuest.Answer == true)
+                SendRequestButton.IsEnabled = false;
         }
     }
 }
