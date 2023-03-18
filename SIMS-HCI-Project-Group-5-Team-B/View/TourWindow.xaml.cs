@@ -17,6 +17,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public string Lang { get; set; }
         public int NumberOfPeople { get; set; }
 
+        public Tour SelectedTour { get; set; }
+
+
         private TourController tc;
 
         public ObservableCollection<Tour> tours { get; set; }
@@ -39,14 +42,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             }
         }
 
-        private void ShowImageButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void TourReservationButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if(DataGridTour.SelectedCells.Count > 0)
+            {
+                TourAttendanceWindow tourAttendanceWindow = new TourAttendanceWindow(SelectedTour);
+                tourAttendanceWindow.Show();
+            }
         }
     }
 }
