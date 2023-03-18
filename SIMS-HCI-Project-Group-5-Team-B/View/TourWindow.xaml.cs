@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using SIMS_HCI_Project_Group_5_Team_B.Controller;
+using SIMS_HCI_Project_Group_5_Team_B.Model;
+
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -22,17 +15,38 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public string Location { get; set; }
         public string TourLength { get; set; }
         public string Lang { get; set; }
-        public string NumberOfPeople { get; set; }
+        public int NumberOfPeople { get; set; }
+
+        private TourController tc;
+
+        public ObservableCollection<Tour> tours { get; set; }
 
         public TourWindow()
         {
             InitializeComponent();
             this.DataContext = this;
+
+            tc = new TourController();
+            tours = new ObservableCollection<Tour>(tc.GetAll());
         }
 
-        private void SearchButtom_Click(object sender, RoutedEventArgs e)
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            //TODO Search
+            tours.Clear();
+            foreach(Tour tour in tc.Search(Location, Lang, TourLength, NumberOfPeople))
+            {
+                tours.Add(tour);
+            }
+        }
+
+        private void ShowImageButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TourReservationButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
