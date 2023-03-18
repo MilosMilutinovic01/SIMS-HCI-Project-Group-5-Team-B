@@ -53,7 +53,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
                 Reservation reservation = reservationController.getById(ownerGuestGrade.ReservationId);
                 if (reservation != null)
                 {
-                    ownerGuestGrade.reservation = reservation;
+                    ownerGuestGrade.Reservation = reservation;
                 }
             }
 

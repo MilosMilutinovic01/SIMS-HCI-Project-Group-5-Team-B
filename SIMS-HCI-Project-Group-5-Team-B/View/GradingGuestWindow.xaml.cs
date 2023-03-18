@@ -46,18 +46,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             NewOwnerGuestGrade = new OwnerGuestGrade();
             NewOwnerGuestGrade.ReservationId = SelectedReservation.Id;
-            NewOwnerGuestGrade.reservation = SelectedReservation;
+            NewOwnerGuestGrade.Reservation = SelectedReservation;
             
         }
 
         private void Grade_Button_Click(object sender, RoutedEventArgs e)
         {
-            ownerGuestGradeContoller.Save(NewOwnerGuestGrade);
-            SelectedReservation.IsGraded = true;
-            reservationController.Update(SelectedReservation);
-            ReservationsForGrading.Remove(SelectedReservation);
-            Close();
-
+            if (NewOwnerGuestGrade.IsValid)
+            {
+                ownerGuestGradeContoller.Save(NewOwnerGuestGrade);
+                SelectedReservation.IsGraded = true;
+                reservationController.Update(SelectedReservation);
+                ReservationsForGrading.Remove(SelectedReservation);
+                Close();
+            }
         }
 
         private void Close_Button_Click(object sender, RoutedEventArgs e)

@@ -179,9 +179,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
             Accomodations.Clear();
-            foreach (Accommodation acco in accommodationController.GetAll())
+            foreach (Accommodation accommodation in accommodationController.GetAll())
             {
-                Accomodations.Add(acco);
+                Accomodations.Add(accommodation);
             }
         }
     }
