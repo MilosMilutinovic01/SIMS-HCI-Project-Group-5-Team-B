@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using SIMS_HCI_Project_Group_5_Team_B.Controller;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Model;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -23,80 +14,57 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     {
         private ReservationController reservationController;
         public Reservation NewReservation { get; set; }
-        public Accommodation SelectedAccomodation { get; set; } 
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public Accommodation SelectedAccomodation { get; set; }
+        public ObservableCollection<ReservationRecommendation> ReservationRecommendations { get; set; }
+        public ReservationRecommendation SelectedDate { get; set; }
         public ReservationFormWindow(ReservationController reservationController, Accommodation SelectedAccomodation)
         {
             InitializeComponent();
             this.DataContext = this;
             this.reservationController = reservationController;
             this.SelectedAccomodation = SelectedAccomodation;
+            NewReservation = new Reservation();
             SetReservationParameters();
-           
-            guestsNumberTextBox.Text = "1";
-        }
-
-        private void Increase_Click(object sender, RoutedEventArgs e)
-        {
-            int currentValue = Int32.Parse(guestsNumberTextBox.Text);
-            if (currentValue < NewReservation.Accommodation.MaxGuests)
-            {
-                currentValue++;
-                guestsNumberTextBox.Text = currentValue.ToString();
-            }
+            StartDate = DateTime.Today;
+            EndDate = DateTime.Today;
+            reservationDaysTextBox.Text = SelectedAccomodation.MinReservationDays.ToString();
+            guestNumberTextBox.Text = "1";
+            ReservationRecommendations = new ObservableCollection<ReservationRecommendation>();
+            SelectedDate = new ReservationRecommendation(DateTime.MinValue,DateTime.MinValue);
+            SetGuestNumberParameters();
 
         }
 
-        private void Decrease_Click(object sender, RoutedEventArgs e)
+        private void ReservationDaysIncrease_Click(object sender, RoutedEventArgs e)
         {
-            int currentValue = Int32.Parse(guestsNumberTextBox.Text);
-            if (currentValue > 1)
+            int currentValue = Int32.Parse(reservationDaysTextBox.Text);
+
+            currentValue++;
+            reservationDaysTextBox.Text = currentValue.ToString();
+
+
+        }
+
+        private void ReservationDaysDecrease_Click(object sender, RoutedEventArgs e)
+        {
+            int currentValue = Int32.Parse(reservationDaysTextBox.Text);
+            if (currentValue > SelectedAccomodation.MinReservationDays)
             {
                 currentValue--;
-                guestsNumberTextBox.Text = currentValue.ToString();
+                reservationDaysTextBox.Text = currentValue.ToString();
             }
         }
 
         private void SetReservationParameters()
         {
-            NewReservation = new Reservation();
+            
             NewReservation.AccommodationId = SelectedAccomodation.Id;
             NewReservation.Accommodation = SelectedAccomodation;
             NewReservation.GuestsNumber = 1; //default value
-        }
-
-        private bool IsAccomodationAvailable()
-        {
-            List<Reservation> accomodationReservations = GetAccomodationReservations();
-
-            foreach(Reservation reservation in accomodationReservations)
-            {
-                if(NewReservation.StartDate >= reservation.StartDate && NewReservation.StartDate <= reservation.EndDate)
-                {
-                    return false;
-                }
-                else if(NewReservation.EndDate >= reservation.StartDate && NewReservation.EndDate <= reservation.EndDate)
-                {
-                    return false;
-                }
-                else if(NewReservation.StartDate <= reservation.StartDate && reservation.EndDate >= reservation.EndDate)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        private List<Reservation> GetAccomodationReservations()
-        {
-            List<Reservation> accomodationReservations = new List<Reservation>();
-            foreach (Reservation reservation in reservationController.GetAll())
-            {
-                if (reservation.AccommodationId == SelectedAccomodation.Id)
-                {
-                    accomodationReservations.Add(reservation);
-                }
-            }
-            return accomodationReservations;
+            StartDate = NewReservation.StartDate; //ehis could change but it can not go before today
+            EndDate = NewReservation.EndDate;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -104,28 +72,89 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             Close();
         }
 
-        private void Create_CLick(object sender, RoutedEventArgs e)
+        private void Search_CLick(object sender, RoutedEventArgs e)
         {
-            TimeSpan reservationDays = NewReservation.EndDate - NewReservation.StartDate;
-            NewReservation.ReservationDays = Convert.ToInt32(reservationDays.Days);
+            SetReservationParameters(); 
             if (NewReservation.IsValid)
             {
-                if(IsAccomodationAvailable())
+                ReservationRecommendations.Clear();
+                List<ReservationRecommendation> list = reservationController.GetReservationRecommendations(SelectedAccomodation, StartDate, EndDate, NewReservation.ReservationDays);
+                if (list != null)
                 {
-                    reservationController.Save(NewReservation);
-                    Close();
+                    foreach (ReservationRecommendation item in list)
+                    {
+                        ReservationRecommendations.Add(item);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Accomodation isnt available in this span.");
-                }
+
 
             }
             else
             {
-                MessageBox.Show("Reservation can not be formed because data is not valid!");
+                MessageBox.Show("Search can not be preformed because data is not valid!");
             }
+
+        }
+
+        private void Reserve_Click(object sender, RoutedEventArgs e)
+        {
+            NewReservation.StartDate = SelectedDate.Start;
+            NewReservation.EndDate = SelectedDate.End;
+            if(NewReservation.IsValid) 
+            {
+                reservationController.Save(NewReservation);
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Reservation can not be made because the data is not valid!");
+            }
+
+        }
+
+        private void GuestNumberDecrease_Click(object sender, RoutedEventArgs e)
+        {
             
+            int currentValue = Int32.Parse(guestNumberTextBox.Text);
+            if (currentValue >1)
+            {
+                currentValue--;
+                guestNumberTextBox.Text = currentValue.ToString();
+            }
+
+        }
+
+        private void GuestNumberIncrease_Click(object sender, RoutedEventArgs e)
+        {
+            int currentValue = Int32.Parse(guestNumberTextBox.Text);
+            if(currentValue < SelectedAccomodation.MaxGuests)
+            {
+                currentValue++;
+                guestNumberTextBox.Text = currentValue.ToString();
+            }
+        }
+
+        private void DataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            SetGuestNumberParameters();
+
+        }
+
+        private void SetGuestNumberParameters()
+        {
+            if (SelectedDate.Start == DateTime.MinValue && SelectedDate.End == DateTime.MinValue)
+            {
+                //Date has not been selected
+                reservationButton.IsEnabled = false;
+                guestNumberDecreaseButton.IsEnabled = false;
+                guestNumberIncreaseButton.IsEnabled = false;
+            }
+            else
+            {
+                guestNumberDecreaseButton.IsEnabled = true;
+                guestNumberIncreaseButton.IsEnabled = true;
+                reservationButton.IsEnabled = true;
+            }
         }
     }
 }
