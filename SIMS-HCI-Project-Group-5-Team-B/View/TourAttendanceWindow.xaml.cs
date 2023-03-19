@@ -110,14 +110,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                     //Show alternatives
                     TourWindow tourWindow = new TourWindow();
                     //Needs change when everything is linked
-                    tourWindow.Lang = new string(SelectedTour.Language);//SelectedTour.Locatio.ToString();
+                    tourWindow.Location = new string(SelectedTour.Location.ToString());//SelectedTour.Locatio.ToString();
                     tourWindow.PeopleAttending = 0;
-                    tourWindow.Location = "";
+                    tourWindow.Lang = "";
                     tourWindow.TourLength = "";
                     tourWindow.SearchButton_Click(null, e);
                     this.Close();
-                    this.Owner.Close();
                     tourWindow.Show();
+                    this.Owner.Close();
                 }
             }
         }
