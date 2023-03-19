@@ -26,13 +26,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void AddTourClick(object sender, RoutedEventArgs e)
         {
-            TourForm tourForm = new TourForm();
+            TourCreateForm tourForm = new TourCreateForm();
             tourForm.Show();
         }
 
         private void TrackinTourLiveClick(object sender, RoutedEventArgs e)
         {
-            TrackingTourLive trackingTourLive = new TrackingTourLive();
+            TrackingTourLiveWindow trackingTourLive = new TrackingTourLiveWindow();
             trackingTourLive.Show();
         }
     }

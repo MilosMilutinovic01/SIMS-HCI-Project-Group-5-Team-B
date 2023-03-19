@@ -23,9 +23,9 @@ using System.Windows.Shapes;
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
     /// <summary>
-    /// Interaction logic for TourForm.xaml
+    /// Interaction logic for TourCreateForm.xaml
     /// </summary>
-    public partial class TourForm : Window
+    public partial class TourCreateForm : Window
     {
         private TourController tourController;
         private LocationController locationController;
@@ -39,7 +39,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public List<KeyPoint> keyPoints;
         public List<TourAttendance> tourAttendances;
         public List<DateTime> starts;
-        public TourForm()
+        public TourCreateForm()
         {
             locationController = new LocationController();
             tourController = new TourController(locationController);

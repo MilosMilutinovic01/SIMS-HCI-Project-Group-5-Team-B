@@ -17,6 +17,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
     public class Tour : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
+
         private string name;
         public string Name
         {
@@ -30,6 +31,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+
         private int locationId;
         public int LocationId
         {
@@ -43,6 +45,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+
         private string description;
         public string Description
         {
@@ -56,6 +59,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+
         private string language;
         public string Language
         {
@@ -69,6 +73,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+
         private int maxGuests;
         public int MaxGuests
         {
@@ -82,6 +87,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+
         private double duration;
         public double Duration
         {
@@ -95,6 +101,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+
         private string imageUrls;
         public string ImageUrls
         {
@@ -164,6 +171,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         }
 
         Regex maxGuestsRegex = new Regex("^([1-9][0-9]*)$");
+        Regex durationRegex = new Regex("^[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$\r\n");
         public string Error => null;
 
         public string this[string columnName]
@@ -196,9 +204,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
                 else if (columnName == "Duration")
                 {
-                    if (Duration < 1)
+                    if (Duration < 0)
                     {
                         return "Value must be greater than zero";
+
+                        Match match = durationRegex.Match(MaxGuests.ToString());
+                        if (!match.Success)
+                            return "Maximum guests needs to be number";
                     }
                 }
                 else if (columnName == "ImageUrls")

@@ -17,6 +17,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
     public class TourAttendance : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
+
         private int tourId;
         public int TourId
         {
@@ -29,6 +30,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+
         private int guideId;
         public int GuideId
         {
@@ -41,6 +43,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+
         private DateTime start;
         public DateTime Start
         {
@@ -53,6 +56,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+
         private int freeSpace;
         public int FreeSpace
         {
@@ -65,6 +69,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+
         private string time;    //using for validation
         public string Time
         {
@@ -78,6 +83,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+
         private bool started;
         public bool Started
         {
@@ -90,6 +96,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+
         private bool ended;
         public bool Ended
         {
@@ -128,12 +135,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            TourId = int.Parse(values[1]);
-            GuideId = int.Parse(values[2]);
-            Start = Convert.ToDateTime(values[3], CultureInfo.GetCultureInfo("en-US"));
-            FreeSpace = int.Parse(values[4]);
-            Started = Convert.ToBoolean(values[5]);
-            Ended = Convert.ToBoolean(values[6]);
+            tourId = int.Parse(values[1]);
+            guideId = int.Parse(values[2]);
+            start = Convert.ToDateTime(values[3], CultureInfo.GetCultureInfo("en-US"));
+            freeSpace = int.Parse(values[4]);
+            started = Convert.ToBoolean(values[5]);
+            ended = Convert.ToBoolean(values[6]);
         }
 
         Regex timeRegex = new Regex("[0-9]{2}:[0-9]{2}:[0-9]{2}");
