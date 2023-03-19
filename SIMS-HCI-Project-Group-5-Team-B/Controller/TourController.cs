@@ -13,9 +13,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
     {
         private Repository<Tour> tourRepository;
         private LocationController locationController;
+        private TourStartController tourStartController;
         public TourController(LocationController locationController)
         {
             tourRepository = new Repository<Tour>();
+            tourStartController = new TourStartController();
             this.locationController = locationController;
             //GetLocationReference();
         }
@@ -47,19 +49,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         {
             return tourRepository.NextId();
         }
-        //public List<Tour> GetAvailableTours()
-        //{
-        //    List<Tour> tours = tourRepository.GetAll();
-        //    List<Tour> availableTours = new List<Tour>();
-        //    foreach (Tour tour in tours)
-        //    {
-        //        if (tour.Start.Equals(DateTime.Now.ToString("MM/dd/yyyy")))
-        //        {
-        //            availableTours.Add(tour);
-        //        }
-        //    }
-        //    return availableTours;
-        //}
+        public List<Tour> GetAvailableTours()
+        {
+            List<Tour> tours = tourRepository.GetAll();
+            List<TourStart> tourStarts = tourStartController.GetAll();
+            List<Tour> availableTours = new List<Tour>();
+            foreach (TourStart ts in tourStarts)
+            {
+                if (ts.Start.ToShortDateString().Equals(DateTime.Now.ToShortDateString()))
+                {
+                    availableTours.AddRange(tours.FindAll(tour => tour.Id == ts.TourId));
+                }
+            }
+            return availableTours;
+        }
         //private void GetLocationReference()
         //{
         //    List<Tour> tours = tourRepository.GetAll();
@@ -71,7 +74,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         //            tour.Location = location;
         //        }
         //    }
-
         //}
     }
 }

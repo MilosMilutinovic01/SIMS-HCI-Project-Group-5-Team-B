@@ -79,14 +79,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         {
             Name = "";
             Password = "";
-            Type = Type.GUIDE;
+            Type = Type.GUIDEGUEST;
         }
 
         public void FromCSV(string[] values)
         {
             Name = values[0];
             Password = values[1];
-            Type = (Type)Enum.Parse(typeof(Enum), values[2], true);
+            Type = (Type)Enum.Parse(typeof(Type), values[2]);
         }
 
         public string[] ToCSV()
@@ -94,12 +94,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             string[] csvValues = { Name, Password, Type.ToString()};
             return csvValues;
         }
-
-
-
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

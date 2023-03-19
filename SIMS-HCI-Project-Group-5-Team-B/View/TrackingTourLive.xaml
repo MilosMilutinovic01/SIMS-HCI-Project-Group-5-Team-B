@@ -17,15 +17,19 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <DataGrid x:Name="AvailableToursDataGrid" Grid.Row="0" ItemsSource="{Binding Path=AvailableAppointemnts}" SelectedItem="{Binding Path=SelectedAppointment}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged" Grid.ColumnSpan="2" Margin="0,0,0,234" Grid.RowSpan="2">
+            <DataGrid x:Name="AvailableToursDataGrid" Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding Path=AvailableTours}" SelectedItem="{Binding Path=SelectedTour}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding TourName}" />
-                    <DataGridTextColumn Header="Location" Binding="{Binding Start}" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Start" Binding="{Binding Start}" />
                     <DataGridTemplateColumn Header="View">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -35,18 +39,19 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid x:Name="keyPointsDataGrid" Grid.Row="1" ItemsSource="{Binding Path=KeyPoints}" SelectedItem="{Binding Path=SelectedKeyPoint}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+            <DataGrid x:Name="keyPointsDataGrid" Grid.Row="4" Grid.RowSpan="2" ItemsSource="{Binding Path=KeyPoints}" SelectedItem="{Binding Path=SelectedKeyPoint}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
                     <DataGridTextColumn Header="Check" Binding="{Binding Selected}" />
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid x:Name="guestsDataGrid" Grid.Row="2" ItemsSource="{Binding Path=GuideGuest}" SelectedItem="{Binding Path=SelectedGuest}" SelectionMode="Extended" SelectionChanged="guestsDataGrid_SelectionChanged" IsReadOnly="True" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+            <Button Content="End" Grid.Row="6" Click="Button_Click" Margin="0,-6,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" ></Button>
+            <!--<DataGrid x:Name="guestsDataGrid" Grid.Row="2" ItemsSource="{Binding Path=GuideGuest}" SelectedItem="{Binding Path=SelectedGuest}" SelectionMode="Extended" SelectionChanged="guestsDataGrid_SelectionChanged" IsReadOnly="True" AutoGenerateColumns="False" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
                     <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" />
                 </DataGrid.Columns>
-            </DataGrid>
+            </DataGrid>-->
         </Grid>
     </DockPanel>
 </Window>

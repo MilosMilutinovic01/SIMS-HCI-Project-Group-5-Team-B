@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Model;
+using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,33 +19,35 @@ using System.Windows.Shapes;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
-    /// <summary>
-    /// Interaction logic for TrackingTourLive.xaml
-    /// </summary>
     public partial class TrackingTourLive : Window
     {
         //private TourController tourController;
-        //private LocationController locationController;
+        private LocationController locationController;
         private KeyPointsController keyPointsController;
-        private AppointmentController appointmentController;
-        public ObservableCollection<Appointment> AvailableAppointemnts { get; set; }
+        private TourController tourController;
+        private TourStartController tourStartController;
+        private Repository<User> users;
+        //private Dictionary<string, DateTime> row;
+        public ObservableCollection<Tour> AvailableTours { get; set; }
+        //public ObservableCollection<TourStart> TourStarts { get; set; }
         public ObservableCollection<KeyPoint> KeyPoints { get; set; }
-        public ObservableCollection<GuideGuest> GuideGuest { get; set; }
-        public Appointment SelectedAppointment { get; set; }
+        public ObservableCollection<User> GuideGuest { get; set; }
+        public Tour SelectedTour { get; set; }
         public KeyPoint SelectedKeyPoint { get; set; }
-        public GuideGuest SelectedGuest { get; set; }
+        public User SelectedGuest { get; set; }
         public TrackingTourLive()
         {
             InitializeComponent();
             DataContext = this;
-            //locationController = new LocationController();
+            locationController = new LocationController();
             keyPointsController = new KeyPointsController();
-            //tourController = new TourController(locationController);
-            appointmentController = new AppointmentController();
-            AvailableAppointemnts = new ObservableCollection<Appointment>(appointmentController.GetAll());
+            tourController = new TourController(locationController);
+            tourStartController = new TourStartController();
+            users = new Repository<User>();
+            AvailableTours = new ObservableCollection<Tour>(tourController.GetAvailableTours());
+            //TourStarts = new ObservableCollection<TourStart>(tourStartController.GetAll());
             KeyPoints = new ObservableCollection<KeyPoint>();
-            GuideGuest = new ObservableCollection<GuideGuest>();
-            //GuestsListBox.Items.Add();    //add guests to listbox
+            GuideGuest = new ObservableCollection<User>();
             TourStartButton.IsEnabled = false;
             KeyPointCheckButton.IsEnabled = false;
             SendRequestButton.IsEnabled = false;
@@ -58,7 +61,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             KeyPoints.Clear();
-            foreach (KeyPoint keyPoint in keyPointsController.getByTourId(SelectedAppointment.TourId))
+            foreach (KeyPoint keyPoint in keyPointsController.getByTourId(SelectedTour.Id))
             {
                 KeyPoints.Add(keyPoint);
             }
@@ -72,15 +75,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 KeyPointCheckButton.IsEnabled = true;
                 TourStartButton.IsEnabled = false;
             }
-
-            GuideGuest.Add(new GuideGuest(0, "Uros", "Nikolovski"));
         }
         private void TourStartButton_Click(object sender, RoutedEventArgs e)
         {
+            TourAttendance tourAttendance = new TourAttendance(SelectedTour.Id, 0, tourStartController.getByTourId(SelectedTour.Id).Start, SelectedTour.MaxGuests);
             KeyPoints[0].Selected = true;
+            GuestSelectionWindow gsWindow = new GuestSelectionWindow(users.GetAll());
+            gsWindow.Show();
+            if (KeyPoints[0].Selected == true)
             keyPointsController.Update(KeyPoints[0]);
             KeyPoints.Clear();
-            foreach (KeyPoint keyPoint in keyPointsController.getByTourId(SelectedAppointment.TourId))
+            foreach (KeyPoint keyPoint in keyPointsController.getByTourId(SelectedTour.Id))
             {
                 KeyPoints.Add(keyPoint);
             }
@@ -93,25 +98,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             if (SelectedKeyPoint == KeyPoints[0] || SelectedKeyPoint.Selected == true)
                 MessageBox.Show("Already selected!");
-            //else if(KeyPoints[SelectedKeyPoint.Order - 1].Selected == true && SelectedKeyPoint.Order + 1 == KeyPoints.Count())
-            //{
-            //    TourStartButton.IsEnabled = true;
-            //    SelectedKeyPoint.Selected = true;
-            //    keyPointsController.Update(SelectedKeyPoint);
-            //    MessageBox.Show("Tour ended!");
-            //}
-            //else if (KeyPoints[SelectedKeyPoint.Order - 1].Selected == true)
-            //{
-            //    SelectedKeyPoint.Selected = true;
-            //    keyPointsController.Update(SelectedKeyPoint);
-            //}
-            //else
-            //    MessageBox.Show("Can't select this key point before previous is selected!");
-            //KeyPoints.Clear();
-            //foreach (KeyPoint keyPoint in keyPointsController.getByTourId(SelectedAppointment.TourId))
-            //{
-            //    KeyPoints.Add(keyPoint);
-            //}
+            else if (KeyPoints[SelectedKeyPoint.Id - 2].Selected == true && SelectedKeyPoint.Id == KeyPoints.Count())
+            {
+                TourStartButton.IsEnabled = true;
+                SelectedKeyPoint.Selected = true;
+                keyPointsController.Update(SelectedKeyPoint);
+                MessageBox.Show("Tour ended!");
+            }
+            else if (KeyPoints[SelectedKeyPoint.Id - 2].Selected == true)
+            {
+                SelectedKeyPoint.Selected = true;
+                keyPointsController.Update(SelectedKeyPoint);
+            }
+            else
+                MessageBox.Show("Can't select this key point before previous is selected!");
+            KeyPoints.Clear();
+            foreach (KeyPoint keyPoint in keyPointsController.getByTourId(SelectedTour.Id))
+            {
+                KeyPoints.Add(keyPoint);
+            }
+            GuestSelectionWindow gsWindow = new GuestSelectionWindow(users.GetAll());
+            gsWindow.Show();
         }
 
         private void SendRequestButton_Click(object sender, RoutedEventArgs e)
@@ -121,9 +128,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void guestsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SendRequestButton.IsEnabled = true;
-            if (SelectedGuest.Answer == true)
-                SendRequestButton.IsEnabled = false;
+            //SendRequestButton.IsEnabled = true;
+            //if (SelectedGuest.Answer == true)
+            //    SendRequestButton.IsEnabled = false;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
