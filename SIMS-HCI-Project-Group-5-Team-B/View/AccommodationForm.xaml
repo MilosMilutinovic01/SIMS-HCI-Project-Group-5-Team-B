@@ -67,7 +67,7 @@
             <ComboBox Name="Type_ComboBox" Grid.Row="1" Grid.Column="1"
                      SelectionChanged="TypeChanged_ComboBox"
                      Height="30">
-                <ComboBoxItem Content="Apartment"></ComboBoxItem>
+                <ComboBoxItem Content="Apartment" IsSelected="True"></ComboBoxItem>
                 <ComboBoxItem Content="House"></ComboBoxItem>
                 <ComboBoxItem Content="Cottage"></ComboBoxItem>
             </ComboBox>
