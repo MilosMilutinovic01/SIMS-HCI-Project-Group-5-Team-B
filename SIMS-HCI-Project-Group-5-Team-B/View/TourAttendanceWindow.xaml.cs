@@ -42,7 +42,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             imageListBox.Items.Clear();
 
-            foreach (String imageSource in SelectedTour.PictureURLsString.Split(','))
+            foreach (String imageSource in SelectedTour.ImageUrls.Split(','))
             {
                 imageListBox.Items.Add(imageSource);
             }

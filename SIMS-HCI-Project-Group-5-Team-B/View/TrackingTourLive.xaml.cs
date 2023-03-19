@@ -122,8 +122,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void guestsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SendRequestButton.IsEnabled = true;
-            if (SelectedGuest.Answer == true)
-                SendRequestButton.IsEnabled = false;
+            //if (SelectedGuest.Answer == true)
+                //SendRequestButton.IsEnabled = false;
         }
     }
 }
