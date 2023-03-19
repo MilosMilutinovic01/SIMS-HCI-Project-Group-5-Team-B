@@ -79,7 +79,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
             if (SelectedAttendance.FreeSpace >= NumberOfPeople)
             {
-                controller.Save(new GuestTourAttendance(1, SelectedAttendance.Id, NumberOfPeople));
+                controller.Save(new GuestTourAttendance(1, SelectedAttendance.Id, NumberOfPeople, -1));
                 SelectedAttendance.FreeSpace -= NumberOfPeople;
                 tourAttendanceController.Update(SelectedAttendance);
                 Attendances.Clear();

@@ -38,15 +38,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         {
             keyPointsRepository.Update(KeyPoints);
         }
-
+        public List<KeyPoint> getByTourId(int id)
+        {
+            return keyPointsRepository.GetAll().FindAll(kp => kp.TourId == id);
+        }
         public List<KeyPoint> FindBy(string[] propertyNames, string[] values)
         {
             return keyPointsRepository.FindBy(propertyNames, values);
-        }
-
-        public List<KeyPoint> getByTourId(int id)
-        {
-            return GetAll().FindAll(kp => kp.TourId == id);
         }
     }
 }

@@ -84,14 +84,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
 
         public void FromCSV(string[] values)
         {
-            Name = values[0];
-            Password = values[1];
-            Type = (Type)Enum.Parse(typeof(Type), values[2]);
+            Id = int.Parse(values[0]);
+            Name = values[1];
+            Password = values[2];
+            Type = (Type)Enum.Parse(typeof(Type), values[3]);
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Name, Password, Type.ToString()};
+            string[] csvValues = { Id.ToString(), Name, Password, Type.ToString()};
             return csvValues;
         }
         public event PropertyChangedEventHandler PropertyChanged;

@@ -15,7 +15,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
 
         public int ReservationId { get; set; }
 
-        public Reservation reservation { get; set; }
+        public Reservation Reservation { get; set; }
 
         public int cleanliness;
         public int Cleanliness
@@ -100,7 +100,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
 
         public OwnerGuestGrade()
         {
-            reservation = new Reservation();
+            Reservation = new Reservation();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -136,6 +136,46 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             isPaymentCompletedOnTime = bool.Parse(values[5]);
             complaintsFromOtherGuests = bool.Parse(values[6]);
             additionalComment = values[7];
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Cleanliness")
+                {
+                    if (Cleanliness < 1 || Cleanliness > 5)
+                        return "Value is not in range";
+                }
+                else if (columnName == "RulesCompliance")
+                {
+                    if (RulesCompliance < 1 || RulesCompliance > 5)
+                        return "Value is not in range";
+                }
+                else if (columnName == "StateOfInventory")
+                {
+                    if (StateOfInventory < 1 || StateOfInventory > 5)
+                        return "Value is not in range";
+                }
+                return null;
+            }
+        }
+
+
+        private readonly string[] _validatedProperties = { "Cleanliness", "RulesCompliance", "StateOfInventory"};
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
         }
 
 
