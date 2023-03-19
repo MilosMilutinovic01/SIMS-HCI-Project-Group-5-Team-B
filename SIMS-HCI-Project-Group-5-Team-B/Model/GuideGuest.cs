@@ -1,8 +1,13 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Serializer;
+using SIMS_HCI_Project_Group_5_Team_B.Serializer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Model
 {
-    public class OwnerGuest : ISerializable
+    public class GuideGuest : ISerializable
     {
         public int Id { get; set; }
         private string name;
@@ -15,15 +20,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         public string Surname
         {
             get { return surname; }
-            set { surname = value; }
+            set { name = value; }
         }
         
-        public OwnerGuest()
+        public GuideGuest()
         {
             //initially, there is only one guest, in order to not complicate the implementation of other features
-            Id = 0;
-            Name = "Jelena";
-            Surname = "Kovač";
+        }
+
+        public GuideGuest(int id, string name, string surname)
+        {
+            this.Id = id;
+            this.name = name;
+            this.surname = surname;
         }
 
         public void FromCSV(string[] values)
