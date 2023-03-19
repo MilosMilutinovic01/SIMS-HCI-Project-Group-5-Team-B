@@ -35,6 +35,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         public void SearchButton_Click(object sender, RoutedEventArgs e)
         {
+            if(PeopleAttending < 0) return;
             tours.Clear();
             foreach(Tour tour in tc.Search(Location, Lang, TourLength, PeopleAttending))
             {
