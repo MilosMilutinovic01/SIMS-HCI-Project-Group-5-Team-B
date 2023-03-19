@@ -10,7 +10,6 @@
         <ToolBar DockPanel.Dock="Top" Height="30">
             <Button x:Name="TourStartButton" Content="Start" Click="TourStartButton_Click"></Button>
             <Button x:Name="KeyPointCheckButton" Content="Check" Click="KeyPointCheckButton_Click"></Button>
-            <Button x:Name="SendRequestButton" Content="Send request" Click="SendRequestButton_Click"></Button>
         </ToolBar>
         <Grid>
             <Grid.RowDefinitions>
@@ -26,25 +25,28 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <DataGrid x:Name="AvailableToursDataGrid" Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding Path=AvailableTourAttendances}" SelectedItem="{Binding Path=SelectedTourAttendance}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged">
+            <DataGrid x:Name="AvailableToursDataGrid" Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding Path=AvailableTourAttendances}" SelectedItem="{Binding Path=SelectedTourAttendance}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"  SelectionChanged="DataGrid_SelectionChanged1">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Tour.Name}" />
                     <DataGridTextColumn Header="Start" Binding="{Binding Start}" />
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid x:Name="keyPointsDataGrid" Grid.Row="4" Grid.RowSpan="2" ItemsSource="{Binding Path=KeyPoints}" SelectedItem="{Binding Path=SelectedKeyPoint}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid x:Name="keyPointsDataGrid" Grid.Row="2" Grid.RowSpan="2" ItemsSource="{Binding Path=KeyPoints}" SelectedItem="{Binding Path=SelectedKeyPoint}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"  SelectionChanged="DataGrid_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
                     <DataGridTextColumn Header="Check" Binding="{Binding Selected}" />
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Content="End" Grid.Row="6" Click="Button_Click" Margin="0,-6,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" ></Button>
-            <!--<DataGrid x:Name="guestsDataGrid" Grid.Row="2" ItemsSource="{Binding Path=GuideGuest}" SelectedItem="{Binding Path=SelectedGuest}" SelectionMode="Extended" SelectionChanged="guestsDataGrid_SelectionChanged" IsReadOnly="True" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+            <DataGrid x:Name="GuestsDataGrid" Grid.Row="4" Grid.RowSpan="2" ItemsSource="{Binding Path=GuideGuest}" SelectedItem="{Binding Path=SelectedGuest}" SelectionMode="Extended" IsReadOnly="True" AutoGenerateColumns="False"  SelectionChanged="DataGrid_SelectionChanged2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
                     <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" />
                 </DataGrid.Columns>
-            </DataGrid>-->
+            </DataGrid>
+            <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Content="End" Click="Button_Click" Margin="15"></Button>
+                <Button x:Name="SelectButton" Content="Select" Click="Button_Click1" Margin="15"></Button>
+            </StackPanel>
         </Grid>
     </DockPanel>
 </Window>

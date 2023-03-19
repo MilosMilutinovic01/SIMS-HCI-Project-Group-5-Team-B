@@ -22,6 +22,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             return userRepository.GetAll();
         }
 
+        public List<User> GetAllGuests()
+        {
+            return userRepository.GetAll().FindAll(g => g.Type == Model.Type.GUIDEGUEST);
+        }
         public void Save(User newUser)
         {
             userRepository.Save(newUser);

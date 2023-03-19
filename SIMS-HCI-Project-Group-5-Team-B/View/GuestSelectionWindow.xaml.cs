@@ -19,7 +19,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class GuestSelectionWindow : Window
     {
         public ObservableCollection<User> Guests { get; set; }
-        public List<User> GuestList;
+        public static List<User> GuestList;
         public GuestSelectionWindow(List<User> users)
         {
             InitializeComponent();
@@ -28,17 +28,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             Guests = new ObservableCollection<User>(users.FindAll(u => u.Type == Model.Type.GUIDEGUEST));
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            GuestList.Clear();
-            foreach(User u in GuestsDataGrid.SelectedItems)
+            foreach(User u in Guests)
             {
                 GuestList.Add(u);
             }
-        }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
+            this.Close();
         }
     }
 }

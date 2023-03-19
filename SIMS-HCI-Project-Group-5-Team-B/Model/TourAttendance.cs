@@ -78,6 +78,30 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+        private bool started;
+        public bool Started
+        {
+            get { return started; }
+            set
+            {
+                if (started != value)
+                {
+                    started = value;
+                }
+            }
+        }
+        private bool ended;
+        public bool Ended
+        {
+            get { return ended; }
+            set
+            {
+                if (ended != value)
+                {
+                    ended = value;
+                }
+            }
+        }
         public Tour Tour { get; set; }
         public TourAttendance() { }
         public TourAttendance(int tourId, int guideId, DateTime start, int freeSpace)
@@ -95,7 +119,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 tourId.ToString(),
                 guideId.ToString(),
                 start.ToString(),
-                freeSpace.ToString()
+                freeSpace.ToString(),
+                started.ToString(),
+                ended.ToString()
             };
             return csvValues;
         }
@@ -106,6 +132,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             GuideId = int.Parse(values[2]);
             Start = Convert.ToDateTime(values[3], CultureInfo.GetCultureInfo("en-US"));
             FreeSpace = int.Parse(values[4]);
+            Started = Convert.ToBoolean(values[5]);
+            Ended = Convert.ToBoolean(values[6]);
         }
 
         Regex timeRegex = new Regex("[0-9]{2}:[0-9]{2}:[0-9]{2}");

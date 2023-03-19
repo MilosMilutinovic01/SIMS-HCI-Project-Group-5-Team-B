@@ -59,7 +59,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             //TODO
             if (true)//Check if there is enough free space on the TourAttendance
             {
-                controller.Save(new GuestTourAttendance(0, -1/*Tour attendance Id*/, NumberOfPeople));
+                controller.Save(new GuestTourAttendance(0, -1/*Tour attendance Id*/, NumberOfPeople,-1));
             }
             else if(true){//Check if tour have any free space
                 string MessageBoxText = "Selected tour have only " + "" + " free spaces left, do you want to register less people";//Add number

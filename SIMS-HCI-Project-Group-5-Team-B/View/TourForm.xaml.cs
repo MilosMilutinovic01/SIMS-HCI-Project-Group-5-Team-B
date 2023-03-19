@@ -89,9 +89,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 Tour.LocationId = locationController.makeId();
                 locationController.Save(Location);
             }
+            foreach(DateTime start in starts)
+            {
+                keyPointsController.SaveAll(keyPoints);
+            }
             Tour.KeyPoints.AddRange(keyPoints);
             tourController.Save(Tour);
-            keyPointsController.SaveAll(keyPoints);
             foreach(DateTime start in starts)
             {
                 tourAttendances.Add(new TourAttendance(Tour.Id, -1, start, Tour.MaxGuests));

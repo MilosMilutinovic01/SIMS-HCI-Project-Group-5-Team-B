@@ -76,18 +76,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             }
         }
 
-        private void GetKeyPointsReference()
-        {
-            List<Tour> tours = tourRepository.GetAll();
-            foreach (Tour tour in tours)
-            {
-                List<KeyPoint> keyPoints = keyPointsController.getByTourId(tour.Id);
-                if (keyPoints != null)
-                {
-                    tour.KeyPoints = keyPoints;
-                }
-            }
-        }
+        //private void GetKeyPointsReference()
+        //{
+        //    List<Tour> tours = tourRepository.GetAll();
+        //    foreach (Tour tour in tours)
+        //    {
+        //        List<KeyPoint> keyPoints = keyPointsController.getByTourId(tour.Id);
+        //        if (keyPoints != null)
+        //        {
+        //            tour.KeyPoints = keyPoints;
+        //        }
+        //    }
+        //}
         public List<Tour> Search(string Location, string Language, string TourLength, int NumberOfPeople)
         {
             List<Tour> result = new List<Tour>();
