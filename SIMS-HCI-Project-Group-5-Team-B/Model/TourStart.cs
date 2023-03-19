@@ -42,15 +42,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
-        private string clock;   //used for validation
-        public string Clock
+        private string time;   //used for validation
+        public string Time
         {
-            get { return clock; }
+            get { return time; }
             set
             {
-                if (clock != value)
+                if (time != value)
                 {
-                    clock = value;
+                    time = value;
                     OnPropertyChanged();
                 }
             }
@@ -101,20 +101,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         {
             get
             {
-                if (columnName == "Clock")
+                if (columnName == "Time")
                 {
-                    if (string.IsNullOrEmpty(Clock))
+                    if (string.IsNullOrEmpty(Time))
                         return "The field must be filled";
 
-                    Match match = clockRegex.Match(Clock);
+                    Match match = clockRegex.Match(Time);
                     if (!match.Success)
-                        return "Clock needs to be in format xx:xx:xx";
+                        return "Time needs to be in format xx:xx:xx";
                 }
                 return null;
             }
         }
 
-        private readonly string[] _validatedProperties = { "Clock" };
+        private readonly string[] _validatedProperties = { "Time" };
 
         public bool IsValid
         {

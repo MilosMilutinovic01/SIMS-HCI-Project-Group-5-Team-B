@@ -43,9 +43,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             return tourStartRepository.FindBy(propertyNames, values);
         }
 
-        public List<TourStart> getByTourId(int id)
+        public TourStart getByTourId(int id)
         {
-            return GetAll().FindAll(kp => kp.TourId == id);
+            return GetAll().Find(ts => ts.TourId == id);
         }
     }
 }
