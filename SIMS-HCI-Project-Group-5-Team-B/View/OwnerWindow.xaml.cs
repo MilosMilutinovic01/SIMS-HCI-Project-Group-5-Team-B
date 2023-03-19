@@ -27,7 +27,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         ReservationController reservationController;
         public List<Reservation> reservationsForGrading;
 
-        private DateTime lastDisplayed;
+        //private DateTime lastDisplayed;
         public OwnerWindow()
         {
             InitializeComponent();
@@ -37,7 +37,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             reservationsForGrading = new List<Reservation>();
 
            
-            lastDisplayed = Properties.Settings.Default.LastShownDate;
+            //lastDisplayed = Properties.Settings.Default.LastShownDate;
             
            
         }
@@ -45,12 +45,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void NotifyOwnerToGradeGuests(object sender, RoutedEventArgs e)
         {
             reservationsForGrading = reservationController.GetSuiableReservationsForGrading();
-            if (reservationsForGrading.Count != 0 && DateTime.Today != lastDisplayed)
+            if (reservationsForGrading.Count != 0 /*&& DateTime.Today != lastDisplayed*/)
             {
                 MessageBox.Show("You have guests to grade!!!");
-                lastDisplayed = DateTime.Today;
-                Properties.Settings.Default.LastShownDate = lastDisplayed;
-                Properties.Settings.Default.Save();
+                //lastDisplayed = DateTime.Today;
+                //Properties.Settings.Default.LastShownDate = lastDisplayed;
+                //Properties.Settings.Default.Save();
             }
         }
 
