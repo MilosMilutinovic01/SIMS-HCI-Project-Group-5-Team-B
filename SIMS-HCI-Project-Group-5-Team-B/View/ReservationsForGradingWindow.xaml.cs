@@ -53,6 +53,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 GradingGuestWindow gradingGuestWindow = new GradingGuestWindow(ownerGuestGradeContoller, reservationController,SelectedReservation, ReservationsForGrading);
                 gradingGuestWindow.Show();
             }
+            else
+            {
+                MessageBox.Show("Item is not selected");
+            }
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)

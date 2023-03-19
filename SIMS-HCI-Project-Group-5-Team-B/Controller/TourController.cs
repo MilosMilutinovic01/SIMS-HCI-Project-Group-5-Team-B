@@ -97,20 +97,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 
             if (!Location.Equals(""))
             {
-                searchProperties += "LocationString,";
-                searchValues += Location.Replace(" ", "") + ",";
+                searchProperties += "Location;";
+                searchValues += Location + ";";
             }
 
             if (!TourLength.Equals(""))
             {
-                searchProperties += "Duration,";
-                searchValues += TourLength + ",";
+                searchProperties += "Duration;";
+                searchValues += TourLength + ";";
             }
 
             if (!Language.Equals(""))
             {
-                searchProperties += "Language,";
-                searchValues += Language + ",";
+                searchProperties += "Language;";
+                searchValues += Language + ";";
             }
 
             if(searchProperties.Equals(String.Empty))
@@ -121,7 +121,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             {
                 searchProperties = searchProperties.Remove(searchProperties.Length - 1);
                 searchValues = searchValues.Remove(searchValues.Length - 1);
-                foreach (Tour tour in tourRepository.FindBy(searchProperties.Split(','), searchValues.Split(',')))
+                foreach (Tour tour in tourRepository.FindBy(searchProperties.Split(';'), searchValues.Split(';')))
                 {
                     result.Add(tour);
                 }

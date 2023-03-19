@@ -23,15 +23,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// <summary>
     /// Interaction logic for AccommodationForm.xaml
     /// </summary>
-    public partial class AccommodationForm : Window,/*IDataErrorInfo, */INotifyPropertyChanged
+    public partial class AccommodationForm : Window,IDataErrorInfo, INotifyPropertyChanged
     {
 
         private AccommodationController accommodationController;
         private LocationController locationController;
 
-        public Accommodation accommodation { get; set; }
-        public Location location { get; set; }
-        public string locationString;
+        public Accommodation Accommodation { get; set; }
+        public Location Location { get; set; }
+        private string locationString;
 
         public string LocationString
         {
@@ -52,7 +52,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public AccommodationForm()
         {
             locationString = "";
-            accommodation = new Accommodation();
+            Accommodation = new Accommodation();
             InitializeComponent();
             this.DataContext = this;
             locationController = new LocationController();
@@ -63,14 +63,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void Create_Accommodation_Click(object sender, RoutedEventArgs e)
         {
-            if (accommodation.IsValid && IsValid)
+            if (Accommodation.IsValid && IsValid)
             {
                 int count = 2;
                 String delimeter = ",";
                 string[] locationValues = locationString.Split(delimeter, count);
-                location = new Location(locationValues[0], locationValues[1]);
+                Location = new Location(locationValues[0], locationValues[1]);
 
-                accommodationController.AddAccommodation(accommodation, location);
+                accommodationController.AddAccommodation(Accommodation, Location);
                
                 Close();
             }
@@ -87,15 +87,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             string newType = (string)cbItem.Content;
             if(newType == "Apartment")
             {
-                accommodation.Type = "Apartment";
+                Accommodation.Type = "Apartment";
             }
             else if(newType == "House")
             {
-                accommodation.Type = "House";
+                Accommodation.Type = "House";
             }
             else if(newType == "Cottage")
             {
-                accommodation.Type = "Cottage";
+                Accommodation.Type = "Cottage";
             }
 
         }
@@ -107,27 +107,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        Regex adresa_regex = new Regex("[A-Z].{0,20},[A-Z].{0,20}");
+        Regex locationRegex = new Regex("[A-Z].{0,20},[A-Z].{0,20}");
         public string Error => null;
 
         public string this[string columnName]
         {
             get
             {
-                if (columnName == "Location")
+                if (columnName == "LocationString")
                 {
                     if (string.IsNullOrEmpty(LocationString))
                         return "Filed must be filled";
 
-                    Match match = adresa_regex.Match(LocationString);
+                    Match match = locationRegex.Match(LocationString);
                     if (!match.Success)
-                        return "Location needs to be in format: city, state";
+                        return "Location needs to be in format: city,state";
                 }
                 return null;
             }
 
         }
-        private readonly string[] _validatedProperties = { "Location" };
+        private readonly string[] _validatedProperties = { "LocationString" };
         public bool IsValid
         {
             get

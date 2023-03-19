@@ -44,9 +44,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             }
         }
 
-        private void Reserve_Click(object sender, RoutedEventArgs e)
+        private void Reserve_Button_Click(object sender, RoutedEventArgs e)
         {
-            ReservationFormWindow reservationForm = new ReservationFormWindow(reservationController, SelectedAccommodation);
+            ReservationForm reservationForm = new ReservationForm(reservationController, SelectedAccommodation);
             reservationForm.Show();
 
         }

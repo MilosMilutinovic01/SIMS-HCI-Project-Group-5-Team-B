@@ -10,7 +10,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// <summary>
     /// Interaction logic for ReservationFormWindow.xaml
     /// </summary>
-    public partial class ReservationFormWindow : Window
+    public partial class ReservationForm : Window
     {
         private ReservationController reservationController;
         public Reservation NewReservation { get; set; }
@@ -19,7 +19,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public Accommodation SelectedAccomodation { get; set; }
         public ObservableCollection<ReservationRecommendation> ReservationRecommendations { get; set; }
         public ReservationRecommendation SelectedDate { get; set; }
-        public ReservationFormWindow(ReservationController reservationController, Accommodation SelectedAccomodation)
+        public ReservationForm(ReservationController reservationController, Accommodation SelectedAccomodation)
         {
             InitializeComponent();
             this.DataContext = this;
@@ -37,7 +37,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         }
 
-        private void ReservationDaysIncrease_Click(object sender, RoutedEventArgs e)
+        private void ReservationDaysIncrease_Button_Click(object sender, RoutedEventArgs e)
         {
             int currentValue = Int32.Parse(reservationDaysTextBox.Text);
 
@@ -47,7 +47,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         }
 
-        private void ReservationDaysDecrease_Click(object sender, RoutedEventArgs e)
+        private void ReservationDaysDecrease_Button_Click(object sender, RoutedEventArgs e)
         {
             int currentValue = Int32.Parse(reservationDaysTextBox.Text);
             if (currentValue > SelectedAccomodation.MinReservationDays)
@@ -67,12 +67,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             EndDate = NewReservation.EndDate;
         }
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
+        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void Search_CLick(object sender, RoutedEventArgs e)
+        private void Search_Button_CLick(object sender, RoutedEventArgs e)
         {
             SetReservationParameters(); 
             if (NewReservation.IsValid)
@@ -96,7 +96,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         }
 
-        private void Reserve_Click(object sender, RoutedEventArgs e)
+        private void Reserve_Button_Click(object sender, RoutedEventArgs e)
         {
             NewReservation.StartDate = SelectedDate.Start;
             NewReservation.EndDate = SelectedDate.End;
@@ -112,7 +112,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         }
 
-        private void GuestNumberDecrease_Click(object sender, RoutedEventArgs e)
+        private void GuestNumberDecrease_Button_Click(object sender, RoutedEventArgs e)
         {
             
             int currentValue = Int32.Parse(guestNumberTextBox.Text);
@@ -124,7 +124,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         }
 
-        private void GuestNumberIncrease_Click(object sender, RoutedEventArgs e)
+        private void GuestNumberIncrease_Button_Click(object sender, RoutedEventArgs e)
         {
             int currentValue = Int32.Parse(guestNumberTextBox.Text);
             if(currentValue < SelectedAccomodation.MaxGuests)

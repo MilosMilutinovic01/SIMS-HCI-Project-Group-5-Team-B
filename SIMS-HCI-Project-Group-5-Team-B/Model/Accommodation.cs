@@ -118,7 +118,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         public Location Location
         {
             get { return location; }
-            set { location = value; }
+            set
+            {
+                if (value != location)
+                {
+                    location = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         private int locationId;
@@ -135,23 +142,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             }
         }
 
-
-        /*public string locationString;
-
-        public string LocationString
-        {
-            get { return locationString; }
-            set
-            {
-                if (locationString != value)
-                {
-                    locationString = value;
-                    OnPropertyChanged();
-
-                }
-
-            }
-        }*/
 
         public List<string> pictureURLs;
 
@@ -174,6 +164,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
 
         public Accommodation()
         {
+            noticePeriod = 1;
             pictureURLs = new List<string>();
         }
 
@@ -206,16 +197,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             {
                 tempType = "Cottage";
             }
-
-
-            /*StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append(pictureURLs[0]);
-
-            for(int i = 1 ;i < pictureURLs.Count; i++)
-            {
-                stringBuilder.Append("," + pictureURLs[i]);
-            }*/
-
 
 
             string[] csvValues =
@@ -269,7 +250,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
 
         }
         public string Error => null;
-        //Regex adresa_regex = new Regex("[A-Z].{0,20},[A-Z].{0,20}");
+        
         public string this[string columnName]
         {
             get
