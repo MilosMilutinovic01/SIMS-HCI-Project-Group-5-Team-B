@@ -45,7 +45,7 @@
             <Label Grid.Row="0" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Name" ></Label>
             <Label Grid.Row="1" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Location" ></Label>
             <Label Grid.Row="2" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="MaxGuests" ></Label>
-            <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Current Guests" ></Label>
+            <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Free space" ></Label>
             <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Language" ></Label>
             <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Description" ></Label>
             <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Select availabel dates"/>
@@ -55,9 +55,9 @@
             </TextBlock>
             <TextBlock   Grid.Row="1" Grid.Column="1" Text="{Binding SelectedTour.Location}" Height="30">
             </TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedTour.MaxGuests}" Height="30">
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedTour.MaxGuests, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="30">
             </TextBlock>
-            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelectedTour.MinReservationDays}" Height="30">//Need to change
+            <TextBlock x:Name="FreeSpaceTextBlock" Grid.Row="3" Grid.Column="1" Text="{Binding SelectedAttendance.FreeSpace}" Height="30">
             </TextBlock>
             <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding SelectedTour.Language}" Height="30">
             </TextBlock>
@@ -65,9 +65,9 @@
             </TextBlock>
 
 
-            <ComboBox Grid.Row="6" Grid.Column="1" Height="30" Width="200" IsEditable="False" ItemsSource="{Binding Path=Available}"/>
+            <ComboBox x:Name="DateComboBox" Grid.Row="6" Grid.Column="1" Height="30" Width="200" IsEditable="False" ItemsSource="{Binding Path=Available}" SelectionChanged="DateComboBox_SelectionChanged"/>
 
-            <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding NumberOfPeople}" Width="200" Height="30"/>
+            <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding NumberOfPeople, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Height="30"/>
             <Button Grid.Row="7" Grid.Column="0" Content="Reserve" Width="100" Height="30" Click="Attendance_Click"></Button>
 
 
