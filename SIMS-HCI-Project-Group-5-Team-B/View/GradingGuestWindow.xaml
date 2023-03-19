@@ -33,12 +33,12 @@
         <Slider x:Name="StateOfInventorySlider" Grid.Column="1" Grid.Row="2" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=NewOwnerGuestGrade.StateOfInventory, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></Slider>
         <TextBox Grid.Column="1" Grid.Row="2" Margin="0 30 140 0" Text="{Binding ElementName=StateOfInventorySlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <ComboBox Grid.Column="1" Grid.Row="3" Name="PaymentOnTime_ComboBox" SelectionChanged="PaymentOnTimeComboBox">
-            <ComboBoxItem IsSelected="True">Yes</ComboBoxItem>
+            <ComboBoxItem>Yes</ComboBoxItem>
             <ComboBoxItem>No</ComboBoxItem>
         </ComboBox>
         <ComboBox Grid.Column="1" Grid.Row="4" Name="ComplaintsFromOtherGuests_ComboBox" SelectionChanged="ComplaintsFromOtherGuestsComboBox">
             <ComboBoxItem >Yes</ComboBoxItem>
-            <ComboBoxItem IsSelected="True">No</ComboBoxItem>
+            <ComboBoxItem>No</ComboBoxItem>
         </ComboBox>
         <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=NewOwnerGuestGrade.AdditionalComment, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
         <Button Grid.Column="0" Grid.Row="6" Margin="50 10 50 10" Content="Grade" Click="Grade_Button_Click"></Button>
