@@ -25,7 +25,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             InitializeComponent();
         }
 
-        private void ShowAccomodation_Click(object sender, RoutedEventArgs e)
+        private void ShowAccomodation_Button_Click(object sender, RoutedEventArgs e)
         {
             AccommodationsWindow accomodationsWindow = new AccommodationsWindow();
             accomodationsWindow.Show();

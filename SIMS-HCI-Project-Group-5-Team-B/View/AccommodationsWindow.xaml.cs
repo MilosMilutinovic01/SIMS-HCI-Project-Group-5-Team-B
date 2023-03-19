@@ -42,12 +42,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
+        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void Search_Click(object sender, RoutedEventArgs e)
+        private void Search_Button_Click(object sender, RoutedEventArgs e)
         {
             List<Accommodation> searchResult;
             if (this.IsValid)
@@ -176,7 +176,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             return locationId;
         }
 
-        private void Reset_Click(object sender, RoutedEventArgs e)
+        private void Reset_Button_Click(object sender, RoutedEventArgs e)
         {
             Accomodations.Clear();
             foreach (Accommodation accommodation in accommodationController.GetAll())
