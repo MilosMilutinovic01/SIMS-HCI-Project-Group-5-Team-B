@@ -12,82 +12,82 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
     public enum Type { GUIDE = 0, GUIDEGUEST = 1, OWNER = 2, OWNERGUEST = 3}
     public class User : ISerializable, INotifyPropertyChanged
     {
-        private string _name;
+        private string name;
         public string Name
         {
-            get { return _name; }
+            get { return name; }
             set
             {
-                if(_name != value)
+                if(name != value)
                 {
-                    _name = value;
+                    name = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private string _password;
+        private string password;
         public string Password
         {
-            get { return _password; }
+            get { return password; }
             set
             {
-                if(_password != value)
+                if(password != value)
                 {
-                    _password = value;
+                    password = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private Type _type;
+        private Type type;
         public Type Type
         {
-            get { return _type; }
+            get { return type; }
             set
             {
-                if(_type != value)
+                if(type != value)
                 {
-                    _type = value;
+                    type = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private int _id;
+        private int id;
         public int Id
         {
-            get { return _id; }
+            get { return id; }
             set
             {
-                if(_id != value)
+                if(id != value)
                 {
-                    _id = value;
+                    id = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public User(string Name, string Password, Type Type)
+        public User(string name, string password, Type type)
         {
-            this.Name = Name;
-            this.Password = Password;
-            this.Type = Type;
+            this.name = name;
+            this.password = password;
+            this.type = type;
         }
 
         public User()
         {
             Name = "";
             Password = "";
-            Type = Type.GUIDEGUEST;
+            Type = Type.GUIDE;
         }
 
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            Name = values[1];
-            Password = values[2];
-            Type = (Type)Enum.Parse(typeof(Type), values[3]);
+            name = values[1];
+            password = values[2];
+            type = (Type)Enum.Parse(typeof(Type), values[3]);
         }
 
         public string[] ToCSV()

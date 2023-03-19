@@ -13,7 +13,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
     public class KeyPoint : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public string name;
+        
+        private string name;
         public string Name
         {
             get { return name; }
@@ -26,7 +27,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
-        public bool selected;
+        private bool selected;
         public bool Selected
         {
             get { return selected; }
@@ -54,13 +55,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         public KeyPoint() { }
         public KeyPoint(KeyPoint copy)
         {
-            this.Name = copy.Name;
-            this.Selected = copy.Selected;
-            this.TourId = copy.TourId;
+            this.name = copy.Name;
+            this.selected = copy.Selected;
+            this.tourId = copy.TourId;
         }
         public KeyPoint(string name)
         {
-            this.Name = name;
+            this.name = name;
         }
         public KeyPoint(string name, bool selected, int tourId)
         {
