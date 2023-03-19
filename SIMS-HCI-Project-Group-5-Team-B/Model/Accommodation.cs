@@ -164,6 +164,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
 
         public Accommodation()
         {
+            noticePeriod = 1;
             pictureURLs = new List<string>();
         }
 

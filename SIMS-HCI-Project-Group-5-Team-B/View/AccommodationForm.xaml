@@ -60,7 +60,7 @@
             <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="PictureURLs" ></Label>
 
             <TextBox Grid.Row="0" Grid.Column="1"
-                     Text="{Binding Path=accommodation.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Text="{Binding Path=Accommodation.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Height="30">
             </TextBox>
@@ -72,17 +72,17 @@
                 <ComboBoxItem Content="Cottage"></ComboBoxItem>
             </ComboBox>
             <TextBox Grid.Row="2" Grid.Column="1"
-                     Text="{Binding Path=accommodation.MaxGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Text="{Binding Path=Accommodation.MaxGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                      Height="30" >
             </TextBox>
             <TextBox Grid.Row="3" Grid.Column="1"
-                     Text="{Binding Path=accommodation.MinReservationDays, Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Text="{Binding Path=Accommodation.MinReservationDays, Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate }"
                      Height="30" >
             </TextBox>
             <TextBox Grid.Row="4" Grid.Column="1"
-                     Text="{Binding Path=accommodation.NoticePeriod, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Text="{Binding Path=Accommodation.NoticePeriod, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Height="30">
             </TextBox>
@@ -93,7 +93,7 @@
             </TextBox>
 
             <TextBox Grid.Row="6" Grid.Column="1"
-                     Text="{Binding Path=accommodation.PictureURLsString, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Text="{Binding Path=Accommodation.PictureURLsString, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Height="30">
             </TextBox>
