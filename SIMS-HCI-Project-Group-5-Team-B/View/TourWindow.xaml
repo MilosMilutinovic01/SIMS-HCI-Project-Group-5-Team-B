@@ -30,7 +30,7 @@
                 <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Location, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" Width="300"/>
                 <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=TourLength, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" Width="300"/>
                 <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Lang, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" Width="300"/>
-                <TextBox x:Name="NumberOfPeopleTextBox" Grid.Column="1" Grid.Row="3" Text="{Binding Path=NumberOfPeople, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" Width="300"/>
+                <TextBox x:Name="NumberOfPeopleTextBox" Grid.Column="1" Grid.Row="3" Text="{Binding Path=PeopleAttending, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" Width="300"/>
 
                 <Button x:Name="SearchButton" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Content="Search" Width="150" Margin="30, 5, 5, 5" Click="SearchButton_Click" IsEnabled="{Binding ElementName=NumberOfPeopleTextBox, Path=IsArrangeValid}"/>
                 <Button x:Name="TourReservationButton" Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Content="Tour Reservation" Width="150" Margin="30, 5, 5, 5" Click="TourReservationButton_Click"/>

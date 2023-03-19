@@ -77,7 +77,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 return;
             }
 
-            //TODO
             if (SelectedAttendance.FreeSpace >= NumberOfPeople)
             {
                 controller.Save(new GuestTourAttendance(1, SelectedAttendance.Id, NumberOfPeople));
@@ -94,15 +93,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 FreeSpaceTextBlock.Text = SelectedAttendance.FreeSpace.ToString();
             }
             else if(SelectedAttendance.FreeSpace > 0){
-                string MessageBoxText = "Selected tour have only " + SelectedAttendance.FreeSpace.ToString() + " free spaces left, do you want to register less people";//Add number
+                string MessageBoxText = "Selected tour have only " + SelectedAttendance.FreeSpace.ToString() + " free spaces left, please register less people";//Add number
                 string MessageBoxCaption = "Error attending";
 
-                MessageBoxResult CancleAttending = MessageBox.Show(MessageBoxText, MessageBoxCaption, MessageBoxButton.YesNo);
-
-                if(CancleAttending == MessageBoxResult.Yes)
-                {
-                    NumberOfPeople = SelectedAttendance.FreeSpace;//Free Space
-                }
+                MessageBoxResult CancleAttending = MessageBox.Show(MessageBoxText, MessageBoxCaption, MessageBoxButton.OK);
             }
             else//Tour does not have any free space, recomend other
             {
@@ -117,7 +111,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                     TourWindow tourWindow = new TourWindow();
                     //Needs change when everything is linked
                     tourWindow.Lang = new string(SelectedTour.Language);//SelectedTour.Locatio.ToString();
-                    tourWindow.NumberOfPeople = 0;
+                    tourWindow.PeopleAttending = 0;
                     tourWindow.Location = "";
                     tourWindow.TourLength = "";
                     tourWindow.SearchButton_Click(null, e);
