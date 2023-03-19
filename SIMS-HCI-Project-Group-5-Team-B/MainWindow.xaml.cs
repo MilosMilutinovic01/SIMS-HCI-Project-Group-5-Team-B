@@ -70,7 +70,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B
                OwnerGuestWindow ownerGuestWindow = new OwnerGuestWindow();
                 ownerGuestWindow.Show();
             }
-            
         }
     }
 }

@@ -31,7 +31,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public KeyPoint SelectedKeyPoint { get; set; }
         public GuideGuest SelectedGuest { get; set; }
 
-        public static bool answer = false;
+        public static bool answer = true;
+        public static string keyPointName;
         public TrackingTourLiveWindow()
         {
             InitializeComponent();
@@ -48,7 +49,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             
             TourStartButton.IsEnabled = true;
             KeyPointCheckButton.IsEnabled = false;
-            
+            SendRequestButton.IsEnabled = false;
+
             CheckStarted();
         }
         private void CheckStarted()
@@ -61,6 +63,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                     TourStartButton.IsEnabled = false;
                     KeyPointCheckButton.IsEnabled = true;
                     AvailableAttendanceDataGrid.IsHitTestVisible = false;
+                    SendRequestButton.IsEnabled = true;
                     break;
                 }
             }
@@ -73,7 +76,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 MessageBox.Show("Tour is ended!");
                 return;
             }
-            bool result = MessageBox.Show("Confirm?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+            bool result = MessageBox.Show("Are you sure you want to start?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
             if (result)
             {
                 SelectedTourAttendance.Started = true;
@@ -81,7 +84,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
                 KeyPoints[0].Selected = true;
                 keyPointsController.Update(KeyPoints[0]);
-                
+                keyPointName = KeyPoints[0].Name;
+
+
                 AvailableAttendanceDataGrid.IsHitTestVisible = false;
                 KeyPointCheckButton.IsEnabled = true;
             }
@@ -99,16 +104,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             if (SelectedKeyPoint == KeyPoints[0] || SelectedKeyPoint.Selected == true)
             {
                 MessageBox.Show("Already selected!");
+                keyPointName = KeyPoints[0].Name;
             }
             else if (isValidKeyPoint)
             {
                 SelectedKeyPoint.Selected = true;
                 keyPointsController.Update(SelectedKeyPoint);
+                keyPointName = SelectedKeyPoint.Name;
 
                 SelectedTourAttendance.Ended = true;
                 tourAttendanceController.Update(SelectedTourAttendance);
                 
                 MessageBox.Show("Tour ended!");
+                SendRequestButton.IsEnabled = false;
                 
                 TourStartButton.IsEnabled = true;
                 KeyPointCheckButton.IsEnabled = false;
@@ -118,6 +126,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 SelectedKeyPoint.Selected = true;
                 keyPointsController.Update(SelectedKeyPoint);
+                keyPointName = SelectedKeyPoint.Name;
             }
             else
             {
@@ -159,6 +168,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             answer = false;
             MessageBox.Show("Sent!");
+            SendRequestButton.IsEnabled = false;
+        }
+
+        private void GuestsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SendRequestButton.IsEnabled = true;
         }
     }
 }
