@@ -6,47 +6,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using System.Xml.Linq;
+using System.Text.RegularExpressions;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Model
 {
-    public class Location : ISerializable, INotifyPropertyChanged
+    public class Location : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
-
-        
         public int Id { get; set; }
-
-        public string city;
-
-        public String City
+        private string city;
+        public string City
         {
             get { return city; }
             set
             {
-                if (value != city)
+                if (city != value)
                 {
                     city = value;
+                    OnPropertyChanged();
                 }
             }
         }
 
         public string state;
 
-        public String State
+        public string State
         {
             get { return state; }
             set
             {
-                if(value != state)
+                if(state != value)
                 {
                     state = value;
+                    OnPropertyChanged();
                 }
             }
         }
 
-        public Location()
-        {
-
-        }
+        public Location() {}
 
         public Location(string city, string state)
         {
@@ -59,7 +56,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         {
             string[] csvValues =
             {
-               Id.ToString(),
+                Id.ToString(),
                 city,
                 state,
             };
@@ -73,17 +70,60 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             city = values[1];
             state = values[2];
         }
+        public override string ToString()
+        {
+            return State + ", " +  City;
+        }
+        Regex locationRegex = new Regex("[A-Za-z\\s]+");
+        public string Error => null;
+
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "City")
+                {
+                    if (string.IsNullOrEmpty(City))
+                        return "The field must be filled";
+
+                    Match match = locationRegex.Match(City);
+                    if (!match.Success)
+                        return "City needs to be string";
+                }
+                else if (columnName == "State")
+                {
+                    if (string.IsNullOrEmpty(State))
+                        return "The field must be filled";
+
+                    Match match = locationRegex.Match(State);
+                    if (!match.Success)
+                        return "State needs to be string";
+                }
+                    return null;
+            }
+        }
+
+        private readonly string[] _validatedProperties = { "City", "State"};
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public override string ToString()
-        {
-            return State + ", " +  City;
         }
     }
 }

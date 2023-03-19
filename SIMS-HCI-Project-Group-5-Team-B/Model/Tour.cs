@@ -1,8 +1,10 @@
 using Microsoft.VisualBasic;
+using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Serializer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO.Packaging;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -28,27 +30,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
-        private Location location;
-        private string locationString;
-        public string LocationString
-        {
-            get { return locationString; }
-            set
-            {
-                if (value != locationString)
-                {
-                    locationString = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
         private int locationId;
         public int LocationId
         {
             get { return locationId; }
             set
             {
-                if (value != locationId)
+                if (locationId != value)
                 {
                     locationId = value;
                     OnPropertyChanged();
@@ -87,119 +75,62 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return maxGuests; }
             set
             {
-                if (maxGuests != value && maxGuests <= 0)
+                if (maxGuests != value && value > 0)
                 {
                     maxGuests = value;
                     OnPropertyChanged();
                 }
             }
         }
-        public List<KeyPoints> keyPoints;
-
-        private string keyPointIds;
-        public string KeyPointIds
-        {
-            get { return keyPointIds; }
-            set
-            {
-                if (value != keyPointIds)
-                {
-                    keyPointIds = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public List<string> starts;
         private double duration;
         public double Duration
         {
             get { return duration; }
             set
             {
-                if (duration != value && duration <= 0)
+                if (duration != value && value > 0)
                 {
                     duration = value;
-                }
-            }
-        }
-
-        private string pictureURLsString;
-
-        public string PictureURLsString
-        {
-            get { return pictureURLsString; }
-            set
-            {
-                if (value != pictureURLsString)
-                {
-                    pictureURLsString = value;
                     OnPropertyChanged();
                 }
             }
         }
-
+        private string imageUrls;
+        public string ImageUrls
+        {
+            get { return imageUrls; }
+            set
+            {
+                if (imageUrls != value)
+                {
+                    imageUrls = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public List<KeyPoint> KeyPoints { get; set; }
+        public Location Location { get; set; }
+        
         public Tour()
         {
-            keyPoints = new List<KeyPoints>();
-            starts = new List<string>();
+            KeyPoints = new List<KeyPoint>();
         }
-        public Tour(string name, string description, string language, int maxGuests, double duration, string pictureURLsString)
+        public Tour(string name, string description, string language, int maxGuests, DateTime start, double duration, string pictureURLsString)
         {
             this.name = name;
-            location = new Location();
             this.description = description;
             this.language = language;
             this.maxGuests = maxGuests;
-            keyPoints = new List<KeyPoints>();
             this.duration = duration;
-            this.pictureURLsString = pictureURLsString;
-        }
-
-        /*public string FormatingKeyPoints(List<KeyPoints> keyPoints) 
-        {
-            string stringBuilder = "";
-            foreach (KeyPoints kp in keyPoints) 
-            {
-                stringBuilder = string.Join(',', kp.ToString());   
-            }
-            return stringBuilder;
-        }
-        
-        */
-
-        //This method format start of tour for storage
-        public string FormatingStart(List<String> start)
-        {
-            string stringBuilder = "";
-            foreach (String s in start)
-            {
-                stringBuilder = string.Join(',', s);
-            }
-            return stringBuilder;
-        }
-
-        // This method loads start of tours in list
-        public List<String> Load(string startsString)
-        {
-            string[] parts = startsString.Split(',');
-            List<string> starts = new List<string>();
-            starts.AddRange(parts);
-            return starts;
-        }
-
-        //This method create string from Key Points, used for storage
-        public string CreateKeyPointIds(List<KeyPoints> keyPoints) 
-        {
-            List<string> ids = new List<string>();
-            foreach (KeyPoints keyPoint in keyPoints) 
-            {
-                ids.Add(keyPoint.Id.ToString());
-            }
-            string result = string.Join(",", ids);
-            return result;
         }
         public string[] ToCSV()
         {
+            string stringBuilder = "";
+            foreach (KeyPoint kp in KeyPoints)
+            {
+                stringBuilder += kp.Name + ",";
+            }
+            stringBuilder = stringBuilder.Substring(0, stringBuilder.Length - 1);
             string[] csvValues =
             {
                 Id.ToString(),
@@ -208,10 +139,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 description,
                 language,
                 maxGuests.ToString(),
-                keyPointIds,
-                FormatingStart(starts),
+                stringBuilder,
                 duration.ToString(),
-                pictureURLsString
+                imageUrls
             };
             return csvValues;
         }
@@ -220,17 +150,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         {
             Id = int.Parse(values[0]);
             name = values[1];
-            locationId = int.Parse(values[2]);
+            LocationId = int.Parse(values[2]);
             description = values[3];
             language = values[4];
             maxGuests = int.Parse(values[5]);
-            keyPointIds = values[6];
-            starts = Load(values[7]);
-            duration = double.Parse(values[8]);
-            pictureURLsString = values[9];
+            string[] parts = values[6].Split(',');
+            for(int i = 0; i < parts.Length; i++)
+            {
+                KeyPoints.Add(new KeyPoint(parts[i]));
+            }
+            duration = double.Parse(values[7]);
+            imageUrls = values[8];
         }
 
-        Regex locationRegex = new Regex("[A-Za-z\\s]+,[A-Za-z]+");
+        Regex maxGuestsRegex = new Regex("^([1-9][0-9]*)$");
         public string Error => null;
 
         public string this[string columnName]
@@ -256,6 +189,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 {
                     if(MaxGuests < 1)
                         return "Value must be greater than zero";
+
+                    Match match = maxGuestsRegex.Match(MaxGuests.ToString());
+                    if (!match.Success)
+                        return "Maximum guests needs to be number";
                 }
                 else if (columnName == "Duration")
                 {
@@ -264,25 +201,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                         return "Value must be greater than zero";
                     }
                 }
-                else if (columnName == "PictureURLsString")
+                else if (columnName == "ImageUrls")
                 {
-                    if (string.IsNullOrEmpty(PictureURLsString))
+                    if (string.IsNullOrEmpty(ImageUrls))
                         return "The field must be filled";
-                }
-                else if( columnName == "LocationString")
-                {
-                    if (string.IsNullOrEmpty(LocationString))
-                        return "The field must be filled";
-
-                    Match match = locationRegex.Match(LocationString);
-                    if (!match.Success)
-                        return "Location needs to be in format: city, state";
                 }
                 return null;
             }
         }
 
-        private readonly string[] _validatedProperties = { "Name", "Description", "Language", "MaxGuests", "Duration", "PictureURLsString" };
+        private readonly string[] _validatedProperties = { "Name", "Description", "Language", "MaxGuests", "Duration", "ImageUrls" };
 
         public bool IsValid
         {
@@ -297,9 +225,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 return true;
             }
         }
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
