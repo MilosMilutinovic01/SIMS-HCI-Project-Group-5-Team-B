@@ -1,0 +1,52 @@
+﻿<Window x:Class="SIMS_HCI_Project_Group_5_Team_B.View.TrackingTourLive"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        mc:Ignorable="d"
+        Title="Tracking Tour Live" WindowStartupLocation="CenterScreen" Height="750" Width="430">
+    <DockPanel>
+        <ToolBar DockPanel.Dock="Top" Height="30">
+            <Button x:Name="TourStartButton" Content="Start" Click="TourStartButton_Click"></Button>
+            <Button x:Name="KeyPointCheckButton" Content="Check" Click="KeyPointCheckButton_Click"></Button>
+            <Button x:Name="SendRequestButton" Content="Send request" Click="SendRequestButton_Click"></Button>
+        </ToolBar>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <DataGrid x:Name="AvailableToursDataGrid" Grid.Row="0" ItemsSource="{Binding Path=AvailableAppointemnts}" SelectedItem="{Binding Path=SelectedAppointment}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged" Grid.ColumnSpan="2" Margin="0,0,0,234" Grid.RowSpan="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding TourName}" />
+                    <DataGridTextColumn Header="Location" Binding="{Binding Start}" />
+                    <DataGridTemplateColumn Header="View">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="buttonStart" Content="View" Click="buttonView_Click" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid x:Name="keyPointsDataGrid" Grid.Row="1" ItemsSource="{Binding Path=KeyPoints}" SelectedItem="{Binding Path=SelectedKeyPoint}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Check" Binding="{Binding Selected}" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid x:Name="guestsDataGrid" Grid.Row="2" ItemsSource="{Binding Path=GuideGuest}" SelectedItem="{Binding Path=SelectedGuest}" SelectionMode="Extended" SelectionChanged="guestsDataGrid_SelectionChanged" IsReadOnly="True" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+</Window>

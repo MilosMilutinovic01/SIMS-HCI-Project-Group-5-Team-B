@@ -2,6 +2,7 @@
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,32 +11,83 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 {
     public class TourController
     {
-        private Repository<Tour> repository;
-
-        public TourController()
-        {
-            repository = new Repository<Tour>();
+        private Repository<Tour> tourRepository;
+        private LocationController locationController;
+        
+        public TourController(){
+            tourRepository = new Repository<Tour>();
+            this.locationController = new LocationController();
+            //GetLocationReference();
         }
-
-        public void Save(Tour tour)
+        
+        public TourController(LocationController locationController)
         {
-            repository.Save(tour);
+            tourRepository = new Repository<Tour>();
+            this.locationController = locationController;
+            //GetLocationReference();
         }
-
-        public void Delete(Tour tour)
-        {
-            repository.Delete(tour);
-        }
-
-        public void Update(Tour tour)
-        {
-            repository.Update(tour);
-        }
-
+        
         public List<Tour> GetAll()
         {
-            return repository.GetAll();
+            return tourRepository.GetAll();
         }
+        
+        public void Save(Tour newTour)
+        {
+            tourRepository.Save(newTour);
+        }
+        
+        public void Delete(Tour tour)
+        {
+            tourRepository.Delete(tour);
+        }
+        
+        public void Update(Tour tour)
+        {
+            tourRepository.Update(tour);
+        }
+        
+        public List<Tour> FindBy(string[] propertyNames, string[] values)
+        {
+            return tourRepository.FindBy(propertyNames, values);
+        }
+        
+        public Tour getById(int id)
+        {
+            return GetAll().Find(tour => tour.Id == id);
+        }
+        
+        public int makeId()
+        {
+            return tourRepository.NextId();
+        }
+        
+        //public List<Tour> GetAvailableTours()
+        //{
+        //    List<Tour> tours = tourRepository.GetAll();
+        //    List<Tour> availableTours = new List<Tour>();
+        //    foreach (Tour tour in tours)
+        //    {
+        //        if (tour.Start.Equals(DateTime.Now.ToString("MM/dd/yyyy")))
+        //        {
+        //            availableTours.Add(tour);
+        //        }
+        //    }
+        //    return availableTours;
+        //}
+        //private void GetLocationReference()
+        //{
+        //    List<Tour> tours = tourRepository.GetAll();
+        //    foreach (Tour tour in tours)
+        //    {
+        //        Location location = locationController.getById(tour.LocationId);
+        //        if (location != null)
+        //        {
+        //            tour.Location = location;
+        //        }
+        //    }
+
+        //}
 
         public List<Tour> Search(string Location, string Language, string TourLength, int NumberOfPeople)
         {
@@ -64,13 +116,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 
             if(searchProperties.Equals(String.Empty))
             {
-                result = new List<Tour>(repository.GetAll());
+                result = new List<Tour>(tourRepository.GetAll());
             }
             else
             {
                 searchProperties = searchProperties.Remove(searchProperties.Length - 1);
                 searchValues = searchValues.Remove(searchValues.Length - 1);
-                foreach (Tour tour in repository.FindBy(searchProperties.Split(','), searchValues.Split(',')))
+                foreach (Tour tour in tourRepository.FindBy(searchProperties.Split(','), searchValues.Split(',')))
                 {
                     result.Add(tour);
                 }
@@ -79,11 +131,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             result.RemoveAll(tour => tour.MaxGuests - 0 < NumberOfPeople);//Change 0 to the number of the people on the tour
 
             return result;
-        }
-
-        public List<Tour> FindBy(string[] propertyNames, string[] values)
-        {
-            return repository.FindBy(propertyNames, values);
         }
     }
 }
