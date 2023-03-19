@@ -13,20 +13,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
     {
         private Repository<Tour> tourRepository;
         private LocationController locationController;
-        private TourStartController tourStartController;
+        private KeyPointsController keyPointsController;
         
         public TourController(){
             tourRepository = new Repository<Tour>();
             this.locationController = new LocationController();
-            //GetLocationReference();
+            keyPointsController = new KeyPointsController();
+            GetLocationReference();
         }
         
         public TourController(LocationController locationController)
         {
             tourRepository = new Repository<Tour>();
-            tourStartController = new TourStartController();
             this.locationController = locationController;
-            //GetLocationReference();
+            GetLocationReference();
         }
         
         public List<Tour> GetAll()
@@ -63,34 +63,31 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         {
             return tourRepository.NextId();
         }
-        public List<Tour> GetAvailableTours()
+        private void GetLocationReference()
         {
             List<Tour> tours = tourRepository.GetAll();
-            List<TourStart> tourStarts = tourStartController.GetAll();
-            List<Tour> availableTours = new List<Tour>();
-            foreach (TourStart ts in tourStarts)
+            foreach (Tour tour in tours)
             {
-                if (ts.Start.ToShortDateString().Equals(DateTime.Now.ToShortDateString()))
+                Location location = locationController.getById(tour.LocationId);
+                if (location != null)
                 {
-                    availableTours.AddRange(tours.FindAll(tour => tour.Id == ts.TourId));
+                    tour.Location = location;
                 }
             }
-            return availableTours;
         }
 
-        //private void GetLocationReference()
-        //{
-        //    List<Tour> tours = tourRepository.GetAll();
-        //    foreach (Tour tour in tours)
-        //    {
-        //        Location location = locationController.getById(tour.LocationId);
-        //        if (location != null)
-        //        {
-        //            tour.Location = location;
-        //        }
-        //    }
-        //}
-
+        private void GetKeyPointsReference()
+        {
+            List<Tour> tours = tourRepository.GetAll();
+            foreach (Tour tour in tours)
+            {
+                List<KeyPoint> keyPoints = keyPointsController.getByTourId(tour.Id);
+                if (keyPoints != null)
+                {
+                    tour.KeyPoints = keyPoints;
+                }
+            }
+        }
         public List<Tour> Search(string Location, string Language, string TourLength, int NumberOfPeople)
         {
             List<Tour> result = new List<Tour>();

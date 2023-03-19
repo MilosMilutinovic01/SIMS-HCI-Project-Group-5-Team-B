@@ -30,28 +30,30 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private TourController tourController;
         private LocationController locationController;
         private KeyPointsController keyPointsController;
-        private TourStartController tourStartController;
+        private TourAttendanceController tourAttendanceController;
         public Tour Tour { get; set; }
         public Location Location { get; set; }
         public KeyPoint KeyPoint { get; set; }
-        public TourStart TourStart { get; set; }
-        
+        public TourAttendance TourAttendance { get; set; }
+
         public List<KeyPoint> keyPoints;
-        public List<TourStart> tourStarts;
+        public List<TourAttendance> tourAttendances;
+        public List<DateTime> starts;
         public TourForm()
         {
-            Tour = new Tour();
-            Location = new Location();
-            KeyPoint = new KeyPoint();
-            TourStart = new TourStart();
-
-            keyPoints = new List<KeyPoint>();
-            tourStarts = new List<TourStart>();
-            
             locationController = new LocationController();
             tourController = new TourController(locationController);
             keyPointsController = new KeyPointsController();
-            tourStartController = new TourStartController();
+            tourAttendanceController = new TourAttendanceController();
+
+            Tour = new Tour();
+            Location = new Location();
+            KeyPoint = new KeyPoint();
+            TourAttendance = new TourAttendance();
+
+            keyPoints = new List<KeyPoint>();
+            tourAttendances = new List<TourAttendance>();
+            starts = new List<DateTime>();
 
             InitializeComponent();
             this.DataContext = this;
@@ -59,13 +61,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
         {
-            bool isValid = Tour.IsValid && Location.IsValid && KeyPoint.IsValid && TourStart.IsValid;
+            bool isValid = Tour.IsValid && Location.IsValid && KeyPoint.IsValid && TourAttendance.IsValid;
             if (keyPoints.Count() < 2)
             {
                 MessageBox.Show("Must enter two or more keypoints!");
                 return;
             }
-            if (tourStarts.Count() == 0)
+            if (TourAttendance.Time == null)
             {
                 MessageBox.Show("Must enter at least one tour start!");
                 return;
@@ -88,9 +90,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 locationController.Save(Location);
             }
             Tour.KeyPoints.AddRange(keyPoints);
-            keyPointsController.SaveAll(keyPoints);
-            tourStartController.SaveAll(tourStarts);
             tourController.Save(Tour);
+            keyPointsController.SaveAll(keyPoints);
+            foreach(DateTime start in starts)
+            {
+                tourAttendances.Add(new TourAttendance(Tour.Id, -1, start, Tour.MaxGuests));
+            }
+            tourAttendanceController.SaveAll(tourAttendances);
             Close();
         }
 
@@ -112,7 +118,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         }
         private void AddStartButton_Click(object sender, RoutedEventArgs e)
         {
-            int tourId = tourController.makeId();
             DateTime date;
             DateTime dateTime = DateTime.Now;
             if (DateTime.TryParse(StartTextBox.Text, out date) && StartDatePicker.SelectedDate != null)
@@ -123,8 +128,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
             if (dateTime > DateTime.Now)
             {
-                tourStarts.Add(new TourStart(tourId,dateTime));
-                DateLabel.Content = "Added " + tourStarts.Count();
+                starts.Add(dateTime);
+                DateLabel.Content = "Added " + starts.Count();
             }
             else
                 MessageBox.Show("You must add date and time that is after currently!");

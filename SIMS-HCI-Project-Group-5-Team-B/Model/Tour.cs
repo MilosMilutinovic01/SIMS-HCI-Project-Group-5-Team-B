@@ -109,6 +109,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             }
         }
         public List<KeyPoint> KeyPoints { get; set; }
+        public Location Location { get; set; }
         
         public Tour()
         {
@@ -161,6 +162,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             duration = double.Parse(values[7]);
             imageUrls = values[8];
         }
+
         Regex maxGuestsRegex = new Regex("^([1-9][0-9]*)$");
         public string Error => null;
 

@@ -26,17 +26,10 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <DataGrid x:Name="AvailableToursDataGrid" Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding Path=AvailableTours}" SelectedItem="{Binding Path=SelectedTour}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged">
+            <DataGrid x:Name="AvailableToursDataGrid" Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding Path=AvailableTourAttendances}" SelectedItem="{Binding Path=SelectedTourAttendance}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding Tour.Name}" />
                     <DataGridTextColumn Header="Start" Binding="{Binding Start}" />
-                    <DataGridTemplateColumn Header="View">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Name="buttonStart" Content="View" Click="buttonView_Click" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <DataGrid x:Name="keyPointsDataGrid" Grid.Row="4" Grid.RowSpan="2" ItemsSource="{Binding Path=KeyPoints}" SelectedItem="{Binding Path=SelectedKeyPoint}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False">

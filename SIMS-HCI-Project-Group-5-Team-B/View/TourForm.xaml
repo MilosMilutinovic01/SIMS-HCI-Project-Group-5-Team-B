@@ -67,7 +67,7 @@
         </StackPanel>
         <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" >
             <DatePicker x:Name="StartDatePicker" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Margin="0,0,10,0" ></DatePicker>
-            <TextBox x:Name="StartTextBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Text="{Binding Path=TourStart.Clock, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+            <TextBox x:Name="StartTextBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Text="{Binding Path=TourAttendance.Time, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
             <Button Content="Add" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Click="AddStartButton_Click"></Button>
             <Label x:Name="DateLabel" HorizontalAlignment="Left" Margin="10,0,0,0"></Label>
