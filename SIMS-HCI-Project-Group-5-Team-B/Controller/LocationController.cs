@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.Model;
+using System.IO;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 {
@@ -46,6 +47,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public int makeId()
         {
             return locationRepository.NextId();
+        }
+
+        public List<string> GetStates()
+        {
+            return locationRepository.GetAll().Select(location => location.State).Distinct().ToList();
+
+        }
+
+        public Location GetLocation(Location location)
+        {
+            return GetAll().Find(l => l.City == location.City && l.State == location.State);
+        }
+
+        public List<string> GetCityByState(string state)
+        {
+            return locationRepository.GetAll().Where(location => location.State.Equals(state)).Select(location => location.City).Distinct().ToList();
         }
     }
 }

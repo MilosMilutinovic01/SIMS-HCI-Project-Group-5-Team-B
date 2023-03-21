@@ -41,7 +41,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             keyPointsController = new KeyPointsController();
             tourAttendanceController = new TourAttendanceController();
 
-            AvailableTourAttendances = new ObservableCollection<TourAttendance>(tourAttendanceController.GetAll());
+            AvailableTourAttendances = new ObservableCollection<TourAttendance>(tourAttendanceController.GetAllAvaillable());
             KeyPoints = new ObservableCollection<KeyPoint>();
             GuideGuest = new ObservableCollection<GuideGuest>();
 

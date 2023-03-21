@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SIMS_HCI_Project_Group_5_Team_B.View;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
+using System.IO;
 
 namespace SIMS_HCI_Project_Group_5_Team_B
 {
@@ -35,6 +36,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
             ComboBoxType.SelectedIndex = 0;
             //keyPointsController = new KeyPointsController();
             //locationController = new LocationController();
+            //locationController.ChangeCsvFile("../../../Resources/Data/Locations.csv");
             //tourController = new TourController(locationController);
         }
 
