@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Model;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
+using System;
 using System.Collections.Generic;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Controller
@@ -23,6 +24,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public List<TourAttendance> GetAll()
         {
             return tourAttendanceRepository.GetAll();
+        }
+        public List<TourAttendance> GetAllAvaillable()
+        {
+            return tourAttendanceRepository.GetAll().FindAll(ta => ta.Start.Date == DateTime.Now.Date);
         }
         public void Save(TourAttendance newTourAttendance)
         {

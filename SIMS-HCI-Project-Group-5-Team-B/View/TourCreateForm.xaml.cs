@@ -55,6 +55,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             tourAttendances = new List<TourAttendance>();
             starts = new List<DateTime>();
 
+            List<string> states = locationController.GetStates();
+            List<string> cities = locationController.GetCityByState("Serbia");
+
             InitializeComponent();
             this.DataContext = this;
         }
@@ -78,7 +81,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 return;
             }
 
-            Location existingLocation = locationController.GetAll().Find(l => l.City == Location.City && l.State == Location.State);
+            Location existingLocation = locationController.GetLocation(Location);
 
             if (existingLocation != null)
             {
@@ -109,7 +112,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         }
         private void AddKeyPointsButton_Click(object sender, RoutedEventArgs e)
         {
-            //int tourId = tourController.makeId();
             KeyPoint.TourId = tourController.makeId();
             if (KeyPointTextBox.Text.Equals(""))
                 MessageBox.Show("You should fill the field!");
@@ -121,13 +123,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         }
         private void AddStartButton_Click(object sender, RoutedEventArgs e)
         {
-            DateTime date;
-            DateTime dateTime = DateTime.Now;
-            if (DateTime.TryParse(StartTextBox.Text, out date) && StartDatePicker.SelectedDate != null)
-            {
-                DateTime selectedDate = (DateTime)StartDatePicker.SelectedDate;
-                dateTime = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day,date.Hour, date.Minute, date.Second);
-            }
+            DateTime dateTime = CreateDateTime((DateTime)StartDatePicker.SelectedDate, StartTextBox.Text);
 
             if (dateTime > DateTime.Now)
             {
@@ -136,6 +132,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             }
             else
                 MessageBox.Show("You must add date and time that is after currently!");
+        }
+
+        private DateTime CreateDateTime(DateTime date, string time)
+        {
+            
+            return date.Add(TimeSpan.Parse(time));
         }
     }
 }
