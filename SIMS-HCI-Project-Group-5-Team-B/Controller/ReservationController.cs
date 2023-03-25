@@ -1,7 +1,10 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Model;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
+using SIMS_HCI_Project_Group_5_Team_B.View;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 {
@@ -14,6 +17,45 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         {
             this.Start = start;
             this.End = end;
+        }
+    }
+
+    public class ReservationView : INotifyPropertyChanged
+    {
+        public Reservation Reservation { get; set; }
+        public bool isForGrading;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        public bool IsForGrading 
+        {
+            get { return isForGrading; }
+            set
+            {
+                if (value != isForGrading) 
+                {
+                    isForGrading = value;
+                    OnPropertyChanged();
+                    NotifyPropertyChanged(nameof(IsForGrading));  //sta je ov????
+                }
+            }
+        
+        }
+        public ReservationView(Reservation reservation, bool isForGrading)
+        {
+            this.Reservation = reservation;
+            this.IsForGrading = isForGrading;
         }
     }
 
@@ -162,24 +204,44 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public bool IsAccomodationAvailable(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate)
         {
             List<Reservation> accomodationReservations = GetAccomodationReservations(selectedAccommodation);
-
+            
             foreach (Reservation reservation in accomodationReservations)
             {
-                if (startDate >= reservation.StartDate && startDate <= reservation.EndDate)
+                bool isInRange = (startDate >= reservation.StartDate && startDate <= reservation.EndDate) ||
+                                 (endDate >= reservation.StartDate && endDate <= reservation.EndDate);
+
+                bool isOutOfRange = startDate <= reservation.StartDate && endDate >= reservation.EndDate;
+
+                if (isInRange)
                 {
                     return false;
                 }
-                else if (endDate >= reservation.StartDate && endDate <= reservation.EndDate)
+                else if (isOutOfRange)
                 {
                     return false;
                 }
-                else if (startDate <= reservation.StartDate && endDate >= reservation.EndDate)
-                {
-                    return false;
-                }
+                
             }
             return true;
 
+        }
+        //TODO add another condition - username must be the current active one! - from active OwnerGuest
+        public List<ReservationView> GetReservationsForGuestGrading()
+        {
+            List<ReservationView> reservationViews = new List<ReservationView>();
+            foreach (Reservation reservation in GetAll())
+            {
+                
+                bool boolProp = true;
+                if (!(reservation.EndDate.AddDays(5) > DateTime.Today && reservation.EndDate < DateTime.Today && reservation.IsGradedByGuest == false))
+                {
+                    boolProp = false;
+                }
+
+                reservationViews.Add(new ReservationView(reservation, boolProp));
+                
+            }
+            return reservationViews;
         }
     }
 }

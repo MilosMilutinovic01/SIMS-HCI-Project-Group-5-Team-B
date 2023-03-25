@@ -1,0 +1,75 @@
+﻿<Window x:Class="SIMS_HCI_Project_Group_5_Team_B.View.GradingOwnerAccommodation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        mc:Ignorable="d"
+        Title="GradingOwnerAccommodation" Height="450" Width="380">
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Heading}" FontSize="25"></TextBlock>
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Height="30" FontSize="15" >Cleanliness</Label>
+            <Label Grid.Row="1" Grid.Column="0" Height="30" FontSize="15" >Owner Corectness</Label>
+            <Label Grid.Row="2" Grid.Column="0" Height="30" FontSize="15" >Inventory State</Label>
+            <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" >Quietness</Label>
+            <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" >Privacy</Label>
+            <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" >PictureURLs</Label>
+            <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" >Additional Comment</Label>
+
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="30 10 10 10" Text="{Binding OwnerAccommodationGrade.Cleanliness, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="30 10 10 10" Text="{Binding OwnerAccommodationGrade.OwnerCorrectness, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="30 10 10 10" Text="{Binding OwnerAccommodationGrade.StateOfInventory, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
+            <TextBox Grid.Row="3" Grid.Column="1" Margin="30 10 10 10" Text="{Binding OwnerAccommodationGrade.Quietness, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
+            <TextBox Grid.Row="4" Grid.Column="1" Margin="30 10 10 10" Text="{Binding OwnerAccommodationGrade.Privacy, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
+            <TextBox Grid.Row="5" Grid.Column="1" Margin="30 10 10 10" Text="{Binding OwnerAccommodationGrade.PictureURLsString, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
+            <TextBox Grid.RowSpan="2" Grid.Row="6" Grid.Column="1" Margin="10" Text="{Binding OwnerAccommodationGrade.AdditionalComment, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
+        </Grid>
+        <WrapPanel Grid.Column="2" Grid.Row="2" FlowDirection="RightToLeft">
+            <Button Content="Cancel" VerticalAlignment="Center" Margin="15" Width="40" Click="Cancel_Button_Click"></Button>
+            <Button Content="Grade" VerticalAlignment="Center" Margin="15" Width="40" Click="Grade_Button_Click"></Button>
+        </WrapPanel>
+    </Grid>
+</Window>

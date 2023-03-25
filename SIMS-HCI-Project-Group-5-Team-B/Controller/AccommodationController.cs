@@ -12,12 +12,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
     {
         private Repository<Accommodation> accomodationRepository;
         private LocationController locationController;
+        private OwnerController ownerController;
 
-        public AccommodationController(LocationController locationController)
+        public AccommodationController(LocationController locationController, OwnerController ownerController)
         {
             accomodationRepository = new Repository<Accommodation>();
             this.locationController = locationController;
+            this.ownerController = ownerController;
             GetLocationReference();
+            GetOwnerReference();
+
         }
 
         public List<Accommodation> GetAll()
@@ -55,6 +59,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
                 if (location != null)
                 {
                     accommodation.Location = location;
+                }
+            }
+
+        }
+
+        private void GetOwnerReference()
+        {
+            List<Accommodation> accomodations = accomodationRepository.GetAll();
+            foreach (Accommodation accommodation in accomodations)
+            {
+                Owner owner = ownerController.getById(accommodation.OwnerId);
+                if (owner != null)
+                {
+                    accommodation.Owner = owner;
                 }
             }
 

@@ -12,6 +12,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
     public class Accommodation : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
+        private int ownerId;
+        public int OwnerId
+        {
+            get { return ownerId; }
+            set 
+            {
+                if (value != ownerId)
+                {
+                    ownerId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Owner Owner { get; set; }
+
 
         private string name;
         public String Name
@@ -202,6 +218,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             string[] csvValues =
             {
                 Id.ToString(),
+                ownerId.ToString(),
                 name,
                 tempType,
                 locationId.ToString(),
@@ -219,26 +236,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            name = values[1];
-            if (values[2] == "Apartment")
+            ownerId = int.Parse(values[1]);
+            name = values[2];
+            if (values[3] == "Apartment")
             {
                 type = TYPE.Apartment;
             }
-            else if (values[2] == "House")
+            else if (values[3] == "House")
             {
                 type = TYPE.House;
             }
-            else if (values[2] == "Cottage")
+            else if (values[3] == "Cottage")
             {
                 type = TYPE.Cottage;
             }
-            locationId = int.Parse(values[3]);
-            maxGuests = int.Parse(values[4]);
-            minReservationDays = int.Parse(values[5]);
-            noticePeriod = int.Parse(values[6]);
+            locationId = int.Parse(values[4]);
+            maxGuests = int.Parse(values[5]);
+            minReservationDays = int.Parse(values[6]);
+            noticePeriod = int.Parse(values[7]);
 
 
-            PictureURLsString = values[7];
+            PictureURLsString = values[8];
 
             string[] URLs = PictureURLsString.Split(",");
 

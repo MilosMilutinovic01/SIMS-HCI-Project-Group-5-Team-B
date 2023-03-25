@@ -25,6 +25,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         LocationController locationController;
         AccommodationController accommodationController;
         ReservationController reservationController;
+        OwnerController ownerController;
         public List<Reservation> reservationsForGrading;
 
         //private DateTime lastDisplayed;
@@ -32,7 +33,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             InitializeComponent();
             locationController = new LocationController();
-            accommodationController = new AccommodationController(locationController);
+            ownerController = new OwnerController();
+            accommodationController = new AccommodationController(locationController, ownerController);
             reservationController = new ReservationController(accommodationController);
             reservationsForGrading = new List<Reservation>();
 
