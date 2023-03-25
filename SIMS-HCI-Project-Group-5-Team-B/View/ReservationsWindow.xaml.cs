@@ -52,7 +52,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
             if(SelectedReservationView != null)
             {
-                GradingOwnerAccommodation gradingOwnerAccommodatoinWindow = new GradingOwnerAccommodation(ownerAccommodationGradeController, reservationController, SelectedReservationView, ReservationViews);
+                GradingOwnerAccommodation gradingOwnerAccommodatoinWindow = new GradingOwnerAccommodation(ownerAccommodationGradeController, reservationController, SelectedReservationView);
                 gradingOwnerAccommodatoinWindow.Show();
                 
             }
