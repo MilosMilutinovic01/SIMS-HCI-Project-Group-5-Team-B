@@ -3,6 +3,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Model;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -35,12 +36,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public Location Location { get; set; }
         public KeyPoint KeyPoint { get; set; }
         public TourAttendance TourAttendance { get; set; }
+        public DateTime DateTime { get; set; }
 
         public List<KeyPoint> keyPoints;
         public List<TourAttendance> tourAttendances;
         public List<DateTime> starts;
+        public List<string> states { get; set; }
+        public List<string> cities;
         public TourCreateForm()
         {
+            InitializeComponent();
+            this.DataContext = this;
+
             locationController = new LocationController();
             tourController = new TourController(locationController);
             keyPointsController = new KeyPointsController();
@@ -54,23 +61,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             keyPoints = new List<KeyPoint>();
             tourAttendances = new List<TourAttendance>();
             starts = new List<DateTime>();
-
-            List<string> states = locationController.GetStates();
-            List<string> cities = locationController.GetCityByState("Serbia");
-
-            InitializeComponent();
-            this.DataContext = this;
+            states = locationController.GetStates();
         }
 
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
         {
-            bool isValid = Tour.IsValid && Location.IsValid && KeyPoint.IsValid && TourAttendance.IsValid;
+            bool isValid = Tour.IsValid && KeyPoint.IsValid;
             if (keyPoints.Count() < 2)
             {
                 MessageBox.Show("Must enter two or more keypoints!");
                 return;
             }
-            if (TourAttendance.Time == null)
+            if (starts.Count() == 0)
             {
                 MessageBox.Show("Must enter at least one tour start!");
                 return;
@@ -92,13 +94,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 Tour.LocationId = locationController.makeId();
                 locationController.Save(Location);
             }
-            foreach(DateTime start in starts)
-            {
-                keyPointsController.SaveAll(keyPoints);
-            }
             Tour.KeyPoints.AddRange(keyPoints);
             tourController.Save(Tour);
-            foreach(DateTime start in starts)
+            foreach (DateTime start in starts)
             {
                 tourAttendances.Add(new TourAttendance(Tour.Id, -1, start, Tour.MaxGuests));
             }
@@ -123,21 +121,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         }
         private void AddStartButton_Click(object sender, RoutedEventArgs e)
         {
-            DateTime dateTime = CreateDateTime((DateTime)StartDatePicker.SelectedDate, StartTextBox.Text);
-
-            if (dateTime > DateTime.Now)
+            if (DateTime > DateTime.Now)
             {
-                starts.Add(dateTime);
+                starts.Add(DateTime);
                 DateLabel.Content = "Added " + starts.Count();
             }
             else
                 MessageBox.Show("You must add date and time that is after currently!");
         }
 
-        private DateTime CreateDateTime(DateTime date, string time)
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-            return date.Add(TimeSpan.Parse(time));
+            cities = locationController.GetCityByState(ComboBoxStates.SelectedItem.ToString());
+            ComboBoxCities.ItemsSource = cities;
         }
     }
 }

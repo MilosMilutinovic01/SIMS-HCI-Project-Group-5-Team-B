@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Tour Creation" Height="450" Width="500">
     <Window.Resources>
@@ -46,10 +47,10 @@
         <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"></TextBox>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-            <TextBox Width="150" Text="{Binding Path=Location.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"></TextBox>
-            <TextBox Width="150" Text="{Binding Path=Location.State, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"></TextBox>
+            <ComboBox x:Name="ComboBoxStates" Width="150" Text="{Binding Path=Location.State, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding states}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" SelectionChanged="ComboBox_SelectionChanged"></ComboBox>
+            <ComboBox x:Name="ComboBoxCities" Width="150" Text="{Binding Path=Location.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  ItemsSource="{Binding cities}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"></ComboBox>
 
         </StackPanel>
         
@@ -66,9 +67,7 @@
             <Label x:Name="KeyPointsLabel" HorizontalAlignment="Left" Margin="10,0,0,0"></Label>
         </StackPanel>
         <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" >
-            <DatePicker x:Name="StartDatePicker" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Margin="0,0,10,0" ></DatePicker>
-            <TextBox x:Name="StartTextBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Text="{Binding Path=TourAttendance.Time, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
+            <xctk:DateTimePicker x:Name="StartDatePicker" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Text="{Binding DateTime}" Margin="0,0,10,0"></xctk:DateTimePicker>
             <Button Content="Add" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Click="AddStartButton_Click"></Button>
             <Label x:Name="DateLabel" HorizontalAlignment="Left" Margin="10,0,0,0"></Label>
         </StackPanel>
