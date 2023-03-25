@@ -29,8 +29,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private AccommodationController accommodationController;
         private LocationController locationController;
         private OwnerController ownerController;
+        private OwnerAccommodationGradeController ownerAccommodationGradeController;
         public ObservableCollection<Reservation> ReservationsForGrading { get; set; }
+        public ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing { get; set; }
         public Reservation SelectedReservation { get; set; }
+        public OwnerAccommodationGrade SelectedOwnerAccommodationGrade { get; set; }
         
 
         public ReservationsForGradingWindow()
@@ -43,8 +46,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             reservationController = new ReservationController(accommodationController);
             ReservationsForGrading = new ObservableCollection<Reservation>(reservationController.GetSuiableReservationsForGrading());
             ownerGuestGradeContoller = new OwnerGuestGradeContoller(reservationController);
-
-            
+            ownerAccommodationGradeController = new OwnerAccommodationGradeController(reservationController);
+            OwnerAccommodationGradesForShowing = new ObservableCollection<OwnerAccommodationGrade>(ownerAccommodationGradeController.GetOwnerAccommodationGradesForShowing());
+            //OwnerAccommodationGradesForShowing = new ObservableCollection<OwnerAccommodationGrade>(ownerAccommodationGradeController.GetAll());
 
         }
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -52,7 +56,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             if (SelectedReservation != null)
             {
-                GradingGuestWindow gradingGuestWindow = new GradingGuestWindow(ownerGuestGradeContoller, reservationController,SelectedReservation, ReservationsForGrading);
+                GradingGuestWindow gradingGuestWindow = new GradingGuestWindow(ownerGuestGradeContoller,ownerAccommodationGradeController, reservationController,SelectedReservation, ReservationsForGrading, OwnerAccommodationGradesForShowing);
                 gradingGuestWindow.Show();
             }
             else
@@ -64,6 +68,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(SelectedOwnerAccommodationGrade != null)
+            {
+                OwnerAccommodationGradeDetailsWindow ownerAccommodationGradeDetailsWindow = new OwnerAccommodationGradeDetailsWindow(SelectedOwnerAccommodationGrade);
+                ownerAccommodationGradeDetailsWindow.Show();
+            }
         }
     }
 }

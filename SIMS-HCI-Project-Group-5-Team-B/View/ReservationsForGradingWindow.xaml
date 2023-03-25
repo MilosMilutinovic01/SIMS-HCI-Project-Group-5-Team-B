@@ -35,14 +35,24 @@
             <WrapPanel DockPanel.Dock="Bottom" Height="50" FlowDirection="RightToLeft">
                 <Button Content="Close" IsCancel="True" Height="25" Width="60" VerticalAlignment="Center" Margin="20 10" Click="Cancel_Click"></Button>
             </WrapPanel>
-            <DataGrid Width="auto" ItemsSource="{Binding Path=ReservationsForGrading, UpdateSourceTrigger=PropertyChanged}"
+            <DataGrid Width="390" ItemsSource="{Binding Path=ReservationsForGrading, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedReservation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                       AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding OwnerGuest.Name}" Width="2*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Surname" Binding="{Binding OwnerGuest.Surname}" Width="2*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Name" Binding="{Binding OwnerGuest.Name}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Surname" Binding="{Binding OwnerGuest.Surname}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" Width="*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid Width="390" HorizontalAlignment="Right" ItemsSource="{Binding Path=OwnerAccommodationGradesForShowing, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedOwnerAccommodationGrade, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+                      AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="DataGrid_MouseDoubleClick">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Reservation.OwnerGuest.Name}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Surname" Binding="{Binding Reservation.OwnerGuest.Surname}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Accommodation" Binding="{Binding Reservation.Accommodation.Name}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Grade Average" Binding="{Binding GradeAverage}" Width="*"></DataGridTextColumn>
+                    
                 </DataGrid.Columns>
             </DataGrid>
 
