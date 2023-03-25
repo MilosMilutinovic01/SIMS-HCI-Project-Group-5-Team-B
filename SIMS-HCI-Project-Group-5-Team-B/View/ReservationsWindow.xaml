@@ -1,0 +1,48 @@
+﻿<Window x:Class="SIMS_HCI_Project_Group_5_Team_B.View.ReservationsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        mc:Ignorable="d"
+        Title="ReservationsWindow" Height="540" Width="800"
+        KeyDown="Window_KeyDown">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="1"></TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="My Reservations" FontSize="20"></TextBlock>
+        <DataGrid Grid.Row="3" Grid.Column="1" x:Name="ReservationsGrid" ItemsSource="{Binding Path=ReservationViews, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedReservationView, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+                      AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="DataGrid_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Accommodation" Binding="{Binding Reservation.Accommodation.Name}" Width="2*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Location" Binding="{Binding Reservation.Accommodation.Location}" Width="2*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Start" Binding="{Binding Reservation.StartDate}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="End" Binding="{Binding Reservation.EndDate}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Guests No" Binding="{Binding Reservation.GuestsNumber}" Width="*"></DataGridTextColumn>
+                <DataGridTemplateColumn x:Name="ButtonColumn">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button KeyDown="Button_KeyDown" x:Name="gradeButton" Click="Grade_Button_Click" IsEnabled="{Binding IsForGrading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Grade</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        
+    </Grid>
+    
+</Window>

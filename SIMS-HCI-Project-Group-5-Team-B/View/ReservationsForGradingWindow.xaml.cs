@@ -28,6 +28,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private ReservationController reservationController;
         private AccommodationController accommodationController;
         private LocationController locationController;
+        private OwnerController ownerController;
         public ObservableCollection<Reservation> ReservationsForGrading { get; set; }
         public Reservation SelectedReservation { get; set; }
         
@@ -37,7 +38,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             InitializeComponent();
             DataContext = this;
             locationController = new LocationController();
-            accommodationController = new AccommodationController(locationController);
+            ownerController = new OwnerController();
+            accommodationController = new AccommodationController(locationController, ownerController);
             reservationController = new ReservationController(accommodationController);
             ReservationsForGrading = new ObservableCollection<Reservation>(reservationController.GetSuiableReservationsForGrading());
             ownerGuestGradeContoller = new OwnerGuestGradeContoller(reservationController);

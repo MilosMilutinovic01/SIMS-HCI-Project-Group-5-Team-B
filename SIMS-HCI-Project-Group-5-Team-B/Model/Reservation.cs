@@ -87,6 +87,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         }
 
         public bool IsGraded { get; set; }
+        public bool IsGradedByGuest { get; set; }
 
         public Reservation() 
         { 
@@ -106,6 +107,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             OwnerGuest = new OwnerGuest();
             ownerGuestId=0;
             IsGraded = false;
+            IsGradedByGuest = false;
         }
 
         public string[] ToCSV()
@@ -118,7 +120,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 endDate.ToString(),
                 reservationDays.ToString(),
                 guestsNumber.ToString(),
-                IsGraded.ToString()
+                IsGraded.ToString(),
+                IsGradedByGuest.ToString()
             };
             return csvValues;
         }
@@ -132,6 +135,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             reservationDays = int.Parse(values[4]);
             guestsNumber = int.Parse(values[5]);
             IsGraded=bool.Parse(values[6]);
+            IsGradedByGuest = bool.Parse(values[7]);
         }
 
         public string Error => null;

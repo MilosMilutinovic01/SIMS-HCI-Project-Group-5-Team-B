@@ -28,6 +28,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private AccommodationController accommodationController;
         private LocationController locationController;
+        private OwnerController ownerController;
 
         public Accommodation Accommodation { get; set; }
         public Location Location { get; set; }
@@ -56,7 +57,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             InitializeComponent();
             this.DataContext = this;
             locationController = new LocationController();
-            accommodationController = new AccommodationController(locationController);
+            ownerController = new OwnerController();
+            accommodationController = new AccommodationController(locationController, ownerController);
         }
 
         
