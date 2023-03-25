@@ -122,7 +122,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 KeyPointCheckButton.IsEnabled = false;
                 AvailableAttendanceDataGrid.IsHitTestVisible = true;
             }
-            else if (KeyPoints[SelectedKeyPoint.Id - 2].Selected == true)
+            else if (KeyPoints[KeyPointsDataGrid.SelectedIndex - 1].Selected == true)
             {
                 SelectedKeyPoint.Selected = true;
                 keyPointsController.Update(SelectedKeyPoint);
