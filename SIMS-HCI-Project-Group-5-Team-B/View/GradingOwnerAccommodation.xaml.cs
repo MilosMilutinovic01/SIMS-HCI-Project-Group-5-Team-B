@@ -51,6 +51,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 SelectedReservation.IsGradedByGuest = true;
                 reservationController.Update(SelectedReservation);
                 OwnerAccommodationGrade.ReservationId = SelectedReservation.Id;
+                OwnerAccommodationGrade.GradeAverage = ownerAccommodationGradeController.GetAverageGrade(OwnerAccommodationGrade);
                 ownerAccommodationGradeController.Save(OwnerAccommodationGrade);
                 reservationView.IsForGrading = false;
                 MessageBox.Show("Grading was successful!");

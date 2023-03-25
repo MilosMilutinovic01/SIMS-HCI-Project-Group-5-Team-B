@@ -24,20 +24,24 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     {
         public ReservationController reservationController;
         public OwnerGuestGradeContoller ownerGuestGradeContoller;
+        public OwnerAccommodationGradeController ownerAccommodationGradeController;
         public OwnerGuestGrade NewOwnerGuestGrade { get; set; }
         public Reservation SelectedReservation { get; set; }
 
         public ObservableCollection<Reservation> ReservationsForGrading { get; set; }
+        public ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing { get; set; }
 
 
-        public GradingGuestWindow(OwnerGuestGradeContoller ownerGuestGradeContoller, ReservationController reservationController,Reservation SelectedReservation, ObservableCollection<Reservation> ReservationsForGrading)
+        public GradingGuestWindow(OwnerGuestGradeContoller ownerGuestGradeContoller, OwnerAccommodationGradeController ownerAccommodationGradeController,ReservationController reservationController,Reservation SelectedReservation, ObservableCollection<Reservation> ReservationsForGrading, ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing)
         {
             InitializeComponent();
             this.DataContext = this;
             this.ownerGuestGradeContoller = ownerGuestGradeContoller;
+            this.ownerAccommodationGradeController = ownerAccommodationGradeController;
             this.reservationController = reservationController;
             this.SelectedReservation = SelectedReservation;
             this.ReservationsForGrading = ReservationsForGrading;
+            this.OwnerAccommodationGradesForShowing = OwnerAccommodationGradesForShowing;
             SetOwnerGuestGradeParameters();
 
         }
@@ -58,6 +62,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 SelectedReservation.IsGraded = true;
                 reservationController.Update(SelectedReservation);
                 ReservationsForGrading.Remove(SelectedReservation);
+
+                if (SelectedReservation.IsGradedByGuest)
+                {
+                    List<OwnerAccommodationGrade> ownerAccommodationGrades = ownerAccommodationGradeController.GetAll();
+                    foreach(OwnerAccommodationGrade ownerAccommodationGrade in ownerAccommodationGrades)
+                    {
+                        if(ownerAccommodationGrade.ReservationId == SelectedReservation.Id)
+                        {
+                            OwnerAccommodationGradesForShowing.Add(ownerAccommodationGrade);
+                        }
+                    }
+                }
+
                 Close();
             }
         }

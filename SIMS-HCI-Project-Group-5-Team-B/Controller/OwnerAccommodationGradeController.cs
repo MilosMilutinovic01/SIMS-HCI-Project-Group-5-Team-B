@@ -59,5 +59,51 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             }
 
         }
+
+        private double GetGradeAverage(OwnerAccommodationGrade ownerAccommodationGrade)
+        {
+            double average = (ownerAccommodationGrade.Cleanliness + ownerAccommodationGrade.OwnerCorrectness + ownerAccommodationGrade.StateOfInventory + ownerAccommodationGrade.Quietness + ownerAccommodationGrade.Privacy) / 5;
+            return average;
+        }
+
+        public List<OwnerAccommodationGrade> GetOwnerAccommodationGradesForShowing()
+        {
+            //dobili smo sve rezervacije
+            List<Reservation> reservations = reservationController.GetAll();
+
+            //dobili smo sve ocene smestaja
+            List<OwnerAccommodationGrade> ownerAccommodationGrades = GetAll();
+
+            //ocene smestaja koje ce biti prikazivane
+            List<OwnerAccommodationGrade> ownerAccommodationGradesForShowing = new List<OwnerAccommodationGrade>();
+
+            foreach(Reservation reservation in reservations)
+            {
+                //prolazimo kroz rezervacije i gledamo da li su je ocenili i gost i vlasnik
+                if(reservation.IsGraded == true && reservation.IsGradedByGuest == true)
+                {
+                    //ako su ocenili i gost i  vlasnik prolazimo kroz ocene smestaja i trazimo idRezervacije koju su ocenili i gost i vlasnik
+                    foreach(OwnerAccommodationGrade ownerAccommodationGrade in ownerAccommodationGrades)
+                    {
+                        //nasli smo ocenu smestaja sa trazenim id-om rezervacije i sada tu ocenu dodajemo u ocene koje ce se prikazati
+                        if(reservation.Id == ownerAccommodationGrade.ReservationId)
+                        {
+                            ownerAccommodationGradesForShowing.Add(ownerAccommodationGrade);
+                        }
+                    }
+                }
+            }
+
+            return ownerAccommodationGradesForShowing;
+        }
+
+        public double GetAverageGrade(OwnerAccommodationGrade ownerAccommodationGrade)
+        {
+
+            double averageGrade = (double)(ownerAccommodationGrade.Cleanliness + ownerAccommodationGrade.OwnerCorrectness + ownerAccommodationGrade.StateOfInventory + ownerAccommodationGrade.Privacy + ownerAccommodationGrade.Quietness) / 5;
+            return averageGrade;
+        }
+
+
     }
 }

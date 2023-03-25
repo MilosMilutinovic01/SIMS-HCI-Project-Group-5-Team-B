@@ -112,10 +112,26 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             }
         }
 
+        private double gradeAverage;
+
+        public double GradeAverage
+        {
+            get { return gradeAverage; }
+            set
+            {
+                if(value != gradeAverage)
+                {
+                    gradeAverage = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public OwnerAccommodationGrade()
         {
             Reservation = new Reservation();
             PictureURLs = new List<string>();
+            gradeAverage = 0;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -132,11 +148,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                Id.ToString(),
                ReservationId.ToString(),
                cleanliness.ToString(),
+               ownerCorrectness.ToString(),
                stateOfInventory.ToString(),
                quietness.ToString(),
                privacy.ToString(),
                additionalComment,
-               pictureURLsString
+               pictureURLsString,
+               gradeAverage.ToString()
             };
 
             return csvValues;
@@ -146,11 +164,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             Id = int.Parse(values[0]);
             ReservationId = int.Parse(values[1]);
             cleanliness = int.Parse(values[2]);
-            stateOfInventory = int.Parse(values[3]);
-            quietness = int.Parse(values[4]);
-            privacy = int.Parse(values[5]);
-            additionalComment = values[6];
-            pictureURLsString = values[7];
+            ownerCorrectness = int.Parse(values[3]);
+            stateOfInventory = int.Parse(values[4]);
+            quietness = int.Parse(values[5]);
+            privacy = int.Parse(values[6]);
+            additionalComment = values[7];
+            pictureURLsString = values[8];
+            gradeAverage = double.Parse(values[9]);
 
             string[] URLs = PictureURLsString.Split(",");
 
