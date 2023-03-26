@@ -31,15 +31,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private TourController tourController;
         private LocationController locationController;
         private KeyPointsController keyPointsController;
-        private TourAttendanceController tourAttendanceController;
+        private AppointmentController appointmentController;
         public Tour Tour { get; set; }
         public Location Location { get; set; }
         public KeyPoint KeyPoint { get; set; }
-        public TourAttendance TourAttendance { get; set; }
+        public Appointment Appointment { get; set; }
         public DateTime DateTime { get; set; }
 
         public List<KeyPoint> keyPoints;
-        public List<TourAttendance> tourAttendances;
+        public List<Appointment> appointments;
         public List<DateTime> starts;
         public List<string> states { get; set; }
         public List<string> cities;
@@ -51,15 +51,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             locationController = new LocationController();
             tourController = new TourController(locationController);
             keyPointsController = new KeyPointsController();
-            tourAttendanceController = new TourAttendanceController();
+            appointmentController = new AppointmentController();
 
             Tour = new Tour();
             Location = new Location();
             KeyPoint = new KeyPoint();
-            TourAttendance = new TourAttendance();
+            Appointment = new Appointment();
 
             keyPoints = new List<KeyPoint>();
-            tourAttendances = new List<TourAttendance>();
+            appointments = new List<Appointment>();
             starts = new List<DateTime>();
             states = locationController.GetStates();
         }
@@ -98,9 +98,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             tourController.Save(Tour);
             foreach (DateTime start in starts)
             {
-                tourAttendances.Add(new TourAttendance(Tour.Id, -1, start, Tour.MaxGuests));
+                appointments.Add(new Appointment(Tour.Id, -1, start, Tour.MaxGuests));
             }
-            tourAttendanceController.SaveAll(tourAttendances);
+            appointmentController.SaveAll(appointments);
             Close();
         }
 

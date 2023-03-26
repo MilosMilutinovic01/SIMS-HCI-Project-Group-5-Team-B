@@ -110,11 +110,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
                 throw new Exception("Number of properties and values can't be 0");
             }
 
-            bool propertyFound = false;
+            Check(propertyNames);
 
-            foreach(string checkProperty in propertyNames)
+            return Found(propertyNames, values);
+        }
+
+        public T FindId(int id)
+        {
+            return _data.Find(d => d.Id == id);
+        }
+
+
+        private void Check(string[] propertyNames)
+        {
+            foreach (string checkProperty in propertyNames)
             {
-                propertyFound = false;
+                bool propertyFound = false;
                 foreach (var propery in typeof(T).GetProperties())
                 {
                     if (checkProperty.Equals(propery.Name))
@@ -128,20 +139,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
                     throw new Exception("Given class " + nameof(T) + " doesn't contain property named " + checkProperty);
                 }
             }
+        }
 
-            bool equal;
+        private List<T> Found(string[] propertyNames, string[] values)
+        {
             List<T> result = new List<T>();
 
-            foreach(T obj in _data)
+            foreach (var instance in _data)
             {
-                equal = true;
-                foreach(var originalProperty in obj.GetType().GetProperties())
+                bool equal = true;
+                foreach (var originalProperty in instance.GetType().GetProperties())
                 {
-                    for(int i = 0; i < propertyNames.Length; i++)
+                    for (int i = 0; i < propertyNames.Length; i++)
                     {
                         if (propertyNames[i].Equals(originalProperty.Name))
                         {
-                            if (!originalProperty.GetValue(obj).ToString().Equals(values[i]))
+                            if (!originalProperty.GetValue(instance).ToString().Equals(values[i]))
                             {
                                 equal = false;
                                 break;
@@ -153,18 +166,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
                         break;
                     }
                 }
-                if(equal)
+                if (equal)
                 {
-                    result.Add(obj);
+                    result.Add(instance);
                 }
             }
 
             return result;
-        }
-
-        public T FindId(int id)
-        {
-            return _data.Find(d => d.Id == id);
         }
 
     }
