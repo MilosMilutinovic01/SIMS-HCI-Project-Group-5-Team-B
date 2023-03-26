@@ -25,7 +25,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <DataGrid x:Name="AvailableAttendanceDataGrid" Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding Path=AvailableTourAttendances}" SelectedItem="{Binding Path=SelectedTourAttendance}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"  SelectionChanged="AttendancesDataGrid_SelectionChanged">
+            <DataGrid x:Name="AvailableAppointmentDataGrid" Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding Path=AvailableAppointments}" SelectedItem="{Binding Path=SelectedAppointment}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"  SelectionChanged="AppointmentsDataGrid_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Tour.Name}" />
                     <DataGridTextColumn Header="Start" Binding="{Binding Start}" />

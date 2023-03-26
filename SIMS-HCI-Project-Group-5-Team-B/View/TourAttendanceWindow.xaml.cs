@@ -25,27 +25,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public int NumberOfPeople { get; set; }
         public List<DateTime> Available { get; set; }
         private DateTime SelectedDate { get; set; }
-        private List<TourAttendance> Attendances { get; set; }
-        public TourAttendance SelectedAttendance { get; set; }
+        private List<Appointment> Appointments { get; set; }
+        public Appointment SelectedAppointment { get; set; }
 
-        private TourAttendanceController tourAttendanceController { get; set; }
+        private AppointmentController appointmentController { get; set; }
 
-        private GuestTourAttendanceController controller = new GuestTourAttendanceController();
+        private tourAttendanceController tourAttendanceController = new tourAttendanceController();
 
         public TourAttendanceWindow(Tour selectedTour)
         {
             this.SelectedTour = selectedTour;
-            SelectedAttendance = new TourAttendance();
+            SelectedAppointment = new Appointment();
             Available = new List<DateTime>();
-            Attendances = new List<TourAttendance>();
+            Appointments = new List<Appointment>();
 
-            tourAttendanceController = new TourAttendanceController();
-            foreach (var tourAttendance in tourAttendanceController.GetAll())
+            appointmentController = new AppointmentController();
+            foreach (var appointment in appointmentController.GetAll())
             {
-                if (tourAttendance.TourId == SelectedTour.Id && tourAttendance.Start > DateTime.Now)
+                if (appointment.TourId == SelectedTour.Id && appointment.Start > DateTime.Now)
                 {
-                    Available.Add(tourAttendance.Start);
-                    Attendances.Add(tourAttendance);
+                    Available.Add(appointment.Start);
+                    Appointments.Add(appointment);
                 }
             }
 
@@ -68,32 +68,24 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             if(NumberOfPeople <= 0)
             {
-                MessageBox.Show("No no");
+                MessageBox.Show("Number of people must be greater than zero");
                 return;
             }
-            if(SelectedAttendance.Start< DateTime.Now)
+            if(SelectedAppointment.Start< DateTime.Now)
             {
                 MessageBox.Show("Select date");
                 return;
             }
 
-            if (SelectedAttendance.FreeSpace >= NumberOfPeople)
+            if (SelectedAppointment.FreeSpace >= NumberOfPeople)
             {
-                controller.Save(new GuestTourAttendance(1, SelectedAttendance.Id, NumberOfPeople, -1));
-                SelectedAttendance.FreeSpace -= NumberOfPeople;
-                tourAttendanceController.Update(SelectedAttendance);
-                Attendances.Clear();
-                foreach (var tourAttendance in tourAttendanceController.GetAll())
-                {
-                    if (tourAttendance.TourId == SelectedTour.Id && tourAttendance.Start > DateTime.Now)
-                    {
-                        Attendances.Add(tourAttendance);
-                    }
-                }
-                FreeSpaceTextBlock.Text = SelectedAttendance.FreeSpace.ToString();
+                tourAttendanceController.Save(new TourAttendance(SelectedAppointment.Id, NumberOfPeople, -1, -1));
+                SelectedAppointment.FreeSpace -= NumberOfPeople;
+                appointmentController.Update(SelectedAppointment);
+                FreeSpaceTextBlock.Text = SelectedAppointment.FreeSpace.ToString();
             }
-            else if(SelectedAttendance.FreeSpace > 0){
-                string MessageBoxText = "Selected tour have only " + SelectedAttendance.FreeSpace.ToString() + " free spaces left, please register less people";//Add number
+            else if(SelectedAppointment.FreeSpace > 0){
+                string MessageBoxText = "Selected tour have only " + SelectedAppointment.FreeSpace.ToString() + " free spaces left, please register less people";
                 string MessageBoxCaption = "Error attending";
 
                 MessageBoxResult CancleAttending = MessageBox.Show(MessageBoxText, MessageBoxCaption, MessageBoxButton.OK);
@@ -107,14 +99,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
                 if (ShowAlternatives == MessageBoxResult.Yes)
                 {
-                    //Show alternatives
                     TourWindow tourWindow = new TourWindow();
-                    //Needs change when everything is linked
-                    tourWindow.Location = new string(SelectedTour.Location.ToString());//SelectedTour.Locatio.ToString();
-                    tourWindow.PeopleAttending = 0;
-                    tourWindow.Lang = "";
-                    tourWindow.TourLength = "";
+                    Setup(tourWindow);
                     tourWindow.SearchButton_Click(null, e);
+
                     this.Close();
                     tourWindow.Show();
                     this.Owner.Close();
@@ -124,15 +112,23 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void DateComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            foreach (var attendance in Attendances)
+            foreach (var appointment in Appointments)
             {
-                if (attendance.Start.Equals(DateComboBox.SelectedItem))
+                if (appointment.Start.Equals(DateComboBox.SelectedItem))
                 {
-                    SelectedAttendance = attendance;
-                    FreeSpaceTextBlock.Text = SelectedAttendance.FreeSpace.ToString();
+                    SelectedAppointment = appointment;
+                    FreeSpaceTextBlock.Text = SelectedAppointment.FreeSpace.ToString();
                     break;
                 }
             }
+        }
+
+        private void Setup(TourWindow tourWindow)
+        {
+            tourWindow.Location = new string(SelectedTour.Location.ToString());//SelectedTour.Locatio.ToString();
+            tourWindow.PeopleAttending = 0;
+            tourWindow.Lang = "";
+            tourWindow.TourLength = "";
         }
     }
 }

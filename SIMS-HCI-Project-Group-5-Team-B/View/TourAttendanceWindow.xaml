@@ -57,7 +57,7 @@
             </TextBlock>
             <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedTour.MaxGuests, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="30">
             </TextBlock>
-            <TextBlock x:Name="FreeSpaceTextBlock" Grid.Row="3" Grid.Column="1" Text="{Binding SelectedAttendance.FreeSpace}" Height="30">
+            <TextBlock x:Name="FreeSpaceTextBlock" Grid.Row="3" Grid.Column="1" Text="{Binding SelectedAppointment.FreeSpace}" Height="30">
             </TextBlock>
             <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding SelectedTour.Language}" Height="30">
             </TextBlock>

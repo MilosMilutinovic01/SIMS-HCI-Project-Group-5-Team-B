@@ -22,12 +22,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class TrackingTourLiveWindow : Window
     {
         private KeyPointsController keyPointsController;
-        private TourAttendanceController tourAttendanceController;
+        private AppointmentController appointmentController;
 
-        public ObservableCollection<TourAttendance> AvailableTourAttendances { get; set; }
+        public ObservableCollection<Appointment> AvailableAppointments { get; set; }
         public ObservableCollection<KeyPoint> KeyPoints { get; set; }
         public ObservableCollection<GuideGuest> GuideGuest { get; set; }
-        public TourAttendance SelectedTourAttendance { get; set; }
+        public Appointment SelectedAppointment { get; set; }
         public KeyPoint SelectedKeyPoint { get; set; }
         public GuideGuest SelectedGuest { get; set; }
 
@@ -39,9 +39,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             DataContext = this;
 
             keyPointsController = new KeyPointsController();
-            tourAttendanceController = new TourAttendanceController();
+            appointmentController = new AppointmentController();
 
-            AvailableTourAttendances = new ObservableCollection<TourAttendance>(tourAttendanceController.GetAllAvaillable());
+            AvailableAppointments = new ObservableCollection<Appointment>(appointmentController.GetAllAvaillable());
             KeyPoints = new ObservableCollection<KeyPoint>();
             GuideGuest = new ObservableCollection<GuideGuest>();
 
@@ -55,14 +55,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         }
         private void CheckStarted()
         {
-            foreach(TourAttendance tourAttendance in  tourAttendanceController.GetAll())
+            foreach(Appointment appointment in  appointmentController.GetAll())
             {
-                if (tourAttendance.Started == true && tourAttendance.Ended != true) 
+                if (appointment.Started == true && appointment.Ended != true) 
                 {
-                    SelectedTourAttendance = tourAttendance;
+                    SelectedAppointment = appointment;
                     TourStartButton.IsEnabled = false;
                     KeyPointCheckButton.IsEnabled = true;
-                    AvailableAttendanceDataGrid.IsHitTestVisible = false;
+                    AvailableAppointmentDataGrid.IsHitTestVisible = false;
                     SendRequestButton.IsEnabled = true;
                     break;
                 }
@@ -71,7 +71,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void TourStartButton_Click(object sender, RoutedEventArgs e)
         {
-            if(SelectedTourAttendance.Ended) 
+            if(SelectedAppointment.Ended) 
             {
                 MessageBox.Show("Tour is ended!");
                 return;
@@ -79,15 +79,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             bool result = MessageBox.Show("Are you sure you want to start?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
             if (result)
             {
-                SelectedTourAttendance.Started = true;
-                tourAttendanceController.Update(SelectedTourAttendance);
+                SelectedAppointment.Started = true;
+                appointmentController.Update(SelectedAppointment);
 
                 KeyPoints[0].Selected = true;
                 keyPointsController.Update(KeyPoints[0]);
                 keyPointName = KeyPoints[0].Name;
 
 
-                AvailableAttendanceDataGrid.IsHitTestVisible = false;
+                AvailableAppointmentDataGrid.IsHitTestVisible = false;
                 KeyPointCheckButton.IsEnabled = true;
             }
 
@@ -112,15 +112,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 keyPointsController.Update(SelectedKeyPoint);
                 keyPointName = SelectedKeyPoint.Name;
 
-                SelectedTourAttendance.Ended = true;
-                tourAttendanceController.Update(SelectedTourAttendance);
+                SelectedAppointment.Ended = true;
+                appointmentController.Update(SelectedAppointment);
                 
                 MessageBox.Show("Tour ended!");
                 SendRequestButton.IsEnabled = false;
                 
                 TourStartButton.IsEnabled = true;
                 KeyPointCheckButton.IsEnabled = false;
-                AvailableAttendanceDataGrid.IsHitTestVisible = true;
+                AvailableAppointmentDataGrid.IsHitTestVisible = true;
             }
             else if (KeyPoints[KeyPointsDataGrid.SelectedIndex - 1].Selected == true)
             {
@@ -139,14 +139,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void RefreshKeyPoints()
         {
             KeyPoints.Clear();
-            List<KeyPoint> keyPoints = keyPointsController.getByTourId(SelectedTourAttendance.TourId);
+            List<KeyPoint> keyPoints = keyPointsController.getByTourId(SelectedAppointment.TourId);
             foreach (KeyPoint keyPoint in keyPoints)
             {
                 KeyPoints.Add(keyPoint);
             }
         }
 
-        private void AttendancesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AppointmentsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             RefreshKeyPoints();
         }
@@ -155,10 +155,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             bool result = MessageBox.Show("Are you sure you want to end?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
             if(result)
             {
-                SelectedTourAttendance.Ended = true;
-                tourAttendanceController.Update(SelectedTourAttendance);
+                SelectedAppointment.Ended = true;
+                appointmentController.Update(SelectedAppointment);
 
-                AvailableAttendanceDataGrid.IsHitTestVisible = true;
+                AvailableAppointmentDataGrid.IsHitTestVisible = true;
                 TourStartButton.IsEnabled = true;
                 KeyPointCheckButton.IsEnabled = false;
             }
