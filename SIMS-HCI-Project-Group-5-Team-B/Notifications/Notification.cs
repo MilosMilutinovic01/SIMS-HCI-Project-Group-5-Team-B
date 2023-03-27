@@ -7,9 +7,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Model
+namespace SIMS_HCI_Project_Group_5_Team_B.Notifications
 {
-    public class User : ISerializable, INotifyPropertyChanged
+    public class Notification : ISerializable, INotifyPropertyChanged
     {
         private int id;
         public int Id
@@ -17,7 +17,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return id; }
             set
             {
-                if(id != value)
+                if (id != value)
                 {
                     id = value;
                     OnPropertyChanged();
@@ -25,61 +25,48 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             }
         }
 
-        private string username;
-        public string Username
+        private string message;
+        public string Message
         {
-            get { return username; }
+            get { return message; }
             set
             {
-                if(username != value)
+                if (message != value)
                 {
-                    username = value;
+                    message = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private string password;
-        public string Password
+        private bool isRead;
+        public bool IsRead
         {
-            get { return password; }
+            get { return isRead; }
             set
             {
-                if(password != value)
+                if(isRead != value)
                 {
-                    password = value;
+                    isRead = value;
                     OnPropertyChanged();
                 }
             }
-        }
-
-
-
-        public User()
-        {
-            Username = "";
-            Password = "";
-        }
-
-        public User(string username, string password)
-        {
-            this.username = username;
-            this.password = password;
         }
 
 
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            username = values[1];
-            password = values[2];
+            Message = values[1];
+            IsRead = Boolean.Parse(values[2]);
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password};
+            string[] csvValues = { Id.ToString(), Message, IsRead.ToString()};
             return csvValues;
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
