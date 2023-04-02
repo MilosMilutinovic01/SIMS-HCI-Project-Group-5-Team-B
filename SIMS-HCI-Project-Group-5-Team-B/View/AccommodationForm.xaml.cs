@@ -34,6 +34,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public Location Location { get; set; }
         private string locationString;
 
+
+        public List<string> states { get; set; }
+        public List<string> cities;
+
         public string LocationString
         {
             get { return locationString; }
@@ -58,22 +62,39 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             this.DataContext = this;
             locationController = new LocationController();
             ownerController = new OwnerController();
+            Location = new Location();
             accommodationController = new AccommodationController(locationController, ownerController);
+            states = locationController.GetStates();
         }
 
         
 
         private void Create_Accommodation_Click(object sender, RoutedEventArgs e)
         {
-            if (Accommodation.IsValid && IsValid)
+            if (Accommodation.IsValid)
             {
-                int count = 2;
+                /*int count = 2;
                 String delimeter = ",";
                 string[] locationValues = locationString.Split(delimeter, count);
                 Location = new Location(locationValues[0], locationValues[1]);
 
-                accommodationController.AddAccommodation(Accommodation, Location);
-               
+                accommodationController.AddAccommodation(Accommodation, Location);*/
+
+                Location existingLocation = locationController.GetLocation(Location);
+
+                if (existingLocation != null)
+                {
+                    Accommodation.LocationId = existingLocation.Id;
+                    accommodationController.Save(Accommodation);
+                }
+                else
+                {
+                    Accommodation.LocationId = locationController.makeId();
+                    locationController.Save(Location);
+                }
+
+
+
                 Close();
             }
             else
@@ -116,20 +137,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             get
             {
-                if (columnName == "LocationString")
+                if (columnName == "Location.City")
                 {
-                    if (string.IsNullOrEmpty(LocationString))
+                    if (string.IsNullOrEmpty(Location.City))
                         return "Filed must be filled";
-
-                    Match match = locationRegex.Match(LocationString);
-                    if (!match.Success)
-                        return "Location needs to be in format: city,state";
+                }
+                else if(columnName == "Location.State")
+                {
+                    if (string.IsNullOrEmpty(Location.State))
+                        return "Filed must be filled";
                 }
                 return null;
             }
 
         }
-        private readonly string[] _validatedProperties = { "LocationString" };
+        private readonly string[] _validatedProperties = { "Location.City" , "Location.State"};
         public bool IsValid
         {
             get
@@ -143,8 +165,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 return true;
             }
         }
-        
-        
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cities = locationController.GetCityByState(ComboBoxStates.SelectedItem.ToString());
+            ComboBoxCities.ItemsSource = cities;
+        }
 
 
     }
