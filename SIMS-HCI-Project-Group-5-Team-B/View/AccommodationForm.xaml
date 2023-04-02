@@ -44,6 +44,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -56,8 +57,9 @@
             <Label Grid.Row="2" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="MaxGuests" ></Label>
             <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="MinReservationDays" ></Label>
             <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="NoticePeriod" ></Label>
-            <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Location" ></Label>
-            <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="PictureURLs" ></Label>
+            <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="State" ></Label>
+            <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="City" ></Label>
+            <Label Grid.Row="7" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="PictureURLs" ></Label>
 
             <TextBox Grid.Row="0" Grid.Column="1"
                      Text="{Binding Path=Accommodation.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
@@ -92,13 +94,25 @@
                      Height="30">
             </TextBox>
 
-            <TextBox Grid.Row="6" Grid.Column="1"
+
+            <ComboBox Grid.Row="5" Grid.Column="1" x:Name="ComboBoxStates"  Width ="280" Text="{Binding Path=Location.State, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding states}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="ComboBox_SelectionChanged">
+                
+            </ComboBox>
+
+
+            <ComboBox Grid.Row="6" Grid.Column="1" x:Name="ComboBoxCities" Width ="280" Text="{Binding Path=Location.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding cities}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                
+            </ComboBox>
+
+            <TextBox Grid.Row="7" Grid.Column="1"
                      Text="{Binding Path=Accommodation.PictureURLsString, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Height="30">
             </TextBox>
 
-            
+
 
 
         </Grid>
