@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Notifications
 {
+
     public class Notification : ISerializable, INotifyPropertyChanged
     {
         private int id;
@@ -20,6 +21,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Notifications
                 if (id != value)
                 {
                     id = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int receiverId;
+        public int ReceiverId
+        {
+            get { return receiverId; }
+            set
+            {
+                if (receiverId != value)
+                {
+                    receiverId = value;
                     OnPropertyChanged();
                 }
             }
@@ -53,17 +68,30 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Notifications
             }
         }
 
+        public Notification()
+        {
+
+        }
+
+        public Notification(int id, int receiverId, string message, bool isRead)
+        {
+            Id = id;
+            ReceiverId = receiverId;
+            Message = message;
+            IsRead = isRead;
+        }
 
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            Message = values[1];
-            IsRead = Boolean.Parse(values[2]);
+            ReceiverId = int.Parse(values[1]);
+            Message = values[2];
+            IsRead = Boolean.Parse(values[3]);
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Message, IsRead.ToString()};
+            string[] csvValues = { Id.ToString(), ReceiverId.ToString(), Message, IsRead.ToString()};
             return csvValues;
         }
 
