@@ -35,5 +35,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             TrackingTourLiveWindow trackingTourLive = new TrackingTourLiveWindow();
             trackingTourLive.Show();
         }
+
+        private void TourCancellationClick(object sender, RoutedEventArgs e)
+        {
+            TourCancelWindow tourCancel = new TourCancelWindow();
+            tourCancel.Show();
+        }
     }
 }
