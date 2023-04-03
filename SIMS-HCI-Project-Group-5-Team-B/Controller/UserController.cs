@@ -22,10 +22,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             return userRepository.GetAll();
         }
 
-        public List<User> GetAllGuests()
-        {
-            return userRepository.GetAll().FindAll(g => g.Type == Model.Type.GUIDEGUEST);
-        }
         public void Save(User newUser)
         {
             userRepository.Save(newUser);
@@ -36,9 +32,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             userRepository.Delete(tour);
         }
 
-        public void Update(User tour)
+        public void Update(User user)
         {
-            userRepository.Update(tour);
+            userRepository.Update(user);
         }
 
         public List<User> FindBy(string[] propertyNames, string[] values)
@@ -49,6 +45,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public User getById(int id)
         {
             return GetAll().Find(tour => tour.Id == id);
+        }
+
+        public User LogIn(string username, string password)
+        {
+            foreach(var user in GetAll())
+            {
+                if (user.Username.Equals(username) && user.Password.Equals(password))
+                {
+                    return user;
+                }
+            }
+            return null;
         }
     }
 }

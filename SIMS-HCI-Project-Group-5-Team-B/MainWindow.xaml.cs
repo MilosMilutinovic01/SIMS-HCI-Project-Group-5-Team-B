@@ -25,7 +25,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B
     /// </summary>
     public partial class MainWindow : Window
     {
-        public User user;
+        public string Username { get; set; }
+        public string Password { get; set; }
+        private UserController userController;
         //public KeyPointsController keyPointsController;
         //public LocationController locationController;
         //public TourController tourController;
@@ -34,6 +36,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B
             InitializeComponent();
             this.DataContext = this;
             ComboBoxType.SelectedIndex = 0;
+
+            userController = new UserController();
             //keyPointsController = new KeyPointsController();
             //locationController = new LocationController();
             //locationController.ChangeCsvFile("../../../Resources/Data/Locations.csv");
@@ -42,6 +46,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
+            if(!Name.Equals("") || !Password.Equals(""))
+            {
+                User user = userController.LogIn(Username, Password);
+                if (user == null)
+                {
+                    MessageBox.Show("Username or password is incorrect");
+                    return;
+                }
+            }
+
+
+
             if(ComboBoxType.SelectedIndex == 0)//Guide is selected
             {
                 GuideWindow guideWindow = new GuideWindow();

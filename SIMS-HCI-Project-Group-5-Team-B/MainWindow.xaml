@@ -9,8 +9,8 @@
     <Grid>
         <Label Content="Username :" HorizontalAlignment="Left" Margin="256,96,0,0" VerticalAlignment="Top" Height="33" Width="101"/>
         <Label Content="Password :" HorizontalAlignment="Left" Margin="256,141,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.523,0.567" Height="33" Width="95"/>
-        <TextBox x:Name="UsernameTextBox" HorizontalAlignment="Left" Margin="378,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176" Height="23"/>
-        <TextBox HorizontalAlignment="Left" Margin="378,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176" Height="23"/>
+        <TextBox x:Name="UsernameTextBox" Text="{Binding Path=Username, Mode=TwoWay}" HorizontalAlignment="Left" Margin="378,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176" Height="23"/>
+        <TextBox x:Name="PasswordTextBox" Text="{Binding Path=Password, Mode=TwoWay}" HorizontalAlignment="Left" Margin="378,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176" Height="23"/>
         <ComboBox x:Name="ComboBoxType" HorizontalAlignment="Left" Margin="378,186,0,0" VerticalAlignment="Top" Width="176" Height="28">
             <ComboBoxItem x:Name="Guide">Guide</ComboBoxItem>
             <ComboBoxItem x:Name="Guide_Guest">Guide Guest</ComboBoxItem>
