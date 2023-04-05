@@ -1,10 +1,7 @@
-﻿using System;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Model;
+using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SIMS_HCI_Project_Group_5_Team_B.Model;
-using SIMS_HCI_Project_Group_5_Team_B.Repository;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 {
@@ -13,7 +10,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         private Repository<Accommodation> accomodationRepository;
         private LocationController locationController;
         private OwnerController ownerController;
-
+        
         public AccommodationController(LocationController locationController, OwnerController ownerController)
         {
             accomodationRepository = new Repository<Accommodation>();
@@ -31,6 +28,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public void Save(Accommodation newAccommodation)
         {
             accomodationRepository.Save(newAccommodation);
+            GetOwnerReference();
+            GetLocationReference();
         }
         public void Delete(Accommodation accommodation)
         {
@@ -39,6 +38,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public void Update(Accommodation accommodation)
         {
             accomodationRepository.Update(accommodation);
+            GetOwnerReference();
+            GetLocationReference();
         }
 
         public List<Accommodation> FindBy(string[] propertyNames, string[] values)
@@ -153,6 +154,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             return searchResult;
         }
 
+        /*public List<Accommodation> AccommodationsForShowing()
+        {
+            List<Accommodation> accommodationsForSotring = GetAll();
+            for(int i = 0; i < accommodationsForSotring.Count(); i++)
+            {
+                if(accommodationsForSotring[i].Owner.GradeAverage > 4.0 &&  superOwnerController.GetNumberOfReservations(accommodationsForSotring[i].Owner) >= 10)
+                {
+                    
+                    accommodationsForSotring.Insert(0, accommodationsForSotring[i]);
+                    accommodationsForSotring.RemoveAt(i+1);
+
+                }
+            }
+
+            return accommodationsForSotring;
+        }*/
 
     }
 }

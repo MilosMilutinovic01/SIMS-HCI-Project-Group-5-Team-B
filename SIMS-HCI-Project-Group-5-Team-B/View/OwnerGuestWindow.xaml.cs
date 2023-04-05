@@ -28,6 +28,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private ReservationController reservationController;
         private OwnerController ownerController;
         private OwnerAccommodationGradeController ownerAccommodationGradeController;
+        private SuperOwnerController superOwnerController;
 
         public OwnerGuestWindow()
         {
@@ -37,6 +38,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             accommodationController = new AccommodationController(locationController, ownerController);
             reservationController = new ReservationController(accommodationController);
             ownerAccommodationGradeController = new OwnerAccommodationGradeController(reservationController);
+            superOwnerController = new SuperOwnerController(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
         }
 
         private void ShowAccomodation_Button_Click(object sender, RoutedEventArgs e)
@@ -48,7 +50,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void Reservations_Button_Click(object sender, RoutedEventArgs e)
         {
-            ReservationsWindow reservationsWindow = new ReservationsWindow(reservationController,ownerAccommodationGradeController);
+            ReservationsWindow reservationsWindow = new ReservationsWindow(reservationController,ownerAccommodationGradeController,superOwnerController,ownerController);
             reservationsWindow.Show();
         }
     }

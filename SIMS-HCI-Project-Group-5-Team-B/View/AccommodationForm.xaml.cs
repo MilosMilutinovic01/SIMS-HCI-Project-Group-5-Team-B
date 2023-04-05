@@ -29,7 +29,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private AccommodationController accommodationController;
         private LocationController locationController;
         private OwnerController ownerController;
-
+        private OwnerAccommodationGradeController ownerAccommodationGradeController;
+        private ReservationController reservationController;
+        private SuperOwnerController superOwnerController;
         public Accommodation Accommodation { get; set; }
         public Location Location { get; set; }
         private string locationString;

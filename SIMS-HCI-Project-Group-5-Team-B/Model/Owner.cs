@@ -35,16 +35,47 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             }
         }
 
+        private double gradeAverage;
+
+        public double GradeAverage
+        {
+            get { return gradeAverage; }
+            set
+            {
+                if(value != gradeAverage)
+                {
+                    gradeAverage = value;
+                }
+            }
+        }
+
+        /*private int numberOfReservations;
+        public int NumberReservations
+        {
+            get { return numberOfReservations; }
+            set
+            {
+                if(value != numberOfReservations)
+                {
+                    numberOfReservations = value;
+                }
+            }
+        }*/
+
         public Owner()
         {
             //initially, there is only one owner, in order to not complicate the implementation of other features
-           
+            
+            Id = 0;
+            Name = "Nina";
+            Surname = "Kuzminac";
         }
         public Owner(String name, String surname)
         {
             //initially, there is only one owner, in order to not complicate the implementation of other features
             this.Name = name;
             this.Surname = surname;
+            gradeAverage = 0;
         }
 
         public void FromCSV(string[] values)
@@ -52,6 +83,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             Id = int.Parse(values[0]);
             name = values[1];
             surname = values[2];
+            gradeAverage = double.Parse(values[3]);
+            //numberOfReservations =int.Parse(values[4]);
         }
 
         public string[] ToCSV()
@@ -60,7 +93,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             {
                 Id.ToString(),
                 name,
-                surname
+                surname,
+                gradeAverage.ToString(),
+                //numberOfReservations.ToString()
             };
             return csvValues;
         }

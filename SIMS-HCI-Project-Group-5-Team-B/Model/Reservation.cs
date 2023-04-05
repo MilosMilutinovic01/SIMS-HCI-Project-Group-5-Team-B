@@ -22,6 +22,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         
         }
 
+
+        
+
         private int ownerGuestId;
         public int OwnerGuestId { get { return ownerGuestId; } set { ownerGuestId = value; } }
 
@@ -93,6 +96,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         { 
             OwnerGuest = new OwnerGuest();
             ownerGuestId = 0;
+           
             StartDate = DateTime.Today;
             EndDate = DateTime.Today;
         }
@@ -106,6 +110,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             this.guestsNumber = guestsNumber;
             OwnerGuest = new OwnerGuest();
             ownerGuestId=0;
+            
             IsGraded = false;
             IsGradedByGuest = false;
         }

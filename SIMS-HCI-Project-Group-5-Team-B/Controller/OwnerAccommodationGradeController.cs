@@ -27,6 +27,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public void Save(OwnerAccommodationGrade ownerAccommodationGrade)
         {
             ownerAccommodationGradeRepository.Save(ownerAccommodationGrade);
+            GetReservationReference();
         }
         public void Delete(OwnerAccommodationGrade ownerAccommodationGrade)
         {
@@ -35,6 +36,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public void Update(OwnerAccommodationGrade ownerAccommodationGrade)
         {
             ownerAccommodationGradeRepository.Update(ownerAccommodationGrade);
+            GetReservationReference();
         }
 
         public List<OwnerAccommodationGrade> FindBy(string[] propertyNames, string[] values)
@@ -60,11 +62,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 
         }
 
-        private double GetGradeAverage(OwnerAccommodationGrade ownerAccommodationGrade)
-        {
-            double average = (ownerAccommodationGrade.Cleanliness + ownerAccommodationGrade.OwnerCorrectness + ownerAccommodationGrade.StateOfInventory + ownerAccommodationGrade.Quietness + ownerAccommodationGrade.Privacy) / 5;
-            return average;
-        }
+        
 
         public List<OwnerAccommodationGrade> GetOwnerAccommodationGradesForShowing()
         {
