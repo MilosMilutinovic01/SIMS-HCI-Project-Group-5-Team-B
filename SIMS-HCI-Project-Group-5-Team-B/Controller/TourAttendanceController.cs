@@ -39,9 +39,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             return tourAttendanceRepository.FindBy(propertyNames, values);
         }
 
-        public TourAttendance getById(int id)
+        public TourAttendance GetById(int id)
         {
             return GetAll().Find(ta => ta.Id == id);
         }
+
+        //public List<GuideGuest> GetAllGuestsFromTourAttendance(int tourId)
+        //{
+        //    return null;
+        //}
     }
 }
