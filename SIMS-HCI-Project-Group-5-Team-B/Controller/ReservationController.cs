@@ -69,6 +69,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             this.accommodationController = accommodationController;
             GetAccomodationReference();
             GetOwnerGuestReference();
+            
         }
 
         public List<Reservation> GetAll()
@@ -78,11 +79,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public void Save(Reservation newReservation)
         {
             reservationRepository.Save(newReservation);
+            GetAccomodationReference();
+            GetOwnerGuestReference();
         }
 
         public void SaveAll(List<Reservation> reservations)
         {
             reservationRepository.SaveAll(reservations);
+            GetAccomodationReference();
+            GetOwnerGuestReference();
         }
         public void Delete(Reservation reservation)
         {
@@ -91,6 +96,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public void Update(Reservation reservation)
         {
             reservationRepository.Update(reservation);
+            GetAccomodationReference();
+            GetOwnerGuestReference();
         }
 
         public List<Reservation> FindBy(string[] propertyNames, string[] values)
@@ -124,6 +131,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
                 reservation.OwnerGuest = ownerGuest;
             }
         }
+
+        
 
         public List<Reservation> GetSuiableReservationsForGrading()
         {

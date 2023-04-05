@@ -26,6 +26,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public void Save(OwnerGuestGrade newOwnerGuestGrade)
         {
             ownerGuestGradeRepository.Save(newOwnerGuestGrade);
+            GetReservationReference();
         }
         public void Delete(OwnerGuestGrade ownerGuestGrade)
         {
@@ -34,6 +35,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public void Update(OwnerGuestGrade ownerGuestGrade)
         {
             ownerGuestGradeRepository.Update(ownerGuestGrade);
+            GetReservationReference();
         }
 
         public List<OwnerGuestGrade> FindBy(string[] propertyNames, string[] values)

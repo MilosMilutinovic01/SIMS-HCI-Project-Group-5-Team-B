@@ -19,6 +19,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private LocationController locationController;
         private ReservationController reservationController;
         private OwnerController ownerController;
+        private OwnerAccommodationGradeController ownerAccommodationGradeController;
+        private SuperOwnerController superOwnerController;
         public ObservableCollection<Accommodation> Accomodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public string SearchName { get; set; } = "";
@@ -38,8 +40,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             locationController = new LocationController();
             ownerController = new OwnerController();
             accommodationController = new AccommodationController(locationController, ownerController);
-            Accomodations = new ObservableCollection<Accommodation>(accommodationController.GetAll());
             reservationController = new ReservationController(accommodationController);
+            //Accomodations = new ObservableCollection<Accommodation>(accommodationController.GetAll());
+            ownerAccommodationGradeController = new OwnerAccommodationGradeController(reservationController);
+            superOwnerController = new SuperOwnerController(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
+            Accomodations = new ObservableCollection<Accommodation>(superOwnerController.AccommodationsForShowing());
+            //reservationController = new ReservationController(accommodationController);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

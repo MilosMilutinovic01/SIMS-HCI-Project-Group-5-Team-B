@@ -27,6 +27,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         ReservationController reservationController;
         OwnerController ownerController;
         public List<Reservation> reservationsForGrading;
+        OwnerAccommodationGradeController ownerAccommodationGradeController;
+        SuperOwnerController superOwnerController;
+        public Owner owner;
+        
 
         //private DateTime lastDisplayed;
         public OwnerWindow()
@@ -36,9 +40,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             ownerController = new OwnerController();
             accommodationController = new AccommodationController(locationController, ownerController);
             reservationController = new ReservationController(accommodationController);
+            ownerAccommodationGradeController = new OwnerAccommodationGradeController(reservationController);
+            superOwnerController = new SuperOwnerController(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
             reservationsForGrading = new List<Reservation>();
-
-           
+            owner = new Owner();
+            owner.GradeAverage = superOwnerController.CalculateGradeAverage(owner);
+            //owner.NumberReservations = superOwnerController.GetNumberOfReservations(owner);
+            ownerController.Update(owner);
             //lastDisplayed = Properties.Settings.Default.LastShownDate;
             
            

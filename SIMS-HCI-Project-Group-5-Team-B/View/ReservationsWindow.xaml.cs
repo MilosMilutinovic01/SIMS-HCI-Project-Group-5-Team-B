@@ -26,15 +26,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     {
         private ReservationController reservationController;
         private OwnerAccommodationGradeController ownerAccommodationGradeController;
+        private OwnerController ownerController;
+        private SuperOwnerController superOwnerController;
         public ObservableCollection<ReservationView> ReservationViews { get; set; }
         public ReservationView SelectedReservationView { get; set; }
-        public ReservationsWindow(ReservationController reservationController, OwnerAccommodationGradeController ownerAccommodationGradeController)
+        public ReservationsWindow(ReservationController reservationController, OwnerAccommodationGradeController ownerAccommodationGradeController, SuperOwnerController superOwnerController, OwnerController ownerController)
         {
             InitializeComponent();
             this.DataContext = this;
 
             this.reservationController = reservationController;
             this.ownerAccommodationGradeController = ownerAccommodationGradeController;
+            this.superOwnerController = superOwnerController;
+            this.ownerController = ownerController;
 
             //add method for checking the userId when showing reservations
             ReservationViews = new ObservableCollection<ReservationView>(reservationController.GetReservationsForGuestGrading());
@@ -52,7 +56,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
             if(SelectedReservationView != null)
             {
-                GradingOwnerAccommodation gradingOwnerAccommodatoinWindow = new GradingOwnerAccommodation(ownerAccommodationGradeController, reservationController, SelectedReservationView);
+                GradingOwnerAccommodation gradingOwnerAccommodatoinWindow = new GradingOwnerAccommodation(ownerAccommodationGradeController, reservationController, SelectedReservationView, superOwnerController, ownerController);
                 gradingOwnerAccommodatoinWindow.Show();
                 
             }

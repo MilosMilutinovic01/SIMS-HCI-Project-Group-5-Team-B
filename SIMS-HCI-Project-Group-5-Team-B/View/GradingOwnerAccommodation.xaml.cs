@@ -18,7 +18,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private OwnerAccommodationGradeController ownerAccommodationGradeController;
         private ReservationController reservationController;
         private ObservableCollection<ReservationView> ReservationViews;
-        public GradingOwnerAccommodation(OwnerAccommodationGradeController ownerAccommodationGradeController, ReservationController reservationController, ReservationView reservationView)
+
+        
+        private SuperOwnerController superOwnerController;
+        private OwnerController ownerController;
+        public GradingOwnerAccommodation(OwnerAccommodationGradeController ownerAccommodationGradeController, ReservationController reservationController, ReservationView reservationView, SuperOwnerController superOwnerController, OwnerController ownerController)
         {
             InitializeComponent();
             this.DataContext = this;
@@ -27,6 +31,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             this.SelectedReservation = reservationView.Reservation;
             this.ownerAccommodationGradeController = ownerAccommodationGradeController;
             this.reservationController = reservationController;
+            this.superOwnerController = superOwnerController;
+            this.ownerController = ownerController;
             Heading = string.Empty;
             FormHeading();
             
@@ -54,6 +60,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 OwnerAccommodationGrade.GradeAverage = ownerAccommodationGradeController.GetAverageGrade(OwnerAccommodationGrade);
                 ownerAccommodationGradeController.Save(OwnerAccommodationGrade);
                 reservationView.IsForGrading = false;
+                OwnerAccommodationGrade.Reservation.Accommodation.Owner.GradeAverage = superOwnerController.CalculateGradeAverage(OwnerAccommodationGrade.Reservation.Accommodation.Owner);
+                ownerController.Update(OwnerAccommodationGrade.Reservation.Accommodation.Owner);
                 MessageBox.Show("Grading was successful!");
                 
                 Close();
