@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SIMS_HCI_Project_Group_5_Team_B.Serializer;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Model
+namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
     public class OwnerGuestGrade : ISerializable, INotifyPropertyChanged
     {
@@ -23,7 +23,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return cleanliness; }
             set
             {
-                if(value != cleanliness)
+                if (value != cleanliness)
                 {
                     cleanliness = value;
                 }
@@ -36,7 +36,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return rulesCompliance; }
             set
             {
-                if(value != rulesCompliance)
+                if (value != rulesCompliance)
                 {
                     rulesCompliance = value;
                 }
@@ -47,12 +47,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         public int StateOfInventory
         {
             get { return stateOfInventory; }
-            set 
-            { 
-                if(value != stateOfInventory) 
-                { 
-                    stateOfInventory = value; 
-                } 
+            set
+            {
+                if (value != stateOfInventory)
+                {
+                    stateOfInventory = value;
+                }
             }
         }
 
@@ -62,11 +62,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return isPaymentCompletedOnTime; }
             set
             {
-                if(value != isPaymentCompletedOnTime)
+                if (value != isPaymentCompletedOnTime)
                 {
                     isPaymentCompletedOnTime = value;
                 }
-                    
+
             }
         }
 
@@ -77,7 +77,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
 
             set
             {
-                if(value != complaintsFromOtherGuests)
+                if (value != complaintsFromOtherGuests)
                 {
                     complaintsFromOtherGuests = value;
                 }
@@ -91,7 +91,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return additionalComment; }
             set
             {
-                if(value != additionalComment)
+                if (value != additionalComment)
                 {
                     additionalComment = value;
                 }
@@ -162,7 +162,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         }
 
 
-        private readonly string[] _validatedProperties = { "Cleanliness", "RulesCompliance", "StateOfInventory"};
+        private readonly string[] _validatedProperties = { "Cleanliness", "RulesCompliance", "StateOfInventory" };
 
         public bool IsValid
         {

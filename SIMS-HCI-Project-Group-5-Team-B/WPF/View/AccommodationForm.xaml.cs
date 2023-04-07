@@ -17,6 +17,8 @@ using SIMS_HCI_Project_Group_5_Team_B.Model;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -26,12 +28,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class AccommodationForm : Window,IDataErrorInfo, INotifyPropertyChanged
     {
 
-        private AccommodationController accommodationController;
+        private AccommodationService accommodationController;
         private LocationController locationController;
-        private OwnerController ownerController;
-        private OwnerAccommodationGradeController ownerAccommodationGradeController;
-        private ReservationController reservationController;
-        private SuperOwnerController superOwnerController;
+        private OwnerService ownerController;
+        private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
+        private ReservationService reservationController;
+        private SuperOwnerService superOwnerController;
         public Accommodation Accommodation { get; set; }
         public Location Location { get; set; }
         private string locationString;
@@ -63,9 +65,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             InitializeComponent();
             this.DataContext = this;
             locationController = new LocationController();
-            ownerController = new OwnerController();
+            ownerController = new OwnerService();
             Location = new Location();
-            accommodationController = new AccommodationController(locationController, ownerController);
+            accommodationController = new AccommodationService(locationController, ownerController);
             states = locationController.GetStates();
         }
 

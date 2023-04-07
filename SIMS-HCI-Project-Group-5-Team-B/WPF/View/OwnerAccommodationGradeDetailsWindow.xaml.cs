@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using SIMS_HCI_Project_Group_5_Team_B.Model;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {

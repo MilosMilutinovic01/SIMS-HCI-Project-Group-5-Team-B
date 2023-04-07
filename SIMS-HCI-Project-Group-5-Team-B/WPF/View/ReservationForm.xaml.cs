@@ -1,5 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
-using SIMS_HCI_Project_Group_5_Team_B.Model;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,14 +12,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class ReservationForm : Window
     {
-        private ReservationController reservationController;
+        private ReservationService reservationController;
         public Reservation NewReservation { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public Accommodation SelectedAccomodation { get; set; }
         public ObservableCollection<ReservationRecommendation> ReservationRecommendations { get; set; }
         public ReservationRecommendation SelectedDate { get; set; }
-        public ReservationForm(ReservationController reservationController, Accommodation SelectedAccomodation)
+        public ReservationForm(ReservationService reservationController, Accommodation SelectedAccomodation)
         {
             InitializeComponent();
             this.DataContext = this;

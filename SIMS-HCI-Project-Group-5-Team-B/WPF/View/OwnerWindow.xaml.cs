@@ -11,9 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using SIMS_HCI_Project_Group_5_Team_B.Model;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -23,12 +24,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class OwnerWindow : Window
     {
         LocationController locationController;
-        AccommodationController accommodationController;
-        ReservationController reservationController;
-        OwnerController ownerController;
+        AccommodationService accommodationController;
+        ReservationService reservationController;
+        OwnerService ownerController;
         public List<Reservation> reservationsForGrading;
-        OwnerAccommodationGradeController ownerAccommodationGradeController;
-        SuperOwnerController superOwnerController;
+        OwnerAccommodationGradeSevice ownerAccommodationGradeController;
+        SuperOwnerService superOwnerController;
         public Owner owner;
         
 
@@ -37,11 +38,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             InitializeComponent();
             locationController = new LocationController();
-            ownerController = new OwnerController();
-            accommodationController = new AccommodationController(locationController, ownerController);
-            reservationController = new ReservationController(accommodationController);
-            ownerAccommodationGradeController = new OwnerAccommodationGradeController(reservationController);
-            superOwnerController = new SuperOwnerController(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
+            ownerController = new OwnerService();
+            accommodationController = new AccommodationService(locationController, ownerController);
+            reservationController = new ReservationService(accommodationController);
+            ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);
+            superOwnerController = new SuperOwnerService(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
             reservationsForGrading = new List<Reservation>();
             owner = new Owner();
             owner.GradeAverage = superOwnerController.CalculateGradeAverage(owner);

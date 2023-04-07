@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using SIMS_HCI_Project_Group_5_Team_B.Controller;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Model;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Controller
+namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
-    public class AccommodationController
+    public class AccommodationService
     {
         private Repository<Accommodation> accomodationRepository;
         private LocationController locationController;
-        private OwnerController ownerController;
-        
-        public AccommodationController(LocationController locationController, OwnerController ownerController)
+        private OwnerService ownerController;
+
+        public AccommodationService(LocationController locationController, OwnerService ownerController)
         {
             accomodationRepository = new Repository<Accommodation>();
             this.locationController = locationController;
@@ -49,7 +50,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 
         public List<Accommodation> FindBy(string[] propertyNames, string[] values)
         {
-           return accomodationRepository.FindBy(propertyNames, values);
+            return accomodationRepository.FindBy(propertyNames, values);
         }
         public Accommodation getById(int id)
         {
@@ -59,7 +60,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         private void GetLocationReference()
         {
             List<Accommodation> accomodations = accomodationRepository.GetAll();
-            foreach(Accommodation accommodation in accomodations)
+            foreach (Accommodation accommodation in accomodations)
             {
                 Location location = locationController.getById(accommodation.LocationId);
                 if (location != null)
@@ -124,9 +125,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             accommodations.AddRange(searchResult);
             bool containsLocation;
             bool containsType;
-            
 
-            foreach (Accommodation accommodation in accommodations) 
+
+            foreach (Accommodation accommodation in accommodations)
             {
                 if (locationdId == -1)
                 {
@@ -136,7 +137,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
                 {
                     containsLocation = accommodation.LocationId == locationdId;
                 }
-                if(string.IsNullOrEmpty(type))
+                if (string.IsNullOrEmpty(type))
                 {
                     containsType = true;
                 }
@@ -149,9 +150,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
                 bool maxGuestsInRange = accommodation.MaxGuests >= guestNumber;
 
 
-                if (!maxGuestsInRange || !minDaysInRange || !containsName || !containsLocation || !containsType )
+                if (!maxGuestsInRange || !minDaysInRange || !containsName || !containsLocation || !containsType)
                 {
-                    
+
                     searchResult.Remove(accommodation);
                 }
             }

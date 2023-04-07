@@ -13,8 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
-using SIMS_HCI_Project_Group_5_Team_B.Model;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
@@ -24,12 +25,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class ReservationsForGradingWindow : Window
     {
-        private OwnerGuestGradeContoller ownerGuestGradeContoller;
-        private ReservationController reservationController;
-        private AccommodationController accommodationController;
+        private OwnerGuestGradeService ownerGuestGradeContoller;
+        private ReservationService reservationController;
+        private AccommodationService accommodationController;
         private LocationController locationController;
-        private OwnerController ownerController;
-        private OwnerAccommodationGradeController ownerAccommodationGradeController;
+        private OwnerService ownerController;
+        private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
         public ObservableCollection<Reservation> ReservationsForGrading { get; set; }
         public ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing { get; set; }
         public Reservation SelectedReservation { get; set; }
@@ -41,12 +42,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             InitializeComponent();
             DataContext = this;
             locationController = new LocationController();
-            ownerController = new OwnerController();
-            accommodationController = new AccommodationController(locationController, ownerController);
-            reservationController = new ReservationController(accommodationController);
+            ownerController = new OwnerService();
+            accommodationController = new AccommodationService(locationController, ownerController);
+            reservationController = new ReservationService(accommodationController);
             ReservationsForGrading = new ObservableCollection<Reservation>(reservationController.GetSuiableReservationsForGrading());
-            ownerGuestGradeContoller = new OwnerGuestGradeContoller(reservationController);
-            ownerAccommodationGradeController = new OwnerAccommodationGradeController(reservationController);
+            ownerGuestGradeContoller = new OwnerGuestGradeService(reservationController);
+            ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);
             OwnerAccommodationGradesForShowing = new ObservableCollection<OwnerAccommodationGrade>(ownerAccommodationGradeController.GetOwnerAccommodationGradesForShowing());
             //OwnerAccommodationGradesForShowing = new ObservableCollection<OwnerAccommodationGrade>(ownerAccommodationGradeController.GetAll());
 

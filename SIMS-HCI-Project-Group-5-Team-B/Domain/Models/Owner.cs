@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SIMS_HCI_Project_Group_5_Team_B.Serializer;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Model
+namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
-    public class Owner: ISerializable
+    public class Owner : ISerializable
     {
         public int Id { get; set; }
         private string name;
@@ -42,7 +42,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return gradeAverage; }
             set
             {
-                if(value != gradeAverage)
+                if (value != gradeAverage)
                 {
                     gradeAverage = value;
                 }
@@ -65,16 +65,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         public Owner()
         {
             //initially, there is only one owner, in order to not complicate the implementation of other features
-            
+
             Id = 0;
             Name = "Nina";
             Surname = "Kuzminac";
         }
-        public Owner(String name, String surname)
+        public Owner(string name, string surname)
         {
             //initially, there is only one owner, in order to not complicate the implementation of other features
-            this.Name = name;
-            this.Surname = surname;
+            Name = name;
+            Surname = surname;
             gradeAverage = 0;
         }
 

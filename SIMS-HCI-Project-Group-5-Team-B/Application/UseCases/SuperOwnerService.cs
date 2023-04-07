@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SIMS_HCI_Project_Group_5_Team_B.Model;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Controller
+namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
-    public class SuperOwnerController
+    public class SuperOwnerService
     {
 
-        private ReservationController reservationController;
-        private OwnerAccommodationGradeController ownerAccommodationGradeController;
-        private OwnerController ownerController;
-        private AccommodationController accommodationController;
-        public SuperOwnerController(ReservationController reservationController, OwnerAccommodationGradeController ownerAccommodationGradeController, OwnerController ownerController, AccommodationController accommodationController)
+        private ReservationService reservationController;
+        private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
+        private OwnerService ownerController;
+        private AccommodationService accommodationController;
+        public SuperOwnerService(ReservationService reservationController, OwnerAccommodationGradeSevice ownerAccommodationGradeController, OwnerService ownerController, AccommodationService accommodationController)
         {
             this.reservationController = reservationController;
             this.ownerAccommodationGradeController = ownerAccommodationGradeController;

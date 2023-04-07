@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Model;
 using SIMS_HCI_Project_Group_5_Team_B.View;
@@ -23,22 +24,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class OwnerGuestWindow : Window
     {
-        private AccommodationController accommodationController;
+        private AccommodationService accommodationController;
         private LocationController locationController;
-        private ReservationController reservationController;
-        private OwnerController ownerController;
-        private OwnerAccommodationGradeController ownerAccommodationGradeController;
-        private SuperOwnerController superOwnerController;
+        private ReservationService reservationController;
+        private OwnerService ownerController;
+        private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
+        private SuperOwnerService superOwnerController;
 
         public OwnerGuestWindow()
         {
             InitializeComponent();
             locationController = new LocationController();
-            ownerController = new OwnerController();
-            accommodationController = new AccommodationController(locationController, ownerController);
-            reservationController = new ReservationController(accommodationController);
-            ownerAccommodationGradeController = new OwnerAccommodationGradeController(reservationController);
-            superOwnerController = new SuperOwnerController(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
+            ownerController = new OwnerService();
+            accommodationController = new AccommodationService(locationController, ownerController);
+            reservationController = new ReservationService(accommodationController);
+            ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);
+            superOwnerController = new SuperOwnerService(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
         }
 
         private void ShowAccomodation_Button_Click(object sender, RoutedEventArgs e)

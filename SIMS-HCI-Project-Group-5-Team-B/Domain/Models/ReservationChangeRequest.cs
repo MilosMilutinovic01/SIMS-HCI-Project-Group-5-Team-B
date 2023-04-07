@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Model
+namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
-    public enum REQUESTSTATUS {Pending = 0, Denied, Confirmed }
-    public class ReservationChangeRequest: ISerializable, IDataErrorInfo
+    public enum REQUESTSTATUS { Pending = 0, Denied, Confirmed }
+    public class ReservationChangeRequest : ISerializable, IDataErrorInfo
     {
         public int Id { get; set; }
         public int ReservationId { get; set; }
@@ -30,7 +30,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             DenialComment = denialComment;
         }
 
-       
+        public ReservationChangeRequest() { }
 
         public void FromCSV(string[] values)
         {
@@ -40,7 +40,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             End = DateTime.Parse(values[3]);
             RequestStatus = (REQUESTSTATUS)int.Parse(values[4]);
             DenialComment = values[5];
-            
+
         }
 
         public string[] ToCSV()
@@ -49,7 +49,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             {
                 Id.ToString(),
                 ReservationId.ToString(),
-                Start.ToString(), 
+                Start.ToString(),
                 End.ToString(),
                 RequestStatus.ToString(),
                 DenialComment
@@ -76,11 +76,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                     {
                         if (Start > End)
                             return "End Date must be greater than Start Date";
-                        return String.Format("Minimal reservation days is {0}", Reservation.Accommodation.MinReservationDays);
+                        return string.Format("Minimal reservation days is {0}", Reservation.Accommodation.MinReservationDays);
                     }
 
                 }
-                
+
                 return null;
             }
         }

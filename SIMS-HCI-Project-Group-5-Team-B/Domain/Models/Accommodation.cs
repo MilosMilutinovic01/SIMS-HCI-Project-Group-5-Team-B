@@ -1,4 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Serializer;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Model;
+using SIMS_HCI_Project_Group_5_Team_B.Serializer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,7 +8,7 @@ using System.Runtime.CompilerServices;
 public enum TYPE { Apartment = 0, House, Cottage };
 
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Model
+namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
     public class Accommodation : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
@@ -16,7 +17,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         public int OwnerId
         {
             get { return ownerId; }
-            set 
+            set
             {
                 if (value != ownerId)
                 {
@@ -30,7 +31,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
 
 
         private string name;
-        public String Name
+        public string Name
         {
             get { return name; }
             set
@@ -268,7 +269,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
 
         }
         public string Error => null;
-        
+
         public string this[string columnName]
         {
             get
@@ -303,7 +304,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                     {
                         return "Value must be greater than zero";
                     }
-                }else if(columnName == "PictureURLsString")
+                }
+                else if (columnName == "PictureURLsString")
                 {
                     if (string.IsNullOrEmpty(PictureURLsString))
                     {
