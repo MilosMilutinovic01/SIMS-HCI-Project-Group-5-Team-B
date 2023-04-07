@@ -20,11 +20,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             set { guideGuestId = value; }
         }
 
-        private int tourId;
-        public int TourId
+        private int guideId;
+        public int GuideId
         { 
-            get { return tourId; }
-            set { tourId = value; }
+            get { return guideId; }
+            set { guideId = value; }
+        }
+
+        private DateTime received;
+
+        public DateTime Received
+        {
+            get { return received; }
+            set { received = value; }
         }
 
         public Voucher () { }
@@ -35,7 +43,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             {
                 Id.ToString(),
                 guideGuestId.ToString(),
-                tourId.ToString()
+                guideId.ToString(),
+                received.ToString()
             };
             return csvValues;
         }
@@ -43,7 +52,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         {
             Id = int.Parse(values[0]);
             guideGuestId = int.Parse(values[1]);
-            tourId = int.Parse(values[2]);
+            guideId = int.Parse(values[2]);
+            received = DateTime.Parse(values[3]);
         }
     }
 }
