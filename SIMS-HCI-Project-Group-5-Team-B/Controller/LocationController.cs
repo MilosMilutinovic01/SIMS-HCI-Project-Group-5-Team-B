@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
-using SIMS_HCI_Project_Group_5_Team_B.Model;
 using System.IO;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 {

@@ -1,5 +1,4 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Model;
-using SIMS_HCI_Project_Group_5_Team_B.View;
+﻿using SIMS_HCI_Project_Group_5_Team_B.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +16,7 @@ using System.Windows.Shapes;
 using SIMS_HCI_Project_Group_5_Team_B.View;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using System.IO;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 
 namespace SIMS_HCI_Project_Group_5_Team_B
 {
@@ -46,7 +46,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            if(!Name.Equals("") || !Password.Equals(""))
+            if(!Username.Equals("") || !Password.Equals(""))
             {
                 User user = userController.LogIn(Username, Password);
                 if (user == null)

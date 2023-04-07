@@ -1,5 +1,5 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
-using SIMS_HCI_Project_Group_5_Team_B.Model;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;

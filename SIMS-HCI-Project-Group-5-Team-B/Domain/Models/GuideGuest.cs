@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Model
+namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
     public class GuideGuest : ISerializable
     {
@@ -22,7 +22,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return surname; }
             set { name = value; }
         }
-        
+
         public GuideGuest()
         {
             //initially, there is only one guest, in order to not complicate the implementation of other features
@@ -30,7 +30,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
 
         public GuideGuest(int id, string name, string surname)
         {
-            this.Id = id;
+            Id = id;
             this.name = name;
             this.surname = surname;
         }

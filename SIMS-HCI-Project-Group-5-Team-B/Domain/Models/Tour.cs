@@ -12,7 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Model
+namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
     public class Tour : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
@@ -117,7 +117,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         }
         public List<KeyPoint> KeyPoints { get; set; }
         public Location Location { get; set; }
-        
+
         public Tour()
         {
             KeyPoints = new List<KeyPoint>();
@@ -162,7 +162,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             language = values[4];
             maxGuests = int.Parse(values[5]);
             string[] parts = values[6].Split(',');
-            for(int i = 0; i < parts.Length; i++)
+            for (int i = 0; i < parts.Length; i++)
             {
                 KeyPoints.Add(new KeyPoint(parts[i]));
             }
@@ -193,9 +193,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                     if (string.IsNullOrEmpty(Language))
                         return "The field must be filled";
                 }
-                else if(columnName == "MaxGuests")
+                else if (columnName == "MaxGuests")
                 {
-                    if(MaxGuests < 1)
+                    if (MaxGuests < 1)
                         return "Value must be greater than zero";
 
                     Match match = maxGuestsRegex.Match(MaxGuests.ToString());
