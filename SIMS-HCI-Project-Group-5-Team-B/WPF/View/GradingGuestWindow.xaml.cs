@@ -1,5 +1,4 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using System.Collections.ObjectModel;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -22,9 +22,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class GradingGuestWindow : Window
     {
-        public ReservationController reservationController;
-        public OwnerGuestGradeContoller ownerGuestGradeContoller;
-        public OwnerAccommodationGradeController ownerAccommodationGradeController;
+        public ReservationService reservationController;
+        public OwnerGuestGradeService ownerGuestGradeContoller;
+        public OwnerAccommodationGradeSevice ownerAccommodationGradeController;
         public OwnerGuestGrade NewOwnerGuestGrade { get; set; }
         public Reservation SelectedReservation { get; set; }
 
@@ -32,7 +32,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing { get; set; }
 
 
-        public GradingGuestWindow(OwnerGuestGradeContoller ownerGuestGradeContoller, OwnerAccommodationGradeController ownerAccommodationGradeController,ReservationController reservationController,Reservation SelectedReservation, ObservableCollection<Reservation> ReservationsForGrading, ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing)
+        public GradingGuestWindow(OwnerGuestGradeService ownerGuestGradeContoller, OwnerAccommodationGradeSevice ownerAccommodationGradeController,ReservationService reservationController,Reservation SelectedReservation, ObservableCollection<Reservation> ReservationsForGrading, ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing)
         {
             InitializeComponent();
             this.DataContext = this;

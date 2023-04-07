@@ -1,4 +1,4 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Model;
 using System;
 using System.Collections.Generic;
@@ -21,16 +21,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// Interaction logic for ReservationsWindow.xaml
     /// </summary>
     /// 
-    
+
     public partial class ReservationsWindow : Window
     {
-        private ReservationController reservationController;
-        private OwnerAccommodationGradeController ownerAccommodationGradeController;
-        private OwnerController ownerController;
-        private SuperOwnerController superOwnerController;
+        private ReservationService reservationController;
+        private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
+        private OwnerService ownerController;
+        private SuperOwnerService superOwnerController;
         public ObservableCollection<ReservationView> ReservationViews { get; set; }
         public ReservationView SelectedReservationView { get; set; }
-        public ReservationsWindow(ReservationController reservationController, OwnerAccommodationGradeController ownerAccommodationGradeController, SuperOwnerController superOwnerController, OwnerController ownerController)
+        public ReservationsWindow(ReservationService reservationController, OwnerAccommodationGradeSevice ownerAccommodationGradeController, SuperOwnerService superOwnerController, OwnerService ownerController)
         {
             InitializeComponent();
             this.DataContext = this;

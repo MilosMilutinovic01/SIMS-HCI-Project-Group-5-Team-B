@@ -7,23 +7,24 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Model
+namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
     public class Reservation : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
-        
+
         public int Id { get; set; }
 
         private int accommodationId;
-        public int AccommodationId 
-        { get { return accommodationId; }  
-            
-         set { accommodationId = value; }
-        
+        public int AccommodationId
+        {
+            get { return accommodationId; }
+
+            set { accommodationId = value; }
+
         }
 
 
-        
+
 
         private int ownerGuestId;
         public int OwnerGuestId { get { return ownerGuestId; } set { ownerGuestId = value; } }
@@ -38,7 +39,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             { return startDate; }
             set
             {
-                if(value != startDate)
+                if (value != startDate)
                 {
                     startDate = value;
                     OnPropertyChanged();
@@ -67,7 +68,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return reservationDays; }
             set
             {
-                if(value != reservationDays)
+                if (value != reservationDays)
                 {
                     reservationDays = value;
                     OnPropertyChanged();
@@ -81,7 +82,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return guestsNumber; }
             set
             {
-                if(value != guestsNumber)
+                if (value != guestsNumber)
                 {
                     guestsNumber = value;
                     OnPropertyChanged();
@@ -92,25 +93,25 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         public bool IsGraded { get; set; }
         public bool IsGradedByGuest { get; set; }
 
-        public Reservation() 
-        { 
+        public Reservation()
+        {
             OwnerGuest = new OwnerGuest();
             ownerGuestId = 0;
-           
+
             StartDate = DateTime.Today;
             EndDate = DateTime.Today;
         }
 
-        public Reservation(int accomodationId, DateTime startDate, DateTime endDate, int reservationDays, int guestsNumber) 
+        public Reservation(int accomodationId, DateTime startDate, DateTime endDate, int reservationDays, int guestsNumber)
         {
-            this.accommodationId = accomodationId;
+            accommodationId = accomodationId;
             this.startDate = startDate;
             this.endDate = endDate;
             this.reservationDays = reservationDays;
             this.guestsNumber = guestsNumber;
             OwnerGuest = new OwnerGuest();
-            ownerGuestId=0;
-            
+            ownerGuestId = 0;
+
             IsGraded = false;
             IsGradedByGuest = false;
         }
@@ -139,7 +140,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             endDate = DateTime.Parse(values[3]);
             reservationDays = int.Parse(values[4]);
             guestsNumber = int.Parse(values[5]);
-            IsGraded=bool.Parse(values[6]);
+            IsGraded = bool.Parse(values[6]);
             IsGradedByGuest = bool.Parse(values[7]);
         }
 
@@ -150,11 +151,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             {
                 if (columnName == "StartDate")
                 {
-                   if(StartDate < DateTime.Today)
+                    if (StartDate < DateTime.Today)
                     {
                         return "The reservation can not be in the past";
                     }
-                       
+
                 }
                 else if (columnName == "EndDate")
                 {
@@ -162,20 +163,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                     {
                         if (StartDate > EndDate)
                             return "End Date must be greater than Start Date";
-                        return String.Format("Minimal reservation days is {0}", Accommodation.MinReservationDays);
+                        return string.Format("Minimal reservation days is {0}", Accommodation.MinReservationDays);
                     }
-                    
+
                 }
                 else if (columnName == "ReservationDays")
                 {
                     if (reservationDays < Accommodation.MinReservationDays)
                     {
-                        return String.Format("Minimal reservation days is {0}", Accommodation.MinReservationDays);
+                        return string.Format("Minimal reservation days is {0}", Accommodation.MinReservationDays);
                     }
                 }
                 else if (columnName == "GuestsNumber")
                 {
-                    if(GuestsNumber > Accommodation.MaxGuests)
+                    if (GuestsNumber > Accommodation.MaxGuests)
                     {
                         return "Too many guests for this accomodation";
                     }

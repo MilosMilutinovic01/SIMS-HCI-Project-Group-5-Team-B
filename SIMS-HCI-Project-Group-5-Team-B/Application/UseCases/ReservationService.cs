@@ -1,4 +1,4 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Model;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.View;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Controller
+namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
     public struct ReservationRecommendation
     {
@@ -15,8 +15,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 
         public ReservationRecommendation(DateTime start, DateTime end)
         {
-            this.Start = start;
-            this.End = end;
+            Start = start;
+            End = end;
         }
     }
 
@@ -30,7 +30,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        private void NotifyPropertyChanged(String info)
+        private void NotifyPropertyChanged(string info)
         {
             if (PropertyChanged != null)
             {
@@ -38,38 +38,38 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             }
         }
 
-        public bool IsForGrading 
+        public bool IsForGrading
         {
             get { return isForGrading; }
             set
             {
-                if (value != isForGrading) 
+                if (value != isForGrading)
                 {
                     isForGrading = value;
                     OnPropertyChanged();
                     NotifyPropertyChanged(nameof(IsForGrading));  //sta je ov????
                 }
             }
-        
+
         }
         public ReservationView(Reservation reservation, bool isForGrading)
         {
-            this.Reservation = reservation;
-            this.IsForGrading = isForGrading;
+            Reservation = reservation;
+            IsForGrading = isForGrading;
         }
     }
 
-    public class ReservationController
+    public class ReservationService
     {
         private Repository<Reservation> reservationRepository;
-        private AccommodationController accommodationController;
-        public ReservationController(AccommodationController accommodationController)
+        private AccommodationService accommodationController;
+        public ReservationService(AccommodationService accommodationController)
         {
             reservationRepository = new Repository<Reservation>();
             this.accommodationController = accommodationController;
             GetAccomodationReference();
             GetOwnerGuestReference();
-            
+
         }
 
         public List<Reservation> GetAll()
@@ -132,7 +132,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             }
         }
 
-        
+
 
         public List<Reservation> GetSuiableReservationsForGrading()
         {
@@ -213,11 +213,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public bool IsAccomodationAvailable(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate)
         {
             List<Reservation> accomodationReservations = GetAccomodationReservations(selectedAccommodation);
-            
+
             foreach (Reservation reservation in accomodationReservations)
             {
-                bool isInRange = (startDate >= reservation.StartDate && startDate <= reservation.EndDate) ||
-                                 (endDate >= reservation.StartDate && endDate <= reservation.EndDate);
+                bool isInRange = startDate >= reservation.StartDate && startDate <= reservation.EndDate ||
+                                 endDate >= reservation.StartDate && endDate <= reservation.EndDate;
 
                 bool isOutOfRange = startDate <= reservation.StartDate && endDate >= reservation.EndDate;
 
@@ -229,7 +229,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
                 {
                     return false;
                 }
-                
+
             }
             return true;
 
@@ -240,7 +240,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             List<ReservationView> reservationViews = new List<ReservationView>();
             foreach (Reservation reservation in GetAll())
             {
-                
+
                 bool boolProp = true;
                 if (!(reservation.EndDate.AddDays(5) > DateTime.Today && reservation.EndDate < DateTime.Today && reservation.IsGradedByGuest == false))
                 {
@@ -248,7 +248,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
                 }
 
                 reservationViews.Add(new ReservationView(reservation, boolProp));
-                
+
             }
             return reservationViews;
         }

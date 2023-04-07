@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Model
+namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
     public class OwnerAccommodationGrade : ISerializable, INotifyPropertyChanged, IDataErrorInfo
     {
@@ -119,7 +119,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return gradeAverage; }
             set
             {
-                if(value != gradeAverage)
+                if (value != gradeAverage)
                 {
                     gradeAverage = value;
                     OnPropertyChanged();
@@ -188,7 +188,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             {
                 if (columnName == "Cleanliness")
                 {
-                    
+
                     if (Cleanliness < 1 || Cleanliness > 5)
                         return "Value is not in range";
                 }
@@ -212,7 +212,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                     if (Privacy < 1 || Privacy > 5)
                         return "Value is not in range";
                 }
-                else if(columnName == "PictureURLsString")
+                else if (columnName == "PictureURLsString")
                 {
                     if (string.IsNullOrEmpty(PictureURLsString))
                         return null;

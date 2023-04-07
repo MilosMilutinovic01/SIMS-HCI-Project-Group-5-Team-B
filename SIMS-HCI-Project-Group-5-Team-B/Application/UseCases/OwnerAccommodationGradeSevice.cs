@@ -1,4 +1,4 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Model;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Controller
+namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
-    public class OwnerAccommodationGradeController
+    public class OwnerAccommodationGradeSevice
     {
         private Repository<OwnerAccommodationGrade> ownerAccommodationGradeRepository;
-        private ReservationController reservationController;
+        private ReservationService reservationController;
 
-        public OwnerAccommodationGradeController(ReservationController reservationController)
+        public OwnerAccommodationGradeSevice(ReservationService reservationController)
         {
             ownerAccommodationGradeRepository = new Repository<OwnerAccommodationGrade>();
             this.reservationController = reservationController;
@@ -62,7 +62,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 
         }
 
-        
+
 
         public List<OwnerAccommodationGrade> GetOwnerAccommodationGradesForShowing()
         {
@@ -75,16 +75,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             //ocene smestaja koje ce biti prikazivane
             List<OwnerAccommodationGrade> ownerAccommodationGradesForShowing = new List<OwnerAccommodationGrade>();
 
-            foreach(Reservation reservation in reservations)
+            foreach (Reservation reservation in reservations)
             {
                 //prolazimo kroz rezervacije i gledamo da li su je ocenili i gost i vlasnik
-                if(reservation.IsGraded == true && reservation.IsGradedByGuest == true)
+                if (reservation.IsGraded == true && reservation.IsGradedByGuest == true)
                 {
                     //ako su ocenili i gost i  vlasnik prolazimo kroz ocene smestaja i trazimo idRezervacije koju su ocenili i gost i vlasnik
-                    foreach(OwnerAccommodationGrade ownerAccommodationGrade in ownerAccommodationGrades)
+                    foreach (OwnerAccommodationGrade ownerAccommodationGrade in ownerAccommodationGrades)
                     {
                         //nasli smo ocenu smestaja sa trazenim id-om rezervacije i sada tu ocenu dodajemo u ocene koje ce se prikazati
-                        if(reservation.Id == ownerAccommodationGrade.ReservationId)
+                        if (reservation.Id == ownerAccommodationGrade.ReservationId)
                         {
                             ownerAccommodationGradesForShowing.Add(ownerAccommodationGrade);
                         }

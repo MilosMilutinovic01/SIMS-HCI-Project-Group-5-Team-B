@@ -1,4 +1,6 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using SIMS_HCI_Project_Group_5_Team_B.Controller;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Model;
 using System;
 using System.Collections.Generic;
@@ -15,12 +17,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class AccommodationsWindow : Window, INotifyPropertyChanged, IDataErrorInfo
     {
-        private AccommodationController accommodationController;
+        private AccommodationService accommodationController;
         private LocationController locationController;
-        private ReservationController reservationController;
-        private OwnerController ownerController;
-        private OwnerAccommodationGradeController ownerAccommodationGradeController;
-        private SuperOwnerController superOwnerController;
+        private ReservationService reservationController;
+        private OwnerService ownerController;
+        private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
+        private SuperOwnerService superOwnerController;
         public ObservableCollection<Accommodation> Accomodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public string SearchName { get; set; } = "";
@@ -38,12 +40,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             InitializeComponent();
             DataContext = this;
             locationController = new LocationController();
-            ownerController = new OwnerController();
-            accommodationController = new AccommodationController(locationController, ownerController);
-            reservationController = new ReservationController(accommodationController);
+            ownerController = new OwnerService();
+            accommodationController = new AccommodationService(locationController, ownerController);
+            reservationController = new ReservationService(accommodationController);
             //Accomodations = new ObservableCollection<Accommodation>(accommodationController.GetAll());
-            ownerAccommodationGradeController = new OwnerAccommodationGradeController(reservationController);
-            superOwnerController = new SuperOwnerController(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
+            ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);
+            superOwnerController = new SuperOwnerService(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
             Accomodations = new ObservableCollection<Accommodation>(superOwnerController.AccommodationsForShowing());
             //reservationController = new ReservationController(accommodationController);
         }

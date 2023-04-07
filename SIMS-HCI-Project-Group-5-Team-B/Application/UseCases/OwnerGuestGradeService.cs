@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
-using SIMS_HCI_Project_Group_5_Team_B.Model;
-namespace SIMS_HCI_Project_Group_5_Team_B.Controller
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+
+namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
-    public class OwnerGuestGradeContoller
+    public class OwnerGuestGradeService
     {
         private Repository<OwnerGuestGrade> ownerGuestGradeRepository;
-        private ReservationController reservationController;
+        private ReservationService reservationController;
 
-        public OwnerGuestGradeContoller(ReservationController reservationController)
+        public OwnerGuestGradeService(ReservationService reservationController)
         {
             ownerGuestGradeRepository = new Repository<OwnerGuestGrade>();
             this.reservationController = reservationController;
