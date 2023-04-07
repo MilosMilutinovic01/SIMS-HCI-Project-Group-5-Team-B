@@ -77,5 +77,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             ReservationsForGradingWindow reservationsForGradingWindow = new ReservationsForGradingWindow();
             reservationsForGradingWindow.Show();
         }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

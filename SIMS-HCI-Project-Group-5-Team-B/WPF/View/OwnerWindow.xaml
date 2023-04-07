@@ -5,10 +5,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         mc:Ignorable="d"
-        Title="OwnerWindow" Height="450" Width="800" Loaded="NotifyOwnerToGradeGuests">
-    <Grid>
-        <Button Content="Create Accommodation" HorizontalAlignment="Left" Margin="121,105,0,0" VerticalAlignment="Top" Click="Create_Accommodation_Click"/>
-        <Button Content="Grade Guest" HorizontalAlignment="Left" Margin="121,155,0,0" VerticalAlignment="Top" Click="Grade_Guest_Click"/>
+        Title="OwnerWindow" Height="600" Width="950" Loaded="NotifyOwnerToGradeGuests">
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="7*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <TabControl Height="350" Width="650"  SelectionChanged="TabControl_SelectionChanged" Margin="125,56,125,55">
+                <TabItem x:Name="Accommodation" Header="Accommodation">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="6*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Column="0" Grid.Row="0">
+
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="21,0,0,0">Click on the 'Generate' button to generate reservation report for accommodation</Label>
+                        </Grid>
+                        <Grid Grid.Column="0" Grid.Row="1">
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,10,0,0">Your accommodations</Label>
+                            <Button Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Create_Accommodation_Click" Margin="0,13,22,0">Add</Button>
+                            <Button  Width="170" Height="20" Margin="366,14,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">Suggestion for new locations</Button>
+                            <DataGrid Width="600" Height="200" ItemsSource="{Binding Path=Accomodations, UpdateSourceTrigger=PropertyChanged}"
+                                 AutoGenerateColumns="False" IsReadOnly="True" Margin="22,22,22,24">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Max Guests" Binding="{Binding MaxGuests}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Min Reservation Days" Binding="{Binding MinReservationDays}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Notice Period" Binding="{Binding NoticePeriod}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="City" Binding="{Binding Location.City}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="State" Binding="{Binding Location.State}" Width="*"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </Grid>
+
+                </TabItem>
+                <TabItem x:Name="Requests" Header="Requests for changing reservation"/>
+                <TabItem x:Name="Statistics" Header="Statistics"/>
+                <TabItem x:Name="Grading" Header="Grading">
+                    <Button Height ="20" Width="80"  VerticalAlignment="Top" Click="Grade_Guest_Click" RenderTransformOrigin="1.43,-0.8" Margin="484,30,30,0" >Grade Guest</Button>
+
+                </TabItem>
+                <TabItem x:Name="Renovation" Header="Renovation"/>
+                <TabItem x:Name="Forum" Header="Forum"/>
+                <TabItem x:Name="Profile" Header="Profile"/>
+            </TabControl>
+        </Grid>
     </Grid>
+
 </Window>
