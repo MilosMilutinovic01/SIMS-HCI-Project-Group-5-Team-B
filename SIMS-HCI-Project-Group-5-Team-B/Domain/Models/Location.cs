@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Model
+namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
     public class Location : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
@@ -35,7 +35,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return state; }
             set
             {
-                if(state != value)
+                if (state != value)
                 {
                     state = value;
                     OnPropertyChanged();
@@ -43,7 +43,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             }
         }
 
-        public Location() {}
+        public Location() { }
 
         public Location(string city, string state)
         {
@@ -72,7 +72,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         }
         public override string ToString()
         {
-            return State + ", " +  City;
+            return State + ", " + City;
         }
         Regex locationRegex = new Regex("[A-Za-z\\s]+");
         public string Error => null;
@@ -99,11 +99,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                     if (!match.Success)
                         return "State needs to be string";
                 }
-                    return null;
+                return null;
             }
         }
 
-        private readonly string[] _validatedProperties = { "City", "State"};
+        private readonly string[] _validatedProperties = { "City", "State" };
 
         public bool IsValid
         {

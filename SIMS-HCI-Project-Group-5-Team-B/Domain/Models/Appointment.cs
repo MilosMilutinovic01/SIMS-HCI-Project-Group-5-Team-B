@@ -1,4 +1,5 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Serializer;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Model
+namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
     public class Appointment : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
@@ -109,6 +110,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 }
             }
         }
+
+        public bool cancelled;
+        public bool Cancelled
+        {
+            get { return cancelled; }
+            set
+            {
+                if (cancelled != value)
+                {
+                    cancelled = value;
+                }
+            }
+        }
         public Tour Tour { get; set; }
         public Appointment() { }
         public Appointment(int tourId, int guideId, DateTime start, int freeSpace)
@@ -128,7 +142,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
                 start.ToString(CultureInfo.GetCultureInfo("en-US")),
                 freeSpace.ToString(),
                 started.ToString(),
-                ended.ToString()
+                ended.ToString(),
+                cancelled.ToString()
             };
             return csvValues;
         }
@@ -141,6 +156,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             freeSpace = int.Parse(values[4]);
             started = Convert.ToBoolean(values[5]);
             ended = Convert.ToBoolean(values[6]);
+            cancelled = Convert.ToBoolean(values[7]);
         }
 
         Regex timeRegex = new Regex("[0-9]{2}:[0-9]{2}:[0-9]{2}");

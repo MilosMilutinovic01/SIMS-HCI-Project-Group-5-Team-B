@@ -8,12 +8,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Model
+namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
     public class KeyPoint : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        
+
         private string name;
         public string Name
         {
@@ -55,9 +55,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
         public KeyPoint() { }
         public KeyPoint(KeyPoint copy)
         {
-            this.name = copy.Name;
-            this.selected = copy.Selected;
-            this.tourId = copy.TourId;
+            name = copy.Name;
+            selected = copy.Selected;
+            tourId = copy.TourId;
         }
         public KeyPoint(string name)
         {
