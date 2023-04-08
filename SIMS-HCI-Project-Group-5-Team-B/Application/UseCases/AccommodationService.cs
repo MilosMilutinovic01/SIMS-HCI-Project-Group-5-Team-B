@@ -176,5 +176,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return accommodationsForSotring;
         }*/
 
+
+        public List<Accommodation> GetAccommodationsOfLogedInOwner(Owner owner)
+        {
+            List<Accommodation> accomodations = accomodationRepository.GetAll();
+            List<Accommodation> accommodationsOfLogedInOwner = new List<Accommodation>();
+            foreach(Accommodation accommodation in accomodations)
+            {
+                if(accommodation.Owner.Id == owner.Id)
+                {
+                    accommodationsOfLogedInOwner.Add(accommodation);
+                }
+            }
+
+            return accommodationsOfLogedInOwner;
+        }
+
     }
 }

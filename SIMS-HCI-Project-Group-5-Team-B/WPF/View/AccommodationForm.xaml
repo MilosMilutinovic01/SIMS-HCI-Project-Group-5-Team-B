@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         mc:Ignorable="d"
-        Title="AccommodationWindow" Height="700" Width="700">
+        Title="AccommodationWindow" Height="600" Width="600">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -13,29 +13,17 @@
                 <AdornedElementPlaceholder x:Name="textBox" />
                 <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
             </StackPanel>
-
         </ControlTemplate>
     </Window.Resources>
     <Grid  Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="51*"/>
-            <ColumnDefinition Width="26*"/>
-            <ColumnDefinition Width="354*"/>
-            <ColumnDefinition Width="319*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="550"></RowDefinition>
+            <RowDefinition Height="500"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.Column="2" Margin="10,50,0,38" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="563" RenderTransformOrigin="0.5,0.5">
-            <Grid.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="0.032"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Grid.RenderTransform>
+        <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Width="500" >
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -45,40 +33,38 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
-
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
-            <Label Grid.Row="0" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Name" ></Label>
-            <Label Grid.Row="1" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Type" ></Label>
-            <Label Grid.Row="2" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="MaxGuests" ></Label>
-            <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="MinReservationDays" ></Label>
-            <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="NoticePeriod" ></Label>
-            <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="State" ></Label>
-            <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="City" ></Label>
-            <Label Grid.Row="7" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="PictureURLs" ></Label>
+            <Label Grid.Row="0" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Name" ></Label>
+            <Label Grid.Row="1" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Type" ></Label>
+            <Label Grid.Row="2" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="State"></Label>
+            <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="City"/>
+            <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Notice Period" ></Label>
+            <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Minimal Reservation Days" ></Label>
+            <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Maximum Guests" ></Label>
+            <Label Grid.Row="7" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="PictureURLs" ></Label>
 
             <TextBox Grid.Row="0" Grid.Column="1"
                      Text="{Binding Path=Accommodation.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Height="30">
             </TextBox>
-            <ComboBox Name="Type_ComboBox" Grid.Row="1" Grid.Column="1"
+            <ComboBox Name="Type_ComboBox" Grid.Row="1" Grid.Column="1" 
                      SelectionChanged="TypeChanged_ComboBox"
                      Height="30">
                 <ComboBoxItem Content="Apartment"></ComboBoxItem>
                 <ComboBoxItem Content="House"></ComboBoxItem>
                 <ComboBoxItem Content="Cottage"></ComboBoxItem>
             </ComboBox>
-            <TextBox Grid.Row="2" Grid.Column="1"
+            <TextBox Grid.Row="6" Grid.Column="1"
                      Text="{Binding Path=Accommodation.MaxGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                      Height="30" >
             </TextBox>
-            <TextBox Grid.Row="3" Grid.Column="1"
+            <TextBox Grid.Row="5" Grid.Column="1"
                      Text="{Binding Path=Accommodation.MinReservationDays, Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate }"
                      Height="30" >
@@ -88,34 +74,26 @@
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Height="30">
             </TextBox>
-            <TextBox Grid.Row="5" Grid.Column="1"
+            <!--<TextBox Grid.Row="5" Grid.Column="1"
                      Text="{Binding Path=LocationString, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Height="30">
-            </TextBox>
-
-
-            <ComboBox Grid.Row="5" Grid.Column="1" x:Name="ComboBoxStates"  Width ="280" Text="{Binding Path=Location.State, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding states}"
+            </TextBox>-->
+            <ComboBox Grid.Row="2" Grid.Column="1" x:Name="ComboBoxStates" Height="30" Width="250" Text="{Binding Path=Location.State, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding states}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="ComboBox_SelectionChanged">
-                
+
             </ComboBox>
-
-
-            <ComboBox Grid.Row="6" Grid.Column="1" x:Name="ComboBoxCities" Width ="280" Text="{Binding Path=Location.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding cities}"
+            <ComboBox Grid.Row="3" Grid.Column="1" x:Name="ComboBoxCities" Height="30" Width ="250" Text="{Binding Path=Location.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding cities}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                
-            </ComboBox>
 
+            </ComboBox>
             <TextBox Grid.Row="7" Grid.Column="1"
                      Text="{Binding Path=Accommodation.PictureURLsString, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Height="30">
             </TextBox>
-
-
-
-
         </Grid>
-        <Button Grid.Column="2" Content="Create" HorizontalAlignment="Left" Margin="135,0,0,0" Height="24" VerticalAlignment="Top" Grid.Row="1" Width="50" Click="Create_Accommodation_Click"/>
+        <Button Content="Create" HorizontalAlignment="Left" Margin="395,0,0,0" Height="20" VerticalAlignment="Center" Grid.Row="1" Width="50" Click="Create_Accommodation_Click" />
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="493,0,0,0" Height="20" VerticalAlignment="Center" Grid.Row="1" Width="50" Click="Cancel_Click" />
     </Grid>
 </Window>
