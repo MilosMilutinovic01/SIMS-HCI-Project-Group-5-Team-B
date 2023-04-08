@@ -33,17 +33,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 
         public OwnerGuest()
         {
-            //initially, there is only one guest, in order to not complicate the implementation of other features
-            Id = 0;
-            Name = "Jelena";
-            Surname = "Kovač";
+            
         }
 
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            name = values[1];
-            surname = values[2];
+            Username = values[1];
+            Password = values[2];
+            name = values[3];
+            surname = values[4];
         }
 
         public string[] ToCSV()
@@ -51,6 +50,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             string[] csvValues =
             {
                 Id.ToString(),
+                Username,
+                Password,
                 name,
                 surname
             };

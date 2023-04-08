@@ -45,6 +45,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return GetAll().Find(own => own.Id == id);
         }
 
+        public Owner GetByUsername(string username)
+        {
+            return GetAll().Find(owner => owner.Username.Equals(username));
+        }
+
 
     }
 }

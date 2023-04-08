@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
-
+using SIMS_HCI_Project_Group_5_Team_B.Repository;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -36,15 +36,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public Reservation SelectedReservation { get; set; }
         public OwnerAccommodationGrade SelectedOwnerAccommodationGrade { get; set; }
         
-
+        //ADDED FOR DEPENDENCY INJECTION 
+        private OwnerGuestCSVRepository ownerGuestCSVRepository;
         public ReservationsForGradingWindow()
         {
             InitializeComponent();
             DataContext = this;
             locationController = new LocationController();
             ownerController = new OwnerService();
+            ownerGuestCSVRepository = new OwnerGuestCSVRepository();
             accommodationController = new AccommodationService(locationController, ownerController);
-            reservationController = new ReservationService(accommodationController);
+            reservationController = new ReservationService(accommodationController, ownerGuestCSVRepository);  //MODIFIED
             ReservationsForGrading = new ObservableCollection<Reservation>(reservationController.GetSuiableReservationsForGrading());
             ownerGuestGradeContoller = new OwnerGuestGradeService(reservationController);
             ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);
