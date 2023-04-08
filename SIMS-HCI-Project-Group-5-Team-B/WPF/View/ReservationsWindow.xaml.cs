@@ -1,5 +1,7 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,9 +30,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
         private OwnerService ownerController;
         private SuperOwnerService superOwnerController;
-        public ObservableCollection<ReservationView> ReservationViews { get; set; }
-        public ReservationView SelectedReservationView { get; set; }
-        public ReservationsWindow(ReservationService reservationController, OwnerAccommodationGradeSevice ownerAccommodationGradeController, SuperOwnerService superOwnerController, OwnerService ownerController)
+        public ObservableCollection<ReservationViewModel> ReservationViews { get; set; }
+        public ReservationViewModel SelectedReservationView { get; set; }
+        public ReservationsWindow(ReservationService reservationController, OwnerAccommodationGradeSevice ownerAccommodationGradeController, SuperOwnerService superOwnerController, OwnerService ownerController, int ownerGuestId)
         {
             InitializeComponent();
             this.DataContext = this;
@@ -41,7 +43,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             this.ownerController = ownerController;
 
             //add method for checking the userId when showing reservations
-            ReservationViews = new ObservableCollection<ReservationView>(reservationController.GetReservationsForGuestGrading());
+            ReservationViews = new ObservableCollection<ReservationViewModel>(reservationController.GetReservationsForGuestGrading(ownerGuestId));
             
             
         }

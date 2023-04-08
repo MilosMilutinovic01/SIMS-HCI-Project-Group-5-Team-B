@@ -29,6 +29,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         ReservationService reservationService;
         OwnerService ownerService;
         public List<Reservation> reservationsForGrading;
+
         OwnerAccommodationGradeSevice ownerAccommodationGradeService;
         OwnerGuestGradeService ownerGuestGradeService;
         SuperOwnerService superOwnerService;
@@ -40,22 +41,28 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public Reservation SelectedReservation { get; set; }
         public OwnerAccommodationGrade SelectedOwnerAccommodationGrade { get; set; }
 
+        //Added for dependency injection
+        private OwnerGuestCSVRepository ownerGuestCSVRepository;
+
 
         //private DateTime lastDisplayed;
-        public OwnerWindow()
+        public OwnerWindow(string username)
         {
             InitializeComponent();
+
             DataContext = this;
+            ownerGuestCSVRepository = new OwnerGuestCSVRepository();
             locationService = new LocationController();
             ownerService = new OwnerService();
             accommodationService = new AccommodationService(locationService, ownerService);
-            reservationService = new ReservationService(accommodationService);
+            reservationService = new ReservationService(accommodationService, ownerGuestCSVRepository);
             ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(reservationService);
             ownerGuestGradeService = new OwnerGuestGradeService(reservationService);
             superOwnerService = new SuperOwnerService(reservationService, ownerAccommodationGradeService, ownerService, accommodationService);
             reservationsForGrading = new List<Reservation>();
-            LogedInOwner = new Owner();
+            LogedInOwner = ownerService.GetByUsername(username);
             LogedInOwner.GradeAverage = superOwnerService.CalculateGradeAverage(LogedInOwner);
+     
             //owner.NumberReservations = superOwnerController.GetNumberOfReservations(owner);
             ownerService.Update(LogedInOwner);
             //lastDisplayed = Properties.Settings.Default.LastShownDate;
@@ -80,7 +87,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void Create_Accommodation_Click(object sender, RoutedEventArgs e)
         {
             
-            AccommodationForm accommodationForm = new AccommodationForm(AccomodationsOfLogedInOwner);
+
+            AccommodationForm accommodationForm = new AccommodationForm(AccomodationsOfLogedInOwner, LogedInOwner);
+
             accommodationForm.Show();
         }
 

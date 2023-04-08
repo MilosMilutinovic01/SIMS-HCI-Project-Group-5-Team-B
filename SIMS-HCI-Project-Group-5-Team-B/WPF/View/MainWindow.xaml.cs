@@ -76,7 +76,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
             {
 
                 //Pozovi funkciju koju hoces za VLASNIKA
-                OwnerWindow ownerWindow = new OwnerWindow();
+                OwnerWindow ownerWindow = new OwnerWindow(Username);
                 ownerWindow.Show();
 
 
@@ -85,7 +85,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
             {
 
                 //Pozovi funkciju koju hoces za GOSTA 1
-               OwnerGuestWindow ownerGuestWindow = new OwnerGuestWindow();
+               OwnerGuestWindow ownerGuestWindow = new OwnerGuestWindow(Username);
                 ownerGuestWindow.Show();
             }
         }

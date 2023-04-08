@@ -96,7 +96,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         public Reservation()
         {
             OwnerGuest = new OwnerGuest();
-            ownerGuestId = 0;
+           // ownerGuestId = 0;
 
             StartDate = DateTime.Today;
             EndDate = DateTime.Today;
@@ -122,6 +122,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             {
                 Id.ToString(),
                 accommodationId.ToString(),
+                ownerGuestId.ToString(),
                 startDate.ToString(),
                 endDate.ToString(),
                 reservationDays.ToString(),
@@ -136,12 +137,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         {
             Id = int.Parse(values[0]);
             accommodationId = int.Parse(values[1]);
-            startDate = DateTime.Parse(values[2]);
-            endDate = DateTime.Parse(values[3]);
-            reservationDays = int.Parse(values[4]);
-            guestsNumber = int.Parse(values[5]);
-            IsGraded = bool.Parse(values[6]);
-            IsGradedByGuest = bool.Parse(values[7]);
+            ownerGuestId= int.Parse(values[2]);
+            startDate = DateTime.Parse(values[3]);
+            endDate = DateTime.Parse(values[4]);
+            reservationDays = int.Parse(values[5]);
+            guestsNumber = int.Parse(values[6]);
+            IsGraded = bool.Parse(values[7]);
+            IsGradedByGuest = bool.Parse(values[8]);
         }
 
         public string Error => null;

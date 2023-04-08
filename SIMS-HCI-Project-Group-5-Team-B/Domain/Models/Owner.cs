@@ -7,7 +7,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Serializer;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
-    public class Owner : ISerializable
+    public class Owner : User, ISerializable
     {
         public int Id { get; set; }
         private string name;
@@ -81,9 +81,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            name = values[1];
-            surname = values[2];
-            gradeAverage = double.Parse(values[3]);
+            Username = values[1];
+            Password = values[2];
+            name = values[3];
+            surname = values[4];
+            gradeAverage = double.Parse(values[5]);
             //numberOfReservations =int.Parse(values[4]);
         }
 
@@ -92,6 +94,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             string[] csvValues =
             {
                 Id.ToString(),
+                Username,
+                Password,
                 name,
                 surname,
                 gradeAverage.ToString(),
