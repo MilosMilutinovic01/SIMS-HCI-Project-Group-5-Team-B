@@ -93,12 +93,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             accommodationForm.Show();
         }
 
-        //ova metoda je pozivana preko dugmenta koje je obirsano to je sada prikazno sve u novom prozoru i ovaj prozor bi se trebao obrisati
-        private void Grade_Guest_Click(object sender, RoutedEventArgs e)
-        {
-            ReservationsForGradingWindow reservationsForGradingWindow = new ReservationsForGradingWindow();
-            reservationsForGradingWindow.Show();
-        }
+        
+        
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
