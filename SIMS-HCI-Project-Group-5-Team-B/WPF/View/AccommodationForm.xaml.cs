@@ -13,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
-using SIMS_HCI_Project_Group_5_Team_B.Model;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;

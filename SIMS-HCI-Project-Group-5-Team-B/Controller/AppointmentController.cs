@@ -1,7 +1,8 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Model;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 {
@@ -27,7 +28,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         }
         public List<Appointment> GetAllAvaillable()
         {
-            return appointmentRepository.GetAll().FindAll(a => a.Start.Date == DateTime.Now.Date);
+            return appointmentRepository.GetAll().FindAll(a => a.Start.Date == DateTime.Now.Date && a.Cancelled == false);
+        }
+        public List<Appointment> GetUpcoming()
+        {
+            return appointmentRepository.GetAll().Where(a => (a.Start - DateTime.Now).TotalHours >= 48 && a.Cancelled == false).ToList();
         }
         public void Save(Appointment newAppointment)
         {

@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Model
+namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
     public class User : ISerializable, INotifyPropertyChanged
     {
@@ -17,7 +17,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return id; }
             set
             {
-                if(id != value)
+                if (id != value)
                 {
                     id = value;
                     OnPropertyChanged();
@@ -31,7 +31,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return username; }
             set
             {
-                if(username != value)
+                if (username != value)
                 {
                     username = value;
                     OnPropertyChanged();
@@ -45,7 +45,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
             get { return password; }
             set
             {
-                if(password != value)
+                if (password != value)
                 {
                     password = value;
                     OnPropertyChanged();
@@ -77,7 +77,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password};
+            string[] csvValues = { Id.ToString(), Username, Password };
             return csvValues;
         }
 

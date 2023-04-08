@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using System.Xml.Linq;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Model
+namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
     public class TourAttendance : ISerializable
     {
