@@ -32,20 +32,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         public string Error => null;
 
+        private int ownerGuestId;
 
-
-        public AccommodationsWindow()
+        public AccommodationsWindow(int ownerGuestId,LocationController locationController, OwnerService ownerService, AccommodationService accommodationService, ReservationService reservationService )
         {
             InitializeComponent();
             DataContext = this;
-            locationController = new LocationController();
-            ownerController = new OwnerService();
-            accommodationController = new AccommodationService(locationController, ownerController);
-            reservationController = new ReservationService(accommodationController);
+            this.locationController = locationController;
+            this.ownerController = ownerService;
+            this.accommodationController = accommodationService;
+            this.reservationController = reservationService;
             //Accomodations = new ObservableCollection<Accommodation>(accommodationController.GetAll());
             ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);
             superOwnerController = new SuperOwnerService(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
             Accomodations = new ObservableCollection<Accommodation>(superOwnerController.AccommodationsForShowing());
+            this.ownerGuestId = ownerGuestId;
             //reservationController = new ReservationController(accommodationController);
         }
 
@@ -94,7 +95,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             if (SelectedAccommodation != null)
             {
-                AccomodationDetailsWindow accomodationDetailsWindow = new AccomodationDetailsWindow(SelectedAccommodation, reservationController);
+                AccomodationDetailsWindow accomodationDetailsWindow = new AccomodationDetailsWindow(SelectedAccommodation, reservationController, ownerGuestId);
                 accomodationDetailsWindow.Show();
             }
         }

@@ -31,20 +31,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         OwnerAccommodationGradeSevice ownerAccommodationGradeController;
         SuperOwnerService superOwnerController;
         public Owner owner;
-        
+        //Added for dependency injection
+        private OwnerGuestCSVRepository ownerGuestCSVRepository;
 
         //private DateTime lastDisplayed;
-        public OwnerWindow()
+        public OwnerWindow(string username)
         {
             InitializeComponent();
+            ownerGuestCSVRepository = new OwnerGuestCSVRepository();
             locationController = new LocationController();
             ownerController = new OwnerService();
             accommodationController = new AccommodationService(locationController, ownerController);
-            reservationController = new ReservationService(accommodationController);
+            reservationController = new ReservationService(accommodationController, ownerGuestCSVRepository);  //MODIFIED
             ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);
             superOwnerController = new SuperOwnerService(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
             reservationsForGrading = new List<Reservation>();
-            owner = new Owner();
+            owner = ownerController.GetByUsername(username);
             owner.GradeAverage = superOwnerController.CalculateGradeAverage(owner);
             //owner.NumberReservations = superOwnerController.GetNumberOfReservations(owner);
             ownerController.Update(owner);
@@ -68,7 +70,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void Create_Accommodation_Click(object sender, RoutedEventArgs e)
         {
             
-            AccommodationForm accommodationForm = new AccommodationForm();
+            AccommodationForm accommodationForm = new AccommodationForm(owner);
             accommodationForm.Show();
         }
 

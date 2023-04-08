@@ -36,7 +36,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public Accommodation Accommodation { get; set; }
         public Location Location { get; set; }
         private string locationString;
-
+        private Owner owner;
 
         public List<string> states { get; set; }
         public List<string> cities;
@@ -57,7 +57,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         }
 
 
-        public AccommodationForm()
+        public AccommodationForm(Owner owner)
         {
             locationString = "";
             Accommodation = new Accommodation();
@@ -68,6 +68,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             Location = new Location();
             accommodationController = new AccommodationService(locationController, ownerController);
             states = locationController.GetStates();
+            this.owner = owner;
         }
 
         
@@ -84,10 +85,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 accommodationController.AddAccommodation(Accommodation, Location);*/
 
                 Location existingLocation = locationController.GetLocation(Location);
-
+                Accommodation.OwnerId = owner.Id;
                 if (existingLocation != null)
                 {
                     Accommodation.LocationId = existingLocation.Id;
+                    
                     accommodationController.Save(Accommodation);
                 }
                 else

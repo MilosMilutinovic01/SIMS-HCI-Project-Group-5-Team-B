@@ -1,10 +1,10 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.View;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
@@ -20,53 +20,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         }
     }
 
-    public class ReservationView : INotifyPropertyChanged
-    {
-        public Reservation Reservation { get; set; }
-        public bool isForGrading;
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        private void NotifyPropertyChanged(string info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
-
-        public bool IsForGrading
-        {
-            get { return isForGrading; }
-            set
-            {
-                if (value != isForGrading)
-                {
-                    isForGrading = value;
-                    OnPropertyChanged();
-                    NotifyPropertyChanged(nameof(IsForGrading));  //sta je ov????
-                }
-            }
-
-        }
-        public ReservationView(Reservation reservation, bool isForGrading)
-        {
-            Reservation = reservation;
-            IsForGrading = isForGrading;
-        }
-    }
-
     public class ReservationService
     {
         private Repository<Reservation> reservationRepository;
         private AccommodationService accommodationController;
-        public ReservationService(AccommodationService accommodationController)
+        private IOwnerGuestRepository ownerGuestRepository;
+        public ReservationService(AccommodationService accommodationController, IOwnerGuestRepository ownerGuestRepository)
         {
             reservationRepository = new Repository<Reservation>();
             this.accommodationController = accommodationController;
+            this.ownerGuestRepository = ownerGuestRepository;
             GetAccomodationReference();
             GetOwnerGuestReference();
 
@@ -125,9 +88,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         private void GetOwnerGuestReference()
         {
-            OwnerGuest ownerGuest = new OwnerGuest();
+            //OwnerGuest ownerGuest = new OwnerGuest();
             foreach (Reservation reservation in GetAll())
             {
+               OwnerGuest ownerGuest = ownerGuestRepository.GetById(reservation.OwnerGuestId);
                 reservation.OwnerGuest = ownerGuest;
             }
         }
@@ -136,6 +100,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public List<Reservation> GetSuiableReservationsForGrading()
         {
+            ///TODO: nina ovdje ces sigurno doavati uslov da si ti vlasnik
             List<Reservation> reservations = GetAll();
             List<Reservation> suitableReservations = new List<Reservation>();
             foreach (Reservation reservation in reservations)
@@ -234,20 +199,23 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return true;
 
         }
-        //TODO add another condition - username must be the current active one! - from active OwnerGuest
-        public List<ReservationView> GetReservationsForGuestGrading()
+        
+        public List<ReservationViewModel> GetReservationsForGuestGrading(int ownerGuestId)
         {
-            List<ReservationView> reservationViews = new List<ReservationView>();
+            List<ReservationViewModel> reservationViews = new List<ReservationViewModel>();
             foreach (Reservation reservation in GetAll())
             {
-
-                bool boolProp = true;
-                if (!(reservation.EndDate.AddDays(5) > DateTime.Today && reservation.EndDate < DateTime.Today && reservation.IsGradedByGuest == false))
+                if(reservation.OwnerGuestId == ownerGuestId)
                 {
-                    boolProp = false;
-                }
+                    bool boolProp = true;
+                    if (!(reservation.EndDate.AddDays(5) > DateTime.Today && reservation.EndDate < DateTime.Today && reservation.IsGradedByGuest == false))
+                    {
+                        boolProp = false;
+                    }
 
-                reservationViews.Add(new ReservationView(reservation, boolProp));
+                    reservationViews.Add(new ReservationViewModel(reservation, boolProp));
+                }
+                
 
             }
             return reservationViews;
