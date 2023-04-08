@@ -134,13 +134,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
 
 
-        public List<Reservation> GetSuiableReservationsForGrading()
+        public List<Reservation> GetSuiableReservationsForGrading(Owner owner)
         {
             List<Reservation> reservations = GetAll();
             List<Reservation> suitableReservations = new List<Reservation>();
             foreach (Reservation reservation in reservations)
             {
-                if (reservation.IsGraded == false && reservation.EndDate.AddDays(5) > DateTime.Today && reservation.EndDate <= DateTime.Today)
+                if (reservation.IsGraded == false && reservation.EndDate.AddDays(5) > DateTime.Today && reservation.EndDate <= DateTime.Today && reservation.Accommodation.Owner.Id == owner.Id)
                 {
                     suitableReservations.Add(reservation);
                 }

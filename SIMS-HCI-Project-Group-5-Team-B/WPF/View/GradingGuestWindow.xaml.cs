@@ -32,6 +32,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing { get; set; }
 
 
+        //samo cu provati da izbacim SelectedReservation
         public GradingGuestWindow(OwnerGuestGradeService ownerGuestGradeContoller, OwnerAccommodationGradeSevice ownerAccommodationGradeController,ReservationService reservationController,Reservation SelectedReservation, ObservableCollection<Reservation> ReservationsForGrading, ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing)
         {
             InitializeComponent();
@@ -79,7 +80,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             }
         }
 
-        private void Close_Button_Click(object sender, RoutedEventArgs e)
+        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }

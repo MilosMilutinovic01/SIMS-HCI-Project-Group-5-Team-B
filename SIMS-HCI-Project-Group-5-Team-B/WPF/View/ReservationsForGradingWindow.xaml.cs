@@ -45,10 +45,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             ownerController = new OwnerService();
             accommodationController = new AccommodationService(locationController, ownerController);
             reservationController = new ReservationService(accommodationController);
-            ReservationsForGrading = new ObservableCollection<Reservation>(reservationController.GetSuiableReservationsForGrading());
+            //ovo smo rezervisali da bi testirali novi oblik metode u drugom prozoru, fali mu proslednjeni Owner
+            //ReservationsForGrading = new ObservableCollection<Reservation>(reservationController.GetSuiableReservationsForGrading());
             ownerGuestGradeContoller = new OwnerGuestGradeService(reservationController);
             ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);
-            OwnerAccommodationGradesForShowing = new ObservableCollection<OwnerAccommodationGrade>(ownerAccommodationGradeController.GetOwnerAccommodationGradesForShowing());
+            //ovo smo rezervisali da bi testirali novi oblik metode u drugom prozoru, fali mu proslednjeni Owner
+            //OwnerAccommodationGradesForShowing = new ObservableCollection<OwnerAccommodationGrade>(ownerAccommodationGradeController.GetOwnerAccommodationGradesForShowing());
             //OwnerAccommodationGradesForShowing = new ObservableCollection<OwnerAccommodationGrade>(ownerAccommodationGradeController.GetAll());
 
         }
