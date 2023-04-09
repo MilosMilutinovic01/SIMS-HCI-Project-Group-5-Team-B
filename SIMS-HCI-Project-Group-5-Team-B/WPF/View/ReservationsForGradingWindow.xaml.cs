@@ -38,15 +38,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         
         //ADDED FOR DEPENDENCY INJECTION 
         private OwnerGuestCSVRepository ownerGuestCSVRepository;
+        private ReservationCSVRepository reservationCSVRepository;
         public ReservationsForGradingWindow()
         {
             InitializeComponent();
             DataContext = this;
+            reservationCSVRepository = new ReservationCSVRepository();
+            ownerGuestCSVRepository = new OwnerGuestCSVRepository();
             locationController = new LocationController();
             ownerController = new OwnerService();
             ownerGuestCSVRepository = new OwnerGuestCSVRepository();
             accommodationController = new AccommodationService(locationController, ownerController);
-            reservationController = new ReservationService(accommodationController, ownerGuestCSVRepository);  //MODIFIED
+            reservationController = new ReservationService(accommodationController, ownerGuestCSVRepository, reservationCSVRepository);  //MODIFIED
             ReservationsForGrading = new ObservableCollection<Reservation>(reservationController.GetSuiableReservationsForGrading());
             ownerGuestGradeContoller = new OwnerGuestGradeService(reservationController);
             ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);

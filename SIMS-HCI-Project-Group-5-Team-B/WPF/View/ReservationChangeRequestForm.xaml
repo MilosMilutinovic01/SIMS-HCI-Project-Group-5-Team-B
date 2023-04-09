@@ -1,0 +1,60 @@
+﻿<Window x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.ReservationChangeRequestForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
+        mc:Ignorable="d"
+        Title="ReservationChangeRequestForm" Height="300" Width="427">
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="2.6*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="{Binding Path=Header, Mode=OneWay}" FontSize="25"></TextBlock>
+            <TextBlock Grid.Row="1" Text="{Binding Path=LocationHeader, Mode=OneWay}" FontSize="15"></TextBlock>
+        </Grid>
+
+        <TextBlock Grid.Row="0" Text="{Binding Path=Header, Mode=OneWay}" FontSize="25"></TextBlock>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="center">Start</Label>
+            <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="center">End</Label>
+            <DatePicker Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                         SelectedDate="{Binding Path=NewReservationRequest.Start,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True }" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15"></DatePicker>
+            <DatePicker Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                         SelectedDate="{Binding Path=NewReservationRequest.End,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15"></DatePicker>
+        </Grid>
+        <WrapPanel Grid.Row="2" FlowDirection="RightToLeft">
+            <Button Margin="15" Click="Cancel_Button_Click">Close</Button>
+            <Button Margin="0 15" Click="Save_Button_Click">Send</Button>
+        </WrapPanel>
+    </Grid>
+</Window>

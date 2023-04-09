@@ -33,16 +33,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public Owner owner;
         //Added for dependency injection
         private OwnerGuestCSVRepository ownerGuestCSVRepository;
+        private ReservationCSVRepository reservationCSVRepository;
 
         //private DateTime lastDisplayed;
         public OwnerWindow(string username)
         {
             InitializeComponent();
             ownerGuestCSVRepository = new OwnerGuestCSVRepository();
+            reservationCSVRepository = new ReservationCSVRepository();
             locationController = new LocationController();
             ownerController = new OwnerService();
             accommodationController = new AccommodationService(locationController, ownerController);
-            reservationController = new ReservationService(accommodationController, ownerGuestCSVRepository);  //MODIFIED
+            reservationController = new ReservationService(accommodationController, ownerGuestCSVRepository, reservationCSVRepository);  //MODIFIED
             ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);
             superOwnerController = new SuperOwnerService(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
             reservationsForGrading = new List<Reservation>();
