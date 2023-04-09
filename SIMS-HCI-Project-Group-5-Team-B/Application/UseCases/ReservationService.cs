@@ -200,9 +200,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         }
         
-        public List<ReservationViewModel> GetReservationsForGuestGrading(int ownerGuestId)
+        public List<ReservationGridView> GetReservationsForGuestGrading(int ownerGuestId)
         {
-            List<ReservationViewModel> reservationViews = new List<ReservationViewModel>();
+            List<ReservationGridView> reservationViews = new List<ReservationGridView>();
             foreach (Reservation reservation in GetAll())
             {
                 if(reservation.OwnerGuestId == ownerGuestId)
@@ -216,7 +216,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
                     bool isModifiable = true;
                     if(reservation.StartDate <= DateTime.Today) 
                         isModifiable = false;
-                    reservationViews.Add(new ReservationViewModel(reservation, isForGrading,isModifiable));
+                    reservationViews.Add(new ReservationGridView(reservation, isForGrading,isModifiable));
                 }
                 
 

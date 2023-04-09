@@ -27,28 +27,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
     public partial class ReservationsWindow : Window
     {
-        private ReservationService reservationController;
-        private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
-        private OwnerService ownerController;
-        private SuperOwnerService superOwnerController;
-        private ReservationChangeRequestService reservationChangeRequestService;
-        public ObservableCollection<ReservationViewModel> ReservationViews { get; set; }
-        public ReservationViewModel SelectedReservationView { get; set; }
+        
+        private ReservationsViewModel reservationViewModel;
         public ReservationsWindow(ReservationService reservationController, OwnerAccommodationGradeSevice ownerAccommodationGradeController, SuperOwnerService superOwnerController, OwnerService ownerController, int ownerGuestId,ReservationChangeRequestService reservationChangeRequestService)
         {
             InitializeComponent();
-            this.DataContext = this;
-
-            this.reservationController = reservationController;
-            this.ownerAccommodationGradeController = ownerAccommodationGradeController;
-            this.superOwnerController = superOwnerController;
-            this.ownerController = ownerController;
-            this.reservationChangeRequestService = reservationChangeRequestService;
-
-            //add method for checking the userId when showing reservations
-            ReservationViews = new ObservableCollection<ReservationViewModel>(reservationController.GetReservationsForGuestGrading(ownerGuestId));
             
-            
+            reservationViewModel = new ReservationsViewModel(reservationController, ownerAccommodationGradeController, superOwnerController, ownerController, ownerGuestId, reservationChangeRequestService);
+            this.DataContext = reservationViewModel;
+
+
         }
 
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -59,12 +47,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void Grade_Button_Click(object sender, RoutedEventArgs e)
         {
 
-            if(SelectedReservationView != null)
-            {
-                GradingOwnerAccommodation gradingOwnerAccommodatoinWindow = new GradingOwnerAccommodation(ownerAccommodationGradeController, reservationController, SelectedReservationView, superOwnerController, ownerController);
-                gradingOwnerAccommodatoinWindow.Show();
-                
-            }
+            reservationViewModel.Grade();
 
         }
 
@@ -84,8 +67,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void Modify_Button_Click(object sender, RoutedEventArgs e)
         {
-            ReservationChangeRequestForm reservationChangeRequestForm = new ReservationChangeRequestForm(SelectedReservationView.Reservation, reservationChangeRequestService);
-            reservationChangeRequestForm.Show();
+            reservationViewModel.Modify();
         }
     }
 }

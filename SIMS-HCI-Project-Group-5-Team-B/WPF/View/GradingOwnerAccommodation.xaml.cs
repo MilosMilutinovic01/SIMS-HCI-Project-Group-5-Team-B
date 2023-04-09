@@ -14,16 +14,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         //property for heading text
         public string Heading { get; set; }
         public Reservation SelectedReservation { get; set; }
-        private ReservationViewModel reservationView;
+        private ReservationGridView reservationView;
         public OwnerAccommodationGrade OwnerAccommodationGrade { get; set; }
         private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
         private ReservationService reservationController;
-        private ObservableCollection<ReservationViewModel> ReservationViews;
+        private ObservableCollection<ReservationGridView> ReservationViews;
 
         
         private SuperOwnerService superOwnerController;
         private OwnerService ownerController;
-        public GradingOwnerAccommodation(OwnerAccommodationGradeSevice ownerAccommodationGradeController, ReservationService reservationController, ReservationViewModel reservationView, SuperOwnerService superOwnerController, OwnerService ownerController)
+        public GradingOwnerAccommodation(OwnerAccommodationGradeSevice ownerAccommodationGradeController, ReservationService reservationController, ReservationGridView reservationView, SuperOwnerService superOwnerController, OwnerService ownerController)
         {
             InitializeComponent();
             this.DataContext = this;
