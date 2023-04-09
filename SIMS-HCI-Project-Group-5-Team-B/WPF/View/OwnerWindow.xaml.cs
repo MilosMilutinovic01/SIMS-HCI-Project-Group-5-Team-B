@@ -43,6 +43,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         //Added for dependency injection
         private OwnerGuestCSVRepository ownerGuestCSVRepository;
+        private ReservationCSVRepository reservationCSVRepository;
 
 
         //private DateTime lastDisplayed;
@@ -52,13 +53,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
             DataContext = this;
             ownerGuestCSVRepository = new OwnerGuestCSVRepository();
+
+            reservationCSVRepository = new ReservationCSVRepository();
             locationService = new LocationController();
             ownerService = new OwnerService();
             accommodationService = new AccommodationService(locationService, ownerService);
-            reservationService = new ReservationService(accommodationService, ownerGuestCSVRepository);
+            reservationService = new ReservationService(accommodationService, ownerGuestCSVRepository, reservationCSVRepository);
             ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(reservationService);
             ownerGuestGradeService = new OwnerGuestGradeService(reservationService);
             superOwnerService = new SuperOwnerService(reservationService, ownerAccommodationGradeService, ownerService, accommodationService);
+
             reservationsForGrading = new List<Reservation>();
             LogedInOwner = ownerService.GetByUsername(username);
             LogedInOwner.GradeAverage = superOwnerService.CalculateGradeAverage(LogedInOwner);

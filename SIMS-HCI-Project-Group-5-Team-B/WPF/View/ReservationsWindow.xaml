@@ -35,7 +35,10 @@
                 <DataGridTemplateColumn x:Name="ButtonColumn">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button KeyDown="Button_KeyDown" x:Name="gradeButton" Click="Grade_Button_Click" IsEnabled="{Binding IsForGrading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Grade</Button>
+                            <WrapPanel FlowDirection="RightToLeft">
+                                <Button KeyDown="Button_KeyDown" Margin="5" x:Name="gradeButton" Click="Grade_Button_Click" IsEnabled="{Binding IsForGrading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Grade</Button>
+                                <Button  Click="Modify_Button_Click" Margin="5" IsEnabled="{Binding IsModifiable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Modify</Button>
+                            </WrapPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

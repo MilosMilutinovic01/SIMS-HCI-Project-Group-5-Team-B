@@ -19,26 +19,31 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         public REQUESTSTATUS RequestStatus { get; set; }
         public string DenialComment { get; set; }
 
-        public ReservationChangeRequest(int id, int reservationId, Reservation reservation, DateTime start, DateTime end, REQUESTSTATUS requestStatus, string denialComment)
+        public ReservationChangeRequest( Reservation reservation)
         {
-            Id = id;
-            ReservationId = reservationId;
+          
+            ReservationId = reservation.Id;
             Reservation = reservation;
-            Start = start;
-            End = end;
-            RequestStatus = requestStatus;
-            DenialComment = denialComment;
+            Start = reservation.StartDate;
+            End = reservation.EndDate;
+            RequestStatus = REQUESTSTATUS.Pending;
+            DenialComment = "";
         }
 
         public ReservationChangeRequest() { }
 
         public void FromCSV(string[] values)
         {
-            Id = int.Parse(values[0]);
+            var temp = REQUESTSTATUS.Pending;
+            if (values[4] == "Denied")
+                temp = REQUESTSTATUS.Denied;
+            else if (values[5] == "Confirmed")
+                temp = REQUESTSTATUS.Confirmed;
+                Id = int.Parse(values[0]);
             ReservationId = int.Parse(values[1]);
             Start = DateTime.Parse(values[2]);
             End = DateTime.Parse(values[3]);
-            RequestStatus = (REQUESTSTATUS)int.Parse(values[4]);
+            RequestStatus = temp;
             DenialComment = values[5];
 
         }

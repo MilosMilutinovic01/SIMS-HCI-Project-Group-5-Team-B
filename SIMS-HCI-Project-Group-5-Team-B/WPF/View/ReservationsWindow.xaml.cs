@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.View;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -30,9 +31,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
         private OwnerService ownerController;
         private SuperOwnerService superOwnerController;
+        private ReservationChangeRequestService reservationChangeRequestService;
         public ObservableCollection<ReservationViewModel> ReservationViews { get; set; }
         public ReservationViewModel SelectedReservationView { get; set; }
-        public ReservationsWindow(ReservationService reservationController, OwnerAccommodationGradeSevice ownerAccommodationGradeController, SuperOwnerService superOwnerController, OwnerService ownerController, int ownerGuestId)
+        public ReservationsWindow(ReservationService reservationController, OwnerAccommodationGradeSevice ownerAccommodationGradeController, SuperOwnerService superOwnerController, OwnerService ownerController, int ownerGuestId,ReservationChangeRequestService reservationChangeRequestService)
         {
             InitializeComponent();
             this.DataContext = this;
@@ -41,6 +43,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             this.ownerAccommodationGradeController = ownerAccommodationGradeController;
             this.superOwnerController = superOwnerController;
             this.ownerController = ownerController;
+            this.reservationChangeRequestService = reservationChangeRequestService;
 
             //add method for checking the userId when showing reservations
             ReservationViews = new ObservableCollection<ReservationViewModel>(reservationController.GetReservationsForGuestGrading(ownerGuestId));
@@ -79,6 +82,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 Grade_Button_Click(sender,e);
         }
 
-        
+        private void Modify_Button_Click(object sender, RoutedEventArgs e)
+        {
+            ReservationChangeRequestForm reservationChangeRequestForm = new ReservationChangeRequestForm(SelectedReservationView.Reservation, reservationChangeRequestService);
+            reservationChangeRequestForm.Show();
+        }
     }
 }

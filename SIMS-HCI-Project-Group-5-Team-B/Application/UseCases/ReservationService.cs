@@ -22,12 +22,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
     public class ReservationService
     {
-        private Repository<Reservation> reservationRepository;
+        private IReservationRepository reservationRepository;
         private AccommodationService accommodationController;
         private IOwnerGuestRepository ownerGuestRepository;
-        public ReservationService(AccommodationService accommodationController, IOwnerGuestRepository ownerGuestRepository)
+        public ReservationService(AccommodationService accommodationController, IOwnerGuestRepository ownerGuestRepository, IReservationRepository reservationRepository)
         {
-            reservationRepository = new Repository<Reservation>();
+            this.reservationRepository = reservationRepository; 
             this.accommodationController = accommodationController;
             this.ownerGuestRepository = ownerGuestRepository;
             GetAccomodationReference();
@@ -207,13 +207,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             {
                 if(reservation.OwnerGuestId == ownerGuestId)
                 {
-                    bool boolProp = true;
+                    bool isForGrading = true;
                     if (!(reservation.EndDate.AddDays(5) > DateTime.Today && reservation.EndDate < DateTime.Today && reservation.IsGradedByGuest == false))
                     {
-                        boolProp = false;
+                        isForGrading = false;
                     }
 
-                    reservationViews.Add(new ReservationViewModel(reservation, boolProp));
+                    bool isModifiable = true;
+                    if(reservation.StartDate <= DateTime.Today) 
+                        isModifiable = false;
+                    reservationViews.Add(new ReservationViewModel(reservation, isForGrading,isModifiable));
                 }
                 
 
