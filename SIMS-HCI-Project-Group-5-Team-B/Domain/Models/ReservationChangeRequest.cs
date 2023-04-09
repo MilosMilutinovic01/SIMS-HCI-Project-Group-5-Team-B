@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
-    public enum REQUESTSTATUS { Pending = 0, Denied, Confirmed }
-    public class ReservationChangeRequest : ISerializable, IDataErrorInfo
+    public enum REQUESTSTATUS { Pending = 0, Denied, Confirmed}
+    public class ReservationChangeRequest : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public int ReservationId { get; set; }
@@ -17,7 +18,40 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public REQUESTSTATUS RequestStatus { get; set; }
-        public string DenialComment { get; set; }
+
+        public string denialComment;
+        public string DenialComment
+        {
+            get
+            {
+                return denialComment;
+            }
+            set
+            {
+                if(denialComment != value)
+                {
+                    denialComment = value;
+                    OnPropertyChanged();
+                    NotifyPropertyChanged(nameof(DenialComment));
+                }
+            }
+        }
+
+        private void NotifyPropertyChanged(string info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+
+        
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public ReservationChangeRequest( Reservation reservation)
         {
@@ -28,6 +62,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             End = reservation.EndDate;
             RequestStatus = REQUESTSTATUS.Pending;
             DenialComment = "";
+            
         }
 
         public ReservationChangeRequest() { }
@@ -37,14 +72,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             var temp = REQUESTSTATUS.Pending;
             if (values[4] == "Denied")
                 temp = REQUESTSTATUS.Denied;
-            else if (values[5] == "Confirmed")
+            else if (values[4] == "Confirmed")
                 temp = REQUESTSTATUS.Confirmed;
                 Id = int.Parse(values[0]);
             ReservationId = int.Parse(values[1]);
             Start = DateTime.Parse(values[2]);
             End = DateTime.Parse(values[3]);
             RequestStatus = temp;
-            DenialComment = values[5];
+            denialComment = values[5];
+
 
         }
 
@@ -91,6 +127,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         }
 
         private readonly string[] _validatedProperties = { "Start", "End" };
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public bool IsValid
         {

@@ -16,6 +16,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public string Header { get; set; } = "";
         public string LocationHeader { get; set; } = "";
         private ReservationChangeRequestService reservationChangeRequestService;
+        
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public ReservationChangeRequestViewModel(Reservation selectedReservation, ReservationChangeRequestService reservationChangeRequestService)
@@ -36,6 +37,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             if(NewReservationRequest.IsValid)
             {
+                
                 reservationChangeRequestService.Save(NewReservationRequest);
                 MessageBox.Show("Request sent!");
             }
