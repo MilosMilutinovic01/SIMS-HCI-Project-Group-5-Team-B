@@ -53,5 +53,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
                 }
             }
         }
+
+        public List<ReservationChangeRequest> GetOwnerGuestsReservationRequests(int ownerId)
+        {
+            List<ReservationChangeRequest> ownersReservationChangeRequests = new List<ReservationChangeRequest>();
+            foreach(ReservationChangeRequest request in GetAll())
+            {
+                if(request.Reservation.OwnerGuestId == ownerId)
+                    ownersReservationChangeRequests.Add(request);
+
+            }
+            return ownersReservationChangeRequests;
+
+        }
     }
 }
