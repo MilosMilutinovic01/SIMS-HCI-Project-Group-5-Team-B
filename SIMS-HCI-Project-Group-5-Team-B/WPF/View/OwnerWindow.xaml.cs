@@ -16,6 +16,8 @@ using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using System.Collections.ObjectModel;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.View;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -37,14 +39,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public ObservableCollection<Accommodation> AccomodationsOfLogedInOwner { get; set; }
         public ObservableCollection<Reservation> ReservationsForGrading { get; set; }
         public ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing { get; set; }
+        public ObservableCollection<ReservationChangeRequest> OwnersPendingRequests { get; set; }
 
         public Reservation SelectedReservation { get; set; }
         public OwnerAccommodationGrade SelectedOwnerAccommodationGrade { get; set; }
 
+        public ReservationChangeRequest SelectedReservationChangeRequest   { get; set; }
+
         //Added for dependency injection
         private OwnerGuestCSVRepository ownerGuestCSVRepository;
         private ReservationCSVRepository reservationCSVRepository;
+        private ReservationChangeRequestCSVRepository reservationChangeRequestCSVRepository;
 
+        private readonly AcceptingAndDecliningReservationChangeRequestViewModel _viewModel;
+        private ReservationChangeRequestService reservationChangeRequestService;
 
         //private DateTime lastDisplayed;
         public OwnerWindow(string username)
@@ -53,8 +61,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
             DataContext = this;
             ownerGuestCSVRepository = new OwnerGuestCSVRepository();
-
             reservationCSVRepository = new ReservationCSVRepository();
+            reservationChangeRequestCSVRepository = new ReservationChangeRequestCSVRepository();
+
             locationService = new LocationController();
             ownerService = new OwnerService();
             accommodationService = new AccommodationService(locationService, ownerService);
@@ -73,6 +82,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             AccomodationsOfLogedInOwner = new ObservableCollection<Accommodation>(accommodationService.GetAccommodationsOfLogedInOwner(LogedInOwner));
             ReservationsForGrading = new ObservableCollection<Reservation>(reservationService.GetSuiableReservationsForGrading(LogedInOwner));
             OwnerAccommodationGradesForShowing = new ObservableCollection<OwnerAccommodationGrade>(ownerAccommodationGradeService.GetOwnerAccommodationGradesForShowing(LogedInOwner));
+
+            reservationChangeRequestService = new ReservationChangeRequestService(reservationChangeRequestCSVRepository, reservationCSVRepository);
+            _viewModel = new AcceptingAndDecliningReservationChangeRequestViewModel(reservationChangeRequestService,reservationService, LogedInOwner,SelectedReservationChangeRequest);
+            OwnersPendingRequests = new ObservableCollection<ReservationChangeRequest>(_viewModel.OwnersPendingRequests);
+
+            
 
         }
 
@@ -126,6 +141,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void Report_Button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+
+        private void Accept_Button_Click(object sender, RoutedEventArgs e)
+        {
+            AcceptReservationChangeRequestWindow acceptReservationChangeRequestWindow = new AcceptReservationChangeRequestWindow(reservationChangeRequestService, reservationService, LogedInOwner, SelectedReservationChangeRequest,OwnersPendingRequests);
+            acceptReservationChangeRequestWindow.Show();
+        }
+
+
+        private void Decline_Button_Click(object sender, RoutedEventArgs e)
+        {
+            DeclineReservationChangeRequestForm declineReservationChangeRequestForm = new DeclineReservationChangeRequestForm(reservationChangeRequestService, reservationService, LogedInOwner, SelectedReservationChangeRequest, OwnersPendingRequests);
+            declineReservationChangeRequestForm.Show();
         }
 
     }

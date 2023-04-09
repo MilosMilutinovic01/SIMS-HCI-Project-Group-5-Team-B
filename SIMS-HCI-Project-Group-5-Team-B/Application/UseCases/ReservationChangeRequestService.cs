@@ -54,6 +54,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             }
         }
 
+
+        public List<ReservationChangeRequest> GetOwnersPendingRequests(Owner owner)
+        {
+            List<ReservationChangeRequest> reservationChangeRequests = GetAll();
+            List<ReservationChangeRequest> ownersReservationChangeRequests = new List<ReservationChangeRequest>();
+            foreach(ReservationChangeRequest reservationChangeRequest in reservationChangeRequests)
+            {
+                if(reservationChangeRequest.Reservation.Accommodation.Owner.Id == owner.Id && reservationChangeRequest.RequestStatus == REQUESTSTATUS.Pending)
+                {
+                    ownersReservationChangeRequests.Add(reservationChangeRequest);
+                }
+            }
+
+            return ownersReservationChangeRequests;
+        }
         public List<ReservationChangeRequest> GetOwnerGuestsReservationRequests(int ownerId)
         {
             List<ReservationChangeRequest> ownersReservationChangeRequests = new List<ReservationChangeRequest>();
