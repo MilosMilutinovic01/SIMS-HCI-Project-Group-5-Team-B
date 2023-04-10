@@ -37,6 +37,26 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
+        public string isAvailable;
+        public string IsAvailable
+        {
+            get
+            {
+                return isAvailable;
+            }
+            set
+            {
+                if(isAvailable != value)
+                {
+                    isAvailable = value;
+                    OnPropertyChanged();
+                    NotifyPropertyChanged(nameof(IsAvailable));
+                }
+            }
+        
+        }
+
+
         private void NotifyPropertyChanged(string info)
         {
             if (PropertyChanged != null)
@@ -62,6 +82,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             End = reservation.EndDate;
             RequestStatus = REQUESTSTATUS.Pending;
             DenialComment = "";
+            IsAvailable = "";
             
         }
 
@@ -80,6 +101,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             End = DateTime.Parse(values[3]);
             RequestStatus = temp;
             denialComment = values[5];
+            isAvailable = values[6];
 
 
         }
@@ -93,7 +115,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 Start.ToString(),
                 End.ToString(),
                 RequestStatus.ToString(),
-                DenialComment
+                DenialComment,
+                IsAvailable
             };
             return csvValues;
         }

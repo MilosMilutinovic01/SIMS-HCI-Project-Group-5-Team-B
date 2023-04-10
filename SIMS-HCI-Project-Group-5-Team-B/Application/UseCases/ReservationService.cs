@@ -239,6 +239,40 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             }
             return reservationViews;
         }
+
+
+        public bool IsAccomodationAvailableForChangingReservationDates(Reservation selectedReservation, DateTime startDate, DateTime endDate)
+        {
+            //u listu ubacije sve rezervacije od zeljenog smestaja, treba da preskoci rezervaciju koju zelimo da pomerimo
+            List<Reservation> accomodationReservations = GetAccomodationReservations(selectedReservation.Accommodation);
+            //izbacili smo rezervaciju za koju zelimo da pomerimo datume
+            accomodationReservations.Remove(selectedReservation);
+
+            foreach (Reservation reservation in accomodationReservations)
+            {
+
+                
+                bool isInRange = startDate >= reservation.StartDate && startDate <= reservation.EndDate ||
+                                 endDate >= reservation.StartDate && endDate <= reservation.EndDate;
+
+                bool isOutOfRange = startDate <= reservation.StartDate && endDate >= reservation.EndDate;
+
+                if (isInRange)
+                {
+                    return false;
+                }
+                else if (isOutOfRange)
+                {
+                    return false;
+                }
+
+            }
+            return true;
+
+        }
+
+
+
     }
 }
 
