@@ -28,9 +28,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             return reservationRepository.FindBy(propertyNames, values);
         }
 
-        public List<Reservation> GetAll()
+        public List<Reservation> GetUndeleted()
         {
-            return reservationRepository.GetAll();
+            List<Reservation> undeletedReservations = new List<Reservation>();
+            foreach(Reservation reservation in reservationRepository.GetAll())
+            {
+                if(!reservation.IsDeleted)
+                    undeletedReservations.Add(reservation);
+            }
+            return undeletedReservations;
         }
 
         public Reservation GetById(int id)
@@ -51,6 +57,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
         public void Update(Reservation reservation)
         {
             reservationRepository.Update(reservation);
+        }
+
+        public List<Reservation> GetAll()
+        {
+            return reservationRepository.GetAll();
         }
     }
 }

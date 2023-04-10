@@ -35,7 +35,7 @@
                 <DataGridTextColumn Header="End" Binding="{Binding End}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Guests No" Binding="{Binding Reservation.GuestsNumber}" Width="0.7*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Status" Binding="{Binding RequestStatus}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Comment" Binding="{Binding DenialComment}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Comment" Binding="{Binding DenialComment}" Width="1.5*"></DataGridTextColumn>
             </DataGrid.Columns>
 
         </DataGrid>
@@ -55,6 +55,7 @@
                             <WrapPanel FlowDirection="RightToLeft">
                                 <Button KeyDown="Button_KeyDown" Margin="5" x:Name="gradeButton" Click="Grade_Button_Click" IsEnabled="{Binding IsForGrading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Grade</Button>
                                 <Button  Click="Modify_Button_Click" Margin="5" IsEnabled="{Binding IsModifiable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Modify</Button>
+                                <Button  Click="Cancel_Button_Click" Margin="5" IsEnabled="{Binding IsCancelable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Cancel</Button>
                             </WrapPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

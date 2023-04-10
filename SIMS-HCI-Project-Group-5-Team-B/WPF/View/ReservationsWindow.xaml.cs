@@ -69,5 +69,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             reservationViewModel.Modify();
         }
+
+        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
+        {
+            reservationViewModel?.Cancel();
+        }
     }
 }
