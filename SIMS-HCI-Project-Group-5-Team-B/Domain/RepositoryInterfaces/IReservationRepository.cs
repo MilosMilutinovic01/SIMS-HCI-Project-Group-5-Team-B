@@ -9,6 +9,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces
 {
     public interface IReservationRepository
     {
+        public List<Reservation> GetUndeleted();
         public List<Reservation> GetAll();
         public Reservation GetById(int id);
         public void Save(Reservation reservation);

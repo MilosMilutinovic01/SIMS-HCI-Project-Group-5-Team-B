@@ -35,6 +35,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         }
 
+        public List<Reservation> GetUndeleted()
+        {
+            return reservationRepository.GetUndeleted();
+        }
+
         public List<Reservation> GetAll()
         {
             return reservationRepository.GetAll();
@@ -100,8 +105,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public List<Reservation> GetSuiableReservationsForGrading(Owner owner)
         {
-            ///TODO: nina ovdje ces sigurno doavati uslov da si ti vlasnik
-            List<Reservation> reservations = GetAll();
+            
+            List<Reservation> reservations = GetUndeleted();
             List<Reservation> suitableReservations = new List<Reservation>();
             foreach (Reservation reservation in reservations)
             {
@@ -165,7 +170,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         public List<Reservation> GetAccomodationReservations(Accommodation selectedAccommodation)
         {
             List<Reservation> accomodationReservations = new List<Reservation>();
-            foreach (Reservation reservation in GetAll())
+            foreach (Reservation reservation in GetUndeleted())
             {
                 if (reservation.AccommodationId == selectedAccommodation.Id)
                 {
@@ -200,10 +205,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         }
         
+        //TO Be REFACTORED!
         public List<ReservationGridView> GetReservationsForGuestGrading(int ownerGuestId)
         {
             List<ReservationGridView> reservationViews = new List<ReservationGridView>();
-            foreach (Reservation reservation in GetAll())
+            foreach (Reservation reservation in GetUndeleted())
             {
                 if(reservation.OwnerGuestId == ownerGuestId)
                 {
@@ -214,9 +220,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
                     }
 
                     bool isModifiable = true;
-                    if(reservation.StartDate <= DateTime.Today) 
+                    if (reservation.StartDate <= DateTime.Today)
+                    {
                         isModifiable = false;
-                    reservationViews.Add(new ReservationGridView(reservation, isForGrading,isModifiable));
+                    }
+
+                    bool isCancelable = true;
+                    //ovo pogledati!!!!!!
+                    if (reservation.StartDate <= DateTime.Today || reservation.StartDate <= DateTime.Today.AddDays(reservation.Accommodation.NoticePeriod))
+                    {
+                        isCancelable = false;
+                    }
+
+                    reservationViews.Add(new ReservationGridView(reservation, isForGrading,isModifiable,isCancelable));
                 }
                 
 

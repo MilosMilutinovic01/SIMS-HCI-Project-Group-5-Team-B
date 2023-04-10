@@ -67,7 +67,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         public List<OwnerAccommodationGrade> GetOwnerAccommodationGradesForShowing(Owner owner)
         {
             //dobili smo sve rezervacije
-            List<Reservation> reservations = reservationController.GetAll();
+            List<Reservation> reservations = reservationController.GetUndeleted();
 
             //dobili smo sve ocene smestaja
             List<OwnerAccommodationGrade> ownerAccommodationGrades = GetAll();

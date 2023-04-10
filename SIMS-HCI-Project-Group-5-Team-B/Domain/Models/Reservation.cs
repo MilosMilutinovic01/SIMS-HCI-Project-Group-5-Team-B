@@ -102,6 +102,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             EndDate = DateTime.Today;
         }
 
+        //Added for ligical deletition
+        public bool IsDeleted { get; set; }
+
         public Reservation(int accomodationId, DateTime startDate, DateTime endDate, int reservationDays, int guestsNumber)
         {
             accommodationId = accomodationId;
@@ -114,6 +117,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 
             IsGraded = false;
             IsGradedByGuest = false;
+            IsDeleted = false;
         }
 
         public string[] ToCSV()
@@ -128,7 +132,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 reservationDays.ToString(),
                 guestsNumber.ToString(),
                 IsGraded.ToString(),
-                IsGradedByGuest.ToString()
+                IsGradedByGuest.ToString(),
+                IsDeleted.ToString()
             };
             return csvValues;
         }
@@ -144,6 +149,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             guestsNumber = int.Parse(values[6]);
             IsGraded = bool.Parse(values[7]);
             IsGradedByGuest = bool.Parse(values[8]);
+            IsDeleted = bool.Parse(values[9]);
         }
 
         public string Error => null;
