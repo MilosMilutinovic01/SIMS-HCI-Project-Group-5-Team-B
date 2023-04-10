@@ -82,7 +82,7 @@
                                     <DataGridTextColumn Header="Accommodation" Binding="{Binding Reservation.Accommodation.Name}" Width="*"></DataGridTextColumn>
                                     <DataGridTextColumn Header="Wanted start date" Binding="{Binding Start}" Width="*"></DataGridTextColumn>
                                     <DataGridTextColumn Header="Wanted end date" Binding="{Binding End}" Width="*"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Availability" Width="*" ></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Availability" Binding="{Binding IsAvailable}" Width="*" ></DataGridTextColumn>
                                     <DataGridTemplateColumn x:Name="ButtonAcceptAndDeclineRequest">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
