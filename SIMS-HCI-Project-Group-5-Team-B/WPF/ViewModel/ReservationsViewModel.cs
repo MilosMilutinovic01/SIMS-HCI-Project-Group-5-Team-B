@@ -45,7 +45,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             if(SelectedReservationView != null)
             {
-                ReservationChangeRequestForm reservationChangeRequestForm = new ReservationChangeRequestForm(SelectedReservationView.Reservation, reservationChangeRequestService);
+                ReservationChangeRequestForm reservationChangeRequestForm = new ReservationChangeRequestForm(SelectedReservationView.Reservation, reservationChangeRequestService, reservationController);
                 reservationChangeRequestForm.Show();
             }
             
