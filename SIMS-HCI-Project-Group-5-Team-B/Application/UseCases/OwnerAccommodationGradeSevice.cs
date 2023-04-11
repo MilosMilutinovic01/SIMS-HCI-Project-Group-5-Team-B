@@ -64,10 +64,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
 
 
-        public List<OwnerAccommodationGrade> GetOwnerAccommodationGradesForShowing()
+        public List<OwnerAccommodationGrade> GetOwnerAccommodationGradesForShowing(Owner owner)
         {
             //dobili smo sve rezervacije
-            List<Reservation> reservations = reservationController.GetAll();
+            List<Reservation> reservations = reservationController.GetUndeleted();
 
             //dobili smo sve ocene smestaja
             List<OwnerAccommodationGrade> ownerAccommodationGrades = GetAll();
@@ -84,7 +84,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
                     foreach (OwnerAccommodationGrade ownerAccommodationGrade in ownerAccommodationGrades)
                     {
                         //nasli smo ocenu smestaja sa trazenim id-om rezervacije i sada tu ocenu dodajemo u ocene koje ce se prikazati
-                        if (reservation.Id == ownerAccommodationGrade.ReservationId)
+                        if (reservation.Id == ownerAccommodationGrade.ReservationId && ownerAccommodationGrade.Reservation.Accommodation.Owner.Id == owner.Id)
                         {
                             ownerAccommodationGradesForShowing.Add(ownerAccommodationGrade);
                         }

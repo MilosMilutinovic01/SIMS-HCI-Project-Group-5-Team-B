@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -13,16 +14,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         //property for heading text
         public string Heading { get; set; }
         public Reservation SelectedReservation { get; set; }
-        private ReservationView reservationView;
+        private ReservationGridView reservationView;
         public OwnerAccommodationGrade OwnerAccommodationGrade { get; set; }
         private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
         private ReservationService reservationController;
-        private ObservableCollection<ReservationView> ReservationViews;
+        private ObservableCollection<ReservationGridView> ReservationViews;
 
         
         private SuperOwnerService superOwnerController;
         private OwnerService ownerController;
-        public GradingOwnerAccommodation(OwnerAccommodationGradeSevice ownerAccommodationGradeController, ReservationService reservationController, ReservationView reservationView, SuperOwnerService superOwnerController, OwnerService ownerController)
+        public GradingOwnerAccommodation(OwnerAccommodationGradeSevice ownerAccommodationGradeController, ReservationService reservationController, ReservationGridView reservationView, SuperOwnerService superOwnerController, OwnerService ownerController)
         {
             InitializeComponent();
             this.DataContext = this;

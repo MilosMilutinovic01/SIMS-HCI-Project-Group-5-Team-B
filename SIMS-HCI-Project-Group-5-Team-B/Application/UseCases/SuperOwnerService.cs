@@ -46,7 +46,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public int GetNumberOfReservations(Owner owner)
         {
-            List<Reservation> reservations = reservationController.GetAll();
+            List<Reservation> reservations = reservationController.GetUndeleted(); //PROVJERITI OVO !!!!!!
             int numberOfReservations = 0;
             foreach (Reservation reservation in reservations)
             {

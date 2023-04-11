@@ -19,13 +19,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public Accommodation SelectedAccomodation { get; set; }
         public ObservableCollection<ReservationRecommendation> ReservationRecommendations { get; set; }
         public ReservationRecommendation SelectedDate { get; set; }
-        public ReservationForm(ReservationService reservationController, Accommodation SelectedAccomodation)
+        private int ownerGuestId;
+        public ReservationForm(ReservationService reservationController, Accommodation SelectedAccomodation,int ownerGuestId)
         {
             InitializeComponent();
             this.DataContext = this;
             this.reservationController = reservationController;
             this.SelectedAccomodation = SelectedAccomodation;
             NewReservation = new Reservation();
+            this.ownerGuestId = ownerGuestId;
             SetReservationParameters();
             StartDate = DateTime.Today;
             EndDate = DateTime.Today;
@@ -62,7 +64,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             
             NewReservation.AccommodationId = SelectedAccomodation.Id;
             NewReservation.Accommodation = SelectedAccomodation;
-            NewReservation.GuestsNumber = 1; //default value
+            NewReservation.GuestsNumber = 0; // default value
+            NewReservation.OwnerGuestId = this.ownerGuestId;
             StartDate = NewReservation.StartDate; //ehis could change but it can not go before today
             EndDate = NewReservation.EndDate;
         }

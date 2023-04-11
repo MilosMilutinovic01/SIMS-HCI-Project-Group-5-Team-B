@@ -18,6 +18,7 @@ using System.Text.RegularExpressions;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using System.Collections.ObjectModel;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -36,6 +37,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public Accommodation Accommodation { get; set; }
         public Location Location { get; set; }
         private string locationString;
+
+        public ObservableCollection<Accommodation> AccomodationsOfLogedInOwner { get; set; }
+
+        private Owner owner;
 
 
         public List<string> states { get; set; }
@@ -57,7 +62,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         }
 
 
-        public AccommodationForm()
+
+        public AccommodationForm(ObservableCollection<Accommodation> AccomodationsOfLogedInOwner, Owner owner)
         {
             locationString = "";
             Accommodation = new Accommodation();
@@ -68,6 +74,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             Location = new Location();
             accommodationController = new AccommodationService(locationController, ownerController);
             states = locationController.GetStates();
+
+            this.AccomodationsOfLogedInOwner = AccomodationsOfLogedInOwner;
+
+            this.owner = owner;
+
         }
 
         
@@ -84,11 +95,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 accommodationController.AddAccommodation(Accommodation, Location);*/
 
                 Location existingLocation = locationController.GetLocation(Location);
-
+                Accommodation.OwnerId = owner.Id;
                 if (existingLocation != null)
                 {
                     Accommodation.LocationId = existingLocation.Id;
+                    
                     accommodationController.Save(Accommodation);
+                    AccomodationsOfLogedInOwner.Add(Accommodation);
                 }
                 else
                 {
@@ -175,6 +188,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             ComboBoxCities.ItemsSource = cities;
         }
 
-
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

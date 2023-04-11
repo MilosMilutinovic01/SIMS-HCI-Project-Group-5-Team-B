@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
+using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.View;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
@@ -30,28 +32,42 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private OwnerService ownerController;
         private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
         private SuperOwnerService superOwnerController;
+        private OwnerGuestService ownerGuestService;
+        private OwnerGuest activeOwnerGuest;
+        private ReservationChangeRequestService reservationChangeRequestService;
 
-        public OwnerGuestWindow()
+        //Added for DEPENDENCY INJECTION
+        private OwnerGuestCSVRepository ownerGuestRepository;
+        private ReservationCSVRepository reservationCSVRepository;
+        private ReservationChangeRequestCSVRepository reservationChangeRequestCSVRepository;
+        public OwnerGuestWindow(string username)
         {
             InitializeComponent();
+            ownerGuestRepository = new OwnerGuestCSVRepository();
+            reservationCSVRepository = new ReservationCSVRepository();
+            reservationChangeRequestCSVRepository = new ReservationChangeRequestCSVRepository();
+            
             locationController = new LocationController();
             ownerController = new OwnerService();
             accommodationController = new AccommodationService(locationController, ownerController);
-            reservationController = new ReservationService(accommodationController);
+            reservationController = new ReservationService(accommodationController, ownerGuestRepository, reservationCSVRepository);
             ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);
             superOwnerController = new SuperOwnerService(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
+            ownerGuestService = new OwnerGuestService();
+            reservationChangeRequestService = new ReservationChangeRequestService(reservationChangeRequestCSVRepository, reservationCSVRepository);
+            activeOwnerGuest =  ownerGuestService.GetByUsername(username);
         }
 
         private void ShowAccomodation_Button_Click(object sender, RoutedEventArgs e)
         {
 
-            AccommodationsWindow accomodationsWindow = new AccommodationsWindow();
+            AccommodationsWindow accomodationsWindow = new AccommodationsWindow(activeOwnerGuest.Id, locationController, ownerController, accommodationController, reservationController);
             accomodationsWindow.Show();
         }
 
         private void Reservations_Button_Click(object sender, RoutedEventArgs e)
         {
-            ReservationsWindow reservationsWindow = new ReservationsWindow(reservationController,ownerAccommodationGradeController,superOwnerController,ownerController);
+            ReservationsWindow reservationsWindow = new ReservationsWindow(reservationController,ownerAccommodationGradeController,superOwnerController,ownerController, activeOwnerGuest.Id, reservationChangeRequestService);
             reservationsWindow.Show();
         }
     }

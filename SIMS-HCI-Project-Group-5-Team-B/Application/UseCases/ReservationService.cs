@@ -1,10 +1,10 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.View;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
@@ -20,56 +20,24 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         }
     }
 
-    public class ReservationView : INotifyPropertyChanged
-    {
-        public Reservation Reservation { get; set; }
-        public bool isForGrading;
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        private void NotifyPropertyChanged(string info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
-
-        public bool IsForGrading
-        {
-            get { return isForGrading; }
-            set
-            {
-                if (value != isForGrading)
-                {
-                    isForGrading = value;
-                    OnPropertyChanged();
-                    NotifyPropertyChanged(nameof(IsForGrading));  //sta je ov????
-                }
-            }
-
-        }
-        public ReservationView(Reservation reservation, bool isForGrading)
-        {
-            Reservation = reservation;
-            IsForGrading = isForGrading;
-        }
-    }
-
     public class ReservationService
     {
-        private Repository<Reservation> reservationRepository;
+        private IReservationRepository reservationRepository;
         private AccommodationService accommodationController;
-        public ReservationService(AccommodationService accommodationController)
+        private IOwnerGuestRepository ownerGuestRepository;
+        public ReservationService(AccommodationService accommodationController, IOwnerGuestRepository ownerGuestRepository, IReservationRepository reservationRepository)
         {
-            reservationRepository = new Repository<Reservation>();
+            this.reservationRepository = reservationRepository; 
             this.accommodationController = accommodationController;
+            this.ownerGuestRepository = ownerGuestRepository;
             GetAccomodationReference();
             GetOwnerGuestReference();
 
+        }
+
+        public List<Reservation> GetUndeleted()
+        {
+            return reservationRepository.GetUndeleted();
         }
 
         public List<Reservation> GetAll()
@@ -125,22 +93,24 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         private void GetOwnerGuestReference()
         {
-            OwnerGuest ownerGuest = new OwnerGuest();
+            //OwnerGuest ownerGuest = new OwnerGuest();
             foreach (Reservation reservation in GetAll())
             {
+               OwnerGuest ownerGuest = ownerGuestRepository.GetById(reservation.OwnerGuestId);
                 reservation.OwnerGuest = ownerGuest;
             }
         }
 
 
 
-        public List<Reservation> GetSuiableReservationsForGrading()
+        public List<Reservation> GetSuiableReservationsForGrading(Owner owner)
         {
-            List<Reservation> reservations = GetAll();
+            
+            List<Reservation> reservations = GetUndeleted();
             List<Reservation> suitableReservations = new List<Reservation>();
             foreach (Reservation reservation in reservations)
             {
-                if (reservation.IsGraded == false && reservation.EndDate.AddDays(5) > DateTime.Today && reservation.EndDate <= DateTime.Today)
+                if (reservation.IsGraded == false && reservation.EndDate.AddDays(5) > DateTime.Today && reservation.EndDate <= DateTime.Today && reservation.Accommodation.Owner.Id == owner.Id)
                 {
                     suitableReservations.Add(reservation);
                 }
@@ -200,7 +170,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         public List<Reservation> GetAccomodationReservations(Accommodation selectedAccommodation)
         {
             List<Reservation> accomodationReservations = new List<Reservation>();
-            foreach (Reservation reservation in GetAll())
+            foreach (Reservation reservation in GetUndeleted())
             {
                 if (reservation.AccommodationId == selectedAccommodation.Id)
                 {
@@ -234,24 +204,75 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return true;
 
         }
-        //TODO add another condition - username must be the current active one! - from active OwnerGuest
-        public List<ReservationView> GetReservationsForGuestGrading()
+        
+        //TO Be REFACTORED!
+        public List<ReservationGridView> GetReservationsForGuestGrading(int ownerGuestId)
         {
-            List<ReservationView> reservationViews = new List<ReservationView>();
-            foreach (Reservation reservation in GetAll())
+            List<ReservationGridView> reservationViews = new List<ReservationGridView>();
+            foreach (Reservation reservation in GetUndeleted())
             {
-
-                bool boolProp = true;
-                if (!(reservation.EndDate.AddDays(5) > DateTime.Today && reservation.EndDate < DateTime.Today && reservation.IsGradedByGuest == false))
+                if(reservation.OwnerGuestId == ownerGuestId)
                 {
-                    boolProp = false;
-                }
+                    bool isForGrading = true;
+                    if (!(reservation.EndDate.AddDays(5) > DateTime.Today && reservation.EndDate < DateTime.Today && reservation.IsGradedByGuest == false))
+                    {
+                        isForGrading = false;
+                    }
 
-                reservationViews.Add(new ReservationView(reservation, boolProp));
+                    bool isModifiable = true;
+                    if (reservation.StartDate <= DateTime.Today)
+                    {
+                        isModifiable = false;
+                    }
+
+                    bool isCancelable = true;
+                    //ovo pogledati!!!!!!
+                    if (reservation.StartDate <= DateTime.Today || reservation.StartDate <= DateTime.Today.AddDays(reservation.Accommodation.NoticePeriod))
+                    {
+                        isCancelable = false;
+                    }
+
+                    reservationViews.Add(new ReservationGridView(reservation, isForGrading,isModifiable,isCancelable));
+                }
+                
 
             }
             return reservationViews;
         }
+
+
+        public bool IsAccomodationAvailableForChangingReservationDates(Reservation selectedReservation, DateTime startDate, DateTime endDate)
+        {
+            //u listu ubacije sve rezervacije od zeljenog smestaja, treba da preskoci rezervaciju koju zelimo da pomerimo
+            List<Reservation> accomodationReservations = GetAccomodationReservations(selectedReservation.Accommodation);
+            //izbacili smo rezervaciju za koju zelimo da pomerimo datume
+            accomodationReservations.Remove(selectedReservation);
+
+            foreach (Reservation reservation in accomodationReservations)
+            {
+
+                
+                bool isInRange = startDate >= reservation.StartDate && startDate <= reservation.EndDate ||
+                                 endDate >= reservation.StartDate && endDate <= reservation.EndDate;
+
+                bool isOutOfRange = startDate <= reservation.StartDate && endDate >= reservation.EndDate;
+
+                if (isInRange)
+                {
+                    return false;
+                }
+                else if (isOutOfRange)
+                {
+                    return false;
+                }
+
+            }
+            return true;
+
+        }
+
+
+
     }
 }
 
