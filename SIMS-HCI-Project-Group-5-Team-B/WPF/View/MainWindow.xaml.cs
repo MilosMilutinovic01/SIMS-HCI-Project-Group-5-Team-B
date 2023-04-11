@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SIMS_HCI_Project_Group_5_Team_B.View;
+using System.Windows.Navigation;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using System.IO;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
@@ -46,19 +46,23 @@ namespace SIMS_HCI_Project_Group_5_Team_B
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            if(!Username.Equals("") || !Password.Equals(""))
+            if(Username != null && Password != null)
             {
-                User user = userController.LogIn(Username, Password);
-                if (user == null)
+                if (!Username.Equals("") || !Password.Equals(""))
                 {
-                    MessageBox.Show("Username or password is incorrect");
-                    return;
+                    User user = userController.LogIn(Username, Password);
+                    if (user == null)
+                    {
+                        MessageBox.Show("Username or password is incorrect");
+                        return;
+                    }
                 }
             }
+            
 
 
 
-            if(ComboBoxType.SelectedIndex == 0)//Guide is selected
+            if(ComboBoxType.SelectedIndex == 0 || Username == null || Password == null)//Guide is selected
             {
                 GuideWindow guideWindow = new GuideWindow();
                 guideWindow.Show();
