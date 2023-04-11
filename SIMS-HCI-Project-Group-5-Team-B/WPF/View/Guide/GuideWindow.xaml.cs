@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS_HCI_Project_Group_5_Team_B.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void AddTourClick(object sender, RoutedEventArgs e)
         {
+            //MainFrame.NavigationService.Navigate(new TourCreateForm());
             TourCreateForm tourForm = new TourCreateForm();
             tourForm.Show();
         }
@@ -40,6 +42,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             TourCancelWindow tourCancel = new TourCancelWindow();
             tourCancel.Show();
+        }
+
+        private void SignOutClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

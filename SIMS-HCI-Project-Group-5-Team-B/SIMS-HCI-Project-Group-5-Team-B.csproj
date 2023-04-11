@@ -9,8 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Images\" />
-    <Folder Include="Resources\NewFolder\" />
+    <None Remove="Resources\Images\hamburgerIcon.png" />
+    <None Remove="Resources\Images\profile.png" />
+    <None Remove="Resources\Images\threeDots.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="WPF\ViewModel\" />
   </ItemGroup>
 
@@ -18,6 +22,12 @@
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
     <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\hamburgerIcon.png" />
+    <Resource Include="Resources\Images\profile.png" />
+    <Resource Include="Resources\Images\threeDots.png" />
   </ItemGroup>
 
   <ItemGroup>
