@@ -1,4 +1,5 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.View;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void SignOutClick(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            ReviewsWindow reviewsWindow = new ReviewsWindow();
+            reviewsWindow.Show();
         }
     }
 }

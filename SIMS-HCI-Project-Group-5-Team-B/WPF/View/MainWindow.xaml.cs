@@ -62,7 +62,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
 
 
 
-            if(ComboBoxType.SelectedIndex == 0 || Username == null || Password == null)//Guide is selected
+            if(ComboBoxType.SelectedIndex == 0 && Username == null && Password == null)//Guide is selected
             {
                 GuideWindow guideWindow = new GuideWindow();
                 guideWindow.Show();
