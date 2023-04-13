@@ -38,10 +38,25 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             get { return keyPointGuestArrivedId; }
             set { keyPointGuestArrivedId = value; }
         }
+        private int tourAppointmentId;
+        public int TourAppointmentId
+        {
+            get { return tourAppointmentId; }
+            set { tourAppointmentId = value; }
+        }
         public TourAttendance()
         {
 
         }
+
+        //public TourAttendance(int tourAttendanceId, int peopleAttending, int keyPointGuestArrivedId, int guideGuestId, int tourAppointmentId)
+        //{
+        //    TourAttendanceId = tourAttendanceId;
+        //    PeopleAttending = peopleAttending;
+        //    KeyPointGuestArrivedId = keyPointGuestArrivedId;
+        //    GuideGuestId = guideGuestId;
+        //    this.tourAppointmentId = tourAppointmentId;
+        //}
 
         public TourAttendance(int tourAttendanceId, int peopleAttending, int keyPointGuestArrivedId, int guideGuestId)
         {
@@ -60,7 +75,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 guideGuestId.ToString(),
                 tourAttendanceId.ToString(),
                 peopleAttending.ToString(),
-                keyPointGuestArrivedId.ToString()
+                keyPointGuestArrivedId.ToString(),
+                //tourAppointmentId.ToString()
             };
 
             return csvValues;
@@ -73,6 +89,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             tourAttendanceId = int.Parse(values[2]);
             peopleAttending = int.Parse(values[3]);
             keyPointGuestArrivedId = int.Parse(values[4]);
+            //tourAppointmentId = int.Parse(values[5]);
         }
     }
 }

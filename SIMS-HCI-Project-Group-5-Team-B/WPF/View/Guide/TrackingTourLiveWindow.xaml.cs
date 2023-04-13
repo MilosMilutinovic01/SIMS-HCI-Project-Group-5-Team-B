@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Notifications;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     {
         private KeyPointsController keyPointsController;
         private AppointmentController appointmentController;
+        private NotificationController notificationController;
+        private tourAttendanceController tourAttendanceController;
 
         public ObservableCollection<Appointment> AvailableAppointments { get; set; }
         public ObservableCollection<KeyPoint> KeyPoints { get; set; }
@@ -31,8 +34,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public KeyPoint SelectedKeyPoint { get; set; }
         public GuideGuest SelectedGuest { get; set; }
 
-        public static bool answer = true;
-        public static string keyPointName;
+        //public static bool answer = true;
+        //public static string keyPointName;
         public TrackingTourLiveWindow()
         {
             InitializeComponent();
@@ -40,12 +43,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
             keyPointsController = new KeyPointsController();
             appointmentController = new AppointmentController();
+            notificationController = new NotificationController();
+            tourAttendanceController = new tourAttendanceController();
 
             AvailableAppointments = new ObservableCollection<Appointment>(appointmentController.GetAllAvaillable());
             KeyPoints = new ObservableCollection<KeyPoint>();
             GuideGuest = new ObservableCollection<GuideGuest>();
 
-            GuideGuest.Add(new GuideGuest(1, "Uros", "Nikolovski"));
+            //GuideGuest.Add(new GuideGuest(1, "Uros", "Nikolovski"));
             
             TourStartButton.IsEnabled = true;
             KeyPointCheckButton.IsEnabled = false;
@@ -80,11 +85,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             if (result)
             {
                 SelectedAppointment.Started = true;
+                SelectedAppointment.CheckedKeyPointId = KeyPoints[0].Id;
                 appointmentController.Update(SelectedAppointment);
 
                 KeyPoints[0].Selected = true;
                 keyPointsController.Update(KeyPoints[0]);
-                keyPointName = KeyPoints[0].Name;
+                //keyPointName = KeyPoints[0].Name;
 
 
                 AvailableAppointmentDataGrid.IsHitTestVisible = false;
@@ -99,20 +105,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void KeyPointCheckButton_Click(object sender, RoutedEventArgs e)
         {
-            bool isValidKeyPoint = KeyPointsDataGrid.SelectedIndex == KeyPointsDataGrid.Items.Count - 1 && KeyPoints[KeyPointsDataGrid.SelectedIndex - 1].Selected == true;
+            bool isLastKeyPoint = KeyPointsDataGrid.SelectedIndex == KeyPointsDataGrid.Items.Count - 1 && KeyPoints[KeyPointsDataGrid.SelectedIndex - 1].Selected == true;
             
             if (SelectedKeyPoint == KeyPoints[0] || SelectedKeyPoint.Selected == true)
             {
                 MessageBox.Show("Already selected!");
-                keyPointName = KeyPoints[0].Name;
+                //keyPointName = KeyPoints[0].Name;
             }
-            else if (isValidKeyPoint)
+            else if (isLastKeyPoint)
             {
                 SelectedKeyPoint.Selected = true;
                 keyPointsController.Update(SelectedKeyPoint);
-                keyPointName = SelectedKeyPoint.Name;
+                //keyPointName = SelectedKeyPoint.Name;
 
                 SelectedAppointment.Ended = true;
+                SelectedAppointment.CheckedKeyPointId = SelectedKeyPoint.Id;
                 appointmentController.Update(SelectedAppointment);
                 
                 MessageBox.Show("Tour ended!");
@@ -124,9 +131,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             }
             else if (KeyPoints[KeyPointsDataGrid.SelectedIndex - 1].Selected == true)
             {
+                SelectedAppointment.CheckedKeyPointId = SelectedKeyPoint.Id;
+                appointmentController.Update(SelectedAppointment);
+
                 SelectedKeyPoint.Selected = true;
                 keyPointsController.Update(SelectedKeyPoint);
-                keyPointName = SelectedKeyPoint.Name;
+                //keyPointName = SelectedKeyPoint.Name;
             }
             else
             {
@@ -148,6 +158,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void AppointmentsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (SelectedAppointment != null)
+            {
+                foreach (int guest in tourAttendanceController.FindAllGuestsByAppointment(SelectedAppointment.Id))
+                {
+                    UserController userController = new UserController();
+                    GuideGuest.Add(new GuideGuest(guest, userController.getById(guest).Username));
+                }
+            }
             RefreshKeyPoints();
         }
         private void EndButton_Click(object sender, RoutedEventArgs e)
@@ -166,7 +184,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void SendRequestButton_Click1(object sender, RoutedEventArgs e)
         {
-            answer = false;
+            //answer = false;
+            foreach (int guestId in tourAttendanceController.FindAllGuestsByAppointment(SelectedAppointment.Id))
+            {
+                if(guestId == SelectedGuest.Id)
+                {
+                    Notification notification = new Notification(0, guestId, "Join tour " + SelectedAppointment.Tour.Name + "!", false);
+                    notificationController.Send(notification);
+                }
+            }
             MessageBox.Show("Sent!");
             SendRequestButton.IsEnabled = false;
         }

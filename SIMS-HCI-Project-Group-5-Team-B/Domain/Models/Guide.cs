@@ -1,4 +1,4 @@
-using SIMS_HCI_Project_Group_5_Team_B.Serializer;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,44 +7,52 @@ using System.Threading.Tasks;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
-    public class GuideGuest : ISerializable
+    public class Guide: User, ISerializable
     {
         public int Id { get; set; }
         private string name;
         public string Name
         {
             get { return name; }
-            set { name = value; }
+            set
+            {
+                if (value != name)
+                {
+                    name = value;
+                }
+            }
         }
         private string surname;
         public string Surname
         {
             get { return surname; }
-            set { name = value; }
+            set
+            {
+                if (value != surname)
+                {
+                    surname = value;
+                }
+            }
         }
-
-        public GuideGuest()
+        public Guide()
         {
-            //initially, there is only one guest, in order to not complicate the implementation of other features
+            Id = 0;
+            Name = "Milos";
+            Surname = "Milutinovic";
         }
-
-        public GuideGuest(int id, string name, string surname)
+        public Guide(string name, string surname)
         {
-            Id = id;
-            this.name = name;
-            this.surname = surname;
-        }
-        public GuideGuest(int id, string name)
-        {
-            Id = id;
-            this.name = name;
+            Name = name;
+            Surname = surname;
         }
 
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            name = values[1];
-            surname = values[2];
+            Username = values[1];
+            Password = values[2];
+            name = values[3];
+            surname = values[4];
         }
 
         public string[] ToCSV()
@@ -52,6 +60,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             string[] csvValues =
             {
                 Id.ToString(),
+                Username,
+                Password,
                 name,
                 surname
             };

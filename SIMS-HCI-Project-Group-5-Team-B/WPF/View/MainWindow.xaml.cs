@@ -46,25 +46,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            if(Username != null && Password != null)
+            User user = null;
+            if (Username == null && Password == null || userController.LogIn(Username, Password) == null)
             {
-                if (!Username.Equals("") || !Password.Equals(""))
-                {
-                    User user = userController.LogIn(Username, Password);
-                    if (user == null)
-                    {
-                        MessageBox.Show("Username or password is incorrect");
-                        return;
-                    }
-                }
+                MessageBox.Show("Username or password is incorrect");
+                return;
             }
+            
+            user = userController.LogIn(Username, Password);
             
 
 
 
-            if(ComboBoxType.SelectedIndex == 0 && Username == null && Password == null)//Guide is selected
+            if(ComboBoxType.SelectedIndex == 0)//Guide is selected
             {
-                GuideWindow guideWindow = new GuideWindow();
+                GuideWindow guideWindow = new GuideWindow(user.Username);
                 guideWindow.Show();
                 //Pozovi funkciju koju hoces za VODICA
 
