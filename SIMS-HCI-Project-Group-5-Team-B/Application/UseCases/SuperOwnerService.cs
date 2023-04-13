@@ -1,33 +1,29 @@
-﻿using System;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
-using SIMS_HCI_Project_Group_5_Team_B.Repository;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
     public class SuperOwnerService
     {
 
-        private ReservationService reservationController;
-        private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
-        private OwnerService ownerController;
-        private AccommodationService accommodationController;
-        public SuperOwnerService(ReservationService reservationController, OwnerAccommodationGradeSevice ownerAccommodationGradeController, OwnerService ownerController, AccommodationService accommodationController)
+        private ReservationService reservationService;
+        private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
+        private OwnerService ownerService;
+        private AccommodationService accommodationService;
+        public SuperOwnerService(ReservationService reservationService, OwnerAccommodationGradeSevice ownerAccommodationGradeService, OwnerService ownerService, AccommodationService accommodationService)
         {
-            this.reservationController = reservationController;
-            this.ownerAccommodationGradeController = ownerAccommodationGradeController;
-            this.ownerController = ownerController;
-            this.accommodationController = accommodationController;
+            this.reservationService = reservationService;
+            this.ownerAccommodationGradeService = ownerAccommodationGradeService;
+            this.ownerService = ownerService;
+            this.accommodationService = accommodationService;
         }
 
 
         public double CalculateGradeAverage(Owner owner)
         {
             //prolazicemo kroz sve ocene i gledati koja ocenjena rezervacija pripada nasem vlasniku
-            List<OwnerAccommodationGrade> ownerAccommodationGrades = ownerAccommodationGradeController.GetAll();
+            List<OwnerAccommodationGrade> ownerAccommodationGrades = ownerAccommodationGradeService.GetAll();
             int i = 0; //brojac ocena
             double sum = 0;
             foreach (OwnerAccommodationGrade ownerAccommodationGrade in ownerAccommodationGrades)
@@ -46,7 +42,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public int GetNumberOfReservations(Owner owner)
         {
-            List<Reservation> reservations = reservationController.GetUndeleted(); //PROVJERITI OVO !!!!!!
+            List<Reservation> reservations = reservationService.GetUndeleted(); //PROVJERITI OVO !!!!!!
             int numberOfReservations = 0;
             foreach (Reservation reservation in reservations)
             {
@@ -61,7 +57,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public List<Accommodation> AccommodationsForShowing()
         {
-            List<Accommodation> accommodationsForSotring = accommodationController.GetAll();
+            List<Accommodation> accommodationsForSotring = accommodationService.GetAll();
             for (int i = 0; i < accommodationsForSotring.Count(); i++)
             {
                 if (accommodationsForSotring[i].Owner.GradeAverage > 4.5 && GetNumberOfReservations(accommodationsForSotring[i].Owner) >= 50)

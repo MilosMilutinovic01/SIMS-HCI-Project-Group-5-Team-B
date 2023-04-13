@@ -23,12 +23,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     public class ReservationService
     {
         private IReservationRepository reservationRepository;
-        private AccommodationService accommodationController;
+        private AccommodationService accommodationService;
         private IOwnerGuestRepository ownerGuestRepository;
-        public ReservationService(AccommodationService accommodationController, IOwnerGuestRepository ownerGuestRepository, IReservationRepository reservationRepository)
+        public ReservationService(AccommodationService accommodationService, IOwnerGuestRepository ownerGuestRepository, IReservationRepository reservationRepository)
         {
             this.reservationRepository = reservationRepository; 
-            this.accommodationController = accommodationController;
+            this.accommodationService = accommodationService;
             this.ownerGuestRepository = ownerGuestRepository;
             GetAccomodationReference();
             GetOwnerGuestReference();
@@ -82,7 +82,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             foreach (Reservation reservation in GetAll())
             {
-                Accommodation accommodation = accommodationController.getById(reservation.AccommodationId);
+                Accommodation accommodation = accommodationService.getById(reservation.AccommodationId);
                 if (accommodation != null)
                 {
                     reservation.Accommodation = accommodation;
@@ -103,7 +103,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
 
 
-        public List<Reservation> GetSuiableReservationsForGrading(Owner owner)
+        public List<Reservation> GetReservationsForGrading(Owner owner)
         {
             
             List<Reservation> reservations = GetUndeleted();
@@ -243,15 +243,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public bool IsAccomodationAvailableForChangingReservationDates(Reservation selectedReservation, DateTime startDate, DateTime endDate)
         {
-            //u listu ubacije sve rezervacije od zeljenog smestaja, treba da preskoci rezervaciju koju zelimo da pomerimo
             List<Reservation> accomodationReservations = GetAccomodationReservations(selectedReservation.Accommodation);
-            //izbacili smo rezervaciju za koju zelimo da pomerimo datume
             accomodationReservations.Remove(selectedReservation);
 
             foreach (Reservation reservation in accomodationReservations)
             {
 
-                
                 bool isInRange = startDate >= reservation.StartDate && startDate <= reservation.EndDate ||
                                  endDate >= reservation.StartDate && endDate <= reservation.EndDate;
 

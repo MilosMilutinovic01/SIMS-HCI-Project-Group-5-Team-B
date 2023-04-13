@@ -28,12 +28,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class AccommodationForm : Window,IDataErrorInfo, INotifyPropertyChanged
     {
 
-        private AccommodationService accommodationController;
+        private AccommodationService accommodationService;
         private LocationController locationController;
-        private OwnerService ownerController;
-        private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
-        private ReservationService reservationController;
-        private SuperOwnerService superOwnerController;
+        private OwnerService ownerService;
+        private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
+        private ReservationService reservationService;
+        private SuperOwnerService superOwnerService;
         public Accommodation Accommodation { get; set; }
         public Location Location { get; set; }
         private string locationString;
@@ -70,13 +70,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             InitializeComponent();
             this.DataContext = this;
             locationController = new LocationController();
-            ownerController = new OwnerService();
+            ownerService = new OwnerService();
             Location = new Location();
-            accommodationController = new AccommodationService(locationController, ownerController);
+            accommodationService = new AccommodationService(locationController, ownerService);
             states = locationController.GetStates();
-
             this.AccomodationsOfLogedInOwner = AccomodationsOfLogedInOwner;
-
             this.owner = owner;
 
         }
@@ -87,20 +85,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             if (Accommodation.IsValid)
             {
-                /*int count = 2;
-                String delimeter = ",";
-                string[] locationValues = locationString.Split(delimeter, count);
-                Location = new Location(locationValues[0], locationValues[1]);
-
-                accommodationController.AddAccommodation(Accommodation, Location);*/
-
+                
                 Location existingLocation = locationController.GetLocation(Location);
                 Accommodation.OwnerId = owner.Id;
                 if (existingLocation != null)
                 {
                     Accommodation.LocationId = existingLocation.Id;
                     
-                    accommodationController.Save(Accommodation);
+                    accommodationService.Save(Accommodation);
                     AccomodationsOfLogedInOwner.Add(Accommodation);
                 }
                 else
@@ -108,7 +100,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                     Accommodation.LocationId = locationController.makeId();
                     locationController.Save(Location);
                 }
-
 
 
                 Close();
