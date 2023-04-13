@@ -14,13 +14,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     {
         private Repository<Accommodation> accomodationRepository;
         private LocationController locationController;
-        private OwnerService ownerController;
+        private OwnerService ownerService;
 
-        public AccommodationService(LocationController locationController, OwnerService ownerController)
+        public AccommodationService(LocationController locationController, OwnerService ownerService)
         {
             accomodationRepository = new Repository<Accommodation>();
             this.locationController = locationController;
-            this.ownerController = ownerController;
+            this.ownerService = ownerService;
             GetLocationReference();
             GetOwnerReference();
 
@@ -75,7 +75,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             List<Accommodation> accomodations = accomodationRepository.GetAll();
             foreach (Accommodation accommodation in accomodations)
             {
-                Owner owner = ownerController.getById(accommodation.OwnerId);
+                Owner owner = ownerService.getById(accommodation.OwnerId);
                 if (owner != null)
                 {
                     accommodation.Owner = owner;
@@ -159,24 +159,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return searchResult;
         }
 
-        /*public List<Accommodation> AccommodationsForShowing()
-        {
-            List<Accommodation> accommodationsForSotring = GetAll();
-            for(int i = 0; i < accommodationsForSotring.Count(); i++)
-            {
-                if(accommodationsForSotring[i].Owner.GradeAverage > 4.0 &&  superOwnerController.GetNumberOfReservations(accommodationsForSotring[i].Owner) >= 10)
-                {
-                    
-                    accommodationsForSotring.Insert(0, accommodationsForSotring[i]);
-                    accommodationsForSotring.RemoveAt(i+1);
-
-                }
-            }
-
-            return accommodationsForSotring;
-        }*/
-
-
+       
         public List<Accommodation> GetAccommodationsOfLogedInOwner(Owner owner)
         {
             List<Accommodation> accomodations = accomodationRepository.GetAll();

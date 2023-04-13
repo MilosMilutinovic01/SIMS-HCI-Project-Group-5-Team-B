@@ -30,7 +30,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
         {
             InitializeComponent();
             _viewModel = new AcceptingAndDecliningReservationChangeRequestViewModel(reservationChangeRequestService, reservationService, owner, SelectedReservationChangeRequest);
-            //DRUGACIJE NE RADI JER NAS NISU NA HCI UCILI NISTA O OVOM MODELU I KAKO DA RADIMO SA WPFOMO I DATA CONTEXT
             this.OwnersPendingRequests = OwnersPendingRequests;
             this.SelectedReservationChangeRequest = SelectedReservationChangeRequest;
             

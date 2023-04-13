@@ -31,7 +31,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         ReservationService reservationService;
         OwnerService ownerService;
         public List<Reservation> reservationsForGrading;
-
         OwnerAccommodationGradeSevice ownerAccommodationGradeService;
         OwnerGuestGradeService ownerGuestGradeService;
         SuperOwnerService superOwnerService;
@@ -40,10 +39,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public ObservableCollection<Reservation> ReservationsForGrading { get; set; }
         public ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing { get; set; }
         public ObservableCollection<ReservationChangeRequest> OwnersPendingRequests { get; set; }
-
         public Reservation SelectedReservation { get; set; }
         public OwnerAccommodationGrade SelectedOwnerAccommodationGrade { get; set; }
-
         public ReservationChangeRequest SelectedReservationChangeRequest   { get; set; }
 
         //Added for dependency injection
@@ -75,12 +72,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             reservationsForGrading = new List<Reservation>();
             LogedInOwner = ownerService.GetByUsername(username);
             LogedInOwner.GradeAverage = superOwnerService.CalculateGradeAverage(LogedInOwner);
-     
-            //owner.NumberReservations = superOwnerController.GetNumberOfReservations(owner);
             ownerService.Update(LogedInOwner);
             //lastDisplayed = Properties.Settings.Default.LastShownDate;
             AccomodationsOfLogedInOwner = new ObservableCollection<Accommodation>(accommodationService.GetAccommodationsOfLogedInOwner(LogedInOwner));
-            ReservationsForGrading = new ObservableCollection<Reservation>(reservationService.GetSuiableReservationsForGrading(LogedInOwner));
+            ReservationsForGrading = new ObservableCollection<Reservation>(reservationService.GetReservationsForGrading(LogedInOwner));
             OwnerAccommodationGradesForShowing = new ObservableCollection<OwnerAccommodationGrade>(ownerAccommodationGradeService.GetOwnerAccommodationGradesForShowing(LogedInOwner));
 
             reservationChangeRequestService = new ReservationChangeRequestService(reservationChangeRequestCSVRepository, reservationCSVRepository);
@@ -93,7 +88,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void NotifyOwnerToGradeGuests(object sender, RoutedEventArgs e)
         {
-            reservationsForGrading = reservationService.GetSuiableReservationsForGrading(LogedInOwner);
+            reservationsForGrading = reservationService.GetReservationsForGrading(LogedInOwner);
             if (reservationsForGrading.Count != 0 /*&& DateTime.Today != lastDisplayed*/)
             {
                 MessageBox.Show("You have guests to grade!!!");
@@ -105,10 +100,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void Create_Accommodation_Click(object sender, RoutedEventArgs e)
         {
-            
-
             AccommodationForm accommodationForm = new AccommodationForm(AccomodationsOfLogedInOwner, LogedInOwner);
-
             accommodationForm.Show();
         }
 
