@@ -26,11 +26,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         public TourWindow()
         {
-            if (TrackingTourLiveWindow.answer == false)
-            {
-                bool result = MessageBox.Show("Do you want to join " + TrackingTourLiveWindow.keyPointName + "?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
-                TrackingTourLiveWindow.answer = true;
-            }
+            //if (TrackingTourLiveWindow.answer == false)
+            //{
+            //    bool result = MessageBox.Show("Do you want to join " + TrackingTourLiveWindow.keyPointName + "?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+            //    TrackingTourLiveWindow.answer = true;
+            //}
 
             InitializeComponent();
             this.DataContext = this;

@@ -123,6 +123,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 }
             }
         }
+
+        private int checkedKeyPointId;
+        public int CheckedKeyPointId
+        {
+            get { return checkedKeyPointId; }
+            set
+            {
+                if (checkedKeyPointId != value)
+                {
+                    checkedKeyPointId = value;
+                }
+            }
+        }
         public Tour Tour { get; set; }
         public Appointment() { }
         public Appointment(int tourId, int guideId, DateTime start, int freeSpace)
@@ -143,7 +156,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 freeSpace.ToString(),
                 started.ToString(),
                 ended.ToString(),
-                cancelled.ToString()
+                cancelled.ToString(),
+                checkedKeyPointId.ToString()
             };
             return csvValues;
         }
@@ -157,6 +171,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             started = Convert.ToBoolean(values[5]);
             ended = Convert.ToBoolean(values[6]);
             cancelled = Convert.ToBoolean(values[7]);
+            checkedKeyPointId = int.Parse(values[8]);
         }
 
         Regex timeRegex = new Regex("[0-9]{2}:[0-9]{2}:[0-9]{2}");

@@ -33,6 +33,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             set { received = value; }
         }
 
+
+        public Voucher(int guideGuestId, int guideId, DateTime received)
+        {
+            this.guideGuestId = guideGuestId;
+            this.guideId = guideId;
+            this.received = received;
+        }
+
         public Voucher() { }
 
         public string[] ToCSV()
