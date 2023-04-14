@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Controller
+namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
-    public class tourAttendanceController
+    public class TourAttendanceService
     {
         private Repository<TourAttendance> tourAttendanceRepository;
 
-        public tourAttendanceController()
+        public TourAttendanceService()
         {
             tourAttendanceRepository = new Repository<TourAttendance>();
         }
@@ -39,9 +39,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             return tourAttendanceRepository.FindBy(propertyNames, values);
         }
 
-        public List<int> FindAllGuestsByAppointment(int appointmentId) 
+        public List<int> FindAllGuestsByAppointment(int appointmentId)
         {
-            return GetAll().Where(ta => ta.TourAttendanceId == appointmentId).Select(ta => ta.GuideGuestId).ToList();
+            return GetAll().Where(ta => ta.TourAppointmentId == appointmentId).Select(ta => ta.GuideGuestId).ToList();
         }
 
         public TourAttendance getById(int id)

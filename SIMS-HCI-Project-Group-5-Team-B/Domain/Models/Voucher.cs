@@ -18,13 +18,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             set { guideGuestId = value; }
         }
 
-        private int guideId;
-        public int GuideId
-        {
-            get { return guideId; }
-            set { guideId = value; }
-        }
-
         private DateTime received;
 
         public DateTime Received
@@ -34,10 +27,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         }
 
 
-        public Voucher(int guideGuestId, int guideId, DateTime received)
+        public Voucher(int guideGuestId, DateTime received)
         {
             this.guideGuestId = guideGuestId;
-            this.guideId = guideId;
             this.received = received;
         }
 
@@ -49,7 +41,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             {
                 Id.ToString(),
                 guideGuestId.ToString(),
-                guideId.ToString(),
                 received.ToString()
             };
             return csvValues;
@@ -58,8 +49,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         {
             Id = int.Parse(values[0]);
             guideGuestId = int.Parse(values[1]);
-            guideId = int.Parse(values[2]);
-            received = DateTime.Parse(values[3]);
+            received = DateTime.Parse(values[2]);
         }
     }
 }

@@ -11,11 +11,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     public class VoucherService
     {
         private Repository<Voucher> voucherRepository;
-        private Repository<Appointment> appointmentRepository;
+        private TourAttendanceService tourAttendanceService;
         public VoucherService()
         {
             voucherRepository = new Repository<Voucher>();
-            appointmentRepository = new Repository<Appointment>();
+            tourAttendanceService = new TourAttendanceService();
         }
         public List<Voucher> GetAll()
         {
@@ -44,7 +44,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public void SendVouchers(int tourAppointmentId)
         {
-            //sending voucher to all guests that are on selected appointment
+            List<int> guestIds = tourAttendanceService.FindAllGuestsByAppointment(tourAppointmentId);
+            List<Voucher> vouchers = new List<Voucher>();
+            foreach(int guestId in guestIds)
+            {
+                vouchers.Add(new Voucher(guestId, DateTime.Now));
+            }
+            SaveAll(vouchers);
         }
     }
 }

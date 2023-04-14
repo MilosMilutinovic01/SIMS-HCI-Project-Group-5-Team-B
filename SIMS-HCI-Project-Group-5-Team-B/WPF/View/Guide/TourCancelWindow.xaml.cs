@@ -24,7 +24,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private VoucherService voucherService;
         public ObservableCollection<Appointment> AvailableAppointments { get; }
         public Appointment SelectedAppointment { get; set; }
-        public TourCancelWindow(string LogedInGuide)
+        public TourCancelWindow(Guide LogedInGuide)
         {
             InitializeComponent();
             this.DataContext = this;
@@ -53,7 +53,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 SelectedAppointment.Cancelled = true;
                 appointmentController.Update(SelectedAppointment);
-                //send voucher to guest for this appointment
+                voucherService.SendVouchers(SelectedAppointment.Id);
+                RefreshAppointments();
             }
             else
             {
