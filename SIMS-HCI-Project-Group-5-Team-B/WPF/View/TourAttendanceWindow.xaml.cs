@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 
@@ -30,7 +31,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private AppointmentController appointmentController { get; set; }
 
-        private tourAttendanceController tourAttendanceController = new tourAttendanceController();
+        private TourAttendanceService tourAttendanceService;
 
         public TourAttendanceWindow(Tour selectedTour)
         {
@@ -52,6 +53,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             this.DataContext = this;
             InitializeComponent();
             ShowImages();
+            tourAttendanceService = new TourAttendanceService();
         }
 
         private void ShowImages()
@@ -79,7 +81,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
             if (SelectedAppointment.FreeSpace >= NumberOfPeople)
             {
-                tourAttendanceController.Save(new TourAttendance(SelectedAppointment.Id, NumberOfPeople, -1, -1));
+                tourAttendanceService.Save(new TourAttendance(SelectedAppointment.Id, NumberOfPeople, -1, -1));
                 SelectedAppointment.FreeSpace -= NumberOfPeople;
                 appointmentController.Update(SelectedAppointment);
                 FreeSpaceTextBlock.Text = SelectedAppointment.FreeSpace.ToString();
