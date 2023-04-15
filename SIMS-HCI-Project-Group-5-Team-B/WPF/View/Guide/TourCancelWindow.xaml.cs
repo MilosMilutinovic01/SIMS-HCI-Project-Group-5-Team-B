@@ -20,7 +20,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
     public partial class TourCancelWindow : Window
     {
-        private AppointmentController appointmentController;
+        private AppointmentService appointmentService;
         private VoucherService voucherService;
         public ObservableCollection<Appointment> AvailableAppointments { get; }
         public Appointment SelectedAppointment { get; set; }
@@ -29,7 +29,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             InitializeComponent();
             this.DataContext = this;
 
-            appointmentController = new AppointmentController();
+            appointmentService = new AppointmentService();
             voucherService = new VoucherService();
 
             AvailableAppointments = new ObservableCollection<Appointment>();
@@ -40,7 +40,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void RefreshAppointments()
         {
             AvailableAppointments.Clear();
-            foreach (Appointment appointment in appointmentController.GetUpcoming())
+            foreach (Appointment appointment in appointmentService.GetUpcoming())
             {
                 AvailableAppointments.Add(appointment);
             }
@@ -52,7 +52,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             if (result && SelectedAppointment.Cancelled == false)
             {
                 SelectedAppointment.Cancelled = true;
-                appointmentController.Update(SelectedAppointment);
+                appointmentService.Update(SelectedAppointment);
                 voucherService.SendVouchers(SelectedAppointment.Id);
                 RefreshAppointments();
             }

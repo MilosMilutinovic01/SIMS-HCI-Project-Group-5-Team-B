@@ -7,58 +7,59 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Controller
+namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
-    public class TourController
+    public class TourService
     {
         private Repository<Tour> tourRepository;
-        private LocationController locationController;
-        private KeyPointsController keyPointsController;
-        
-        public TourController(){
+        private LocationService locationController;
+        private KeyPointsService keyPointsController;
+
+        public TourService()
+        {
             tourRepository = new Repository<Tour>();
-            this.locationController = new LocationController();
-            keyPointsController = new KeyPointsController();
+            locationController = new LocationService();
+            keyPointsController = new KeyPointsService();
             GetLocationReference();
         }
-        
-        public TourController(LocationController locationController)
+
+        public TourService(LocationService locationController)
         {
             tourRepository = new Repository<Tour>();
             this.locationController = locationController;
             GetLocationReference();
         }
-        
+
         public List<Tour> GetAll()
         {
             return tourRepository.GetAll();
         }
-        
+
         public void Save(Tour newTour)
         {
             tourRepository.Save(newTour);
         }
-        
+
         public void Delete(Tour tour)
         {
             tourRepository.Delete(tour);
         }
-        
+
         public void Update(Tour tour)
         {
             tourRepository.Update(tour);
         }
-        
+
         public List<Tour> FindBy(string[] propertyNames, string[] values)
         {
             return tourRepository.FindBy(propertyNames, values);
         }
-        
+
         public Tour getById(int id)
         {
             return GetAll().Find(tour => tour.Id == id);
         }
-        
+
         public int makeId()
         {
             return tourRepository.NextId();
@@ -113,7 +114,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
                 searchValues += Language + ";";
             }
 
-            if(searchProperties.Equals(String.Empty))
+            if (searchProperties.Equals(string.Empty))
             {
                 result = new List<Tour>(tourRepository.GetAll());
             }

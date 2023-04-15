@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using System.Collections.ObjectModel;
@@ -29,7 +28,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     {
 
         private AccommodationService accommodationController;
-        private LocationController locationController;
+        private LocationService locationController;
         private OwnerService ownerController;
         private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
         private ReservationService reservationController;
@@ -69,7 +68,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             Accommodation = new Accommodation();
             InitializeComponent();
             this.DataContext = this;
-            locationController = new LocationController();
+            locationController = new LocationService();
             ownerController = new OwnerService();
             Location = new Location();
             accommodationController = new AccommodationService(locationController, ownerController);

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 
@@ -13,10 +12,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     public class AccommodationService
     {
         private Repository<Accommodation> accomodationRepository;
-        private LocationController locationController;
+        private LocationService locationController;
         private OwnerService ownerController;
 
-        public AccommodationService(LocationController locationController, OwnerService ownerController)
+        public AccommodationService(LocationService locationController, OwnerService ownerController)
         {
             accomodationRepository = new Repository<Accommodation>();
             this.locationController = locationController;

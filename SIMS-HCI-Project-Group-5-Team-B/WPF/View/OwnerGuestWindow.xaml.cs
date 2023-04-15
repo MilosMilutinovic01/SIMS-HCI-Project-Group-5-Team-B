@@ -13,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
-using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
@@ -27,7 +26,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class OwnerGuestWindow : Window
     {
         private AccommodationService accommodationController;
-        private LocationController locationController;
+        private LocationService locationController;
         private ReservationService reservationController;
         private OwnerService ownerController;
         private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
@@ -47,7 +46,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             reservationCSVRepository = new ReservationCSVRepository();
             reservationChangeRequestCSVRepository = new ReservationChangeRequestCSVRepository();
             
-            locationController = new LocationController();
+            locationController = new LocationService();
             ownerController = new OwnerService();
             accommodationController = new AccommodationService(locationController, ownerController);
             reservationController = new ReservationService(accommodationController, ownerGuestRepository, reservationCSVRepository);

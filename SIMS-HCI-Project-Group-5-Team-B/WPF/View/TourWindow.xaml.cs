@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using SIMS_HCI_Project_Group_5_Team_B.Controller;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 
 
@@ -20,7 +20,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public Tour SelectedTour { get; set; }
 
 
-        private TourController tc;
+        private TourService tc;
 
         public ObservableCollection<Tour> tours { get; set; }
 
@@ -35,7 +35,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             InitializeComponent();
             this.DataContext = this;
 
-            tc = new TourController();
+            tc = new TourService();
             tours = new ObservableCollection<Tour>(tc.GetAll());
         }
 

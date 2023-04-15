@@ -7,13 +7,13 @@ using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System.IO;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Controller
+namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
-    public class LocationController
+    public class LocationService
     {
         private Repository<Location> locationRepository;
 
-        public LocationController()
+        public LocationService()
         {
             locationRepository = new Repository<Location>();
         }

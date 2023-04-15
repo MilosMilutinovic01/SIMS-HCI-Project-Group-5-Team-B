@@ -29,7 +29,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private List<Appointment> Appointments { get; set; }
         public Appointment SelectedAppointment { get; set; }
 
-        private AppointmentController appointmentController { get; set; }
+        private AppointmentService appointmentService { get; set; }
 
         private TourAttendanceService tourAttendanceService;
 
@@ -40,8 +40,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             Available = new List<DateTime>();
             Appointments = new List<Appointment>();
 
-            appointmentController = new AppointmentController();
-            foreach (var appointment in appointmentController.GetAll())
+            appointmentService = new AppointmentService();
+            foreach (var appointment in appointmentService.GetAll())
             {
                 if (appointment.TourId == SelectedTour.Id && appointment.Start > DateTime.Now)
                 {
@@ -83,7 +83,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 tourAttendanceService.Save(new TourAttendance(SelectedAppointment.Id, NumberOfPeople, -1, -1));
                 SelectedAppointment.FreeSpace -= NumberOfPeople;
-                appointmentController.Update(SelectedAppointment);
+                appointmentService.Update(SelectedAppointment);
                 FreeSpaceTextBlock.Text = SelectedAppointment.FreeSpace.ToString();
             }
             else if(SelectedAppointment.FreeSpace > 0){

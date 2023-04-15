@@ -1,4 +1,4 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
@@ -22,10 +22,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class TourCreateForm : Window
     {
-        private TourController tourController;
-        private LocationController locationController;
-        private KeyPointsController keyPointsController;
-        private AppointmentController appointmentController;
+        private TourService tourController;
+        private LocationService locationController;
+        private KeyPointsService keyPointsController;
+        private AppointmentService appointmentService;
         public Tour Tour { get; set; }
         public Location Location { get; set; }
         public KeyPoint KeyPoint { get; set; }
@@ -42,10 +42,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             InitializeComponent();
             this.DataContext = this;
 
-            locationController = new LocationController();
-            tourController = new TourController(locationController);
-            keyPointsController = new KeyPointsController();
-            appointmentController = new AppointmentController();
+            locationController = new LocationService();
+            tourController = new TourService(locationController);
+            keyPointsController = new KeyPointsService();
+            appointmentService = new AppointmentService();
 
             Tour = new Tour();
             Location = new Location();
@@ -94,7 +94,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 appointments.Add(new Appointment(Tour.Id, -1, start, Tour.MaxGuests));
             }
-            appointmentController.SaveAll(appointments);
+            appointmentService.SaveAll(appointments);
             Close();
         }
 
@@ -110,7 +110,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             else
             {
                 keyPoints.Add(new KeyPoint(KeyPoint));
-                KeyPointsLabel.Content = "Added " + keyPoints.Count().ToString();
             }
         }
         private void AddStartButton_Click(object sender, RoutedEventArgs e)
@@ -118,7 +117,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             if (DateTime > DateTime.Now)
             {
                 starts.Add(DateTime);
-                DateLabel.Content = "Added " + starts.Count();
             }
             else
                 MessageBox.Show("You must add date and time that is after currently!");

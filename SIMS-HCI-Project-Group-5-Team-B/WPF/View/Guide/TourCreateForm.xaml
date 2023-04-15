@@ -59,13 +59,19 @@
             <Label Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Images</Label>
             <TextBox Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"/>
-            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
-                <ComboBox x:Name="ComboBoxStates" Width="130" Text="{Binding Path=Location.State, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding states}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" SelectionChanged="ComboBox_SelectionChanged"></ComboBox>
-                <ComboBox x:Name="ComboBoxCities" Width="130" Text="{Binding Path=Location.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  ItemsSource="{Binding cities}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"></ComboBox>
-
-            </StackPanel>
+            <Grid Grid.Row="1" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ComboBox x:Name="ComboBoxStates" Grid.Row="0" Grid.Column="0" Text="{Binding Path=Location.State, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding states}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Center" Margin="10,0,0,0" SelectionChanged="ComboBox_SelectionChanged"/>
+                <ComboBox x:Name="ComboBoxCities" Grid.Row="0" Grid.Column="1" Text="{Binding Path=Location.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  ItemsSource="{Binding cities}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+            </Grid>
 
             <TextBox Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"/>
@@ -73,17 +79,29 @@
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"/>
             <TextBox Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.MaxGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"/>
-            <DockPanel Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0" >
-                <TextBox x:Name="KeyPointTextBox" DockPanel.Dock="Left" Width="230" Text="{Binding Path=KeyPoint.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,0,10,0" VerticalAlignment="Center" />
-                <Button Content="Add" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,0,0" Click="AddKeyPointsButton_Click"></Button>
-                <Label x:Name="KeyPointsLabel" HorizontalAlignment="Left" Margin="10,0,0,0"></Label>
-            </DockPanel>
-            <StackPanel Grid.Row="6" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" >
-                <xctk:DateTimePicker x:Name="StartDatePicker" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Text="{Binding DateTime}" Margin="0,0,10,0"></xctk:DateTimePicker>
-                <Button Content="Add" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Click="AddStartButton_Click"></Button>
-                <Label x:Name="DateLabel" HorizontalAlignment="Left" Margin="10,0,0,0"></Label>
-            </StackPanel>
+            <Grid Grid.Row="5" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="KeyPointTextBox" Grid.Column="0" DockPanel.Dock="Left" Text="{Binding Path=KeyPoint.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0" VerticalAlignment="Center" />
+                <Button Content="Add" Grid.Column="1" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,0,0" Click="AddKeyPointsButton_Click"></Button>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <xctk:DateTimePicker x:Name="StartDatePicker" Grid.Column="0" VerticalAlignment="Center" Text="{Binding DateTime}" Margin="10,0,0,0"/>
+                <Button Content="Add" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Click="AddStartButton_Click"></Button>
+            </Grid>
             <TextBox Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"/>
             <TextBox Grid.Row="8" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.ImageUrls, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"

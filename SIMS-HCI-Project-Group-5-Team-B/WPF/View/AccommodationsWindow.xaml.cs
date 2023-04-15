@@ -1,5 +1,4 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
-using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -17,7 +16,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class AccommodationsWindow : Window, INotifyPropertyChanged, IDataErrorInfo
     {
         private AccommodationService accommodationController;
-        private LocationController locationController;
+        private LocationService locationController;
         private ReservationService reservationController;
         private OwnerService ownerController;
         private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
@@ -34,7 +33,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private int ownerGuestId;
 
-        public AccommodationsWindow(int ownerGuestId,LocationController locationController, OwnerService ownerService, AccommodationService accommodationService, ReservationService reservationService )
+        public AccommodationsWindow(int ownerGuestId,LocationService locationController, OwnerService ownerService, AccommodationService accommodationService, ReservationService reservationService )
         {
             InitializeComponent();
             DataContext = this;

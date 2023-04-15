@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Controller
+namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
-    public class KeyPointsController
+    public class KeyPointsService
     {
         private Repository<KeyPoint> keyPointsRepository;
 
-        public KeyPointsController()
+        public KeyPointsService()
         {
             keyPointsRepository = new Repository<KeyPoint>();
         }
@@ -26,7 +26,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         {
             keyPointsRepository.Save(newKeyPoints);
         }
-        public void SaveAll(List<KeyPoint> keyPoints) 
+        public void SaveAll(List<KeyPoint> keyPoints)
         {
             keyPointsRepository.SaveAll(keyPoints);
         }

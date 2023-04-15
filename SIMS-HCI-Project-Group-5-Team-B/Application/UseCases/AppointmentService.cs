@@ -3,23 +3,25 @@ using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.Controller
+namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
-    public class AppointmentController
+    public class AppointmentService
     {
         private Repository<Appointment> appointmentRepository;
-        private TourController tourController;
-        public AppointmentController(TourController tourController)
+        private TourService tourController;
+        public AppointmentService(TourService tourController)
         {
             appointmentRepository = new Repository<Appointment>();
             this.tourController = tourController;
             GetTourReference();
         }
-        public AppointmentController()
+        public AppointmentService()
         {
             appointmentRepository = new Repository<Appointment>();
-            this.tourController = new TourController();
+            this.tourController = new TourService();
             GetTourReference();
         }
         public List<Appointment> GetAll()
