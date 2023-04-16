@@ -13,10 +13,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
          
         private IReservationChangeRequestRepository reservationChangeRequestRepository;
         private IReservationRepository reservationRepository;
-        public ReservationChangeRequestService(IReservationChangeRequestRepository reservationChangeRequestRepository, IReservationRepository reservationRepository) 
+        public ReservationChangeRequestService() 
         { 
-            this.reservationChangeRequestRepository = reservationChangeRequestRepository;
-            this.reservationRepository = reservationRepository;
+            this.reservationChangeRequestRepository = Injector.Injector.CreateInstance<IReservationChangeRequestRepository>();
+            this.reservationRepository = Injector.Injector.CreateInstance<IReservationRepository>();
             GetReservationReference();
         } 
         

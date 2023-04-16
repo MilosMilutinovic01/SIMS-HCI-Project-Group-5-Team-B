@@ -44,9 +44,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public ReservationChangeRequest SelectedReservationChangeRequest   { get; set; }
 
         //Added for dependency injection
-        private OwnerGuestCSVRepository ownerGuestCSVRepository;
-        private ReservationCSVRepository reservationCSVRepository;
-        private ReservationChangeRequestCSVRepository reservationChangeRequestCSVRepository;
+
 
         private readonly AcceptingAndDecliningReservationChangeRequestViewModel _viewModel;
         private ReservationChangeRequestService reservationChangeRequestService;
@@ -57,14 +55,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             InitializeComponent();
 
             DataContext = this;
-            ownerGuestCSVRepository = new OwnerGuestCSVRepository();
-            reservationCSVRepository = new ReservationCSVRepository();
-            reservationChangeRequestCSVRepository = new ReservationChangeRequestCSVRepository();
+            
 
             locationService = new LocationController();
             ownerService = new OwnerService();
             accommodationService = new AccommodationService(locationService, ownerService);
-            reservationService = new ReservationService(accommodationService, ownerGuestCSVRepository, reservationCSVRepository);
+            reservationService = new ReservationService(accommodationService);
             ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(reservationService);
             ownerGuestGradeService = new OwnerGuestGradeService(reservationService);
             superOwnerService = new SuperOwnerService(reservationService, ownerAccommodationGradeService, ownerService, accommodationService);
@@ -89,7 +85,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             ReservationsForGrading = new ObservableCollection<Reservation>(reservationService.GetReservationsForGrading(LogedInOwner));
             OwnerAccommodationGradesForShowing = new ObservableCollection<OwnerAccommodationGrade>(ownerAccommodationGradeService.GetOwnerAccommodationGradesForShowing(LogedInOwner));
 
-            reservationChangeRequestService = new ReservationChangeRequestService(reservationChangeRequestCSVRepository, reservationCSVRepository);
+            reservationChangeRequestService = new ReservationChangeRequestService();
             _viewModel = new AcceptingAndDecliningReservationChangeRequestViewModel(reservationChangeRequestService,reservationService, LogedInOwner,SelectedReservationChangeRequest);
             OwnersPendingRequests = new ObservableCollection<ReservationChangeRequest>(_viewModel.OwnersPendingRequests);
 
