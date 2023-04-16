@@ -38,8 +38,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 SelectedReservationChangeRequest.Reservation.StartDate = wantedStartDate;
                 SelectedReservationChangeRequest.Reservation.EndDate = wantedEndDate;
                 SelectedReservationChangeRequest.RequestStatus = REQUESTSTATUS.Confirmed;
-                reservationChangeRequestService.Update(SelectedReservationChangeRequest);
                 reservationService.Update(SelectedReservationChangeRequest.Reservation);
+                reservationChangeRequestService.Update(SelectedReservationChangeRequest);
                 OwnersPendingRequests.Remove(SelectedReservationChangeRequest);
                 MessageBox.Show("Reservation was succesfully changed");
             }
