@@ -40,27 +40,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         }
 
 
-        public int GetNumberOfReservations(Owner owner)
+        public int GetNumberOfGrades(Owner owner)
         {
-            List<Reservation> reservations = reservationService.GetUndeleted(); //PROVJERITI OVO !!!!!!
-            int numberOfReservations = 0;
-            foreach (Reservation reservation in reservations)
+           
+            List<OwnerAccommodationGrade> ownerAccommodationGrades = ownerAccommodationGradeService.GetAll();
+            int numberOfGrades = 0;
+            foreach (OwnerAccommodationGrade ownerAccommodationGrade in ownerAccommodationGrades)
             {
-                if (owner.Id == reservation.Accommodation.Owner.Id)
+                if (owner.Id == ownerAccommodationGrade.Reservation.Accommodation.Owner.Id)
                 {
-                    numberOfReservations++;
+                    numberOfGrades++;
                 }
             }
-
-            return numberOfReservations;
+            return numberOfGrades;
         }
-
+        
         public List<Accommodation> AccommodationsForShowing()
         {
             List<Accommodation> accommodationsForSotring = accommodationService.GetAll();
             for (int i = 0; i < accommodationsForSotring.Count(); i++)
             {
-                if (accommodationsForSotring[i].Owner.GradeAverage > 4.5 && GetNumberOfReservations(accommodationsForSotring[i].Owner) >= 50)
+                if (accommodationsForSotring[i].Owner.GradeAverage > 4.5 && GetNumberOfGrades(accommodationsForSotring[i].Owner) >= 50)
                 {
 
                     accommodationsForSotring.Insert(0, accommodationsForSotring[i]);

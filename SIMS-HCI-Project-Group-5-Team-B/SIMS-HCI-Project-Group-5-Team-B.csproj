@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="Resources\Images\hamburgerIcon.png" />
     <None Remove="Resources\Images\profile.png" />
+    <None Remove="Resources\Images\StarImage.png" />
     <None Remove="Resources\Images\threeDots.png" />
   </ItemGroup>
 
@@ -23,6 +24,7 @@
   <ItemGroup>
     <Resource Include="Resources\Images\hamburgerIcon.png" />
     <Resource Include="Resources\Images\profile.png" />
+    <Resource Include="Resources\Images\StarImage.png" />
     <Resource Include="Resources\Images\threeDots.png" />
   </ItemGroup>
 

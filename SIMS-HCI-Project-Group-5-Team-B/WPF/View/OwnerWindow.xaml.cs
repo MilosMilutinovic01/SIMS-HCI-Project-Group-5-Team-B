@@ -72,6 +72,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             reservationsForGrading = new List<Reservation>();
             LogedInOwner = ownerService.GetByUsername(username);
             LogedInOwner.GradeAverage = superOwnerService.CalculateGradeAverage(LogedInOwner);
+            
+            if(LogedInOwner.GradeAverage > 4.5 && superOwnerService.GetNumberOfGrades(LogedInOwner) >= 50)
+            {
+                LogedInOwner.IsSuperOwner = true;
+            }
+            else
+            {
+                LogedInOwner.IsSuperOwner = false;
+            }
+
+
             ownerService.Update(LogedInOwner);
             //lastDisplayed = Properties.Settings.Default.LastShownDate;
             AccomodationsOfLogedInOwner = new ObservableCollection<Accommodation>(accommodationService.GetAccommodationsOfLogedInOwner(LogedInOwner));

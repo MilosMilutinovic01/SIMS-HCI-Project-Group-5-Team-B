@@ -62,6 +62,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 ownerAccommodationGradeController.Save(OwnerAccommodationGrade);
                 reservationView.IsForGrading = false;
                 OwnerAccommodationGrade.Reservation.Accommodation.Owner.GradeAverage = superOwnerController.CalculateGradeAverage(OwnerAccommodationGrade.Reservation.Accommodation.Owner);
+                if (OwnerAccommodationGrade.Reservation.Accommodation.Owner.GradeAverage > 4.5 && superOwnerController.GetNumberOfGrades(OwnerAccommodationGrade.Reservation.Accommodation.Owner) >= 50)
+                {
+                    OwnerAccommodationGrade.Reservation.Accommodation.Owner.IsSuperOwner = true;
+                }
+                else
+                {
+                    OwnerAccommodationGrade.Reservation.Accommodation.Owner.IsSuperOwner = false;
+                }
                 ownerController.Update(OwnerAccommodationGrade.Reservation.Accommodation.Owner);
                 MessageBox.Show("Grading was successful!");
                 
