@@ -1,10 +1,10 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
-using SIMS_HCI_Project_Group_5_Team_B.View;
-using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
-using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
+using System.Linq;
+using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
@@ -25,11 +25,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         private IReservationRepository reservationRepository;
         private AccommodationService accommodationService;
         private IOwnerGuestRepository ownerGuestRepository;
-        public ReservationService(AccommodationService accommodationService, IOwnerGuestRepository ownerGuestRepository, IReservationRepository reservationRepository)
+        private IReservationChangeRequestRepository reservationChangeRequestRepository;
+        public ReservationService(AccommodationService accommodationService)
         {
-            this.reservationRepository = reservationRepository; 
+            this.reservationRepository = Injector.Injector.CreateInstance<IReservationRepository>();
             this.accommodationService = accommodationService;
-            this.ownerGuestRepository = ownerGuestRepository;
+            this.ownerGuestRepository = Injector.Injector.CreateInstance<IOwnerGuestRepository>();
+            this.reservationChangeRequestRepository = Injector.Injector.CreateInstance<IReservationChangeRequestRepository>();
             GetAccomodationReference();
             GetOwnerGuestReference();
 
@@ -96,7 +98,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             //OwnerGuest ownerGuest = new OwnerGuest();
             foreach (Reservation reservation in GetAll())
             {
-               OwnerGuest ownerGuest = ownerGuestRepository.GetById(reservation.OwnerGuestId);
+                OwnerGuest ownerGuest = ownerGuestRepository.GetById(reservation.OwnerGuestId);
                 reservation.OwnerGuest = ownerGuest;
             }
         }
@@ -105,7 +107,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public List<Reservation> GetReservationsForGrading(Owner owner)
         {
-            
+
             List<Reservation> reservations = GetUndeleted();
             List<Reservation> suitableReservations = new List<Reservation>();
             foreach (Reservation reservation in reservations)
@@ -204,42 +206,23 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return true;
 
         }
-        
-        //TO Be REFACTORED!
-        public List<ReservationGridView> GetReservationsForGuestGrading(int ownerGuestId)
+
+        public bool IsReservationDeletable(Reservation reservation)
         {
-            List<ReservationGridView> reservationViews = new List<ReservationGridView>();
-            foreach (Reservation reservation in GetUndeleted())
-            {
-                if(reservation.OwnerGuestId == ownerGuestId)
-                {
-                    bool isForGrading = true;
-                    if (!(reservation.EndDate.AddDays(5) > DateTime.Today && reservation.EndDate < DateTime.Today && reservation.IsGradedByGuest == false))
-                    {
-                        isForGrading = false;
-                    }
-
-                    bool isModifiable = true;
-                    if (reservation.StartDate <= DateTime.Today)
-                    {
-                        isModifiable = false;
-                    }
-
-                    bool isCancelable = true;
-                    //ovo pogledati!!!!!!
-                    if (reservation.StartDate <= DateTime.Today || reservation.StartDate <= DateTime.Today.AddDays(reservation.Accommodation.NoticePeriod))
-                    {
-                        isCancelable = false;
-                    }
-
-                    reservationViews.Add(new ReservationGridView(reservation, isForGrading,isModifiable,isCancelable));
-                }
-                
-
-            }
-            return reservationViews;
+            // reservation can not be deleted if there are pending requests
+            return reservation.IsDeletable() &&
+            !reservationChangeRequestRepository.GetAll().Any(chreq => chreq.ReservationId == reservation.Id && chreq.RequestStatus == REQUESTSTATUS.Pending);
         }
 
+        public bool IsReservationModifiable(Reservation reservation)
+        {
+            return reservation.isModifiable();
+        }
+
+        public bool IsReservationGradable(Reservation reservation)
+        {
+            return reservation.IsFroGrading();
+        }
 
         public bool IsAccomodationAvailableForChangingReservationDates(Reservation selectedReservation, DateTime startDate, DateTime endDate)
         {

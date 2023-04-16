@@ -2,6 +2,8 @@
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.View;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View;
+using System.Collections.Generic;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -29,7 +31,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.reservationChangeRequestService = reservationChangeRequestService;
             this.ownerGuestId = ownerGuestId;
 
-            ReservationViews = new ObservableCollection<ReservationGridView>(reservationController.GetReservationsForGuestGrading(ownerGuestId));
+            ReservationViews = new ObservableCollection<ReservationGridView>(GetReservationViews(ownerGuestId));
             ReservaitionChangeRequests = new ObservableCollection<ReservationChangeRequest>(reservationChangeRequestService.GetOwnerGuestsReservationRequests(ownerGuestId));
         }
 
@@ -76,6 +78,40 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
             MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
             return result;
+        }
+
+        public List<ReservationGridView> GetReservationViews(int ownerGuestId)
+        {
+            List<ReservationGridView> reservationViews = new List<ReservationGridView>();
+            foreach (Reservation reservation in reservationController.GetUndeleted())
+            {
+                if (reservation.OwnerGuestId == ownerGuestId)
+                {
+                    bool isForGrading = true;
+                    if (!reservationController.IsReservationGradable(reservation))
+                    {
+                        isForGrading = false;
+                    }
+
+                    bool isModifiable = true;
+                    if (!reservationController.IsReservationModifiable(reservation))
+                    {
+                        isModifiable = false;
+                    }
+
+                    bool isCancelable = true;
+                    //ovo pogledati!!!!!!
+                    if (!reservationController.IsReservationDeletable(reservation))
+                    {
+                        isCancelable = false;
+                    }
+
+                    reservationViews.Add(new ReservationGridView(reservation, isForGrading, isModifiable, isCancelable));
+                }
+
+
+            }
+            return reservationViews;
         }
     }
 }

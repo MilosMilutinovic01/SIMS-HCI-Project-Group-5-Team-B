@@ -215,5 +215,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public bool IsFroGrading()
+        {
+            return this.EndDate.AddDays(5) > DateTime.Today && this.EndDate < DateTime.Today && this.IsGradedByGuest == false;
+        }
+
+        public bool isModifiable()
+        {
+            return !(this.StartDate <= DateTime.Today || this.StartDate <= DateTime.Today.AddDays(this.Accommodation.NoticePeriod));
+        }
+
+        public bool IsDeletable()
+        {
+            return !(this.StartDate <= DateTime.Today || this.StartDate <= DateTime.Today.AddDays(this.Accommodation.NoticePeriod));
+        }
     }
 }

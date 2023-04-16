@@ -36,25 +36,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private OwnerGuest activeOwnerGuest;
         private ReservationChangeRequestService reservationChangeRequestService;
 
-        //Added for DEPENDENCY INJECTION
-        private OwnerGuestCSVRepository ownerGuestRepository;
-        private ReservationCSVRepository reservationCSVRepository;
-        private ReservationChangeRequestCSVRepository reservationChangeRequestCSVRepository;
+
         public OwnerGuestWindow(string username)
         {
             InitializeComponent();
-            ownerGuestRepository = new OwnerGuestCSVRepository();
-            reservationCSVRepository = new ReservationCSVRepository();
-            reservationChangeRequestCSVRepository = new ReservationChangeRequestCSVRepository();
             
             locationController = new LocationController();
             ownerController = new OwnerService();
             accommodationController = new AccommodationService(locationController, ownerController);
-            reservationController = new ReservationService(accommodationController, ownerGuestRepository, reservationCSVRepository);
+            reservationController = new ReservationService(accommodationController);
             ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);
             superOwnerController = new SuperOwnerService(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
             ownerGuestService = new OwnerGuestService();
-            reservationChangeRequestService = new ReservationChangeRequestService(reservationChangeRequestCSVRepository, reservationCSVRepository);
+            reservationChangeRequestService = new ReservationChangeRequestService();
             activeOwnerGuest =  ownerGuestService.GetByUsername(username);
         }
 
