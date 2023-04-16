@@ -76,6 +76,19 @@
                     <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="2*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Max Guests" Binding="{Binding MaxGuests}" Width="*"></DataGridTextColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image x:Name="StarImage" Height="20" Width="20" Visibility="Collapsed" Source="/Resources/Images/StarImage.png">
+                                </Image>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Owner.IsSuperOwner}" Value="True">
+                                        <Setter TargetName="StarImage" Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             
