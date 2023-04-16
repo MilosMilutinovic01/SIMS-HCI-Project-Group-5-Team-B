@@ -41,6 +41,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             {
                 GradingOwnerAccommodation gradingOwnerAccommodatoinWindow = new GradingOwnerAccommodation(ownerAccommodationGradeController, reservationController, SelectedReservationView, superOwnerController, ownerController);
                 gradingOwnerAccommodatoinWindow.Show();
+                
 
             }
         }
@@ -49,11 +50,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             if(SelectedReservationView != null)
             {
-                ReservationChangeRequestForm reservationChangeRequestForm = new ReservationChangeRequestForm(SelectedReservationView.Reservation, reservationChangeRequestService, reservationController);
+                ReservationChangeRequestForm reservationChangeRequestForm = new ReservationChangeRequestForm(ReservaitionChangeRequests,SelectedReservationView, reservationChangeRequestService, reservationController);
                 reservationChangeRequestForm.Show();
+                
             }
             
         }
+
+
 
         public void Cancel()
         {

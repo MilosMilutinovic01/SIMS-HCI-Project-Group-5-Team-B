@@ -33,7 +33,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 {
                     isForGrading = value;
                     OnPropertyChanged();
-                    NotifyPropertyChanged(nameof(IsForGrading)); 
+                    NotifyPropertyChanged(nameof(IsForGrading));
                 }
             }
 
@@ -48,7 +48,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 {
                     isModifiable = value;
                     OnPropertyChanged();
-                    NotifyPropertyChanged(nameof(IsModifiable)); 
+                    NotifyPropertyChanged(nameof(IsModifiable));
                 }
             }
 
@@ -73,7 +73,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             Reservation = reservation;
             IsForGrading = isForGrading;
             IsModifiable = isModifiable;
-            this.isCancelable = isCancelable;
+            IsCancelable = isCancelable;
         }
     }
 }
