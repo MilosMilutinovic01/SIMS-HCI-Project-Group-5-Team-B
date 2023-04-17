@@ -49,5 +49,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Notifications
                 }
             }
         }
+
+        public bool Exists(int receiverId)
+        {
+            return notificationRepository.GetAll().Any(ntf => ntf.ReceiverId == receiverId);
+        }
     }
 }

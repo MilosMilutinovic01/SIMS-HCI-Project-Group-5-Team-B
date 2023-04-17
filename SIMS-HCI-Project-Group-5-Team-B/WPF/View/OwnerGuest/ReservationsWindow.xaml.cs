@@ -1,5 +1,4 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
-using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 
 using System;
@@ -17,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {

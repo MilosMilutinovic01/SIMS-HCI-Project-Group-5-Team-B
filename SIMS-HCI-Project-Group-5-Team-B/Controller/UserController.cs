@@ -58,5 +58,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             }
             return null;
         }
+
+        public User GetByUsername(string username)
+        {
+            return GetAll().Find(user=> user.Username == username);
+        }
     }
 }
