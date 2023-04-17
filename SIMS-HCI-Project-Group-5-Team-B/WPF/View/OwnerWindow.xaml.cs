@@ -18,6 +18,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using System.Collections.ObjectModel;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View;
+using SIMS_HCI_Project_Group_5_Team_B.Notifications;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -48,6 +49,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private readonly HandleReservationChangeRequestViewModel _viewModel;
         private ReservationChangeRequestService reservationChangeRequestService;
+
+        public ObservableCollection<Notification> Notifications { get; set; }
 
         //private DateTime lastDisplayed;
         public OwnerWindow(string username)
@@ -89,19 +92,26 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             _viewModel = new HandleReservationChangeRequestViewModel(reservationChangeRequestService,reservationService, LogedInOwner,SelectedReservationChangeRequest);
             OwnersPendingRequests = new ObservableCollection<ReservationChangeRequest>(_viewModel.OwnersPendingRequests);
 
-            
+            OwnerNotificationsViewModel ownerNotificationsViewModel = new OwnerNotificationsViewModel(LogedInOwner.Id);
+            Notifications = new ObservableCollection<Notification>(ownerNotificationsViewModel.Notifications);
 
         }
 
-        private void NotifyOwnerToGradeGuests(object sender, RoutedEventArgs e)
+        private void NotifyOwner(object sender, RoutedEventArgs e)
         {
             reservationsForGrading = reservationService.GetReservationsForGrading(LogedInOwner);
-            if (reservationsForGrading.Count != 0 /*&& DateTime.Today != lastDisplayed*/)
+            if (reservationsForGrading.Count != 0 && Notifications.Count != 0)
             {
                 MessageBox.Show("You have guests to grade!!!");
-                //lastDisplayed = DateTime.Today;
-                //Properties.Settings.Default.LastShownDate = lastDisplayed;
-                //Properties.Settings.Default.Save();
+                MessageBox.Show("You have new notifications!");
+            }
+            else if(reservationsForGrading.Count != 0)
+            {
+                MessageBox.Show("You have guests to grade!!!");
+
+            }else if(Notifications.Count != 0)
+            {
+                MessageBox.Show("You have new notifications!");
             }
         }
 
