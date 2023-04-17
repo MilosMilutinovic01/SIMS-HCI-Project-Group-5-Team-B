@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using SIMS_HCI_Project_Group_5_Team_B.Notifications;
+using System.Text;
+using SIMS_HCI_Project_Group_5_Team_B.Controller;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 {
@@ -15,6 +18,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
         private OwnerService ownerController;
         private SuperOwnerService superOwnerController;
+        private NotificationController notificationController;
+        private UserController userController;
         private ReservationChangeRequestService reservationChangeRequestService;
         public ObservableCollection<ReservationGridView> ReservationViews { get; set; }
         public ReservationGridView SelectedReservationView { get; set; }
@@ -22,12 +27,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests { get; set; }
         private int ownerGuestId;
 
-        public ReservationsViewModel(ReservationService reservationController, OwnerAccommodationGradeSevice ownerAccommodationGradeController, SuperOwnerService superOwnerController, OwnerService ownerController, int ownerGuestId, ReservationChangeRequestService reservationChangeRequestService) 
+        public ReservationsViewModel(ReservationService reservationController, OwnerAccommodationGradeSevice ownerAccommodationGradeController, SuperOwnerService superOwnerController, OwnerService ownerController, int ownerGuestId, ReservationChangeRequestService reservationChangeRequestService)
         {
             this.reservationController = reservationController;
             this.ownerAccommodationGradeController = ownerAccommodationGradeController;
             this.superOwnerController = superOwnerController;
             this.ownerController = ownerController;
+            notificationController = new NotificationController();
+            userController = new UserController();
             this.reservationChangeRequestService = reservationChangeRequestService;
             this.ownerGuestId = ownerGuestId;
 
@@ -41,20 +48,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             {
                 GradingOwnerAccommodation gradingOwnerAccommodatoinWindow = new GradingOwnerAccommodation(ownerAccommodationGradeController, reservationController, SelectedReservationView, superOwnerController, ownerController);
                 gradingOwnerAccommodatoinWindow.Show();
-                
+
 
             }
         }
 
         public void Modify()
         {
-            if(SelectedReservationView != null)
+            if (SelectedReservationView != null)
             {
-                ReservationChangeRequestForm reservationChangeRequestForm = new ReservationChangeRequestForm(ReservaitionChangeRequests,SelectedReservationView, reservationChangeRequestService, reservationController);
+                ReservationChangeRequestForm reservationChangeRequestForm = new ReservationChangeRequestForm(ReservaitionChangeRequests, SelectedReservationView, reservationChangeRequestService, reservationController);
                 reservationChangeRequestForm.Show();
-                
+
             }
-            
+
         }
 
 
@@ -63,11 +70,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             if (SelectedReservationView != null)
             {
-                if(ConfirmReservationDeletion() == MessageBoxResult.Yes)
+                if (ConfirmReservationDeletion() == MessageBoxResult.Yes)
                 {
+                    //send notification
+                    notificationController.Send(CreateOwnerNotification());
+
                     SelectedReservationView.Reservation.IsDeleted = true;
                     reservationController.Update(SelectedReservationView.Reservation);
                     ReservationViews.Remove(SelectedReservationView);
+
                 }
             }
         }
@@ -116,6 +127,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
             }
             return reservationViews;
+        }
+
+        private Notification CreateOwnerNotification()
+        {
+            Notification notification = new Notification();
+            notification.IsRead = false;
+            notification.Message = GetNotificationMessage();
+            notification.ReceiverId = userController.GetByUsername(SelectedReservationView.Reservation.Accommodation.Owner.Username).Id;
+            return notification;
+        }
+
+        private string GetNotificationMessage()
+        {
+            StringBuilder sb = new StringBuilder($"{SelectedReservationView.Reservation.OwnerGuest.Name} {SelectedReservationView.Reservation.OwnerGuest.Surname} cancelled reservation in ");
+            sb.Append($"{SelectedReservationView.Reservation.Accommodation.Name} From: {SelectedReservationView.Reservation.StartDate} To: {SelectedReservationView.Reservation.EndDate}");
+            return sb.ToString();
         }
     }
 }

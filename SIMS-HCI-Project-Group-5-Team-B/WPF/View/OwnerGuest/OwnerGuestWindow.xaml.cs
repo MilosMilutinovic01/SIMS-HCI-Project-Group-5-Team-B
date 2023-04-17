@@ -12,12 +12,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
+using SIMS_HCI_Project_Group_5_Team_B.Notifications;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.View;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -35,12 +38,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private OwnerGuestService ownerGuestService;
         private OwnerGuest activeOwnerGuest;
         private ReservationChangeRequestService reservationChangeRequestService;
-
+        private string username;
 
         public OwnerGuestWindow(string username)
         {
             InitializeComponent();
-            
+            this.username = username;
             locationController = new LocationController();
             ownerController = new OwnerService();
             accommodationController = new AccommodationService(locationController, ownerController);
@@ -50,8 +53,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             ownerGuestService = new OwnerGuestService();
             reservationChangeRequestService = new ReservationChangeRequestService();
             activeOwnerGuest =  ownerGuestService.GetByUsername(username);
+            
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Del(ShowNotification));
         }
 
+        private delegate void Del();
         private void ShowAccomodation_Button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -63,6 +69,23 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             ReservationsWindow reservationsWindow = new ReservationsWindow(reservationController,ownerAccommodationGradeController,superOwnerController,ownerController, activeOwnerGuest.Id, reservationChangeRequestService);
             reservationsWindow.Show();
+        }
+
+        private void Notifications_Button_Click(object sender, RoutedEventArgs e)
+        {
+            NotificationsWindow notificationsWindow = new NotificationsWindow(activeOwnerGuest.Id);
+            notificationsWindow.Show();
+        }
+
+        private void ShowNotification()
+        {
+            NotificationController notificationController = new NotificationController();
+            UserController userController = new UserController();
+            User user = userController.GetByUsername(username);
+            if (notificationController.Exists(user.Id))
+            {
+                MessageBox.Show("You have new notifactions!");
+            }
         }
     }
 }

@@ -9,6 +9,7 @@
     <Grid>
         <Button Content="Show Accomodation" HorizontalAlignment="Left" Margin="160,126,0,0" VerticalAlignment="Top" Click="ShowAccomodation_Button_Click"/>
         <Button Content="Reservations" HorizontalAlignment="Left" Margin="177,202,0,0" VerticalAlignment="Top" Click="Reservations_Button_Click"/>
+        <Button Content="Notifications" HorizontalAlignment="Left" Margin="192,72,0,0" VerticalAlignment="Top" Click="Notifications_Button_Click"/>
 
     </Grid>
 </Window>
