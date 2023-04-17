@@ -99,7 +99,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
                 if (ShowAlternatives == MessageBoxResult.Yes)
                 {
-                    TourWindow tourWindow = new TourWindow();
+                    TourWindow tourWindow = new TourWindow(new User());
                     Setup(tourWindow);
                     tourWindow.SearchButton_Click(null, e);
 

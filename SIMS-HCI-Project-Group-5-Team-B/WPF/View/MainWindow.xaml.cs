@@ -46,9 +46,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
+            User user = null;
             if(!Username.Equals("") || !Password.Equals(""))
             {
-                User user = userController.LogIn(Username, Password);
+                user = userController.LogIn(Username, Password);
                 if (user == null)
                 {
                     MessageBox.Show("Username or password is incorrect");
@@ -68,7 +69,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
             {
 
                 //Pozovi funkciju koju hoces za GOSTA 2
-                TourWindow tourWindow = new TourWindow();
+                TourWindow tourWindow = new TourWindow(user);
                 tourWindow.Show();
 
             }
