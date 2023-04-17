@@ -16,24 +16,24 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public Reservation SelectedReservation { get; set; }
         private ReservationGridView reservationView;
         public OwnerAccommodationGrade OwnerAccommodationGrade { get; set; }
-        private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
-        private ReservationService reservationController;
-        private ObservableCollection<ReservationGridView> ReservationViews;
+        private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
+        private ReservationService reservationService;
+        //private ObservableCollection<ReservationGridView> ReservationViews;
 
         
-        private SuperOwnerService superOwnerController;
-        private OwnerService ownerController;
-        public GradingOwnerAccommodation(OwnerAccommodationGradeSevice ownerAccommodationGradeController, ReservationService reservationController, ReservationGridView reservationView, SuperOwnerService superOwnerController, OwnerService ownerController)
+        private SuperOwnerService superOwnerService;
+        private OwnerService ownerService;
+        public GradingOwnerAccommodation(OwnerAccommodationGradeSevice ownerAccommodationGradeService, ReservationService reservationService, ReservationGridView reservationView, SuperOwnerService superOwnerService, OwnerService ownerService)
         {
             InitializeComponent();
             this.DataContext = this;
             OwnerAccommodationGrade = new OwnerAccommodationGrade();
             this.reservationView = reservationView;
             this.SelectedReservation = reservationView.Reservation;
-            this.ownerAccommodationGradeController = ownerAccommodationGradeController;
-            this.reservationController = reservationController;
-            this.superOwnerController = superOwnerController;
-            this.ownerController = ownerController;
+            this.ownerAccommodationGradeService = ownerAccommodationGradeService;
+            this.reservationService = reservationService;
+            this.superOwnerService = superOwnerService;
+            this.ownerService = ownerService;
             Heading = string.Empty;
             FormHeading();
             
@@ -56,13 +56,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 //setting parameter to true
                 SelectedReservation.IsGradedByGuest = true;
-                reservationController.Update(SelectedReservation);
+                reservationService.Update(SelectedReservation);
                 OwnerAccommodationGrade.ReservationId = SelectedReservation.Id;
-                OwnerAccommodationGrade.GradeAverage = ownerAccommodationGradeController.GetAverageGrade(OwnerAccommodationGrade);
-                ownerAccommodationGradeController.Save(OwnerAccommodationGrade);
+                OwnerAccommodationGrade.GradeAverage = ownerAccommodationGradeService.GetAverageGrade(OwnerAccommodationGrade);
+                ownerAccommodationGradeService.Save(OwnerAccommodationGrade);
                 reservationView.IsForGrading = false;
-                OwnerAccommodationGrade.Reservation.Accommodation.Owner.GradeAverage = superOwnerController.CalculateGradeAverage(OwnerAccommodationGrade.Reservation.Accommodation.Owner);
-                if (OwnerAccommodationGrade.Reservation.Accommodation.Owner.GradeAverage > 4.5 && superOwnerController.GetNumberOfGrades(OwnerAccommodationGrade.Reservation.Accommodation.Owner) >= 50)
+                OwnerAccommodationGrade.Reservation.Accommodation.Owner.GradeAverage = superOwnerService.CalculateGradeAverage(OwnerAccommodationGrade.Reservation.Accommodation.Owner);
+                if (OwnerAccommodationGrade.Reservation.Accommodation.Owner.GradeAverage > 4.5 && superOwnerService.GetNumberOfGrades(OwnerAccommodationGrade.Reservation.Accommodation.Owner) >= 50)
                 {
                     OwnerAccommodationGrade.Reservation.Accommodation.Owner.IsSuperOwner = true;
                 }
@@ -70,14 +70,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 {
                     OwnerAccommodationGrade.Reservation.Accommodation.Owner.IsSuperOwner = false;
                 }
-                ownerController.Update(OwnerAccommodationGrade.Reservation.Accommodation.Owner);
+                ownerService.Update(OwnerAccommodationGrade.Reservation.Accommodation.Owner);
                 MessageBox.Show("Grading was successful!");
                 
                 Close();
             }
             else
             {
-                MessageBox.Show("Accommodation can't be created, because fileds are not valid");
+                MessageBox.Show("Data is not valid!");
             }
         }
         

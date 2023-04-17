@@ -22,14 +22,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class AccomodationDetailsWindow : Window
     {
         public Accommodation SelectedAccommodation { get; set; }
-        private ReservationService reservationController;
+        private ReservationService reservationService;
         private int ownerGuestId;
-        public AccomodationDetailsWindow(Accommodation SelectedAccomodation, ReservationService reservationController, int ownerGuestId)
+        public AccomodationDetailsWindow(Accommodation SelectedAccomodation, ReservationService reservationService, int ownerGuestId)
         {
             InitializeComponent();
             DataContext = this;
             this.SelectedAccommodation = SelectedAccomodation;
-            this.reservationController = reservationController;
+            this.reservationService = reservationService;
             this.ownerGuestId = ownerGuestId;
             ShowImages();
 
@@ -47,7 +47,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void Reserve_Button_Click(object sender, RoutedEventArgs e)
         {
-            ReservationForm reservationForm = new ReservationForm(reservationController, SelectedAccommodation, ownerGuestId);
+            ReservationForm reservationForm = new ReservationForm(reservationService, SelectedAccommodation, ownerGuestId);
             reservationForm.Show();
 
         }

@@ -29,12 +29,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class OwnerGuestWindow : Window
     {
-        private AccommodationService accommodationController;
+        private AccommodationService accommodationService;
         private LocationController locationController;
-        private ReservationService reservationController;
-        private OwnerService ownerController;
-        private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
-        private SuperOwnerService superOwnerController;
+        private ReservationService reservationService;
+        private OwnerService ownerService;
+        private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
+        private SuperOwnerService superOwnerService;
         private OwnerGuestService ownerGuestService;
         private OwnerGuest activeOwnerGuest;
         private ReservationChangeRequestService reservationChangeRequestService;
@@ -45,11 +45,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             InitializeComponent();
             this.username = username;
             locationController = new LocationController();
-            ownerController = new OwnerService();
-            accommodationController = new AccommodationService(locationController, ownerController);
-            reservationController = new ReservationService(accommodationController);
-            ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);
-            superOwnerController = new SuperOwnerService(ownerAccommodationGradeController, accommodationController);
+            ownerService = new OwnerService();
+            accommodationService = new AccommodationService(locationController, ownerService);
+            reservationService = new ReservationService(accommodationService);
+            ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(reservationService);
+            superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, accommodationService);
             ownerGuestService = new OwnerGuestService();
             reservationChangeRequestService = new ReservationChangeRequestService();
             activeOwnerGuest =  ownerGuestService.GetByUsername(username);
@@ -58,16 +58,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         }
 
         private delegate void Del();
+
         private void ShowAccomodation_Button_Click(object sender, RoutedEventArgs e)
         {
 
-            AccommodationsWindow accomodationsWindow = new AccommodationsWindow(activeOwnerGuest.Id, locationController, ownerController, accommodationController, reservationController);
+            AccommodationsWindow accomodationsWindow = new AccommodationsWindow(activeOwnerGuest.Id, locationController, ownerService, accommodationService, reservationService);
             accomodationsWindow.Show();
         }
 
         private void Reservations_Button_Click(object sender, RoutedEventArgs e)
         {
-            ReservationsWindow reservationsWindow = new ReservationsWindow(reservationController,ownerAccommodationGradeController,superOwnerController,ownerController, activeOwnerGuest.Id, reservationChangeRequestService);
+            ReservationsWindow reservationsWindow = new ReservationsWindow(reservationService,ownerAccommodationGradeService,superOwnerService,ownerService, activeOwnerGuest.Id, reservationChangeRequestService);
             reservationsWindow.Show();
         }
 
