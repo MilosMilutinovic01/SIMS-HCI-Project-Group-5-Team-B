@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using SIMS_HCI_Project_Group_5_Team_B.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,23 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
     /// </summary>
     public partial class TourStatistics : Window
     {
-        public TourStatistics()
+        private TourController tourController;
+        private TourAttendanceService tourAttendanceService;
+        public TourStatistics(int id)
         {
             InitializeComponent();
+            this.DataContext = this;
+
+            tourController = new TourController();
+            tourAttendanceService = new TourAttendanceService();
+
+            TourName.Content = tourController.getById(id).Name;
+            if (tourAttendanceService.GetByTourAppointmentId(id).PeopleAttending != null)
+                TotalGuests.Content = tourAttendanceService.GetByTourAppointmentId(id).;
+            else
+                TotalGuests.Content = "0";    
+            //WithVoucher.Content = "1";
+            //WithoutVoucher.Content = "2";
         }
     }
 }

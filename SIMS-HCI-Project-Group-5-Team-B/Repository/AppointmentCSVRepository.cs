@@ -22,24 +22,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             appointmentRepository.Delete(appointment);
         }
 
-        public List<Appointment> FindBy(string[] propertyNames, string[] values)
-        {
-            return appointmentRepository.FindBy(propertyNames, values);
-        }
-
         public List<Appointment> GetAll()
         {
             return appointmentRepository.GetAll();
-        }
-
-        public List<Appointment> GetAllAvaillable()
-        {
-            return appointmentRepository.GetAll().FindAll(a => a.Start.Date == DateTime.Now.Date && a.Cancelled == false);
-        }
-
-        public Appointment GetById(int id)
-        {
-            return GetAll().Find(a => a.Id == id);
         }
 
         public void Save(Appointment appointment)

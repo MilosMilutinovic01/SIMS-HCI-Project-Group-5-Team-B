@@ -24,7 +24,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class TrackingTourLiveWindow : Window
     {
         private KeyPointsController keyPointsController;
-        private AppointmentController appointmentController;
+        private AppointmentService appointmentController;
         private NotificationController notificationController;
         private TourAttendanceService tourAttendanceService;
 
@@ -43,7 +43,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             DataContext = this;
 
             keyPointsController = new KeyPointsController();
-            appointmentController = new AppointmentController();
+            appointmentController = new AppointmentService();
             notificationController = new NotificationController();
             tourAttendanceService = new TourAttendanceService();
 

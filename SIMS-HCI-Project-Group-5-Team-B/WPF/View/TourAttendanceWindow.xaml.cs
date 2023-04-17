@@ -29,7 +29,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private List<Appointment> Appointments { get; set; }
         public Appointment SelectedAppointment { get; set; }
 
-        private AppointmentController appointmentController { get; set; }
+        private AppointmentService appointmentController { get; set; }
 
         private TourAttendanceService tourAttendanceService;
 
@@ -40,7 +40,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             Available = new List<DateTime>();
             Appointments = new List<Appointment>();
 
-            appointmentController = new AppointmentController();
+            appointmentController = new AppointmentService();
             foreach (var appointment in appointmentController.GetAll())
             {
                 if (appointment.TourId == SelectedTour.Id && appointment.Start > DateTime.Now)

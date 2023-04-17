@@ -1,4 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     public class TourAttendanceService
     {
         private Repository<TourAttendance> tourAttendanceRepository;
+        private AppointmentService appointmentService;
 
         public TourAttendanceService()
         {
             tourAttendanceRepository = new Repository<TourAttendance>();
+            appointmentService = new AppointmentService();
         }
 
         public List<TourAttendance> GetAll()
@@ -44,9 +47,25 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return GetAll().Where(ta => ta.TourAppointmentId == appointmentId).Select(ta => ta.GuideGuestId).ToList();
         }
 
-        public TourAttendance getById(int id)
+        public TourAttendance GetByTourAppointmentId(int id)
         {
-            return GetAll().Find(ta => ta.Id == id);
+            return GetAll().Find(ta => ta.TourAppointmentId == id);
+        }
+
+        public Appointment GetMostVisitedTour()//treba za odredjenu godinu
+        {
+            int id = 0;
+            int people = 0;
+            Appointment appointment = new Appointment();
+            foreach(TourAttendance ta in tourAttendanceRepository.GetAll())
+            {
+                if (ta.PeopleAttending > people)
+                {
+                    id = ta.TourAppointmentId;
+                    people = ta.PeopleAttending;
+                }
+            }
+            return appointmentService.getById(id); ;
         }
     }
 }

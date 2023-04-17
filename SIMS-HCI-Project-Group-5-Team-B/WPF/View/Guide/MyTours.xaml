@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide"
         mc:Ignorable="d"
-        Title="MyTours" Height="750" Width="430">
+        Title="MyTours" Height="750" Width="430" WindowStartupLocation="CenterScreen">
     <DockPanel>
         <DockPanel DockPanel.Dock="top" Height="30">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
@@ -33,6 +33,38 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <Label VerticalAlignment="Bottom" HorizontalAlignment="Center">Choose year:</Label>
+                <ComboBox x:Name="ComboBoxYear" HorizontalAlignment="Center" VerticalAlignment="Bottom" SelectedIndex="3" SelectionChanged="ComboBox_SelectionChanged">
+                    <ComboBoxItem Content="2020"/>
+                    <ComboBoxItem Content="2021"/>
+                    <ComboBoxItem Content="2022"/>
+                    <ComboBoxItem Content="2023"/>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
+                <TextBlock Text="Most visited in selected year:" HorizontalAlignment="Left"></TextBlock>
+                <DataGrid x:Name="MostVisitedToursDataGrid" ItemsSource="{Binding Path=MostVisitedTour}" SelectedItem="{Binding Path=SelectedTour}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Tour.Name}" />
+                        <DataGridTextColumn Header="State" Width="*" Binding="{Binding Tour.Location.State}" />
+                        <DataGridTextColumn Header="City" Width="*" Binding="{Binding Tour.Location.City}" />
+                        <DataGridTextColumn Header="Language" Width="*" Binding="{Binding Tour.Language}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3">
+                <TextBlock Text="All finished Tours:" HorizontalAlignment="Left"></TextBlock>
+                <DataGrid x:Name="AllFinishedToursDataGrid" ItemsSource="{Binding Path=FinishedTours}" SelectedItem="{Binding Path=SelectedTour}" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Tour.Name}" />
+                        <DataGridTextColumn Header="State" Width="*" Binding="{Binding Tour.Location.State}" />
+                        <DataGridTextColumn Header="City" Width="*" Binding="{Binding Tour.Location.City}" />
+                        <DataGridTextColumn Header="Language" Width="*" Binding="{Binding Tour.Language}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+            <Button Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ShowStatsButton_Click">Show statistics</Button>
         </Grid>
     </DockPanel>
 </Window>

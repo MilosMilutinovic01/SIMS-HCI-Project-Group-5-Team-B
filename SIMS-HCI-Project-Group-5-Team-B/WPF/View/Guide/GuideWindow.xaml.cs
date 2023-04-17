@@ -58,5 +58,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             ReviewsWindow reviewsWindow = new ReviewsWindow();
             reviewsWindow.Show();
         }
+
+        private void MyToursClick(object sender, RoutedEventArgs e)
+        {
+            MyTours myTours = new MyTours();
+            myTours.Show();
+        }
     }
 }

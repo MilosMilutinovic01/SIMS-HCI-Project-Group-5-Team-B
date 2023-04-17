@@ -10,12 +10,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces
     public interface IAppointmentRepository
     {
         public List<Appointment> GetAll();
-        public List<Appointment> GetAllAvaillable();
-        public Appointment GetById(int id);
         public void Save(Appointment appointment);
         public void Delete(Appointment appointment);
         public void Update(Appointment appointment);
-        public List<Appointment> FindBy(string[] propertyNames, string[] values);
-        public void SaveAll(List<Appointment> appointments);
+        void SaveAll(List<Appointment> newAppointment);
     }
 }

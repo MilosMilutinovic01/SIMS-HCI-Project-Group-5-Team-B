@@ -20,7 +20,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
     public partial class TourCancelWindow : Window
     {
-        private AppointmentController appointmentController;
+        private AppointmentService appointmentController;
         private VoucherService voucherService;
         public ObservableCollection<Appointment> AvailableAppointments { get; }
         public Appointment SelectedAppointment { get; set; }
@@ -29,7 +29,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             InitializeComponent();
             this.DataContext = this;
 
-            appointmentController = new AppointmentController();
+            appointmentController = new AppointmentService();
             voucherService = new VoucherService();
 
             AvailableAppointments = new ObservableCollection<Appointment>();

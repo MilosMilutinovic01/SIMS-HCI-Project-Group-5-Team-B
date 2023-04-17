@@ -8,17 +8,17 @@ using System.Linq;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 {
-    public class AppointmentController
+    public class AppointmentService
     {
         private IAppointmentRepository appointmentRepository;
         private TourController tourController;
-        public AppointmentController(TourController tourController)
+        public AppointmentService(TourController tourController)
         {
             appointmentRepository = Injector.CreateInstance<IAppointmentRepository>();
             this.tourController = tourController;
             GetTourReference();
         }
-        public AppointmentController()
+        public AppointmentService()
         {
             appointmentRepository = Injector.CreateInstance<IAppointmentRepository>();
             this.tourController = new TourController();
@@ -37,6 +37,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
             GetTourReference();
             return appointmentRepository.GetAll().Where(a => (a.Start - DateTime.Now).TotalHours >= 48 && a.Cancelled == false).ToList();
         }
+        public List<Appointment> GetFinishedToursByYear(int year) 
+        {
+            GetTourReference();
+            List<Appointment> appointments = new List<Appointment>();
+            foreach(Appointment a in GetAll())
+            {
+                if(a.Ended == true && a.Start.Year == year)
+                    appointments.Add(a);
+            }
+            return appointments;
+        }
         public void Save(Appointment newAppointment)
         {
             appointmentRepository.Save(newAppointment);
@@ -52,10 +63,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public void Update(Appointment appointment)
         {
             appointmentRepository.Update(appointment);
-        }
-        public List<Appointment> FindBy(string[] propertyNames, string[] values)
-        {
-            return appointmentRepository.FindBy(propertyNames, values);
         }
         public Appointment getById(int id)
         {

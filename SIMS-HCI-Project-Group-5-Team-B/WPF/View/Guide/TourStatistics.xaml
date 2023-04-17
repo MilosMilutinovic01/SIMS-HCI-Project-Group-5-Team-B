@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide"
         mc:Ignorable="d"
-        Title="TourStatistics" Height="750" Width="430">
+        Title="TourStatistics" Height="750" Width="430" WindowStartupLocation="CenterScreen">
     <DockPanel>
         <DockPanel DockPanel.Dock="top" Height="30">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
@@ -33,7 +33,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label x:Name="TourName" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"></Label>
+            <Label x:Name="TourName" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="16" FontWeight="Bold"></Label>
             <Label x:Name="TotalGuests" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"></Label>
             <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" >
                 <Label x:Name="Under18" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Top"/>
