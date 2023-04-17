@@ -6,16 +6,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
     public class SuperOwnerService
     {
-
-        private ReservationService reservationService;
         private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
-        private OwnerService ownerService;
         private AccommodationService accommodationService;
-        public SuperOwnerService(ReservationService reservationService, OwnerAccommodationGradeSevice ownerAccommodationGradeService, OwnerService ownerService, AccommodationService accommodationService)
+        public SuperOwnerService(OwnerAccommodationGradeSevice ownerAccommodationGradeService, AccommodationService accommodationService)
         {
-            this.reservationService = reservationService;
             this.ownerAccommodationGradeService = ownerAccommodationGradeService;
-            this.ownerService = ownerService;
             this.accommodationService = accommodationService;
         }
 

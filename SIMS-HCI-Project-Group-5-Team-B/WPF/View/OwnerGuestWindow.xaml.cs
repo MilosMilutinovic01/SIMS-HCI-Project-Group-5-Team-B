@@ -46,7 +46,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             accommodationController = new AccommodationService(locationController, ownerController);
             reservationController = new ReservationService(accommodationController);
             ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);
-            superOwnerController = new SuperOwnerService(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
+            superOwnerController = new SuperOwnerService(ownerAccommodationGradeController, accommodationController);
             ownerGuestService = new OwnerGuestService();
             reservationChangeRequestService = new ReservationChangeRequestService();
             activeOwnerGuest =  ownerGuestService.GetByUsername(username);

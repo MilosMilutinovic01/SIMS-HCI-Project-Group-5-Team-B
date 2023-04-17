@@ -11,7 +11,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 {
-    public class AcceptingAndDecliningReservationChangeRequestViewModel : INotifyPropertyChanged
+    public class HandleReservationChangeRequestViewModel : INotifyPropertyChanged
     {
         private ReservationChangeRequestService reservationChangeRequestService;
         private ReservationService reservationService;
@@ -20,7 +20,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public ObservableCollection<ReservationChangeRequest> OwnersPendingRequests { get; set; }
 
 
-        public AcceptingAndDecliningReservationChangeRequestViewModel(ReservationChangeRequestService reservationChangeRequestService,ReservationService reservationService, Owner owner, ReservationChangeRequest SelectedReservationChangeRequest)
+        public HandleReservationChangeRequestViewModel(ReservationChangeRequestService reservationChangeRequestService,ReservationService reservationService, Owner owner, ReservationChangeRequest SelectedReservationChangeRequest)
         {
             this.reservationChangeRequestService = reservationChangeRequestService;
             this.reservationService = reservationService;
