@@ -11,19 +11,19 @@ using System.Xml.Linq;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
-    public class TourGrade : ISerializable, IDataErrorInfo, INotifyPropertyChanged
+    public class TourGrade : IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
 
-        private int guideGeneralKnowlegde;
-        public int GuideGeneralKnowlegde
+        private int guideGeneralKnowledge;
+        public int GuideGeneralKnowledge
         {
-            get { return guideGeneralKnowlegde; }
+            get { return guideGeneralKnowledge; }
             set
             {
-                if(value != guideGeneralKnowlegde)
+                if(value != guideGeneralKnowledge)
                 {
-                    guideGeneralKnowlegde = value;
+                    guideGeneralKnowledge = value;
                     OnPropertyChanged();
                 }
             }
@@ -104,34 +104,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         public TourGrade(int id, int guideGeneralKnowlegde, int guideLanguageKnowledge, int tourFun, string imageUrls, int tourAttendanceId, int guideGuestId)
         {
             Id = id;
-            GuideGeneralKnowlegde = guideGeneralKnowlegde;
+            GuideGeneralKnowledge = guideGeneralKnowlegde;
             GuideLanguageKnowledge = guideLanguageKnowledge;
             TourFun = tourFun;
             ImageUrls = imageUrls;
             TourAttendanceId = tourAttendanceId;
             GuideGuestId = guideGuestId;
-        }
-
-        public string[] ToCSV()
-        {
-            string[] csvValues =
-            {
-                Id.ToString(),
-                guideGeneralKnowlegde.ToString(),
-                guideLanguageKnowledge.ToString(),
-                tourFun.ToString(),
-                imageUrls
-            };
-            return csvValues;
-        }
-
-        public void FromCSV(string[] values)
-        {
-            Id = int.Parse(values[0]);
-            guideGeneralKnowlegde = int.Parse(values[1]);
-            guideLanguageKnowledge = int.Parse(values[2]);
-            tourFun = int.Parse(values[3]);
-            imageUrls = values[4];
         }
 
 
@@ -143,7 +121,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             {
                 if (columnName == "GuideGeneralKnowlegde")
                 {
-                    if (GuideGeneralKnowlegde > 5 || GuideGeneralKnowlegde < 1)
+                    if (GuideGeneralKnowledge > 5 || GuideGeneralKnowledge < 1)
                         return "Grade must be between 1 and 5";
                 }
                 else if (columnName == "GuideLanguageKnowledge")
