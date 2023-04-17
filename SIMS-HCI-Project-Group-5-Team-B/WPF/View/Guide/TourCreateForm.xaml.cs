@@ -110,7 +110,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             else
             {
                 keyPoints.Add(new KeyPoint(KeyPoint));
-                KeyPointsLabel.Content = "Added " + keyPoints.Count().ToString();
             }
         }
         private void AddStartButton_Click(object sender, RoutedEventArgs e)
@@ -118,7 +117,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             if (DateTime > DateTime.Now)
             {
                 starts.Add(DateTime);
-                DateLabel.Content = "Added " + starts.Count();
             }
             else
                 MessageBox.Show("You must add date and time that is after currently!");

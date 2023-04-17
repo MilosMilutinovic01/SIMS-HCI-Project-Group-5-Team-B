@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide" xmlns:local1="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel"
         mc:Ignorable="d"
         Title="ReviewsWindow" Height="750" Width="430" WindowStartupLocation="CenterScreen">
     <DockPanel>
@@ -13,7 +13,7 @@
                 <Button>
                     <Image Source="/Resources/Images/hamburgerIcon.png" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Button>
-                <Label Content="Home" Margin="15,0,0,0" />
+                <Label Content="Reviews" Margin="15,0,0,0" />
             </StackPanel>
             <Button DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Image Source="/Resources/Images/threeDots.png" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -42,12 +42,11 @@
                                 <TextBlock Grid.Row="2" Text="{Binding KeyPointName, StringFormat='Key point: {0}'}" FontWeight="Normal" Margin="10,0,0,0" />
                                 <DockPanel Grid.Row="3" Grid.ColumnSpan="2">
                                     <TextBlock DockPanel.Dock="Left" Text="{Binding Rating, StringFormat='Rating: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    <CheckBox DockPanel.Dock="Right" IsChecked="{Binding Valid}" HorizontalAlignment="Right" Margin="0,0,10,0"></CheckBox>
-                                    <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right">Valid:</TextBlock>
+                                    <CheckBox DockPanel.Dock="Right" IsEnabled="False" IsChecked="{Binding Reported}" HorizontalAlignment="Right" Margin="0,0,10,0"></CheckBox>
+                                    <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right">Invalid:</TextBlock>
                                 </DockPanel>
                                 <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding Comment, StringFormat='Comment: {0}'}" FontWeight="Normal" Height="50" Margin="10,0,0,0" HorizontalAlignment="Left" />
                                 <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">Report</Button>
-                                <Button Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">More</Button>
                             </Grid>
                         </Border>
                     </DataTemplate>

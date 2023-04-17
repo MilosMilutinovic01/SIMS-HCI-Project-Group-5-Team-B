@@ -1,4 +1,6 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
@@ -8,17 +10,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 {
     public class AppointmentController
     {
-        private Repository<Appointment> appointmentRepository;
+        private IAppointmentRepository appointmentRepository;
         private TourController tourController;
         public AppointmentController(TourController tourController)
         {
-            appointmentRepository = new Repository<Appointment>();
+            appointmentRepository = Injector.CreateInstance<IAppointmentRepository>();
             this.tourController = tourController;
             GetTourReference();
         }
         public AppointmentController()
         {
-            appointmentRepository = new Repository<Appointment>();
+            appointmentRepository = Injector.CreateInstance<IAppointmentRepository>();
             this.tourController = new TourController();
             GetTourReference();
         }
@@ -59,14 +61,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         {
             return GetAll().Find(a => a.Id == id);
         }
-        public int makeId()
-        {
-            return appointmentRepository.NextId();
-        }
         private void GetTourReference()
         {
-            List<Appointment> appointments = appointmentRepository.GetAll();
-            foreach (var appointment in appointments)
+            foreach (var appointment in GetAll())
             {
                 Tour tour = tourController.getById(appointment.TourId);
                 if (tour != null)
