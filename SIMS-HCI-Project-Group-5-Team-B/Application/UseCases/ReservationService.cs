@@ -216,12 +216,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public bool IsReservationModifiable(Reservation reservation)
         {
-            return reservation.isModifiable();
+            return reservation.isModifiable() &&
+            !reservationChangeRequestRepository.GetAll().Any(chreq => chreq.ReservationId == reservation.Id && chreq.RequestStatus == REQUESTSTATUS.Pending);
         }
 
         public bool IsReservationGradable(Reservation reservation)
         {
-            return reservation.IsFroGrading();
+            return reservation.IsGradable();
         }
 
         public bool IsAccomodationAvailableForChangingReservationDates(Reservation selectedReservation, DateTime startDate, DateTime endDate)
