@@ -34,15 +34,17 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label x:Name="TourName" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="16" FontWeight="Bold"></Label>
-            <Label x:Name="TotalGuests" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"></Label>
-            <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" >
-                <Label x:Name="Under18" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Top"/>
-                <Label x:Name="Between" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Center"/>
-                <Label x:Name="Above50" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom"/>
+            <Label x:Name="TotalGuests" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,0,0"></Label>
+            <Separator Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Bottom"></Separator>
+            <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                <Label x:Name="Under18" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Top"/>
+                <Label x:Name="Between" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Center"/>
+                <Label x:Name="Above50" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Bottom"/>
             </StackPanel>
-            <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" >
-                <Label x:Name="WithVoucher" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Top"/>
-                <Label x:Name="WithoutVoucher" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Center"/>
+            <Separator Grid.Row="2" Grid.ColumnSpan="5" VerticalAlignment="Bottom"></Separator>
+            <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" >
+                <Label x:Name="WithVoucher" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Top"/>
+                <Label x:Name="WithoutVoucher" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Center"/>
             </StackPanel>
         </Grid>
     </DockPanel>

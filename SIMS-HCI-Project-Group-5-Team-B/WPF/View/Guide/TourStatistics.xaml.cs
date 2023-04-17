@@ -32,12 +32,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             tourAttendanceService = new TourAttendanceService();
 
             TourName.Content = tourController.getById(id).Name;
-            if (tourAttendanceService.GetByTourAppointmentId(id).PeopleAttending != null)
-                TotalGuests.Content = tourAttendanceService.GetByTourAppointmentId(id).;
-            else
-                TotalGuests.Content = "0";    
-            //WithVoucher.Content = "1";
-            //WithoutVoucher.Content = "2";
+            TotalGuests.Content = "Total guests: " +  tourAttendanceService.GetTotalGuest(id);
+            Under18.Content = "Guests under 18 years: 1";
+            Between.Content = "Guests between 18 and 50 years: 1";
+            Above50.Content = "Guests above 50 years: 0";
+            WithVoucher.Content = "Guests with voucher on this tour: 1";
+            WithoutVoucher.Content = "Guests without voucher on this tour: 2";
         }
     }
 }

@@ -52,19 +52,37 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return GetAll().Find(ta => ta.TourAppointmentId == id);
         }
 
-        public Appointment GetMostVisitedTour()//treba za odredjenu godinu
+        public int GetTotalGuest(int appointmentId) 
+        {
+            int result = 0;
+            foreach (TourAttendance ta in tourAttendanceRepository.GetAll())
+            {
+                if (ta.TourAppointmentId == appointmentId)
+                    result += ta.PeopleAttending;
+            }
+            return result;
+        }
+        public Appointment GetMostVisitedTour(int year)
         {
             int id = 0;
             int people = 0;
-            Appointment appointment = new Appointment();
-            foreach(TourAttendance ta in tourAttendanceRepository.GetAll())
+            //foreach(TourAttendance ta in tourAttendanceRepository.GetAll())
+            //{
+            //    if (ta.PeopleAttending > people)
+            //    {
+            //        id = ta.TourAppointmentId;
+            //        people = ta.PeopleAttending;
+            //    }
+            //}
+            foreach(Appointment appointment in appointmentService.GetFinishedToursByYear(year))
             {
-                if (ta.PeopleAttending > people)
+                if (people < GetTotalGuest(appointment.Id))
                 {
-                    id = ta.TourAppointmentId;
-                    people = ta.PeopleAttending;
+                    id = appointment.Id;
+                    people = GetTotalGuest(appointment.Id);
                 }
             }
+
             return appointmentService.getById(id); ;
         }
     }

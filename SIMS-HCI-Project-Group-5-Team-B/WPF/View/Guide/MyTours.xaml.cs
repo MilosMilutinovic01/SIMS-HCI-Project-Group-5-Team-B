@@ -19,16 +19,13 @@ using System.Windows.Shapes;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
 {
-    /// <summary>
-    /// Interaction logic for MyTours.xaml
-    /// </summary>
     public partial class MyTours : Window
     {
         public string Year { get; set; }
-        public ObservableCollection<Appointment> MostVisitedTour { get; }
+        public ObservableCollection<Appointment> MostVisitedTour { get; set; }
         public Appointment SelectedTour { get; set; }
-        public ObservableCollection<Appointment> FinishedTours { get; }
-        
+        public ObservableCollection<Appointment> FinishedTours { get; set; }
+
         private TourAttendanceService tourAttendanceService;
         private AppointmentService appointmentService;
         public MyTours()
@@ -40,8 +37,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             MostVisitedTour = new ObservableCollection<Appointment>();
             FinishedTours = new ObservableCollection<Appointment>();
 
-            MostVisitedTour.Add(tourAttendanceService.GetMostVisitedTour());
-            foreach(Appointment t in appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year)))
+            MostVisitedTour.Add(tourAttendanceService.GetMostVisitedTour(2023));
+            foreach (Appointment t in appointmentService.GetFinishedToursByYear(2023))
             {
                 FinishedTours.Add(t);
             }
@@ -50,6 +47,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Year = ((ComboBoxItem)ComboBoxYear.SelectedItem).Content.ToString();
+            //MostVisitedTour.Clear();
+            //FinishedTours.Clear();
+            //MostVisitedTour.Add(tourAttendanceService.GetMostVisitedTour(2023));
+            //foreach (Appointment t in appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year)))
+            //{
+            //    FinishedTours.Add(t);
+            //}
         }
 
         private void ShowStatsButton_Click(object sender, RoutedEventArgs e)
