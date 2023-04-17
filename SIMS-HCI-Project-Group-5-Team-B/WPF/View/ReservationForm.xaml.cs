@@ -64,7 +64,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             
             NewReservation.AccommodationId = SelectedAccomodation.Id;
             NewReservation.Accommodation = SelectedAccomodation;
-            NewReservation.GuestsNumber = 0; // default value
+            NewReservation.GuestsNumber = 1; // default value
             NewReservation.OwnerGuestId = this.ownerGuestId;
             StartDate = NewReservation.StartDate; //ehis could change but it can not go before today
             EndDate = NewReservation.EndDate;

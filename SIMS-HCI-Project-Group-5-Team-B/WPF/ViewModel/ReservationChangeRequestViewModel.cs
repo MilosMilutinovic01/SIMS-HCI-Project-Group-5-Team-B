@@ -54,8 +54,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 }
                 
                 reservationChangeRequestService.Save(NewReservationRequest);
-                //if we send change request we can not cancel reservation anymore
+                //if we send change request we can not cancel or modify reservation anymore
                 selectedReservationView.IsCancelable = false;
+                selectedReservationView.IsModifiable = false;
                 ReservaitionChangeRequests.Add(NewReservationRequest);
                 MessageBox.Show("Request sent!");
             }
