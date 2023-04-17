@@ -12,7 +12,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class ReservationForm : Window
     {
-        private ReservationService reservationController;
+        private ReservationService reservationService;
         public Reservation NewReservation { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -20,11 +20,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public ObservableCollection<ReservationRecommendation> ReservationRecommendations { get; set; }
         public ReservationRecommendation SelectedDate { get; set; }
         private int ownerGuestId;
-        public ReservationForm(ReservationService reservationController, Accommodation SelectedAccomodation,int ownerGuestId)
+        public ReservationForm(ReservationService reservationService, Accommodation SelectedAccomodation,int ownerGuestId)
         {
             InitializeComponent();
             this.DataContext = this;
-            this.reservationController = reservationController;
+            this.reservationService = reservationService;
             this.SelectedAccomodation = SelectedAccomodation;
             NewReservation = new Reservation();
             this.ownerGuestId = ownerGuestId;
@@ -81,7 +81,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             if (NewReservation.IsValid)
             {
                 ReservationRecommendations.Clear();
-                List<ReservationRecommendation> list = reservationController.GetReservationRecommendations(SelectedAccomodation, StartDate, EndDate, NewReservation.ReservationDays);
+                List<ReservationRecommendation> list = reservationService.GetReservationRecommendations(SelectedAccomodation, StartDate, EndDate, NewReservation.ReservationDays);
                 if (list != null)
                 {
                     foreach (ReservationRecommendation item in list)
@@ -105,7 +105,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             NewReservation.EndDate = SelectedDate.End;
             if(NewReservation.IsValid) 
             {
-                reservationController.Save(NewReservation);
+                reservationService.Save(NewReservation);
                 Close();
             }
             else
