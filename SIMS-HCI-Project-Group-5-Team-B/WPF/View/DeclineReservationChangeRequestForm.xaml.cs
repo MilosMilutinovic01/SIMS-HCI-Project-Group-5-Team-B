@@ -25,13 +25,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     {
 
 
-        private readonly AcceptingAndDecliningReservationChangeRequestViewModel _viewModel;
+        private readonly HandleReservationChangeRequestViewModel _viewModel;
         public ObservableCollection<ReservationChangeRequest> OwnersPendingRequests { get; set; }
         public ReservationChangeRequest SelectedReservationChangeRequest { get; set; }
         public DeclineReservationChangeRequestForm(ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService, Owner owner, ReservationChangeRequest SelectedReservationChangeRequest, ObservableCollection<ReservationChangeRequest> OwnersPendingRequests)
         {
             InitializeComponent();
-            _viewModel = new AcceptingAndDecliningReservationChangeRequestViewModel(reservationChangeRequestService, reservationService, owner, SelectedReservationChangeRequest);
+            _viewModel = new HandleReservationChangeRequestViewModel(reservationChangeRequestService, reservationService, owner, SelectedReservationChangeRequest);
             DataContext = this;
             this.OwnersPendingRequests = OwnersPendingRequests;
             this.SelectedReservationChangeRequest = SelectedReservationChangeRequest;

@@ -46,7 +46,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         //Added for dependency injection
 
 
-        private readonly AcceptingAndDecliningReservationChangeRequestViewModel _viewModel;
+        private readonly HandleReservationChangeRequestViewModel _viewModel;
         private ReservationChangeRequestService reservationChangeRequestService;
 
         //private DateTime lastDisplayed;
@@ -63,7 +63,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             reservationService = new ReservationService(accommodationService);
             ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(reservationService);
             ownerGuestGradeService = new OwnerGuestGradeService(reservationService);
-            superOwnerService = new SuperOwnerService(reservationService, ownerAccommodationGradeService, ownerService, accommodationService);
+            superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, accommodationService);
 
             reservationsForGrading = new List<Reservation>();
             LogedInOwner = ownerService.GetByUsername(username);
@@ -86,7 +86,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             OwnerAccommodationGradesForShowing = new ObservableCollection<OwnerAccommodationGrade>(ownerAccommodationGradeService.GetOwnerAccommodationGradesForShowing(LogedInOwner));
 
             reservationChangeRequestService = new ReservationChangeRequestService();
-            _viewModel = new AcceptingAndDecliningReservationChangeRequestViewModel(reservationChangeRequestService,reservationService, LogedInOwner,SelectedReservationChangeRequest);
+            _viewModel = new HandleReservationChangeRequestViewModel(reservationChangeRequestService,reservationService, LogedInOwner,SelectedReservationChangeRequest);
             OwnersPendingRequests = new ObservableCollection<ReservationChangeRequest>(_viewModel.OwnersPendingRequests);
 
             

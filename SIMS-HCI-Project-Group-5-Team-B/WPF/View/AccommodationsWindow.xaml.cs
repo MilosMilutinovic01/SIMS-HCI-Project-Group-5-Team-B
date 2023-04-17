@@ -44,7 +44,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             this.reservationController = reservationService;
             //Accomodations = new ObservableCollection<Accommodation>(accommodationController.GetAll());
             ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);
-            superOwnerController = new SuperOwnerService(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
+            superOwnerController = new SuperOwnerService(ownerAccommodationGradeController, accommodationController);
             Accomodations = new ObservableCollection<Accommodation>(superOwnerController.AccommodationsForShowing());
             this.ownerGuestId = ownerGuestId;
             //reservationController = new ReservationController(accommodationController);
