@@ -1,4 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     public class VoucherService
     {
         private Repository<Voucher> voucherRepository;
+        private TemporaryTourAttendanceController tourAttendanceController;
         public VoucherService()
         {
             voucherRepository = new Repository<Voucher>();
+            tourAttendanceController = new TemporaryTourAttendanceController();
         }
         public List<Voucher> GetAll()
         {
@@ -38,6 +41,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         public List<Voucher> FindBy(string[] propertyNames, string[] values)
         {
             return voucherRepository.FindBy(propertyNames, values);
+        }
+
+        public void SendVouchers(int tourAppointmentId)
+        {
+            List<int> guestIds = tourAttendanceController.FindAllGuestsByAppointment(tourAppointmentId);
+            List<Voucher> vouchers = new List<Voucher>();
+            foreach(int guestId in guestIds)
+            {
+                vouchers.Add(new Voucher(guestId, DateTime.Now));
+            }
+            SaveAll(vouchers);
         }
     }
 }

@@ -1,38 +1,32 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
-using SIMS_HCI_Project_Group_5_Team_B.Repository;
-using SIMS_HCI_Project_Group_5_Team_B.View;
-using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
-using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
+using System.Linq;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
-    public struct ReservationRecommendation
-    {
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-
-        public ReservationRecommendation(DateTime start, DateTime end)
-        {
-            Start = start;
-            End = end;
-        }
-    }
 
     public class ReservationService
     {
-        private Repository<Reservation> reservationRepository;
-        private AccommodationService accommodationController;
+        private IReservationRepository reservationRepository;
+        private AccommodationService accommodationService;
         private IOwnerGuestRepository ownerGuestRepository;
-        public ReservationService(AccommodationService accommodationController, IOwnerGuestRepository ownerGuestRepository)
+        private IReservationChangeRequestRepository reservationChangeRequestRepository;
+        public ReservationService(AccommodationService accommodationService)
         {
-            reservationRepository = new Repository<Reservation>();
-            this.accommodationController = accommodationController;
-            this.ownerGuestRepository = ownerGuestRepository;
+            this.reservationRepository = Injector.Injector.CreateInstance<IReservationRepository>();
+            this.accommodationService = accommodationService;
+            this.ownerGuestRepository = Injector.Injector.CreateInstance<IOwnerGuestRepository>();
+            this.reservationChangeRequestRepository = Injector.Injector.CreateInstance<IReservationChangeRequestRepository>();
             GetAccomodationReference();
             GetOwnerGuestReference();
 
+        }
+
+        public List<Reservation> GetUndeleted()
+        {
+            return reservationRepository.GetUndeleted();
         }
 
         public List<Reservation> GetAll()
@@ -77,7 +71,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             foreach (Reservation reservation in GetAll())
             {
-                Accommodation accommodation = accommodationController.getById(reservation.AccommodationId);
+                Accommodation accommodation = accommodationService.getById(reservation.AccommodationId);
                 if (accommodation != null)
                 {
                     reservation.Accommodation = accommodation;
@@ -91,17 +85,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             //OwnerGuest ownerGuest = new OwnerGuest();
             foreach (Reservation reservation in GetAll())
             {
-               OwnerGuest ownerGuest = ownerGuestRepository.GetById(reservation.OwnerGuestId);
+                OwnerGuest ownerGuest = ownerGuestRepository.GetById(reservation.OwnerGuestId);
                 reservation.OwnerGuest = ownerGuest;
             }
         }
 
 
 
-        public List<Reservation> GetSuiableReservationsForGrading(Owner owner)
+        public List<Reservation> GetReservationsForGrading(Owner owner)
         {
-            ///TODO: nina ovdje ces sigurno doavati uslov da si ti vlasnik
-            List<Reservation> reservations = GetAll();
+
+            List<Reservation> reservations = GetUndeleted();
             List<Reservation> suitableReservations = new List<Reservation>();
             foreach (Reservation reservation in reservations)
             {
@@ -165,7 +159,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         public List<Reservation> GetAccomodationReservations(Accommodation selectedAccommodation)
         {
             List<Reservation> accomodationReservations = new List<Reservation>();
-            foreach (Reservation reservation in GetAll())
+            foreach (Reservation reservation in GetUndeleted())
             {
                 if (reservation.AccommodationId == selectedAccommodation.Id)
                 {
@@ -199,27 +193,54 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return true;
 
         }
-        
-        public List<ReservationViewModel> GetReservationsForGuestGrading(int ownerGuestId)
-        {
-            List<ReservationViewModel> reservationViews = new List<ReservationViewModel>();
-            foreach (Reservation reservation in GetAll())
-            {
-                if(reservation.OwnerGuestId == ownerGuestId)
-                {
-                    bool boolProp = true;
-                    if (!(reservation.EndDate.AddDays(5) > DateTime.Today && reservation.EndDate < DateTime.Today && reservation.IsGradedByGuest == false))
-                    {
-                        boolProp = false;
-                    }
 
-                    reservationViews.Add(new ReservationViewModel(reservation, boolProp));
+        public bool IsReservationDeletable(Reservation reservation)
+        {
+            // reservation can not be deleted if there are pending requests
+            return reservation.IsDeletable() &&
+            !reservationChangeRequestRepository.GetAll().Any(chreq => chreq.ReservationId == reservation.Id && chreq.RequestStatus == REQUESTSTATUS.Pending);
+        }
+
+        public bool IsReservationModifiable(Reservation reservation)
+        {
+            return reservation.isModifiable() &&
+            !reservationChangeRequestRepository.GetAll().Any(chreq => chreq.ReservationId == reservation.Id && chreq.RequestStatus == REQUESTSTATUS.Pending);
+        }
+
+        public bool IsReservationGradable(Reservation reservation)
+        {
+            return reservation.IsGradable();
+        }
+
+        public bool IsAccomodationAvailableForChangingReservationDates(Reservation selectedReservation, DateTime startDate, DateTime endDate)
+        {
+            List<Reservation> accomodationReservations = GetAccomodationReservations(selectedReservation.Accommodation);
+            accomodationReservations.Remove(selectedReservation);
+
+            foreach (Reservation reservation in accomodationReservations)
+            {
+
+                bool isInRange = startDate >= reservation.StartDate && startDate <= reservation.EndDate ||
+                                 endDate >= reservation.StartDate && endDate <= reservation.EndDate;
+
+                bool isOutOfRange = startDate <= reservation.StartDate && endDate >= reservation.EndDate;
+
+                if (isInRange)
+                {
+                    return false;
                 }
-                
+                else if (isOutOfRange)
+                {
+                    return false;
+                }
 
             }
-            return reservationViews;
+            return true;
+
         }
+
+
+
     }
 }
 

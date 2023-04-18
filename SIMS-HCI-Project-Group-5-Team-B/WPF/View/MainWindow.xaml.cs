@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SIMS_HCI_Project_Group_5_Team_B.View;
+using System.Windows.Navigation;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using System.IO;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
@@ -47,6 +47,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             User user = null;
+
             if(!Username.Equals("") || !Password.Equals(""))
             {
                 user = userController.LogIn(Username, Password);
@@ -56,12 +57,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B
                     return;
                 }
             }
+            
+            user = userController.LogIn(Username, Password);
+            
 
 
 
             if(ComboBoxType.SelectedIndex == 0)//Guide is selected
             {
-                GuideWindow guideWindow = new GuideWindow();
+                GuideWindow guideWindow = new GuideWindow(user.Username);
                 guideWindow.Show();
                 //Pozovi funkciju koju hoces za VODICA
 

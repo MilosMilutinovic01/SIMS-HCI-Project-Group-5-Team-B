@@ -11,12 +11,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     public class OwnerAccommodationGradeSevice
     {
         private Repository<OwnerAccommodationGrade> ownerAccommodationGradeRepository;
-        private ReservationService reservationController;
+        private ReservationService reservationService;
 
-        public OwnerAccommodationGradeSevice(ReservationService reservationController)
+        public OwnerAccommodationGradeSevice(ReservationService reservationService)
         {
             ownerAccommodationGradeRepository = new Repository<OwnerAccommodationGrade>();
-            this.reservationController = reservationController;
+            this.reservationService = reservationService;
             GetReservationReference();
         }
 
@@ -53,7 +53,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             List<OwnerAccommodationGrade> ownerAccommodationGrades = ownerAccommodationGradeRepository.GetAll();
             foreach (OwnerAccommodationGrade ownerAccommodationGrade in ownerAccommodationGrades)
             {
-                Reservation reservation = reservationController.getById(ownerAccommodationGrade.ReservationId);
+                Reservation reservation = reservationService.getById(ownerAccommodationGrade.ReservationId);
                 if (reservation != null)
                 {
                     ownerAccommodationGrade.Reservation = reservation;
@@ -67,7 +67,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         public List<OwnerAccommodationGrade> GetOwnerAccommodationGradesForShowing(Owner owner)
         {
             //dobili smo sve rezervacije
-            List<Reservation> reservations = reservationController.GetAll();
+            List<Reservation> reservations = reservationService.GetUndeleted();
 
             //dobili smo sve ocene smestaja
             List<OwnerAccommodationGrade> ownerAccommodationGrades = GetAll();

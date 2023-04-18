@@ -32,6 +32,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         }
         public List<Appointment> GetUpcoming()
         {
+            GetTourReference();
             return appointmentRepository.GetAll().Where(a => (a.Start - DateTime.Now).TotalHours >= 48 && a.Cancelled == false).ToList();
         }
         public void Save(Appointment newAppointment)

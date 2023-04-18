@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 
@@ -30,7 +31,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private AppointmentController appointmentController { get; set; }
 
-        private tourAttendanceController tourAttendanceController = new tourAttendanceController();
+        private TemporaryTourAttendanceController tourAttendanceController;
 
         public TourAttendanceWindow(Tour selectedTour)
         {
@@ -52,6 +53,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             this.DataContext = this;
             InitializeComponent();
             ShowImages();
+            tourAttendanceController = new TemporaryTourAttendanceController();
         }
 
         private void ShowImages()

@@ -1,4 +1,8 @@
-﻿using System;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.View;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,13 +23,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class GuideWindow : Window
     {
-        public GuideWindow()
+        private GuideService guideService;
+        public Guide LogedInGuide;
+        public GuideWindow(string username)
         {
             InitializeComponent();
+
+            guideService = new GuideService();
+
+            LogedInGuide = guideService.GetByUsername(username);
         }
 
         private void AddTourClick(object sender, RoutedEventArgs e)
         {
+            //MainFrame.NavigationService.Navigate(new TourCreateForm());
             TourCreateForm tourForm = new TourCreateForm();
             tourForm.Show();
         }
@@ -38,8 +49,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void TourCancellationClick(object sender, RoutedEventArgs e)
         {
-            TourCancelWindow tourCancel = new TourCancelWindow();
+            TourCancelWindow tourCancel = new TourCancelWindow(LogedInGuide);
             tourCancel.Show();
+        }
+
+        private void SignOutClick(object sender, RoutedEventArgs e)
+        {
+            ReviewsWindow reviewsWindow = new ReviewsWindow();
+            reviewsWindow.Show();
         }
     }
 }

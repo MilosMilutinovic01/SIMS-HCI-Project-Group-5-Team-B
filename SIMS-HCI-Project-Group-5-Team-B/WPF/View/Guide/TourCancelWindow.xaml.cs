@@ -1,4 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -20,14 +21,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class TourCancelWindow : Window
     {
         private AppointmentController appointmentController;
+        private VoucherService voucherService;
         public ObservableCollection<Appointment> AvailableAppointments { get; }
         public Appointment SelectedAppointment { get; set; }
-        public TourCancelWindow()
+        public TourCancelWindow(Guide LogedInGuide)
         {
             InitializeComponent();
             this.DataContext = this;
 
             appointmentController = new AppointmentController();
+            voucherService = new VoucherService();
 
             AvailableAppointments = new ObservableCollection<Appointment>();
 
@@ -50,6 +53,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 SelectedAppointment.Cancelled = true;
                 appointmentController.Update(SelectedAppointment);
+                voucherService.SendVouchers(SelectedAppointment.Id);
+                RefreshAppointments();
             }
             else
             {

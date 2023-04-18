@@ -34,6 +34,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             this.name = name;
             this.surname = surname;
         }
+        public GuideGuest(int id, string name)
+        {
+            Id = id;
+            this.name = name;
+        }
 
         public void FromCSV(string[] values)
         {

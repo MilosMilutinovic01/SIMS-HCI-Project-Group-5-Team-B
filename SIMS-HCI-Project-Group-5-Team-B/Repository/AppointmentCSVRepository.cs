@@ -83,6 +83,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             newAppointment.Started = Convert.ToBoolean(values[5]);
             newAppointment.Ended = Convert.ToBoolean(values[6]);
             newAppointment.Cancelled = Convert.ToBoolean(values[7]);
+            newAppointment.CheckedKeyPointId = int.Parse(values[8]);
 
             return newAppointment;
         }
@@ -98,7 +99,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
                 obj.FreeSpace.ToString(),
                 obj.Started.ToString(),
                 obj.Ended.ToString(),
-                obj.Cancelled.ToString()
+                obj.Cancelled.ToString(),
+                obj.CheckedKeyPointId.ToString(),
             };
             return csvValues;
         }

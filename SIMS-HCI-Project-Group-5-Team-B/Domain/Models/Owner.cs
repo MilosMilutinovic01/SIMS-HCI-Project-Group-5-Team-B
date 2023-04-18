@@ -49,18 +49,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
-        /*private int numberOfReservations;
-        public int NumberReservations
+        private bool isSuperOwner;
+
+        public bool IsSuperOwner
         {
-            get { return numberOfReservations; }
+            get { return isSuperOwner; }
             set
             {
-                if(value != numberOfReservations)
+                if(value != isSuperOwner)
                 {
-                    numberOfReservations = value;
+                    isSuperOwner = value;
                 }
             }
-        }*/
+        }
 
         public Owner()
         {
@@ -86,6 +87,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             name = values[3];
             surname = values[4];
             gradeAverage = double.Parse(values[5]);
+            isSuperOwner = bool.Parse(values[6]);
             //numberOfReservations =int.Parse(values[4]);
         }
 
@@ -99,6 +101,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 name,
                 surname,
                 gradeAverage.ToString(),
+                isSuperOwner.ToString()
                 //numberOfReservations.ToString()
             };
             return csvValues;

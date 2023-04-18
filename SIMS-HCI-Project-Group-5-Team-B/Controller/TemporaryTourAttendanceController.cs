@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 {
-    public class tourAttendanceController
+    public class TemporaryTourAttendanceController
     {
         private Repository<TourAttendance> tourAttendanceRepository;
 
-        public tourAttendanceController()
+        public TemporaryTourAttendanceController()
         {
             tourAttendanceRepository = new Repository<TourAttendance>();
         }
@@ -37,6 +37,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public List<TourAttendance> FindBy(string[] propertyNames, string[] values)
         {
             return tourAttendanceRepository.FindBy(propertyNames, values);
+        }
+
+        public List<int> FindAllGuestsByAppointment(int appointmentId)
+        {
+            return GetAll().Where(ta => ta.AppointmentId == appointmentId).Select(ta => ta.GuideGuestId).ToList();
         }
 
         public TourAttendance getById(int id)

@@ -1,0 +1,30 @@
+﻿<Window x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.DeclineReservationChangeRequestForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
+        mc:Ignorable="d"
+        Title="DeclineReservationChangeRequestForm" Height="200" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Label HorizontalAlignment="Center" FontSize="20">Declining request</Label>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Label HorizontalAlignment="Center" VerticalAlignment="Top" >Optional explanation:</Label>
+            <TextBox Height="30" Width="100" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,24,0,0"  Text="{Binding SelectedReservationChangeRequest.DenialComment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Button Height="20" Width="80" Content="Confirm" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Confirm_Button_Click" Margin="25,5,0,0"  ></Button>
+            <Button Height="20" Width="80" Content="Cancel" HorizontalAlignment="Right"  VerticalAlignment="Top" Click="Cancel_Button_Click" Margin="0,5,25,0"  ></Button>
+        </Grid>
+    </Grid>
+</Window>

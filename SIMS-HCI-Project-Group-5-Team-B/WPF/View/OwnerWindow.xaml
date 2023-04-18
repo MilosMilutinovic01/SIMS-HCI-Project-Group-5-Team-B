@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         mc:Ignorable="d"
-        Title="OwnerWindow" Height="600" Width="950" Loaded="NotifyOwnerToGradeGuests">
+        Title="OwnerWindow" Height="600" Width="950" Loaded="NotifyOwner">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -57,7 +57,48 @@
                     </Grid>
 
                 </TabItem>
-                <TabItem x:Name="Requests" Header="Requests for changing reservation"/>
+                <TabItem x:Name="Requests" Header="Requests for changing reservation">
+                    
+                        <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="6*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Column="0" Grid.Row="0">
+
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="21,0,0,0">Click on the buttons to accept or decline request</Label>
+                        </Grid>
+                        <Grid Grid.Column="0" Grid.Row="1">
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,10,0,0">Requests for changing reservation</Label>
+                            <DataGrid  Width="600" Height="200" ItemsSource="{Binding Path=OwnersPendingRequests, UpdateSourceTrigger=PropertyChanged}"
+                                 SelectedItem="{Binding Path=SelectedReservationChangeRequest, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+                                 AutoGenerateColumns="False" IsReadOnly="True" Margin="22,22,22,24" >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Reservation.OwnerGuest.Name}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Surname" Binding="{Binding Reservation.OwnerGuest.Surname}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Accommodation" Binding="{Binding Reservation.Accommodation.Name}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Wanted start date" Binding="{Binding Start}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Wanted end date" Binding="{Binding End}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Availability" Binding="{Binding IsAvailable}" Width="*" ></DataGridTextColumn>
+                                    <DataGridTemplateColumn x:Name="ButtonAcceptAndDeclineRequest">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <WrapPanel>
+                                                    <Button x:Name="acceptButton" Click="Accept_Button_Click">Accept</Button>
+                                                    <Button x:Name="declineButton" Click="Decline_Button_Click">Decline</Button>
+                                                </WrapPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </Grid>
+                    
+                </TabItem>
                 <TabItem x:Name="Statistics" Header="Statistics"/>
                 <TabItem x:Name="Grading" Header="Grading">
 
@@ -116,6 +157,30 @@
                 <TabItem x:Name="Renovation" Header="Renovation"/>
                 <TabItem x:Name="Forum" Header="Forum"/>
                 <TabItem x:Name="Profile" Header="Profile"/>
+                <TabItem x:Name="Nofifications" Header="Notification">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="6*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Column="0" Grid.Row="0">
+
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="21,0,0,0">Notification you got from guests</Label>
+                        </Grid>
+                        <Grid Grid.Column="0" Grid.Row="1">
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,10,0,0">Your notifications</Label>
+                            <DataGrid  Width="600" Height="200" ItemsSource="{Binding Path=Notifications}"
+                                 AutoGenerateColumns="False" IsReadOnly="True" Margin="22,22,22,24" >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </Grid>
+                </TabItem>
             </TabControl>
         </Grid>
     </Grid>

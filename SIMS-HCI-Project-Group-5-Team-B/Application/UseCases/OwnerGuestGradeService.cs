@@ -11,12 +11,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     public class OwnerGuestGradeService
     {
         private Repository<OwnerGuestGrade> ownerGuestGradeRepository;
-        private ReservationService reservationController;
+        private ReservationService reservationService;
 
-        public OwnerGuestGradeService(ReservationService reservationController)
+        public OwnerGuestGradeService(ReservationService reservationService)
         {
             ownerGuestGradeRepository = new Repository<OwnerGuestGrade>();
-            this.reservationController = reservationController;
+            this.reservationService = reservationService;
             GetReservationReference();
         }
 
@@ -53,7 +53,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             List<OwnerGuestGrade> ownerGuestGrades = ownerGuestGradeRepository.GetAll();
             foreach (OwnerGuestGrade ownerGuestGrade in ownerGuestGrades)
             {
-                Reservation reservation = reservationController.getById(ownerGuestGrade.ReservationId);
+                Reservation reservation = reservationService.getById(ownerGuestGrade.ReservationId);
                 if (reservation != null)
                 {
                     ownerGuestGrade.Reservation = reservation;

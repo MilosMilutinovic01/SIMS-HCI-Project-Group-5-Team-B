@@ -96,11 +96,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         public Reservation()
         {
             OwnerGuest = new OwnerGuest();
-           // ownerGuestId = 0;
-
+            // ownerGuestId = 0;
+            GuestsNumber = 1;
             StartDate = DateTime.Today;
             EndDate = DateTime.Today;
         }
+
+        //Added for ligical deletition
+        public bool IsDeleted { get; set; }
 
         public Reservation(int accomodationId, DateTime startDate, DateTime endDate, int reservationDays, int guestsNumber)
         {
@@ -114,6 +117,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 
             IsGraded = false;
             IsGradedByGuest = false;
+            IsDeleted = false;
         }
 
         public string[] ToCSV()
@@ -128,7 +132,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 reservationDays.ToString(),
                 guestsNumber.ToString(),
                 IsGraded.ToString(),
-                IsGradedByGuest.ToString()
+                IsGradedByGuest.ToString(),
+                IsDeleted.ToString()
             };
             return csvValues;
         }
@@ -144,6 +149,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             guestsNumber = int.Parse(values[6]);
             IsGraded = bool.Parse(values[7]);
             IsGradedByGuest = bool.Parse(values[8]);
+            IsDeleted = bool.Parse(values[9]);
         }
 
         public string Error => null;
@@ -182,6 +188,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                     {
                         return "Too many guests for this accomodation";
                     }
+                    else if(GuestsNumber < 1)
+                    {
+                        return "Minimal number of guests is 1";
+                    }
                 }
                 return null;
             }
@@ -208,6 +218,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public bool IsGradable()
+        {
+            return this.EndDate.AddDays(5) > DateTime.Today && this.EndDate < DateTime.Today && this.IsGradedByGuest == false;
+        }
+
+        public bool isModifiable()
+        {
+            return !(this.StartDate <= DateTime.Today || this.StartDate <= DateTime.Today.AddDays(this.Accommodation.NoticePeriod));
+        }
+
+        public bool IsDeletable()
+        {
+            return !(this.StartDate <= DateTime.Today || this.StartDate <= DateTime.Today.AddDays(this.Accommodation.NoticePeriod));
         }
     }
 }

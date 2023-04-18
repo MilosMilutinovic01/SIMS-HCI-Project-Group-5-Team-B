@@ -22,24 +22,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class GradingGuestWindow : Window
     {
-        public ReservationService reservationController;
-        public OwnerGuestGradeService ownerGuestGradeContoller;
-        public OwnerAccommodationGradeSevice ownerAccommodationGradeController;
+        public ReservationService reservationService;
+        public OwnerGuestGradeService ownerGuestGradeService;
+        public OwnerAccommodationGradeSevice ownerAccommodationGradeService;
         public OwnerGuestGrade NewOwnerGuestGrade { get; set; }
         public Reservation SelectedReservation { get; set; }
-
         public ObservableCollection<Reservation> ReservationsForGrading { get; set; }
         public ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing { get; set; }
 
-
-        //samo cu provati da izbacim SelectedReservation
-        public GradingGuestWindow(OwnerGuestGradeService ownerGuestGradeContoller, OwnerAccommodationGradeSevice ownerAccommodationGradeController,ReservationService reservationController,Reservation SelectedReservation, ObservableCollection<Reservation> ReservationsForGrading, ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing)
+        public GradingGuestWindow(OwnerGuestGradeService ownerGuestGradeService, OwnerAccommodationGradeSevice ownerAccommodationGradeService,ReservationService reservationService,Reservation SelectedReservation, ObservableCollection<Reservation> ReservationsForGrading, ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing)
         {
             InitializeComponent();
             this.DataContext = this;
-            this.ownerGuestGradeContoller = ownerGuestGradeContoller;
-            this.ownerAccommodationGradeController = ownerAccommodationGradeController;
-            this.reservationController = reservationController;
+            this.ownerGuestGradeService = ownerGuestGradeService;
+            this.ownerAccommodationGradeService = ownerAccommodationGradeService;
+            this.reservationService = reservationService;
             this.SelectedReservation = SelectedReservation;
             this.ReservationsForGrading = ReservationsForGrading;
             this.OwnerAccommodationGradesForShowing = OwnerAccommodationGradesForShowing;
@@ -59,14 +56,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             if (NewOwnerGuestGrade.IsValid)
             {
-                ownerGuestGradeContoller.Save(NewOwnerGuestGrade);
+                ownerGuestGradeService.Save(NewOwnerGuestGrade);
                 SelectedReservation.IsGraded = true;
-                reservationController.Update(SelectedReservation);
+                reservationService.Update(SelectedReservation);
                 ReservationsForGrading.Remove(SelectedReservation);
 
                 if (SelectedReservation.IsGradedByGuest)
                 {
-                    List<OwnerAccommodationGrade> ownerAccommodationGrades = ownerAccommodationGradeController.GetAll();
+                    List<OwnerAccommodationGrade> ownerAccommodationGrades = ownerAccommodationGradeService.GetAll();
                     foreach(OwnerAccommodationGrade ownerAccommodationGrade in ownerAccommodationGrades)
                     {
                         if(ownerAccommodationGrade.ReservationId == SelectedReservation.Id)
