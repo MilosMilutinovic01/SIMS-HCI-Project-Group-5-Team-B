@@ -1,3 +1,4 @@
+
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
@@ -35,10 +36,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         public Tour GetLiveTourFor(int guideGuestId)
         {
             Appointment appointment;
-            foreach (var attendance in tourAttendanceService.GetAllFor(guideGuestId))
+
+            foreach(var attendance in tourAttendanceService.GetAllFor(guideGuestId))
             {
                 appointment = Find(attendance.AppointmentId);
-                if (appointment.Started && !appointment.Ended)
+                if(appointment.Started && !appointment.Ended)
                 {
                     return appointment.Tour;
                 }
@@ -50,7 +52,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             List<Appointment> heldAppointments = new List<Appointment>();
             Appointment appointment;
-            foreach (var tourAttendance in tourAttendanceService.GetAllFor(guideGuestId))
+            foreach(var tourAttendance in tourAttendanceService.GetAllFor(guideGuestId))
             {
                 appointment = Find(tourAttendance.AppointmentId);
                 if (appointment.Ended)
@@ -77,7 +79,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             }
             return null;
         }
-
+        
         public AppointmentService(TourController tourController)
         {
             appointmentRepository = Injector.Injector.CreateInstance<IAppointmentRepository>();

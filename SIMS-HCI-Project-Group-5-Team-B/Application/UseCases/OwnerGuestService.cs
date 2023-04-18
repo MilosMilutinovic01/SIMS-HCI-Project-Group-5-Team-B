@@ -22,5 +22,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             return _ownerGuestRepository.GetByUsername(username);
         }
+
+        public OwnerGuest GetById(int id)
+        {
+            return _ownerGuestRepository.GetById(id);
+        }
     }
 }

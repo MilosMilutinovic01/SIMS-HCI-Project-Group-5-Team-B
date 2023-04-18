@@ -1,24 +1,11 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
-using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
-    public struct ReservationRecommendation
-    {
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-
-        public ReservationRecommendation(DateTime start, DateTime end)
-        {
-            Start = start;
-            End = end;
-        }
-    }
 
     public class ReservationService
     {
@@ -216,12 +203,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public bool IsReservationModifiable(Reservation reservation)
         {
-            return reservation.isModifiable();
+            return reservation.isModifiable() &&
+            !reservationChangeRequestRepository.GetAll().Any(chreq => chreq.ReservationId == reservation.Id && chreq.RequestStatus == REQUESTSTATUS.Pending);
         }
 
         public bool IsReservationGradable(Reservation reservation)
         {
-            return reservation.IsFroGrading();
+            return reservation.IsGradable();
         }
 
         public bool IsAccomodationAvailableForChangingReservationDates(Reservation selectedReservation, DateTime startDate, DateTime endDate)
@@ -250,8 +238,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return true;
 
         }
-
-
 
     }
 }

@@ -1,0 +1,36 @@
+﻿<Window x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
+        mc:Ignorable="d"
+        Title="GuideGuestWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Held tours"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Live tours"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="Vouchers"/>
+
+        <Button x:Name="TrackTourButton" Click="TrackTourButton_Click" Grid.Row="2" Grid.Column="1" Content="Track tour"/>
+        <Button x:Name="RateTourButton" Click="RateTourButton_Click" Grid.Row="0" Grid.Column="1" Content="Rate tour"/>
+
+        <DataGrid x:Name="HeldToursDataGrid" ItemsSource="{Binding Path=HeldTours}" SelectedItem="{Binding Path=SelectedHeldTour}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" SelectionMode="Single" IsReadOnly="True"></DataGrid>
+        <DataGrid x:Name="LiveToursDataGrid" ItemsSource="{Binding Path=LiveTour}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" SelectionMode="Single" IsReadOnly="True"></DataGrid>
+        <DataGrid x:Name="VouchersDataGrid" ItemsSource="{Binding Path=Vouchers}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" SelectionMode="Single" IsReadOnly="True"></DataGrid>
+
+    </Grid>
+</Window>

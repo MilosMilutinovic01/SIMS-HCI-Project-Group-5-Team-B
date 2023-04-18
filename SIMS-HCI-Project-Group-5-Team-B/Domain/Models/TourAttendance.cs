@@ -1,12 +1,4 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Serializer;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
-using System.Xml.Linq;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
@@ -43,16 +35,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 
         }
 
-        //public TourAttendance(int tourAttendanceId, int peopleAttending, int keyPointGuestArrivedId, int guideGuestId, int tourAppointmentId)
-        //{
-        //    TourAttendanceId = tourAttendanceId;
-        //    PeopleAttending = peopleAttending;
-        //    KeyPointGuestArrivedId = keyPointGuestArrivedId;
-        //    GuideGuestId = guideGuestId;
-        //    this.tourAppointmentId = tourAppointmentId;
-        //}
 
-        public TourAttendance(int tourAppointmentId, int peopleAttending, int keyPointGuestArrivedId, int guideGuestId)
+        public TourAttendance(int appointmentId, int peopleAttending, int keyPointGuestArrivedId, int guideGuestId)
         {
             this.appointmentId = tourAppointmentId;
             this.peopleAttending = peopleAttending;

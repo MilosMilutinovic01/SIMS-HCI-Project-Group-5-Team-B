@@ -3,6 +3,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,10 +24,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     public partial class ReservationChangeRequestForm : Window
     {
         private readonly ReservationChangeRequestViewModel _viewModel;
-        public ReservationChangeRequestForm(Reservation selectedReservation, ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService)
+        public ReservationChangeRequestForm(ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests,ReservationGridView selectedReservationView, ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService)
         {
             InitializeComponent();
-            _viewModel = new ReservationChangeRequestViewModel(selectedReservation, reservationChangeRequestService, reservationService);
+            _viewModel = new ReservationChangeRequestViewModel(ReservaitionChangeRequests, selectedReservationView, reservationChangeRequestService, reservationService);
             this.DataContext = _viewModel;
         }
 

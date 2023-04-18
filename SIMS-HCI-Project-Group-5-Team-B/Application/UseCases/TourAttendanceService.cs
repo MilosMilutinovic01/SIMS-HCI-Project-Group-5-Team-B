@@ -1,3 +1,4 @@
+
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
@@ -26,21 +27,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return tourAttendanceRepository.GetAll().FindAll(ta => ta.GuideGuestId == guideGuestId);
         }
 
-        public List<TourAttendance> GetAll()
+        public List<TourAttendance> GetAllFor(int guideGuestId)
         {
-            return tourAttendanceRepository.GetAll();
-        }
-        public void Save(TourAttendance newTourAttendance)
-        {
-            tourAttendanceRepository.Save(newTourAttendance);
-        }
-        public void Delete(TourAttendance tourAttendance)
-        {
-            tourAttendanceRepository.Delete(tourAttendance);
-        }
-        public void Update(TourAttendance tourAttendance)
-        {
-            tourAttendanceRepository.Update(tourAttendance);
+            return tourAttendanceRepository.GetAll().FindAll(ta => ta.GuideGuestId == guideGuestId);
         }
 
         public List<int> FindAllGuestsByAppointment(int appointmentId)

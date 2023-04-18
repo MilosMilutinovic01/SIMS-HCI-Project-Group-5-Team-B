@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
@@ -16,16 +17,33 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class AccommodationsWindow : Window, INotifyPropertyChanged, IDataErrorInfo
     {
-        private AccommodationService accommodationController;
+        private AccommodationService accommodationService;
         private LocationController locationController;
-        private ReservationService reservationController;
-        private OwnerService ownerController;
-        private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
-        private SuperOwnerService superOwnerController;
+        private ReservationService reservationService;
+        private OwnerService ownerService;
+        private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
+        private SuperOwnerService superOwnerService;
         public ObservableCollection<Accommodation> Accomodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public string SearchName { get; set; } = "";
-        public string SearchLocationString { get; set; } = "";
+        public string City { get; set; }
+        private string state;
+        public string State 
+        { 
+            get
+            {
+                return state;
+            }
+            set
+            {
+                state = value;
+                NotifyPropertyChanged(nameof(State));
+                NotifyPropertyChanged(nameof(City));
+            } 
+        
+        }
+        public List<string> states { get; set; }
+        public List<string> cities { get; set; }
         public string SearchType { get; set; } = "";
         public string SearchGuestsNumber { get; set; } = "";
         public string SearchDays { get; set; } = "";
@@ -39,18 +57,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             InitializeComponent();
             DataContext = this;
             this.locationController = locationController;
-            this.ownerController = ownerService;
-            this.accommodationController = accommodationService;
-            this.reservationController = reservationService;
+            this.ownerService = ownerService;
+            this.accommodationService = accommodationService;
+            this.reservationService = reservationService;
             //Accomodations = new ObservableCollection<Accommodation>(accommodationController.GetAll());
-            ownerAccommodationGradeController = new OwnerAccommodationGradeSevice(reservationController);
-            superOwnerController = new SuperOwnerService(reservationController, ownerAccommodationGradeController, ownerController, accommodationController);
-            Accomodations = new ObservableCollection<Accommodation>(superOwnerController.AccommodationsForShowing());
+            ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(this.reservationService);
+            superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, this.accommodationService);
+            Accomodations = new ObservableCollection<Accommodation>(superOwnerService.GetSortedAccommodations());
             this.ownerGuestId = ownerGuestId;
             //reservationController = new ReservationController(accommodationController);
+            
+            states = locationController.GetStates();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+        private void NotifyPropertyChanged(string info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -65,19 +92,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 
                 if (IsSearchParameter(SearchGuestsNumber) && IsSearchParameter(SearchDays))
                 {
-                    searchResult = accommodationController.GetSearchResult(FindLocationId(),SearchName,SearchType, Int32.Parse(SearchGuestsNumber), Int32.Parse(SearchDays));
+                    searchResult = accommodationService.GetSearchResult(FindLocationId(),SearchName,SearchType, Int32.Parse(SearchGuestsNumber), Int32.Parse(SearchDays));
                 }
                 else if (IsSearchParameter(SearchGuestsNumber) && !IsSearchParameter(SearchDays))
                 {
-                    searchResult = accommodationController.GetSearchResult(FindLocationId(), SearchName, SearchType, Int32.Parse(SearchGuestsNumber));
+                    searchResult = accommodationService.GetSearchResult(FindLocationId(), SearchName, SearchType, Int32.Parse(SearchGuestsNumber));
                 }
                 else if (!IsSearchParameter(SearchGuestsNumber) && IsSearchParameter(SearchDays))
                 {
-                    searchResult = accommodationController.GetSearchResult(FindLocationId(), SearchName, SearchType, 1, Int32.Parse(SearchDays));
+                    searchResult = accommodationService.GetSearchResult(FindLocationId(), SearchName, SearchType, 1, Int32.Parse(SearchDays));
                 }
                 else
                 {
-                    searchResult = accommodationController.GetSearchResult(FindLocationId(), SearchName, SearchType);
+                    searchResult = accommodationService.GetSearchResult(FindLocationId(), SearchName, SearchType);
                 }
 
                 if (searchResult != null)
@@ -89,33 +116,48 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show("Search can not be preformed beacause data is not valid!");
+            }
         }
 
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (SelectedAccommodation != null)
             {
-                AccomodationDetailsWindow accomodationDetailsWindow = new AccomodationDetailsWindow(SelectedAccommodation, reservationController, ownerGuestId);
+                AccomodationDetailsWindow accomodationDetailsWindow = new AccomodationDetailsWindow(SelectedAccommodation, reservationService, ownerGuestId);
                 accomodationDetailsWindow.Show();
             }
         }
         Regex numberRegex = new Regex(@"[\d]");
 
-        Regex locationRegex = new Regex("[A-Z].{0,20},[A-Z].{0,20}");
         public string this[string columnName]
         {
             get
             {
-                if (columnName == "SearchLocationString")
+                if (columnName == "State")
                 {
-                    if (string.IsNullOrEmpty(SearchLocationString))
+                    if (string.IsNullOrEmpty(State))
+                    {
+                        return null;
+                    }
+                    
+                }
+                
+
+                if (columnName == "City")
+                {
+                    if (!string.IsNullOrEmpty(State) && string.IsNullOrEmpty(City))
+                    {
+                        return "You must select city";
+                    }
+                    else
                     {
                         return null;
                     }
 
-                    Match match = locationRegex.Match(SearchLocationString);
-                    if (!match.Success)
-                        return "Format: city, state";
+
                 }
                 else if (columnName == "SearchGuestsNumber")
                 {
@@ -142,7 +184,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
             }
         }
-        private readonly string[] _validatedProperties = { "SearchLocationString", "SearchGuestsNumber", "SearchDays" };
+        private readonly string[] _validatedProperties = { "City","State", "SearchGuestsNumber", "SearchDays" };
         public bool IsValid
         {
             get
@@ -164,15 +206,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private int FindLocationId()
         {
-            if (string.IsNullOrEmpty(SearchLocationString))
+            if (string.IsNullOrEmpty(this.State) || string.IsNullOrEmpty(this.City))
             {
                 return -1;
             }
-            int count = 2;
-            string delimeter = ",";
-            string[] locationValues = SearchLocationString.Split(delimeter, count);
-            string State = locationValues[0];
-            string City = locationValues[1];
+            
+            string State = this.State;
+            string City = this.City;
 
             int locationId = -2;
             foreach (Location location in locationController.GetAll())
@@ -180,6 +220,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 if (location.State == State && location.City == City)
                 {
                     locationId = location.Id;
+                    break;
                 }
             }
 
@@ -189,10 +230,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void Reset_Button_Click(object sender, RoutedEventArgs e)
         {
             Accomodations.Clear();
-            foreach (Accommodation accommodation in accommodationController.GetAll())
+            foreach (Accommodation accommodation in accommodationService.GetAll())
             {
                 Accomodations.Add(accommodation);
             }
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cities = locationController.GetCityByState(ComboBoxStates.SelectedItem.ToString());
+            ComboBoxCities.ItemsSource = cities;
         }
     }
 }

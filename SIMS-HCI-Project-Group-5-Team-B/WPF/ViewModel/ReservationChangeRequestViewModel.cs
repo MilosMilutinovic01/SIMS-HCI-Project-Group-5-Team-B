@@ -2,6 +2,7 @@
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -17,14 +18,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public string LocationHeader { get; set; } = "";
         private ReservationChangeRequestService reservationChangeRequestService;
         private ReservationService reservationService;
-        
+        private ReservationGridView selectedReservationView;
+        private ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests;
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public ReservationChangeRequestViewModel(Reservation selectedReservation, ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService)
+        public ReservationChangeRequestViewModel(ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests,ReservationGridView selectedReservationView, ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService)
         {
             this.reservationChangeRequestService = reservationChangeRequestService;
             this.reservationService = reservationService;
-            NewReservationRequest = new ReservationChangeRequest(selectedReservation);
+            this.selectedReservationView = selectedReservationView;
+            NewReservationRequest = new ReservationChangeRequest(selectedReservationView.Reservation);
+            this.ReservaitionChangeRequests = ReservaitionChangeRequests;
             SetHeader();
 
         }
@@ -49,6 +54,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 }
                 
                 reservationChangeRequestService.Save(NewReservationRequest);
+                //if we send change request we can not cancel or modify reservation anymore
+                selectedReservationView.IsCancelable = false;
+                selectedReservationView.IsModifiable = false;
+                ReservaitionChangeRequests.Add(NewReservationRequest);
                 MessageBox.Show("Request sent!");
             }
             else

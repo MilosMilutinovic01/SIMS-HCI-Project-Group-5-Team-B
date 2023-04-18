@@ -31,12 +31,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private AccommodationService accommodationService;
         private LocationController locationController;
         private OwnerService ownerService;
-        private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
-        private ReservationService reservationService;
-        private SuperOwnerService superOwnerService;
+        
         public Accommodation Accommodation { get; set; }
         public Location Location { get; set; }
-        private string locationString;
+        
 
         public ObservableCollection<Accommodation> AccomodationsOfLogedInOwner { get; set; }
 
@@ -46,26 +44,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public List<string> states { get; set; }
         public List<string> cities;
 
-        public string LocationString
-        {
-            get { return locationString; }
-            set
-            {
-                if (locationString != value)
-                {
-                    locationString = value;
-                    OnPropertyChanged();
-
-                }
-
-            }
-        }
-
-
+       
 
         public AccommodationForm(ObservableCollection<Accommodation> AccomodationsOfLogedInOwner, Owner owner)
         {
-            locationString = "";
+            
             Accommodation = new Accommodation();
             InitializeComponent();
             this.DataContext = this;

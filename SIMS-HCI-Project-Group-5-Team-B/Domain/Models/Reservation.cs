@@ -96,8 +96,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         public Reservation()
         {
             OwnerGuest = new OwnerGuest();
-           // ownerGuestId = 0;
-
+            // ownerGuestId = 0;
+            GuestsNumber = 1;
             StartDate = DateTime.Today;
             EndDate = DateTime.Today;
         }
@@ -188,6 +188,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                     {
                         return "Too many guests for this accomodation";
                     }
+                    else if(GuestsNumber < 1)
+                    {
+                        return "Minimal number of guests is 1";
+                    }
                 }
                 return null;
             }
@@ -216,7 +220,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public bool IsFroGrading()
+        public bool IsGradable()
         {
             return this.EndDate.AddDays(5) > DateTime.Today && this.EndDate < DateTime.Today && this.IsGradedByGuest == false;
         }

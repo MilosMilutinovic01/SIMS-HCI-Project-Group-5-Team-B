@@ -6,15 +6,20 @@ using System.Collections.Generic;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using SIMS_HCI_Project_Group_5_Team_B.Notifications;
+using System.Text;
+using SIMS_HCI_Project_Group_5_Team_B.Controller;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 {
     public class ReservationsViewModel
     {
-        private ReservationService reservationController;
-        private OwnerAccommodationGradeSevice ownerAccommodationGradeController;
-        private OwnerService ownerController;
-        private SuperOwnerService superOwnerController;
+        private ReservationService reservationService;
+        private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
+        private OwnerService ownerService;
+        private SuperOwnerService superOwnerService;
+        private NotificationController notificationController;
+        private UserController userController;
         private ReservationChangeRequestService reservationChangeRequestService;
         public ObservableCollection<ReservationGridView> ReservationViews { get; set; }
         public ReservationGridView SelectedReservationView { get; set; }
@@ -22,12 +27,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests { get; set; }
         private int ownerGuestId;
 
-        public ReservationsViewModel(ReservationService reservationController, OwnerAccommodationGradeSevice ownerAccommodationGradeController, SuperOwnerService superOwnerController, OwnerService ownerController, int ownerGuestId, ReservationChangeRequestService reservationChangeRequestService) 
+        public ReservationsViewModel(ReservationService reservationService, OwnerAccommodationGradeSevice ownerAccommodationGradeService, SuperOwnerService superOwnerService, OwnerService ownerService, int ownerGuestId, ReservationChangeRequestService reservationChangeRequestService)
         {
-            this.reservationController = reservationController;
-            this.ownerAccommodationGradeController = ownerAccommodationGradeController;
-            this.superOwnerController = superOwnerController;
-            this.ownerController = ownerController;
+            this.reservationService = reservationService;
+            this.ownerAccommodationGradeService = ownerAccommodationGradeService;
+            this.superOwnerService = superOwnerService;
+            this.ownerService = ownerService;
+            notificationController = new NotificationController();
+            userController = new UserController();
             this.reservationChangeRequestService = reservationChangeRequestService;
             this.ownerGuestId = ownerGuestId;
 
@@ -39,31 +46,39 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             if (SelectedReservationView != null)
             {
-                GradingOwnerAccommodation gradingOwnerAccommodatoinWindow = new GradingOwnerAccommodation(ownerAccommodationGradeController, reservationController, SelectedReservationView, superOwnerController, ownerController);
+                GradingOwnerAccommodation gradingOwnerAccommodatoinWindow = new GradingOwnerAccommodation(ownerAccommodationGradeService, reservationService, SelectedReservationView, superOwnerService, ownerService);
                 gradingOwnerAccommodatoinWindow.Show();
+
 
             }
         }
 
         public void Modify()
         {
-            if(SelectedReservationView != null)
+            if (SelectedReservationView != null)
             {
-                ReservationChangeRequestForm reservationChangeRequestForm = new ReservationChangeRequestForm(SelectedReservationView.Reservation, reservationChangeRequestService, reservationController);
+                ReservationChangeRequestForm reservationChangeRequestForm = new ReservationChangeRequestForm(ReservaitionChangeRequests, SelectedReservationView, reservationChangeRequestService, reservationService);
                 reservationChangeRequestForm.Show();
+
             }
-            
+
         }
+
+
 
         public void Cancel()
         {
             if (SelectedReservationView != null)
             {
-                if(ConfirmReservationDeletion() == MessageBoxResult.Yes)
+                if (ConfirmReservationDeletion() == MessageBoxResult.Yes)
                 {
+                    //send notification
+                    notificationController.Send(CreateOwnerNotification());
+
                     SelectedReservationView.Reservation.IsDeleted = true;
-                    reservationController.Update(SelectedReservationView.Reservation);
+                    reservationService.Update(SelectedReservationView.Reservation);
                     ReservationViews.Remove(SelectedReservationView);
+
                 }
             }
         }
@@ -83,25 +98,24 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public List<ReservationGridView> GetReservationViews(int ownerGuestId)
         {
             List<ReservationGridView> reservationViews = new List<ReservationGridView>();
-            foreach (Reservation reservation in reservationController.GetUndeleted())
+            foreach (Reservation reservation in reservationService.GetUndeleted())
             {
                 if (reservation.OwnerGuestId == ownerGuestId)
                 {
                     bool isForGrading = true;
-                    if (!reservationController.IsReservationGradable(reservation))
+                    if (!reservationService.IsReservationGradable(reservation))
                     {
                         isForGrading = false;
                     }
 
                     bool isModifiable = true;
-                    if (!reservationController.IsReservationModifiable(reservation))
+                    if (!reservationService.IsReservationModifiable(reservation))
                     {
                         isModifiable = false;
                     }
 
                     bool isCancelable = true;
-                    //ovo pogledati!!!!!!
-                    if (!reservationController.IsReservationDeletable(reservation))
+                    if (!reservationService.IsReservationDeletable(reservation))
                     {
                         isCancelable = false;
                     }
@@ -112,6 +126,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
             }
             return reservationViews;
+        }
+
+        private Notification CreateOwnerNotification()
+        {
+            Notification notification = new Notification();
+            notification.IsRead = false;
+            notification.Message = GetNotificationMessage();
+            notification.ReceiverId = userController.GetByUsername(SelectedReservationView.Reservation.Accommodation.Owner.Username).Id;
+            return notification;
+        }
+
+        private string GetNotificationMessage()
+        {
+            StringBuilder sb = new StringBuilder($"{SelectedReservationView.Reservation.OwnerGuest.Name} {SelectedReservationView.Reservation.OwnerGuest.Surname} cancelled reservation in ");
+            sb.Append($"{SelectedReservationView.Reservation.Accommodation.Name} From: {SelectedReservationView.Reservation.StartDate} To: {SelectedReservationView.Reservation.EndDate}");
+            return sb.ToString();
         }
     }
 }
