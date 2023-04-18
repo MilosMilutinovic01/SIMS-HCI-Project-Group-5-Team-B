@@ -34,20 +34,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public Appointment SelectedAppointment { get; set; }
         public KeyPoint SelectedKeyPoint { get; set; }
         public GuideGuest SelectedGuest { get; set; }
+        public int userId;
 
         //public static bool answer = true;
         //public static string keyPointName;
-        public TrackingTourLiveWindow(AppointmentService appointmentService)
+        public TrackingTourLiveWindow(AppointmentService appointmentService, int userId)
         {
             InitializeComponent();
             DataContext = this;
 
+            this.userId = userId;
             keyPointsController = new KeyPointsController();
             this.appointmentService = appointmentService;
             notificationController = new NotificationController();
             tourAttendanceController = new TemporaryTourAttendanceController();
 
-            AvailableAppointments = new ObservableCollection<Appointment>(appointmentService.GetAllAvaillable());
+            AvailableAppointments = new ObservableCollection<Appointment>(appointmentService.GetAllAvaillable(userId));
             KeyPoints = new ObservableCollection<KeyPoint>();
             GuideGuests = new ObservableCollection<GuideGuest>();
 

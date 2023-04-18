@@ -80,29 +80,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             }
             return null;
         }
-        public int GetTotalGuest(int appointmentId)
-        {
-            int result = 0;
-            foreach (TourAttendance ta in tourAttendanceService.GetAll())
-            {
-                if (ta.AppointmentId == appointmentId)
-                    result += ta.PeopleAttending;
-            }
-            return result;
-        }
-        public Appointment GetMostVisitedTour(int year)
+        public Appointment GetMostVisitedTour(int year, int userId)
         {
             int id = 0;
             int people = 0;
-            if (GetFinishedToursByYear(year) == null)
+            if (GetFinishedToursByYear(year, userId) == null)
                 return new Appointment();
 
-            foreach (Appointment appointment in GetFinishedToursByYear(year))
+            foreach (Appointment appointment in GetFinishedToursByYear(year, userId))
             {
-                if (people < GetTotalGuest(appointment.Id))
+                if (people < tourAttendanceService.GetTotalGuest(appointment.Id) && appointment.GuideId == userId)
                 {
                     id = appointment.Id;
-                    people = GetTotalGuest(appointment.Id);
+                    people = tourAttendanceService.GetTotalGuest(appointment.Id);
                 }
             }
 
@@ -114,20 +104,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             return appointmentRepository.GetAll();
         }
-        public List<Appointment> GetAllAvaillable()
+        public List<Appointment> GetAllAvaillable(int userId)
         {
-            return appointmentRepository.GetAll().FindAll(a => a.Start.Date == DateTime.Now.Date && a.Cancelled == false);
+            return appointmentRepository.GetAll().FindAll(a => a.Start.Date == DateTime.Now.Date && a.Cancelled == false && a.GuideId == userId);
         }
-        public List<Appointment> GetUpcoming()
+        public List<Appointment> GetUpcoming(int userId)
         {
-            return appointmentRepository.GetAll().Where(a => (a.Start - DateTime.Now).TotalHours >= 48 && a.Cancelled == false).ToList();
+            return appointmentRepository.GetAll().Where(a => (a.Start - DateTime.Now).TotalHours >= 48 && a.Cancelled == false && a.GuideId == userId).ToList();
         }
-        public List<Appointment> GetFinishedToursByYear(int year) 
+        public List<Appointment> GetFinishedToursByYear(int year, int userId) 
         {
             List<Appointment> appointments = new List<Appointment>();
             foreach(Appointment a in GetAll())
             {
-                if(a.Ended == true && a.Start.Year == year)
+                if(a.Ended == true && a.Start.Year == year && a.GuideId == userId)
                     appointments.Add(a);
             }
             if (appointments.Count() == 0)

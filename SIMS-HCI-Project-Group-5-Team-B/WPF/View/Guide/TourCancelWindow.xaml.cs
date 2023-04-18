@@ -24,11 +24,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private VoucherService voucherService;
         public ObservableCollection<Appointment> AvailableAppointments { get; }
         public Appointment SelectedAppointment { get; set; }
-        public TourCancelWindow( AppointmentService appointmentService)
+        public int userId;
+        public TourCancelWindow( AppointmentService appointmentService, int userId)
         {
             InitializeComponent();
             this.DataContext = this;
 
+            this.userId = userId;
             this.appointmentService = appointmentService;
             voucherService = new VoucherService();
 
@@ -40,7 +42,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void RefreshAppointments()
         {
             AvailableAppointments.Clear();
-            foreach (Appointment appointment in appointmentService.GetUpcoming())
+            foreach (Appointment appointment in appointmentService.GetUpcoming(userId))
             {
                 AvailableAppointments.Add(appointment);
             }

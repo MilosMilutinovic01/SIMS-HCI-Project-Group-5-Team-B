@@ -30,8 +30,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private AppointmentService appointmentService;
         private TourAttendanceService tourAttendanceService;
         private TourGradeService tourGradeService;
-        public GuideWindow(string username)
+        public int userId;
+        public GuideWindow(int userId)
         {
+            this.userId = userId;
             InitializeComponent();
             LoadData();
             guideService = new GuideService();
@@ -54,32 +56,31 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         }
         private void AddTourClick(object sender, RoutedEventArgs e)
         {
-            //MainFrame.NavigationService.Navigate(new TourCreateForm());
             TourCreateForm tourForm = new TourCreateForm(tourService,appointmentService);
             tourForm.Show();
         }
 
         private void TrackinTourLiveClick(object sender, RoutedEventArgs e)
         {
-            TrackingTourLiveWindow trackingTourLive = new TrackingTourLiveWindow(appointmentService);
+            TrackingTourLiveWindow trackingTourLive = new TrackingTourLiveWindow(appointmentService, userId);
             trackingTourLive.Show();
         }
 
         private void TourCancellationClick(object sender, RoutedEventArgs e)
         {
-            TourCancelWindow tourCancel = new TourCancelWindow(appointmentService);
+            TourCancelWindow tourCancel = new TourCancelWindow(appointmentService, userId);
             tourCancel.Show();
         }
 
         private void SignOutClick(object sender, RoutedEventArgs e)
         {
-            ReviewsWindow reviewsWindow = new ReviewsWindow(appointmentService);
+            ReviewsWindow reviewsWindow = new ReviewsWindow(tourGradeService, userId, tourAttendanceService);
             reviewsWindow.Show();
         }
 
         private void MyToursClick(object sender, RoutedEventArgs e)
         {
-            MyTours myTours = new MyTours(appointmentService);
+            MyTours myTours = new MyTours(appointmentService, tourAttendanceService, userId);
             myTours.Show();
         }
     }

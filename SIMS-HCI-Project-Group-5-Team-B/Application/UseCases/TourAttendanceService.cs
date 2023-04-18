@@ -38,5 +38,31 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             return tourAttendanceRepository.GetAll().Find(ta => ta.AppointmentId == id);
         }
+
+        public TourAttendance GetById(int id)
+        {
+            return tourAttendanceRepository.GetAll().Find(ta => ta.Id == id);
+        }
+
+        public int GetNumberOfGuestsWithVoucher(List<int> allGuestsWithVoucher)
+        {
+            int result = 0;
+            foreach(TourAttendance ta in GetAll())
+                foreach (int id in allGuestsWithVoucher)
+                    if (ta.GuideGuestId == id)
+                        result += 1;
+            return result;
+        }
+
+        public int GetTotalGuest(int appointmentId)
+        {
+            int result = 0;
+            foreach (TourAttendance ta in GetAll())
+            {
+                if (ta.AppointmentId == appointmentId)
+                    result += ta.PeopleAttending;
+            }
+            return result;
+        }
     }
 }
