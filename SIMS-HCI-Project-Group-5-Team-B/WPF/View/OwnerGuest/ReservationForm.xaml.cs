@@ -145,6 +145,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void SetGuestNumberParameters()
         {
+            if (SelectedDate == null)
+                return;
             if (SelectedDate.Start == DateTime.MinValue && SelectedDate.End == DateTime.MinValue)
             {
                 //Date has not been selected
