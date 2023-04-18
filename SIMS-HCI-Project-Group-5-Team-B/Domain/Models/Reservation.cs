@@ -232,7 +232,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 
         public bool IsDeletable()
         {
-            return !(this.StartDate <= DateTime.Today || this.StartDate <= DateTime.Today.AddDays(this.Accommodation.NoticePeriod));
+            return !(this.StartDate <= DateTime.Today.AddDays(1) || this.StartDate <= DateTime.Today.AddDays(this.Accommodation.NoticePeriod));
         }
     }
 }
