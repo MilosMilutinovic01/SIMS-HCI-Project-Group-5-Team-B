@@ -80,16 +80,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             }
             return null;
         }
-        public int GetTotalGuest(int appointmentId)
-        {
-            int result = 0;
-            foreach (TourAttendance ta in tourAttendanceService.GetAll())
-            {
-                if (ta.AppointmentId == appointmentId)
-                    result += ta.PeopleAttending;
-            }
-            return result;
-        }
         public Appointment GetMostVisitedTour(int year)
         {
             int id = 0;
@@ -99,10 +89,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
             foreach (Appointment appointment in GetFinishedToursByYear(year))
             {
-                if (people < GetTotalGuest(appointment.Id))
+                if (people < tourAttendanceService.GetTotalGuest(appointment.Id))
                 {
                     id = appointment.Id;
-                    people = GetTotalGuest(appointment.Id);
+                    people = tourAttendanceService.GetTotalGuest(appointment.Id);
                 }
             }
 

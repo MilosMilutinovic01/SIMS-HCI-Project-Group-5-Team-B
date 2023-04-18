@@ -42,6 +42,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         {
             return keyPointsRepository.GetAll().FindAll(kp => kp.TourId == id);
         }
+        public KeyPoint GetById(int id)
+        {
+            return keyPointsRepository.GetAll().Find(kp => kp.Id == id);
+        }
         public List<KeyPoint> FindBy(string[] propertyNames, string[] values)
         {
             return keyPointsRepository.FindBy(propertyNames, values);

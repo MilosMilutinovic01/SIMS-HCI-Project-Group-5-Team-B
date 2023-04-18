@@ -23,7 +23,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class TourCreateForm : Window
     {
-        private TourService tourService;
+        private TourController tourService;
         private LocationController locationController;
         private KeyPointsController keyPointsController;
         private AppointmentService appointmentService;
@@ -44,7 +44,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             this.DataContext = this;
 
             locationController = new LocationController();
-            this.tourService = tourService;
+            this.tourService = new TourController(locationController);
             keyPointsController = new KeyPointsController();
             this.appointmentService = appointmentService;
 
@@ -88,6 +88,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 Tour.LocationId = locationController.makeId();
                 locationController.Save(Location);
+            }
+            foreach (DateTime start in starts)
+            {
+                keyPointsController.SaveAll(keyPoints);
             }
             Tour.KeyPoints.AddRange(keyPoints);
             tourService.Save(Tour);

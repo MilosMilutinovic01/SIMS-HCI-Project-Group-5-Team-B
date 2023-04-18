@@ -22,6 +22,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             return voucherRepository.GetAll();
         }
+
+        public List<int> GetAllGuests()
+        {
+            return voucherRepository.GetAll().Select(v => v.GuideGuestId).ToList();
+        }
         public void Save(Voucher newVoucher)
         {
             voucherRepository.Save(newVoucher);

@@ -71,6 +71,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
                 obj.ImageUrls,
                 obj.TourAttendanceId.ToString(),
                 obj.GuideGuestId.ToString(),
+                obj.Comment
             };
             return csvValues;
         }
@@ -86,6 +87,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             newTourGrade.ImageUrls = values[4];
             newTourGrade.TourAttendanceId = int.Parse(values[5]);
             newTourGrade.GuideGuestId = int.Parse(values[6]);
+            newTourGrade.Comment = values[7];
 
             return newTourGrade;
         }

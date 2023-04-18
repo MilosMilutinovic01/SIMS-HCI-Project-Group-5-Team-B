@@ -77,11 +77,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.DTO
             set { reported = value; }
         }
 
-        public Card(int id, string guestName, string tourName, string keyPointName, int generalKnowledge, int languageKnowledge, int tourFun, string comment, bool valid, bool reported)
+        public Card(string guestName, string keyPointName, int generalKnowledge, int languageKnowledge, int tourFun, string comment, bool valid, bool reported)
         {
-            Id = id;
             this.guestName = guestName;
-            this.tourName = tourName;
             this.keyPointName = keyPointName;
             this.generalKnowledge = generalKnowledge;
             this.languageKnowledge = languageKnowledge;

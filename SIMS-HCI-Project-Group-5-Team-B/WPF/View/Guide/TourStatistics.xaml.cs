@@ -24,22 +24,32 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
     {
         private TourController tourController;
         private AppointmentService appointmentService;
-        public TourStatistics(int id, AppointmentService appointmentService)
+        private TourAttendanceService tourAttendanceService;
+        private VoucherService voucherService;
+        public TourStatistics(int appointmentId, AppointmentService appointmentService, TourAttendanceService tourAttendanceService)
         {
             InitializeComponent();
             this.DataContext = this;
 
             TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
             tourController = new TourController();
-            this.appointmentService = appointmentService;
+            voucherService = new VoucherService();
 
-            TourName.Content = tourController.getById(id).Name;
-            TotalGuests.Content = "Total guests: " + appointmentService.GetTotalGuest(id);
-            Under18.Content = "Guests under 18 years: 1";
-            Between.Content = "Guests between 18 and 50 years: 1";
-            Above50.Content = "Guests above 50 years: 0";
-            WithVoucher.Content = "Guests with voucher on this tour: 1";
-            WithoutVoucher.Content = "Guests without voucher on this tour: 2";
+            this.appointmentService = appointmentService;
+            this.tourAttendanceService = tourAttendanceService;
+
+            TourName.Content = tourController.getById(appointmentId).Name;
+            int totalGuests = tourAttendanceService.GetTotalGuest(appointmentId);
+            TotalGuests.Content = "Total guests: " + totalGuests;
+
+            Under18.Content = "Guests under 18 years: 0";
+            Between.Content = "Guests between 18 and 50 years: " + totalGuests;
+            Above50.Content = "Guests above 50 years: 0";   //hardcoded because of lack of this information in data
+
+            int withVouchers = tourAttendanceService.GetNumberOfGuestsWithVoucher(voucherService.GetAllGuests());
+            int withoutVouchers = totalGuests - withVouchers;
+            WithVoucher.Content = "Guests with voucher on this tour: " + withVouchers;
+            WithoutVoucher.Content = "Guests without voucher on this tour: " + withoutVouchers;
         }
     }
 }
