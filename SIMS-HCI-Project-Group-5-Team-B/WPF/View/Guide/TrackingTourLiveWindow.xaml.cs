@@ -64,7 +64,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             foreach(Appointment appointment in appointmentService.GetAll())
             {
-                if (appointment.Started == true && appointment.Ended != true) 
+                if (appointment.Started == true && appointment.Ended != true && userId == appointment.GuideId) 
                 {
                     SelectedAppointment = appointment;
                     TourStartButton.IsEnabled = false;
