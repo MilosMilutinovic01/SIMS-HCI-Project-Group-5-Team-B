@@ -44,8 +44,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             Between.Content = "Guests between 18 and 50 years: " + totalGuests;
             Above50.Content = "Guests above 50 years: 0";   //hardcoded because of lack of this information in data
 
-            double withVouchers = (double)tourAttendanceService.GetNumberOfGuestsWithVoucher(voucherService.GetAllGuests()) / totalGuests * 100;
-            double withoutVouchers = (double)(totalGuests - tourAttendanceService.GetNumberOfGuestsWithVoucher(voucherService.GetAllGuests())) / totalGuests * 100;
+            double withVouchers = (double)tourAttendanceService.GetNumberOfGuestsWithVoucher(voucherService.GetAllGuests(), totalGuests) / totalGuests * 100;
+            double withoutVouchers = (double)(totalGuests - tourAttendanceService.GetNumberOfGuestsWithVoucher(voucherService.GetAllGuests(), totalGuests)) / totalGuests * 100;
             WithVoucher.Content = "Guests with voucher on this tour: " + withVouchers.ToString("F2") + "%";
             WithoutVoucher.Content = "Guests without voucher on this tour: " + withoutVouchers.ToString("F2") + "%";
         }

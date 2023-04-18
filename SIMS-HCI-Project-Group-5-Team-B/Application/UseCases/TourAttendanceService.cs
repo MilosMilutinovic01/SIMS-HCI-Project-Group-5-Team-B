@@ -44,14 +44,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return tourAttendanceRepository.GetAll().Find(ta => ta.Id == id);
         }
 
-        public int GetNumberOfGuestsWithVoucher(List<int> allGuestsWithVoucher)
+        public int GetNumberOfGuestsWithVoucher(List<int> allGuestsWithVoucher, int totalGuests)
         {
             int result = 0;
-            foreach(TourAttendance ta in GetAll())
-                foreach (int id in allGuestsWithVoucher)
+            foreach (TourAttendance ta in GetAll())
+                foreach (int id in allGuestsWithVoucher.Distinct())
                     if (ta.GuideGuestId == id)
                         result += 1;
-            return result;
+            return result % totalGuests;
         }
 
         public int GetTotalGuest(int appointmentId)
