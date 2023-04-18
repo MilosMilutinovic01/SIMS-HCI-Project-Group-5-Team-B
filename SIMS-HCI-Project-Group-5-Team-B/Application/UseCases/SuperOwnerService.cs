@@ -19,18 +19,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             //prolazicemo kroz sve ocene i gledati koja ocenjena rezervacija pripada nasem vlasniku
             List<OwnerAccommodationGrade> ownerAccommodationGrades = ownerAccommodationGradeService.GetAll();
-            int i = 0; //brojac ocena
+            int gradeNumber = 0; 
             double sum = 0;
             foreach (OwnerAccommodationGrade ownerAccommodationGrade in ownerAccommodationGrades)
             {
                 if (owner.Id == ownerAccommodationGrade.Reservation.Accommodation.Owner.Id)
                 {
                     sum += ownerAccommodationGrade.GradeAverage;
-                    i++;
+                    gradeNumber++;
                 }
             }
 
-            return (double)sum / i;
+            return (double)sum / gradeNumber;
 
         }
 
@@ -50,7 +50,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return numberOfGrades;
         }
         
-        public List<Accommodation> AccommodationsForShowing()
+        public List<Accommodation> GetSortedAccommodations()
         {
             List<Accommodation> accommodationsForSotring = accommodationService.GetAll();
             for (int i = 0; i < accommodationsForSotring.Count(); i++)
