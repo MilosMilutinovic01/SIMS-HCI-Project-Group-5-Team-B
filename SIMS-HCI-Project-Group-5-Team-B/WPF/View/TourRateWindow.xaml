@@ -22,6 +22,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -33,6 +34,7 @@
         <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Guide language knowledge:"/>
         <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Tour fun:"/>
         <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Image urls:"/>
+        <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Comment:"/>
 
         <TextBox Grid.Row="0" Grid.Column="1" Height="20" Width="300"
                  Text="{Binding Path=TourGrade.GuideGeneralKnowledge, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
@@ -46,6 +48,11 @@
         <TextBox Grid.Row="3" Grid.Column="1" Height="20" Width="300"
                  Text="{Binding Path=TourGrade.ImageUrls, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
+        <TextBox Grid.Row="3" Grid.Column="1" Height="20" Width="300"
+                 Text="{Binding Path=TourGrade.ImageUrls, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
+        <TextBox Grid.Row="4" Grid.Column="1" Height="20" Width="300"
+                 Text="{Binding Path=TourGrade.Comment, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Button x:Name="RateTourButton" Click="RateTourButton_Click" Grid.Row="5" Grid.Column="1" Margin="100, 20, 100, 20" Content="Rate tour"/>
 

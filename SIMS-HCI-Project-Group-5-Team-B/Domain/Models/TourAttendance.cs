@@ -30,18 +30,26 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             get { return keyPointGuestArrivedId; }
             set { keyPointGuestArrivedId = value; }
         }
+        private int voucherId;
+        public int VucherId
+        {
+            get { return voucherId; }
+            set { voucherId = value; }
+        }
+
         public TourAttendance()
         {
 
         }
 
 
-        public TourAttendance(int appointmentId, int peopleAttending, int keyPointGuestArrivedId, int guideGuestId)
+        public TourAttendance(int appointmentId, int peopleAttending, int keyPointGuestArrivedId, int guideGuestId, int voucherId)
         {
             this.appointmentId = appointmentId;
             this.peopleAttending = peopleAttending;
             this.keyPointGuestArrivedId = keyPointGuestArrivedId;
             this.guideGuestId = guideGuestId;
+            this.voucherId = voucherId;
         }
 
 
@@ -53,7 +61,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 guideGuestId.ToString(),
                 appointmentId.ToString(),
                 peopleAttending.ToString(),
-                keyPointGuestArrivedId.ToString()
+                keyPointGuestArrivedId.ToString(),
+                voucherId.ToString(),
             };
 
             return csvValues;
@@ -66,6 +75,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             appointmentId = int.Parse(values[2]);
             peopleAttending = int.Parse(values[3]);
             keyPointGuestArrivedId = int.Parse(values[4]);
+            voucherId = int.Parse(values[5]);
         }
     }
 }

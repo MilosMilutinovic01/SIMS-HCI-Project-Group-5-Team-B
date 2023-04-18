@@ -35,6 +35,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -49,6 +50,7 @@
             <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Language" ></Label>
             <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Description" ></Label>
             <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Select availabel dates"/>
+            <Label Grid.Row="8" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Use voucher"/>
 
 
             <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedTour.Name}" Height="30">
@@ -70,6 +72,7 @@
             <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding NumberOfPeople, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Height="30"/>
             <Button Grid.Row="7" Grid.Column="0" Content="Reserve" Width="100" Height="30" Click="Attendance_Click"></Button>
 
+            <CheckBox x:Name="VoucherComboBox" Grid.Row="8" Grid.Column="1" Content="Use" Width="100" Height="30"></CheckBox>
 
         </Grid>
 

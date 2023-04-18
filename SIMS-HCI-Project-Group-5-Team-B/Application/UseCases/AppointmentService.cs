@@ -15,13 +15,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     {
         private IAppointmentRepository appointmentRepository;
         private TourAttendanceService tourAttendanceService;
-        private TourController tourController;
         public AppointmentService(IAppointmentRepository appointmentRepository, TourAttendanceService tourAttendanceService)
         {
             this.tourAttendanceService = tourAttendanceService;
-            this.appointmentRepository = Injector.Injector.CreateInstance<IAppointmentRepository>();
-            this.tourController = new TourController();
-            GetTourReference();
+            this.appointmentRepository = appointmentRepository;// Injector.Injector.CreateInstance<IAppointmentRepository>();
         }
 
         public Appointment Find(int appointmentId)
@@ -144,17 +141,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         public Appointment getById(int id)
         {
             return GetAll().Find(a => a.Id == id);
-        }
-        private void GetTourReference()
-        {
-            foreach (var appointment in GetAll())
-            {
-                Tour tour = tourController.getById(appointment.TourId);
-                if (tour != null)
-                {
-                    appointment.Tour = tour;
-                }
-            }
         }
     }
 }
