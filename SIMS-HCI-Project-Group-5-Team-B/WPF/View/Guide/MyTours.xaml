@@ -35,7 +35,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
                 <Label VerticalAlignment="Bottom" HorizontalAlignment="Center">Choose year:</Label>
-                <ComboBox x:Name="ComboBoxYear" HorizontalAlignment="Center" VerticalAlignment="Bottom" SelectedIndex="3" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBox x:Name="ComboBoxYear" HorizontalAlignment="Center" VerticalAlignment="Bottom" SelectionChanged="ComboBox_SelectionChanged">
                     <ComboBoxItem Content="2020"/>
                     <ComboBoxItem Content="2021"/>
                     <ComboBoxItem Content="2022"/>

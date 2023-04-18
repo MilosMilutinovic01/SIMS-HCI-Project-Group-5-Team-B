@@ -66,14 +66,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             int id = 0;
             int people = 0;
-            //foreach(TourAttendance ta in tourAttendanceRepository.GetAll())
-            //{
-            //    if (ta.PeopleAttending > people)
-            //    {
-            //        id = ta.TourAppointmentId;
-            //        people = ta.PeopleAttending;
-            //    }
-            //}
+            if (appointmentService.GetFinishedToursByYear(year) == null)
+                return new Appointment();
+
             foreach(Appointment appointment in appointmentService.GetFinishedToursByYear(year))
             {
                 if (people < GetTotalGuest(appointment.Id))
@@ -83,6 +78,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
                 }
             }
 
+            if (id == 0)
+                return null;
             return appointmentService.getById(id); ;
         }
     }

@@ -28,5 +28,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             reviewsViewModel = new ReviewsViewModel();
             this.DataContext = reviewsViewModel;
         }
+
+        private void Window_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.DataContext = reviewsViewModel;
+        }
     }
 }

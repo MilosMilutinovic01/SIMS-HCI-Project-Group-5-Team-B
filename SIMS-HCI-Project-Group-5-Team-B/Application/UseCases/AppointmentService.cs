@@ -46,6 +46,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
                 if(a.Ended == true && a.Start.Year == year)
                     appointments.Add(a);
             }
+            if (appointments.Count() == 0)
+                return null;
             return appointments;
         }
         public void Save(Appointment newAppointment)

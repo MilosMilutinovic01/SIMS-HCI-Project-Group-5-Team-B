@@ -20,12 +20,13 @@
             </Button>
         </DockPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Cards}">
+            <ItemsControl x:Name="Items" ItemsSource="{Binding Cards}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border Height="200" BorderBrush="Gray" BorderThickness="1" Margin="5">
                             <Grid>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
@@ -40,13 +41,18 @@
                                 <TextBlock Grid.Row="0" Text="{Binding GuestName}" Width="150" HorizontalAlignment="Left" Margin="10,5,0,0" FontSize="16" FontWeight="Normal" FontFamily="Elephant" />
                                 <TextBlock Grid.Row="1" Text="{Binding TourName}" Margin="10,0,0,0" />
                                 <TextBlock Grid.Row="2" Text="{Binding KeyPointName, StringFormat='Key point: {0}'}" FontWeight="Normal" Margin="10,0,0,0" />
-                                <DockPanel Grid.Row="3" Grid.ColumnSpan="2">
-                                    <TextBlock DockPanel.Dock="Left" Text="{Binding Rating, StringFormat='Rating: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    <CheckBox DockPanel.Dock="Right" IsEnabled="False" IsChecked="{Binding Reported}" HorizontalAlignment="Right" Margin="0,0,10,0"></CheckBox>
+                                <DockPanel Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding GeneralKnowledge, StringFormat='General knowledge: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding LanguageKnowledge, StringFormat='Language knowledge: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding TourFun, StringFormat='Tour fun: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                    </StackPanel>
+                                    <CheckBox x:Name="CheckBoxReported" DockPanel.Dock="Right" IsEnabled="False" IsChecked="{Binding Reported}" HorizontalAlignment="Right" Margin="0,0,10,0"></CheckBox>
                                     <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right">Invalid:</TextBlock>
                                 </DockPanel>
-                                <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding Comment, StringFormat='Comment: {0}'}" FontWeight="Normal" Height="50" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">Report</Button>
+                                <TextBlock Grid.Row="5" Grid.ColumnSpan="2" Text="{Binding Comment, StringFormat='Comment: {0}'}" FontWeight="Normal" Height="50" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                <Button Grid.Row="6" Grid.Column="1" Command="{Binding DataContext.ReportCommand, ElementName=Items}"
+                                        CommandParameter="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Click="Button_Click">Report</Button>
                             </Grid>
                         </Border>
                     </DataTemplate>

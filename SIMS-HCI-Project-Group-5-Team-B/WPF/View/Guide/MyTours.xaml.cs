@@ -37,23 +37,33 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             MostVisitedTour = new ObservableCollection<Appointment>();
             FinishedTours = new ObservableCollection<Appointment>();
 
-            MostVisitedTour.Add(tourAttendanceService.GetMostVisitedTour(2023));
-            foreach (Appointment t in appointmentService.GetFinishedToursByYear(2023))
+            MostVisitedTour.Add(tourAttendanceService.GetMostVisitedTour(Convert.ToInt32(Year)));
+            if (appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year)) == null)
+                FinishedTours.Add(new Appointment());
+            else
             {
-                FinishedTours.Add(t);
+                foreach (Appointment t in appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year)))
+                {
+                    FinishedTours.Add(t);
+                }
             }
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            MostVisitedTour.Clear();
+            FinishedTours.Clear();
             Year = ((ComboBoxItem)ComboBoxYear.SelectedItem).Content.ToString();
-            //MostVisitedTour.Clear();
-            //FinishedTours.Clear();
-            //MostVisitedTour.Add(tourAttendanceService.GetMostVisitedTour(2023));
-            //foreach (Appointment t in appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year)))
-            //{
-            //    FinishedTours.Add(t);
-            //}
+            MostVisitedTour.Add(tourAttendanceService.GetMostVisitedTour(Convert.ToInt32(Year)));
+            if (appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year)) == null)
+                FinishedTours.Add(new Appointment());
+            else
+            {
+                foreach (Appointment t in appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year)))
+                {
+                    FinishedTours.Add(t);
+                }
+            }
         }
 
         private void ShowStatsButton_Click(object sender, RoutedEventArgs e)
