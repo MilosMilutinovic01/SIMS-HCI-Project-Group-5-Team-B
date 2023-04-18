@@ -20,11 +20,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             get { return guideGuestId; }
             set { guideGuestId = value; }
         }
-        private int tourAppointmentId;
-        public int TourAppointmentId
+        private int appointmentId;
+        public int AppointmentId
         {
-            get { return tourAppointmentId; }
-            set { tourAppointmentId = value; }
+            get { return appointmentId; }
+            set { appointmentId = value; }
         }
         private int peopleAttending;
         public int PeopleAttending
@@ -54,7 +54,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 
         public TourAttendance(int tourAppointmentId, int peopleAttending, int keyPointGuestArrivedId, int guideGuestId)
         {
-            this.tourAppointmentId = tourAppointmentId;
+            this.appointmentId = tourAppointmentId;
             this.peopleAttending = peopleAttending;
             this.keyPointGuestArrivedId = keyPointGuestArrivedId;
             this.guideGuestId = guideGuestId;
@@ -67,7 +67,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             {
                 Id.ToString(),
                 guideGuestId.ToString(),
-                tourAppointmentId.ToString(),
+                appointmentId.ToString(),
                 peopleAttending.ToString(),
                 keyPointGuestArrivedId.ToString()
             };
@@ -79,7 +79,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         {
             Id = int.Parse(values[0]);
             guideGuestId = int.Parse(values[1]);
-            tourAppointmentId = int.Parse(values[2]);
+            appointmentId = int.Parse(values[2]);
             peopleAttending = int.Parse(values[3]);
             keyPointGuestArrivedId = int.Parse(values[4]);
         }

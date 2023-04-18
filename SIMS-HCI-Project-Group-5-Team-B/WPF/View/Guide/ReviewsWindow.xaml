@@ -6,7 +6,7 @@
         xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide" xmlns:local1="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel"
         mc:Ignorable="d"
-        Title="ReviewsWindow" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+        Title="ReviewsWindow" Height="750" Width="430" WindowStartupLocation="CenterScreen" GotFocus="Window_GotFocus">
     <DockPanel>
         <DockPanel DockPanel.Dock="top" Height="30">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">

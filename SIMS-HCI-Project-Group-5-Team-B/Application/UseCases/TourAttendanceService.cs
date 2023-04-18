@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
     public class TourAttendanceService
     {
-        private Repository<TourAttendance> tourAttendanceRepository;
         private AppointmentService appointmentService;
 
-        public TourAttendanceService()
+        private ITourAttendanceRepository tourAttendanceRepository;
+        public TourAttendanceService(ITourAttendanceRepository tourAttendanceRepository)
         {
-            tourAttendanceRepository = new Repository<TourAttendance>();
+            this.tourAttendanceRepository = tourAttendanceRepository;
             appointmentService = new AppointmentService();
+        }
+
+        public List<TourAttendance> GetAllFor(int guideGuestId)
+        {
+            return tourAttendanceRepository.GetAll().FindAll(ta => ta.GuideGuestId == guideGuestId);
         }
 
         public List<TourAttendance> GetAll()
@@ -37,19 +43,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             tourAttendanceRepository.Update(tourAttendance);
         }
 
-        public List<TourAttendance> FindBy(string[] propertyNames, string[] values)
-        {
-            return tourAttendanceRepository.FindBy(propertyNames, values);
-        }
-
         public List<int> FindAllGuestsByAppointment(int appointmentId)
         {
-            return GetAll().Where(ta => ta.TourAppointmentId == appointmentId).Select(ta => ta.GuideGuestId).ToList();
+            return GetAll().Where(ta => ta.AppointmentId == appointmentId).Select(ta => ta.GuideGuestId).ToList();
         }
 
         public TourAttendance GetByTourAppointmentId(int id)
         {
-            return GetAll().Find(ta => ta.TourAppointmentId == id);
+            return GetAll().Find(ta => ta.AppointmentId == id);
         }
 
         public int GetTotalGuest(int appointmentId) 
@@ -57,7 +58,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             int result = 0;
             foreach (TourAttendance ta in tourAttendanceRepository.GetAll())
             {
-                if (ta.TourAppointmentId == appointmentId)
+                if (ta.AppointmentId == appointmentId)
                     result += ta.PeopleAttending;
             }
             return result;
