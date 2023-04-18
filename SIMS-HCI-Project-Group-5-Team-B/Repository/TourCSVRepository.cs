@@ -56,7 +56,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             _data.Add(newTour);
             WriteCSV(_data);
         }
-        private int NextId()
+        public int NextId()
         {
             if (_data.Count() < 1)
             {

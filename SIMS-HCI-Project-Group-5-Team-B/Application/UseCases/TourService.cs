@@ -24,5 +24,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             return tourRepository.GetAll().Find(t => t.Id == tourId);
         }
+
+        public void Save(Tour tour)
+        {
+            tourRepository.Save(tour);
+        }
+
+        public int makeId()
+        {
+            return tourRepository.NextId();
+        }
     }
 }

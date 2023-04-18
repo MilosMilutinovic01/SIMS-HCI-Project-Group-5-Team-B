@@ -2,6 +2,7 @@
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,18 +27,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         public Appointment SelectedTour { get; set; }
         public ObservableCollection<Appointment> FinishedTours { get; set; }
 
-        private TourAttendanceService tourAttendanceService;
-        private AppointmentService appointmentService;
-        public MyTours()
+        public AppointmentService appointmentService;
+        
+        public MyTours(AppointmentService appointmentService)
         {
             InitializeComponent();
             this.DataContext = this;
-            tourAttendanceService = new TourAttendanceService();
-            appointmentService = new AppointmentService();
+
+            this.appointmentService = appointmentService;
+
             MostVisitedTour = new ObservableCollection<Appointment>();
             FinishedTours = new ObservableCollection<Appointment>();
 
-            MostVisitedTour.Add(tourAttendanceService.GetMostVisitedTour(Convert.ToInt32(Year)));
+            MostVisitedTour.Add(appointmentService.GetMostVisitedTour(Convert.ToInt32(Year)));
             if (appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year)) == null)
                 FinishedTours.Add(new Appointment());
             else
@@ -54,7 +56,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             MostVisitedTour.Clear();
             FinishedTours.Clear();
             Year = ((ComboBoxItem)ComboBoxYear.SelectedItem).Content.ToString();
-            MostVisitedTour.Add(tourAttendanceService.GetMostVisitedTour(Convert.ToInt32(Year)));
+            MostVisitedTour.Add(appointmentService.GetMostVisitedTour(Convert.ToInt32(Year)));
             if (appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year)) == null)
                 FinishedTours.Add(new Appointment());
             else
@@ -68,7 +70,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
 
         private void ShowStatsButton_Click(object sender, RoutedEventArgs e)
         {
-            TourStatistics tourStatistics = new TourStatistics(SelectedTour.Id);
+            TourStatistics tourStatistics = new TourStatistics(SelectedTour.Id, appointmentService);
             tourStatistics.Show();
         }
     }

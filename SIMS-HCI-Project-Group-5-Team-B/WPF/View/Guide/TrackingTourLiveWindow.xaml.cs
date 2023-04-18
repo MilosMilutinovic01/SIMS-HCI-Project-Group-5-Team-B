@@ -24,34 +24,33 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class TrackingTourLiveWindow : Window
     {
         private KeyPointsController keyPointsController;
-        private AppointmentService appointmentController;
+        private AppointmentService appointmentService;
         private NotificationController notificationController;
         private TemporaryTourAttendanceController tourAttendanceController;
 
         public ObservableCollection<Appointment> AvailableAppointments { get; set; }
         public ObservableCollection<KeyPoint> KeyPoints { get; set; }
-        public ObservableCollection<GuideGuest> GuideGuest { get; set; }
+        public ObservableCollection<GuideGuest> GuideGuests { get; set; }
         public Appointment SelectedAppointment { get; set; }
         public KeyPoint SelectedKeyPoint { get; set; }
         public GuideGuest SelectedGuest { get; set; }
 
         //public static bool answer = true;
         //public static string keyPointName;
-        public TrackingTourLiveWindow()
+        public TrackingTourLiveWindow(AppointmentService appointmentService)
         {
             InitializeComponent();
             DataContext = this;
 
             keyPointsController = new KeyPointsController();
-            appointmentController = new AppointmentService();
+            this.appointmentService = appointmentService;
             notificationController = new NotificationController();
             tourAttendanceController = new TemporaryTourAttendanceController();
 
-            AvailableAppointments = new ObservableCollection<Appointment>(appointmentController.GetAllAvaillable());
+            AvailableAppointments = new ObservableCollection<Appointment>(appointmentService.GetAllAvaillable());
             KeyPoints = new ObservableCollection<KeyPoint>();
-            GuideGuest = new ObservableCollection<GuideGuest>();
+            GuideGuests = new ObservableCollection<GuideGuest>();
 
-            //GuideGuest.Add(new GuideGuest(1, "Uros", "Nikolovski"));
             
             TourStartButton.IsEnabled = true;
             KeyPointCheckButton.IsEnabled = false;
@@ -61,7 +60,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         }
         private void CheckStarted()
         {
-            foreach(Appointment appointment in  appointmentController.GetAll())
+            foreach(Appointment appointment in appointmentService.GetAll())
             {
                 if (appointment.Started == true && appointment.Ended != true) 
                 {
@@ -87,7 +86,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 SelectedAppointment.Started = true;
                 SelectedAppointment.CheckedKeyPointId = KeyPoints[0].Id;
-                appointmentController.Update(SelectedAppointment);
+                appointmentService.Update(SelectedAppointment);
 
                 KeyPoints[0].Selected = true;
                 keyPointsController.Update(KeyPoints[0]);
@@ -121,7 +120,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
                 SelectedAppointment.Ended = true;
                 SelectedAppointment.CheckedKeyPointId = SelectedKeyPoint.Id;
-                appointmentController.Update(SelectedAppointment);
+                appointmentService.Update(SelectedAppointment);
                 
                 MessageBox.Show("Tour ended!");
                 SendRequestButton.IsEnabled = false;
@@ -133,7 +132,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             else if (KeyPoints[KeyPointsDataGrid.SelectedIndex - 1].Selected == true)
             {
                 SelectedAppointment.CheckedKeyPointId = SelectedKeyPoint.Id;
-                appointmentController.Update(SelectedAppointment);
+                appointmentService.Update(SelectedAppointment);
 
                 SelectedKeyPoint.Selected = true;
                 keyPointsController.Update(SelectedKeyPoint);
@@ -161,10 +160,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             if (SelectedAppointment != null)
             {
+                GuideGuests.Clear();
                 foreach (int guest in tourAttendanceController.FindAllGuestsByAppointment(SelectedAppointment.Id))
                 {
                     UserController userController = new UserController();
-                    GuideGuest.Add(new GuideGuest(guest, userController.getById(guest).Username));
+                    GuideGuests.Add(new GuideGuest(guest, userController.getById(guest).Username));
                 }
             }
             RefreshKeyPoints();
@@ -175,7 +175,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             if(result)
             {
                 SelectedAppointment.Ended = true;
-                appointmentController.Update(SelectedAppointment);
+                appointmentService.Update(SelectedAppointment);
 
                 AvailableAppointmentDataGrid.IsHitTestVisible = true;
                 TourStartButton.IsEnabled = true;

@@ -33,14 +33,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private TemporaryTourAttendanceController tourAttendanceController;
 
-        public TourAttendanceWindow(Tour selectedTour)
+        public TourAttendanceWindow(Tour selectedTour, AppointmentService appointmentService)
         {
             this.SelectedTour = selectedTour;
             SelectedAppointment = new Appointment();
             Available = new List<DateTime>();
             Appointments = new List<Appointment>();
 
-            appointmentController = new AppointmentService();
+            this.appointmentController = appointmentService;
             foreach (var appointment in appointmentController.GetAll())
             {
                 if (appointment.TourId == SelectedTour.Id && appointment.Start > DateTime.Now)

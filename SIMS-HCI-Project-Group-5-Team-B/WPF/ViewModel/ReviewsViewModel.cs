@@ -31,7 +31,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public RelayCommandWithParams ReportCommand { get; }
 
-        public ReviewsViewModel()
+        public ReviewsViewModel(AppointmentService appointmentService)
         {
             Cards = new ObservableCollection<Card>();
 

@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
+using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,17 +23,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
     public partial class TourStatistics : Window
     {
         private TourController tourController;
-        private TourAttendanceService tourAttendanceService;
-        public TourStatistics(int id)
+        private AppointmentService appointmentService;
+        public TourStatistics(int id, AppointmentService appointmentService)
         {
             InitializeComponent();
             this.DataContext = this;
 
+            TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
             tourController = new TourController();
-            tourAttendanceService = new TourAttendanceService();
+            this.appointmentService = appointmentService;
 
             TourName.Content = tourController.getById(id).Name;
-            TotalGuests.Content = "Total guests: " +  tourAttendanceService.GetTotalGuest(id);
+            TotalGuests.Content = "Total guests: " + appointmentService.GetTotalGuest(id);
             Under18.Content = "Guests under 18 years: 1";
             Between.Content = "Guests between 18 and 50 years: 1";
             Above50.Content = "Guests above 50 years: 0";

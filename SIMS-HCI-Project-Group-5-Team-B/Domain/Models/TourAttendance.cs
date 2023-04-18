@@ -38,7 +38,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 
         public TourAttendance(int appointmentId, int peopleAttending, int keyPointGuestArrivedId, int guideGuestId)
         {
-            this.appointmentId = tourAppointmentId;
+            this.appointmentId = appointmentId;
             this.peopleAttending = peopleAttending;
             this.keyPointGuestArrivedId = keyPointGuestArrivedId;
             this.guideGuestId = guideGuestId;
