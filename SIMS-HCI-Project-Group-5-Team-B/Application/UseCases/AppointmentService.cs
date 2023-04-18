@@ -2,6 +2,7 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
+using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,17 +80,35 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             }
             return null;
         }
-        
-        public AppointmentService(TourController tourController)
+        public int GetTotalGuest(int appointmentId)
         {
-            appointmentRepository = Injector.Injector.CreateInstance<IAppointmentRepository>();
-            this.tourController = tourController;
-            GetTourReference();
+            int result = 0;
+            foreach (TourAttendance ta in tourAttendanceService.GetAll())
+            {
+                if (ta.AppointmentId == appointmentId)
+                    result += ta.PeopleAttending;
+            }
+            return result;
         }
-        public AppointmentService()
+        public Appointment GetMostVisitedTour(int year)
         {
-            appointmentRepository = Injector.Injector.CreateInstance<IAppointmentRepository>();
-            GetTourReference();
+            int id = 0;
+            int people = 0;
+            if (GetFinishedToursByYear(year) == null)
+                return new Appointment();
+
+            foreach (Appointment appointment in GetFinishedToursByYear(year))
+            {
+                if (people < GetTotalGuest(appointment.Id))
+                {
+                    id = appointment.Id;
+                    people = GetTotalGuest(appointment.Id);
+                }
+            }
+
+            if (id == 0)
+                return null;
+            return getById(id);
         }
         public List<Appointment> GetAll()
         {
@@ -101,12 +120,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         }
         public List<Appointment> GetUpcoming()
         {
-            GetTourReference();
             return appointmentRepository.GetAll().Where(a => (a.Start - DateTime.Now).TotalHours >= 48 && a.Cancelled == false).ToList();
         }
         public List<Appointment> GetFinishedToursByYear(int year) 
         {
-            GetTourReference();
             List<Appointment> appointments = new List<Appointment>();
             foreach(Appointment a in GetAll())
             {
@@ -121,9 +138,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             appointmentRepository.Save(newAppointment);
         }
-        public void SaveAll(List<Appointment> newAppointment)
+        public void SaveAll(List<Appointment> appointments)
         {
-            appointmentRepository.SaveAll(newAppointment);
+            foreach(Appointment appointment in appointments)
+                appointmentRepository.Save(appointment);
         }
         public void Delete(Appointment appointment)
         {

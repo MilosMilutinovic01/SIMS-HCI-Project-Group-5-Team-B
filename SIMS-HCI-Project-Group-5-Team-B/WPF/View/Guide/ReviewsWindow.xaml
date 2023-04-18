@@ -52,7 +52,7 @@
                                 </DockPanel>
                                 <TextBlock Grid.Row="5" Grid.ColumnSpan="2" Text="{Binding Comment, StringFormat='Comment: {0}'}" FontWeight="Normal" Height="50" Margin="10,0,0,0" HorizontalAlignment="Left" />
                                 <Button Grid.Row="6" Grid.Column="1" Command="{Binding DataContext.ReportCommand, ElementName=Items}"
-                                        CommandParameter="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Click="Button_Click">Report</Button>
+                                        CommandParameter="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">Report</Button>
                             </Grid>
                         </Border>
                     </DataTemplate>

@@ -14,10 +14,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         private Repository<TourAttendance> tourAttendanceRepository;
         private AppointmentService appointmentService;
 
-        public TourStatisticsService()
+        public TourStatisticsService(AppointmentService appointmentService)
         {
             tourAttendanceRepository = new Repository<TourAttendance>();
-            appointmentService = new AppointmentService();
+            this.appointmentService = appointmentService;
         }
 
 

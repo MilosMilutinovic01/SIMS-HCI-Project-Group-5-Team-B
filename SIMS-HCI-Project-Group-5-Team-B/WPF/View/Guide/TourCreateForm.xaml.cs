@@ -1,4 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Controller;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
@@ -22,10 +23,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class TourCreateForm : Window
     {
-        private TourController tourController;
+        private TourService tourService;
         private LocationController locationController;
         private KeyPointsController keyPointsController;
-        private AppointmentService appointmentController;
+        private AppointmentService appointmentService;
         public Tour Tour { get; set; }
         public Location Location { get; set; }
         public KeyPoint KeyPoint { get; set; }
@@ -37,15 +38,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public List<DateTime> starts;
         public List<string> states { get; set; }
         public List<string> cities;
-        public TourCreateForm()
+        public TourCreateForm(TourService tourService, AppointmentService appointmentService)
         {
             InitializeComponent();
             this.DataContext = this;
 
             locationController = new LocationController();
-            tourController = new TourController(locationController);
+            this.tourService = tourService;
             keyPointsController = new KeyPointsController();
-            appointmentController = new AppointmentService();
+            this.appointmentService = appointmentService;
 
             Tour = new Tour();
             Location = new Location();
@@ -89,12 +90,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 locationController.Save(Location);
             }
             Tour.KeyPoints.AddRange(keyPoints);
-            tourController.Save(Tour);
+            tourService.Save(Tour);
             foreach (DateTime start in starts)
             {
                 appointments.Add(new Appointment(Tour.Id, -1, start, Tour.MaxGuests));
             }
-            appointmentController.SaveAll(appointments);
+            appointmentService.SaveAll(appointments);
             Close();
         }
 
@@ -104,7 +105,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         }
         private void AddKeyPointsButton_Click(object sender, RoutedEventArgs e)
         {
-            KeyPoint.TourId = tourController.makeId();
+            KeyPoint.TourId = tourService.makeId();
             if (KeyPointTextBox.Text.Equals(""))
                 MessageBox.Show("You should fill the field!");
             else

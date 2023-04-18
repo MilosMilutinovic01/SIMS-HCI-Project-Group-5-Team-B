@@ -16,5 +16,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces
         public void Update(Tour tour);
 
         public List<Tour> GetAll();
+        public int NextId();
     }
 }
