@@ -1,0 +1,53 @@
+﻿<Window x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.TourRateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
+        mc:Ignorable="d"
+        Title="TourRateWindow" Height="450" Width="800">
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Guide general knowledge:"/>
+        <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Guide language knowledge:"/>
+        <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Tour fun:"/>
+        <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Image urls:"/>
+
+        <TextBox Grid.Row="0" Grid.Column="1" Height="20" Width="300"
+                 Text="{Binding Path=TourGrade.GuideGeneralKnowledge, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
+        <TextBox Grid.Row="1" Grid.Column="1" Height="20" Width="300"
+                 Text="{Binding Path=TourGrade.GuideLanguageKnowledge, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
+        <TextBox Grid.Row="2" Grid.Column="1" Height="20" Width="300"
+                 Text="{Binding Path=TourGrade.TourFun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
+        <TextBox Grid.Row="3" Grid.Column="1" Height="20" Width="300"
+                 Text="{Binding Path=TourGrade.ImageUrls, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
+
+        <Button x:Name="RateTourButton" Click="RateTourButton_Click" Grid.Row="5" Grid.Column="1" Margin="100, 20, 100, 20" Content="Rate tour"/>
+
+    </Grid>
+</Window>

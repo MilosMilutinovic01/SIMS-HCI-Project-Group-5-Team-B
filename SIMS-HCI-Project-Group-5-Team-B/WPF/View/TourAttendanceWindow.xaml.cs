@@ -31,7 +31,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private AppointmentController appointmentController { get; set; }
 
-        private TourAttendanceService tourAttendanceService;
+        private TemporaryTourAttendanceController tourAttendanceController;
 
         public TourAttendanceWindow(Tour selectedTour)
         {
@@ -53,7 +53,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             this.DataContext = this;
             InitializeComponent();
             ShowImages();
-            tourAttendanceService = new TourAttendanceService();
+            tourAttendanceController = new TemporaryTourAttendanceController();
         }
 
         private void ShowImages()
@@ -81,7 +81,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
             if (SelectedAppointment.FreeSpace >= NumberOfPeople)
             {
-                tourAttendanceService.Save(new TourAttendance(SelectedAppointment.Id, NumberOfPeople, -1, -1));
+                tourAttendanceController.Save(new TourAttendance(SelectedAppointment.Id, NumberOfPeople, -1, -1));
                 SelectedAppointment.FreeSpace -= NumberOfPeople;
                 appointmentController.Update(SelectedAppointment);
                 FreeSpaceTextBlock.Text = SelectedAppointment.FreeSpace.ToString();
@@ -101,7 +101,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
                 if (ShowAlternatives == MessageBoxResult.Yes)
                 {
-                    TourWindow tourWindow = new TourWindow();
+                    TourWindow tourWindow = new TourWindow(new User());
                     Setup(tourWindow);
                     tourWindow.SearchButton_Click(null, e);
 

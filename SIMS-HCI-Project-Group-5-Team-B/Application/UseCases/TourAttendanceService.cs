@@ -1,5 +1,5 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
-using SIMS_HCI_Project_Group_5_Team_B.Repository;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,43 +10,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
     public class TourAttendanceService
     {
-        private Repository<TourAttendance> tourAttendanceRepository;
-
-        public TourAttendanceService()
+        private ITourAttendanceRepository tourAttendanceRepository;
+        public TourAttendanceService(ITourAttendanceRepository tourAttendanceRepository)
         {
-            tourAttendanceRepository = new Repository<TourAttendance>();
+            this.tourAttendanceRepository = tourAttendanceRepository;
         }
 
-        public List<TourAttendance> GetAll()
+        public List<TourAttendance> GetAllFor(int guideGuestId)
         {
-            return tourAttendanceRepository.GetAll();
-        }
-        public void Save(TourAttendance newTourAttendance)
-        {
-            tourAttendanceRepository.Save(newTourAttendance);
-        }
-        public void Delete(TourAttendance tourAttendance)
-        {
-            tourAttendanceRepository.Delete(tourAttendance);
-        }
-        public void Update(TourAttendance tourAttendance)
-        {
-            tourAttendanceRepository.Update(tourAttendance);
+            return tourAttendanceRepository.GetAll().FindAll(ta => ta.GuideGuestId == guideGuestId);
         }
 
-        public List<TourAttendance> FindBy(string[] propertyNames, string[] values)
-        {
-            return tourAttendanceRepository.FindBy(propertyNames, values);
-        }
-
-        public List<int> FindAllGuestsByAppointment(int appointmentId)
-        {
-            return GetAll().Where(ta => ta.TourAppointmentId == appointmentId).Select(ta => ta.GuideGuestId).ToList();
-        }
-
-        public TourAttendance getById(int id)
-        {
-            return GetAll().Find(ta => ta.Id == id);
-        }
     }
 }

@@ -26,7 +26,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private KeyPointsController keyPointsController;
         private AppointmentController appointmentController;
         private NotificationController notificationController;
-        private TourAttendanceService tourAttendanceService;
+        private TemporaryTourAttendanceController tourAttendanceController;
 
         public ObservableCollection<Appointment> AvailableAppointments { get; set; }
         public ObservableCollection<KeyPoint> KeyPoints { get; set; }
@@ -45,7 +45,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             keyPointsController = new KeyPointsController();
             appointmentController = new AppointmentController();
             notificationController = new NotificationController();
-            tourAttendanceService = new TourAttendanceService();
+            tourAttendanceController = new TemporaryTourAttendanceController();
 
             AvailableAppointments = new ObservableCollection<Appointment>(appointmentController.GetAllAvaillable());
             KeyPoints = new ObservableCollection<KeyPoint>();
@@ -161,7 +161,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             if (SelectedAppointment != null)
             {
-                foreach (int guest in tourAttendanceService.FindAllGuestsByAppointment(SelectedAppointment.Id))
+                foreach (int guest in tourAttendanceController.FindAllGuestsByAppointment(SelectedAppointment.Id))
                 {
                     UserController userController = new UserController();
                     GuideGuest.Add(new GuideGuest(guest, userController.getById(guest).Username));
@@ -186,7 +186,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void SendRequestButton_Click1(object sender, RoutedEventArgs e)
         {
             //answer = false;
-            foreach (int guestId in tourAttendanceService.FindAllGuestsByAppointment(SelectedAppointment.Id))
+            foreach (int guestId in tourAttendanceController.FindAllGuestsByAppointment(SelectedAppointment.Id))
             {
                 if(guestId == SelectedGuest.Id)
                 {
