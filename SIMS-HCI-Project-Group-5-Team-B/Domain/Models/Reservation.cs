@@ -225,9 +225,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             return this.EndDate.AddDays(5) > DateTime.Today && this.EndDate < DateTime.Today && this.IsGradedByGuest == false;
         }
 
-        public bool isModifiable()
+        public bool IsModifiable()
         {
-            return !(this.StartDate <= DateTime.Today || this.StartDate <= DateTime.Today.AddDays(this.Accommodation.NoticePeriod));
+            return !(this.StartDate <= DateTime.Today);
         }
 
         public bool IsDeletable()

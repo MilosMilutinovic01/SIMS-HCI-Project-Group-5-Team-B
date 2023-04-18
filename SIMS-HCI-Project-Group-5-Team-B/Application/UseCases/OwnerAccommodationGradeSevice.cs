@@ -66,29 +66,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public List<OwnerAccommodationGrade> GetOwnerAccommodationGradesForShowing(Owner owner)
         {
-            //dobili smo sve rezervacije
-            List<Reservation> reservations = reservationService.GetUndeleted();
-
-            //dobili smo sve ocene smestaja
             List<OwnerAccommodationGrade> ownerAccommodationGrades = GetAll();
-
-            //ocene smestaja koje ce biti prikazivane
             List<OwnerAccommodationGrade> ownerAccommodationGradesForShowing = new List<OwnerAccommodationGrade>();
 
-            foreach (Reservation reservation in reservations)
+            foreach (OwnerAccommodationGrade ownerAccommodationGrade in ownerAccommodationGrades)
             {
-                //prolazimo kroz rezervacije i gledamo da li su je ocenili i gost i vlasnik
-                if (reservation.IsGraded == true && reservation.IsGradedByGuest == true)
+                Reservation reservation = ownerAccommodationGrade.Reservation;
+
+                if (reservation.IsGraded && reservation.IsGradedByGuest && reservation.Accommodation.Owner.Id == owner.Id)
                 {
-                    //ako su ocenili i gost i  vlasnik prolazimo kroz ocene smestaja i trazimo idRezervacije koju su ocenili i gost i vlasnik
-                    foreach (OwnerAccommodationGrade ownerAccommodationGrade in ownerAccommodationGrades)
-                    {
-                        //nasli smo ocenu smestaja sa trazenim id-om rezervacije i sada tu ocenu dodajemo u ocene koje ce se prikazati
-                        if (reservation.Id == ownerAccommodationGrade.ReservationId && ownerAccommodationGrade.Reservation.Accommodation.Owner.Id == owner.Id)
-                        {
-                            ownerAccommodationGradesForShowing.Add(ownerAccommodationGrade);
-                        }
-                    }
+                    ownerAccommodationGradesForShowing.Add(ownerAccommodationGrade);
                 }
             }
 
