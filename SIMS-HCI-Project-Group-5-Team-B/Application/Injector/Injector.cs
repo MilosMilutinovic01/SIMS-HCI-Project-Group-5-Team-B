@@ -14,7 +14,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.Injector
     {
         { typeof(IOwnerGuestRepository), new OwnerGuestCSVRepository() },
         { typeof(IReservationChangeRequestRepository), new ReservationChangeRequestCSVRepository() },
-        {  typeof(IReservationRepository), new ReservationCSVRepository() },
+        { typeof(IReservationRepository), new ReservationCSVRepository() },
+        { typeof(IAppointmentRepository), new AppointmentCSVRepository() },
         // Add more implementations here
     };
 

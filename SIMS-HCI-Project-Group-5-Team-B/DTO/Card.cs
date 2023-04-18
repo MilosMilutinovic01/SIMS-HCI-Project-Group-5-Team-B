@@ -12,6 +12,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.DTO
 {
     public class Card
     {
+        public int Id { get; set; }
+
         private string guestName;
         public string GuestName
         {
@@ -33,11 +35,25 @@ namespace SIMS_HCI_Project_Group_5_Team_B.DTO
             set { keyPointName = value; }
         }
 
-        private int rating;
-        public int Rating
+        private int generalKnowledge;
+        public int GeneralKnowledge
         {
-            get { return rating; }
-            set { rating = value; }
+            get { return generalKnowledge; }
+            set { generalKnowledge = value; }
+        }
+
+        private int languageKnowledge;
+        public int LanguageKnowledge
+        {
+            get { return languageKnowledge; }
+            set { languageKnowledge = value; }
+        }
+
+        private int tourFun;
+        public int TourFun
+        {
+            get { return tourFun; }
+            set { tourFun = value; }
         }
 
         private string comment;
@@ -61,14 +77,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.DTO
             set { reported = value; }
         }
 
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public Card(string guestName, string tourName, string keyPointName, int rating, string comment, bool valid, bool reported)
+        public Card(int id, string guestName, string tourName, string keyPointName, int generalKnowledge, int languageKnowledge, int tourFun, string comment, bool valid, bool reported)
         {
+            Id = id;
             this.guestName = guestName;
             this.tourName = tourName;
             this.keyPointName = keyPointName;
-            this.rating = rating;
+            this.generalKnowledge = generalKnowledge;
+            this.languageKnowledge = languageKnowledge;
+            this.tourFun = tourFun;
             this.comment = comment;
             this.valid = valid;
             this.reported = reported;
