@@ -132,7 +132,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         {
             get
             {
-                if (columnName == "GuideGeneralKnowlegde")
+                if (columnName == "GuideGeneralKnowledge")
                 {
                     if (GuideGeneralKnowledge > 5 || GuideGeneralKnowledge < 1)
                         return "Grade must be between 1 and 5";
