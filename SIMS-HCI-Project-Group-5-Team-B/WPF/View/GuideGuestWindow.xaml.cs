@@ -41,8 +41,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
             this.guideGuestViewModel = new GuideGuestViewModel(appointmentService, tourGradeService);
 
             HeldTours = new ObservableCollection<Appointment>(guideGuestViewModel.GetAllHeldFor(loggedUser.Id));
+            
+            
             LiveTour = new ObservableCollection<Tour>();
-            LiveTour.Add(guideGuestViewModel.getLiveTour(loggedUser.Id));
+            if(guideGuestViewModel.getLiveTour(loggedUser.Id) != null)
+            {
+                LiveTour.Add(guideGuestViewModel.getLiveTour(loggedUser.Id));
+            }
         }
 
         private void TrackTourButton_Click(object sender, RoutedEventArgs e)
