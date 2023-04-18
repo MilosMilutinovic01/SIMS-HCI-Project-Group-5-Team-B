@@ -23,10 +23,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
     public partial class TourStatistics : Window
     {
         private TourController tourController;
-        private AppointmentService appointmentService;
-        private TourAttendanceService tourAttendanceService;
         private VoucherService voucherService;
-        public TourStatistics(int appointmentId, AppointmentService appointmentService, TourAttendanceService tourAttendanceService)
+        private TourAttendanceService tourAttendanceService;
+        public TourStatistics(int appointmentId, TourAttendanceService tourAttendanceService)
         {
             InitializeComponent();
             this.DataContext = this;
@@ -35,7 +34,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             tourController = new TourController();
             voucherService = new VoucherService();
 
-            this.appointmentService = appointmentService;
             this.tourAttendanceService = tourAttendanceService;
 
             TourName.Content = tourController.getById(appointmentId).Name;

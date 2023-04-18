@@ -32,7 +32,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public RelayCommandWithParams ReportCommand { get; }
 
-        public ReviewsViewModel(AppointmentService appointmentService, TourGradeService tourGradeService, int userId, TourAttendanceService tourAttendanceService)
+        public ReviewsViewModel(TourGradeService tourGradeService, int userId, TourAttendanceService tourAttendanceService)
         {
             Cards = new ObservableCollection<Card>();
 
@@ -53,6 +53,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private void Report(object parameter)
         {
             result = MessageBox.Show("Are you sure you want to report selected review?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+            
             if (parameter is Card selectedCard && result)
                 selectedCard.Reported = true;
         }

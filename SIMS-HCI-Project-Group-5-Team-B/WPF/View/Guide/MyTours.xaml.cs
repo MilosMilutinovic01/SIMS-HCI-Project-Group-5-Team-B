@@ -26,53 +26,53 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         public ObservableCollection<Appointment> MostVisitedAppointment { get; set; }
         public Appointment SelectedAppointment { get; set; }
         public ObservableCollection<Appointment> FinishedAppointments { get; set; }
+        public int userId;
 
-        public AppointmentService appointmentService;
-        public TourAttendanceService tourAttendanceService;
+        private AppointmentService appointmentService;
+        private TourAttendanceService tourAttendanceService;
         
-        public MyTours(AppointmentService appointmentService, TourAttendanceService tourAttendanceService)
+        public MyTours(AppointmentService appointmentService, TourAttendanceService tourAttendanceService, int userId)
         {
             InitializeComponent();
             this.DataContext = this;
 
+            this.userId = userId;
             this.appointmentService = appointmentService;
             this.tourAttendanceService = tourAttendanceService;
 
             MostVisitedAppointment = new ObservableCollection<Appointment>();
             FinishedAppointments = new ObservableCollection<Appointment>();
 
-            MostVisitedAppointment.Add(appointmentService.GetMostVisitedTour(Convert.ToInt32(Year)));
-            if (appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year)) == null)
-                FinishedAppointments.Add(new Appointment());
-            else
-            {
-                foreach (Appointment t in appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year)))
-                {
-                    FinishedAppointments.Add(t);
-                }
-            }
+            RefreshData();
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            RefreshData();
+        }
+
+        private void RefreshData()
+        {
             MostVisitedAppointment.Clear();
             FinishedAppointments.Clear();
-            Year = ((ComboBoxItem)ComboBoxYear.SelectedItem).Content.ToString();
-            MostVisitedAppointment.Add(appointmentService.GetMostVisitedTour(Convert.ToInt32(Year)));
-            if (appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year)) == null)
+
+            if ((ComboBoxItem)ComboBoxYear.SelectedItem != null)
+                Year = ((ComboBoxItem)ComboBoxYear.SelectedItem).Content.ToString();
+            else
+                Year = null;
+
+            MostVisitedAppointment.Add(appointmentService.GetMostVisitedTour(Convert.ToInt32(Year), userId));
+
+            if (appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year), userId) == null)
                 FinishedAppointments.Add(new Appointment());
             else
-            {
-                foreach (Appointment t in appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year)))
-                {
+                foreach (Appointment t in appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year), userId))
                     FinishedAppointments.Add(t);
-                }
-            }
         }
 
         private void ShowStatsButton_Click(object sender, RoutedEventArgs e)
         {
-            TourStatistics tourStatistics = new TourStatistics(SelectedAppointment.Id, appointmentService, tourAttendanceService);
+            TourStatistics tourStatistics = new TourStatistics(SelectedAppointment.Id, tourAttendanceService);
             tourStatistics.Show();
         }
     }

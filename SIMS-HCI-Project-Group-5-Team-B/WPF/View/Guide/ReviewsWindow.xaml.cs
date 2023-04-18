@@ -22,17 +22,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
     public partial class ReviewsWindow : Window
     {
         private ReviewsViewModel reviewsViewModel;
-        private AppointmentService appointmentService;
         private TourGradeService tourGradeService;
         private TourAttendanceService tourAttendanceService;
-        public ReviewsWindow(AppointmentService appointmentService, TourGradeService tourGradeService, int userId, TourAttendanceService tourAttendanceService)
+        public ReviewsWindow(TourGradeService tourGradeService, int userId, TourAttendanceService tourAttendanceService)
         {
             InitializeComponent();
 
             this.tourAttendanceService = tourAttendanceService;
-            this.appointmentService = appointmentService;
             this.tourGradeService = tourGradeService;
-            reviewsViewModel = new ReviewsViewModel(appointmentService, tourGradeService, userId, tourAttendanceService);
+            reviewsViewModel = new ReviewsViewModel(tourGradeService, userId, tourAttendanceService);
             this.DataContext = reviewsViewModel;
         }
 
