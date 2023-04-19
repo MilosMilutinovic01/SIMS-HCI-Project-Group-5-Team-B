@@ -1,0 +1,49 @@
+﻿<Window x:Class="SIMS_HCI_Project_Group_5_Team_B.View.GradingGuestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        mc:Ignorable="d"
+        Title="GradingGuestWindow" Height="600" Width="600">
+    <Grid Margin="50 50 50 50">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Content="Cleanliness" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35"></Label>
+        <Label Grid.Column="0" Grid.Row="1" Content="Rules Compliance" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35"></Label>
+        <Label Grid.Column="0" Grid.Row="2" Content="State of Inventory" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35"></Label>
+        <Label Grid.Column="0" Grid.Row="3" Content="Completed Payment On Time" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35"></Label>
+        <Label Grid.Column="0" Grid.Row="4" Content="Complaints From Other Guests" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35"></Label>
+        <Label Grid.Column="0" Grid.Row="5" Content="Additonal Comment" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35"></Label>
+        <Slider x:Name="CleanlinessSlider" Grid.Column="1" Grid.Row="0" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=NewOwnerGuestGrade.Cleanliness, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></Slider>
+        <TextBox Grid.Column="1" Grid.Row="0" Margin="0 30 140 0" Text="{Binding ElementName=CleanlinessSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Slider x:Name="RulesComplianceSlider" Grid.Column="1" Grid.Row="1" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=NewOwnerGuestGrade.RulesCompliance, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></Slider>
+        <TextBox Grid.Column="1" Grid.Row="1" Margin="0 30 140 0" Text="{Binding ElementName=RulesComplianceSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Slider x:Name="StateOfInventorySlider" Grid.Column="1" Grid.Row="2" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=NewOwnerGuestGrade.StateOfInventory, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></Slider>
+        <TextBox Grid.Column="1" Grid.Row="2" Margin="0 30 140 0" Text="{Binding ElementName=StateOfInventorySlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <ComboBox Grid.Column="1" Grid.Row="3" Height="40" Name="PaymentOnTime_ComboBox" SelectionChanged="PaymentOnTimeComboBox">
+            <ComboBoxItem>Yes</ComboBoxItem>
+            <ComboBoxItem>No</ComboBoxItem>
+        </ComboBox>
+        <ComboBox Grid.Column="1" Grid.Row="4" Height="40" Name="ComplaintsFromOtherGuests_ComboBox" SelectionChanged="ComplaintsFromOtherGuestsComboBox">
+            <ComboBoxItem >Yes</ComboBoxItem>
+            <ComboBoxItem>No</ComboBoxItem>
+        </ComboBox>
+        <TextBox Grid.Column="1" Grid.Row="5" Height="40" Text="{Binding Path=NewOwnerGuestGrade.AdditionalComment, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+        <Button Grid.Column="1" Grid.Row="6" Height="30" HorizontalAlignment="Left" Width="50"  Content="Grade" Click="Grade_Button_Click" Margin="125,18,0,18"></Button>
+        <Button Grid.Column="1" Grid.Row="6" Height="30" HorizontalAlignment="Right" Width="50" Content="Cancel" Click="Cancel_Button_Click"></Button>
+
+    </Grid>
+
+</Window>

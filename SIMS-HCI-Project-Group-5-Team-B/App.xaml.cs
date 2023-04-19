@@ -11,7 +11,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
     }
 }

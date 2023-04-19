@@ -1,4 +1,4 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Model;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
@@ -14,51 +14,52 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         private Repository<Tour> tourRepository;
         private LocationController locationController;
         private KeyPointsController keyPointsController;
-        
-        public TourController(){
+
+        public TourController()
+        {
             tourRepository = new Repository<Tour>();
             this.locationController = new LocationController();
             keyPointsController = new KeyPointsController();
             GetLocationReference();
         }
-        
+
         public TourController(LocationController locationController)
         {
             tourRepository = new Repository<Tour>();
             this.locationController = locationController;
             GetLocationReference();
         }
-        
+
         public List<Tour> GetAll()
         {
             return tourRepository.GetAll();
         }
-        
+
         public void Save(Tour newTour)
         {
             tourRepository.Save(newTour);
         }
-        
+
         public void Delete(Tour tour)
         {
             tourRepository.Delete(tour);
         }
-        
+
         public void Update(Tour tour)
         {
             tourRepository.Update(tour);
         }
-        
+
         public List<Tour> FindBy(string[] propertyNames, string[] values)
         {
             return tourRepository.FindBy(propertyNames, values);
         }
-        
+
         public Tour getById(int id)
         {
             return GetAll().Find(tour => tour.Id == id);
         }
-        
+
         public int makeId()
         {
             return tourRepository.NextId();
@@ -113,7 +114,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
                 searchValues += Language + ";";
             }
 
-            if(searchProperties.Equals(String.Empty))
+            if (searchProperties.Equals(String.Empty))
             {
                 result = new List<Tour>(tourRepository.GetAll());
             }

@@ -1,4 +1,4 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Model;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.Serializer;
 using System;
@@ -41,6 +41,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         public List<KeyPoint> getByTourId(int id)
         {
             return keyPointsRepository.GetAll().FindAll(kp => kp.TourId == id);
+        }
+        public KeyPoint GetById(int id)
+        {
+            return keyPointsRepository.GetAll().Find(kp => kp.Id == id);
         }
         public List<KeyPoint> FindBy(string[] propertyNames, string[] values)
         {

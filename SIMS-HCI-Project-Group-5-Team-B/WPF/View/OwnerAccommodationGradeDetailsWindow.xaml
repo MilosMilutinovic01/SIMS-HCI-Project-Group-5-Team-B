@@ -1,0 +1,81 @@
+﻿<Window x:Class="SIMS_HCI_Project_Group_5_Team_B.View.OwnerAccommodationGradeDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        mc:Ignorable="d"
+        Title="OwnerAccommodationGradeDetailsWindow" Height="600" Width="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0" Margin="100,0,50,0" HorizontalAlignment="Left" Width="450">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Name" ></Label>
+            <Label Grid.Row="1" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Surname" ></Label>
+            <Label Grid.Row="2" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Accommodation" ></Label>
+            <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Cleanliness" ></Label>
+            <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Owner Correctness" ></Label>
+            <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="State of inventory" ></Label>
+            <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Quietness" ></Label>
+            <Label Grid.Row="7" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Privacy" ></Label>
+            <Label Grid.Row="8" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="AdditionalComment" ></Label>
+
+
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.OwnerGuest.Name}" Height="30">
+            </TextBlock>
+            <TextBlock   Grid.Row="1" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.OwnerGuest.Surname}" Height="30">
+            </TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.Accommodation.Name}" Height="30">
+            </TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Cleanliness}" Height="30">
+            </TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.OwnerCorrectness}" Height="30">
+            </TextBlock>
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.StateOfInventory}" Height="30">
+            </TextBlock>
+            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Quietness}" Height="30">
+            </TextBlock>
+            <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Privacy}" Height="30">
+            </TextBlock>
+            <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.AdditionalComment}" Height="30">
+            </TextBlock>
+            
+           
+        </Grid>
+        <ListBox Grid.Column="0" Grid.Row="1" Name="imageListBox" d:ItemsSource="{d:SampleData ItemCount=5}" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{Binding }" Width="200" Height="100"></Image>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Grid.Column="0" Grid.Row="2" Height="20" Width="50" Content="Cancel" Click="Cancel_Button_Click" HorizontalAlignment="Right" Margin="0,0,50,0"></Button>
+    </Grid>
+</Window>
