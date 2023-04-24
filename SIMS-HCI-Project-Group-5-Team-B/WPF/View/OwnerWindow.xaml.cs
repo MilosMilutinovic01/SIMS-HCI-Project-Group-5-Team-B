@@ -24,6 +24,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         OwnerAccommodationGradeSevice ownerAccommodationGradeService;
         OwnerGuestGradeService ownerGuestGradeService;
         SuperOwnerService superOwnerService;
+        
         public Owner LogedInOwner;
         public ObservableCollection<Accommodation> AccomodationsOfLogedInOwner { get; set; }
         public ObservableCollection<Reservation> ReservationsForGrading { get; set; }
@@ -34,6 +35,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public ReservationChangeRequest SelectedReservationChangeRequest { get; set; }
         private readonly HandleReservationChangeRequestViewModel handleReservationChangeRequestViewModel;
         private ReservationChangeRequestService reservationChangeRequestService;
+        private RenovationService renovationService;
         public ObservableCollection<Notification> Notifications { get; set; }
 
         //private DateTime lastDisplayed;
@@ -72,8 +74,26 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             handleReservationChangeRequestViewModel = new HandleReservationChangeRequestViewModel(reservationChangeRequestService, reservationService, LogedInOwner, SelectedReservationChangeRequest);
             OwnersPendingRequests = new ObservableCollection<ReservationChangeRequest>(handleReservationChangeRequestViewModel.OwnersPendingRequests);
 
+            /*foreach(ReservationChangeRequest reservationChangeRequest in OwnersPendingRequests)
+            {
+                if (reservationService.IsAccomodationAvailableForChangingReservationDates(reservationChangeRequest.Reservation, reservationChangeRequest.Start, reservationChangeRequest.End))
+                {
+                    reservationChangeRequest.IsAvailable = "Yes";
+                }
+                else
+                {
+                    reservationChangeRequest.IsAvailable = "No";
+                }
+                reservationChangeRequestService.Update(reservationChangeRequest);
+
+            }*/
+            
+
             OwnerNotificationsViewModel ownerNotificationsViewModel = new OwnerNotificationsViewModel(LogedInOwner.Id);
             Notifications = new ObservableCollection<Notification>(ownerNotificationsViewModel.Notifications);
+            renovationService = new RenovationService();
+            
+
 
         }
 
@@ -144,5 +164,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             declineReservationChangeRequestForm.Show();
         }
 
+        private void Schedule_Button_Click(object sender, RoutedEventArgs e)
+        {
+            ScheduleRenovationForm scheduleRenovationForm = new ScheduleRenovationForm(renovationService, accommodationService,reservationService,LogedInOwner);
+            scheduleRenovationForm.Show();
+        }
+
+        private void CallOf_Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Monthly_Statistics_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
