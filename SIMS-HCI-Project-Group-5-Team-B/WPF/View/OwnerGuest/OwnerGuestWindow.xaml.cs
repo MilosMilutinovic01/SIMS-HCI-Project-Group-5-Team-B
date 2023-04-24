@@ -39,6 +39,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private OwnerGuest activeOwnerGuest;
         private ReservationChangeRequestService reservationChangeRequestService;
         private string username;
+        
 
         public OwnerGuestWindow(string username)
         {
@@ -53,7 +54,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             ownerGuestService = new OwnerGuestService();
             reservationChangeRequestService = new ReservationChangeRequestService();
             activeOwnerGuest =  ownerGuestService.GetByUsername(username);
+
             
+
             this.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Del(ShowNotification));
         }
 

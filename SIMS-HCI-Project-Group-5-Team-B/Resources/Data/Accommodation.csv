@@ -1,32 +1,33 @@
-1|0|Astoria|Apartment|1|2|2|7|https://bled.com
-2|0|Anastasia Resort|Cottage|2|10|9|4|https://lovegreece.com,https://grecce.com
-3|0|Park|Cottage|1|5|5|2|https://nature.com
-4|0|Maria's|House|2|2|9|10|https://bestbeaches.com
-5|0|Paradise|Apartment|3|5|9|3|https://paradiseonearth.com,https://dreambeaches.com
-6|0|Vila Andrea|House|4|5|2|3|https://i.pinimg.com/564x/fb/53/a0/fb53a017dc175e33399d5c203a6a28d2.jpg,https://i.pinimg.com/564x/71/c6/66/71c66693282d95685cf17f81b2c8161e.jpg
-7|0|Athena Palace Village|Apartment|5|10|10|5|https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/The_Acropolis_of_Athens_viewed_from_the_Hill_of_the_Muses_%2814220794964%29.jpg/1280px-The_Acropolis_of_Athens_viewed_from_the_Hill_of_the_Muses_%2814220794964%29.jpg
-8|0|NS|Apartment|7|4|4|4|https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Novi_Sad-_collage.jpg/800px-Novi_Sad-_collage.jpg
-9|0|Cheves-Blanc|Cottage|6|6|10|4|https://www.google.com/imgres?imgurl=https%3A%2F%2Fr.lvmh-static.com%2Fuploads%2F2014%2F10%2Fok-site-ccb-2800x1312.jpg&imgrefurl=https%3A%2F%2Fwww.lvmh.com%2Fhouses%2Fother-activities%2Fcheval-blanc%2F&tbnid=bp0LI-mI_PBxxM&vet=12ahUKEwjEssvu7NP9AhU-z7sIHYLEADUQMygAegUIARC0AQ..i&docid=NKMSkPAfVTGCHM&w=2800&h=1312&q=cheval%20blanc%20hotel&hl=sr&ved=2ahUKEwjEssvu7NP9AhU-z7sIHYLEADUQMygAegUIARC0AQ
-10|0|Nebeske Stolice 1|Apartment|8|6|3|2|https://www.google.com/imgres?imgurl=https%3A%2F%2Fcms.filiptravel.rs%2Ftvimages%2FHotelImage%2F1%2F1663%2F0_L.jpg&tbnid=zBXK5UN1ZzwjuM&vet=12ahUKEwiu8_e3xOP9AhV3aqQEHSTFCqEQMygCegUIARC9AQ..i&imgrefurl=https%3A%2F%2Fwww.filiptravel.rs%2Fsr%2Fhotel%2Fsrbija%2Fkopaonik%2Fnebeska-stolica-2&docid=XHjLGx5e0LBYjM&w=800&h=482&q=nebeske%20stolice&ved=2ahUKEwiu8_e3xOP9AhV3aqQEHSTFCqEQMygCegUIARC9AQ
-11|0|Nina's|Apartment|7|1|2|3|https://google.com
-12|0|Filip's|Apartment|5|4|2|1|https://en.wikipedia.org/wiki/File:Greece_relief_location_map.jpg
-13|0|Vuki's|Cottage|5|1|6|2|https://en.wikipedia.org/wiki/File:Greece_relief_location_map.jpg
-14|0|PONOVO|House|1|1|1|1|https://google.com
-15|0|Milosev kamp|House|8|10|2|1|https://milos.com
-16|0|Loki's|House|15|2|3|1|http://google.com
-17|1|Milos's|House|15|2|3|1|http://google.com
-18|1|Uros's|House|15|2|3|1|http://google.com
-19|0|ppp|House|1|9|4|1|https://google.com
-20|0|JJJ|Apartment|1|2|2|7|https://bled.com
-21|0|Cas|House|2|3|2|1|hhhttt
-22|0|Maki`s|House|633|5|3|2|www.maki.com
-23|0|Luka`s|Apartment|8|5|5|2|www.kopaonik.com
-24|2|proba|Cottage|2|5|5|1|nijebitno.com
-25|0|Grand|House|7915|3|1|1|www.slike.com
-26|0|Ocena|Apartment|73|1|1|1|no
-27|0|Grade|Cottage|1074|1|1|1|https://nesto.jpg
-28|0|Vise|House|8324|1|1|1|link
-29|0|Jeca's|House|4|1|1|1|nes
-30|0|Dosta|Apartment|16822|1|1|1|no
-31|0|Generalna|Cottage|7|1|1|1|no
-32|0|Stres|House|7|1|1|1|link
+1|0|Astoria|Apartment|1|2|2|7|https://bled.com|False
+2|0|Anastasia Resort|Cottage|2|10|9|4|https://lovegreece.com,https://grecce.com|False
+3|0|Park|Cottage|1|5|5|2|https://nature.com|False
+4|0|Maria's|House|2|2|9|10|https://bestbeaches.com|False
+5|0|Paradise|Apartment|3|5|9|3|https://paradiseonearth.com,https://dreambeaches.com|False
+6|0|Vila Andrea|House|4|5|2|3|https://i.pinimg.com/564x/fb/53/a0/fb53a017dc175e33399d5c203a6a28d2.jpg,https://i.pinimg.com/564x/71/c6/66/71c66693282d95685cf17f81b2c8161e.jpg|False
+7|0|Athena Palace Village|Apartment|5|10|10|5|https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/The_Acropolis_of_Athens_viewed_from_the_Hill_of_the_Muses_%2814220794964%29.jpg/1280px-The_Acropolis_of_Athens_viewed_from_the_Hill_of_the_Muses_%2814220794964%29.jpg|False
+8|0|NS|Apartment|7|4|4|4|https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Novi_Sad-_collage.jpg/800px-Novi_Sad-_collage.jpg|False
+9|0|Cheves-Blanc|Cottage|6|6|10|4|https://www.google.com/imgres?imgurl=https%3A%2F%2Fr.lvmh-static.com%2Fuploads%2F2014%2F10%2Fok-site-ccb-2800x1312.jpg&imgrefurl=https%3A%2F%2Fwww.lvmh.com%2Fhouses%2Fother-activities%2Fcheval-blanc%2F&tbnid=bp0LI-mI_PBxxM&vet=12ahUKEwjEssvu7NP9AhU-z7sIHYLEADUQMygAegUIARC0AQ..i&docid=NKMSkPAfVTGCHM&w=2800&h=1312&q=cheval%20blanc%20hotel&hl=sr&ved=2ahUKEwjEssvu7NP9AhU-z7sIHYLEADUQMygAegUIARC0AQ|False
+10|0|Nebeske Stolice 1|Apartment|8|6|3|2|https://www.google.com/imgres?imgurl=https%3A%2F%2Fcms.filiptravel.rs%2Ftvimages%2FHotelImage%2F1%2F1663%2F0_L.jpg&tbnid=zBXK5UN1ZzwjuM&vet=12ahUKEwiu8_e3xOP9AhV3aqQEHSTFCqEQMygCegUIARC9AQ..i&imgrefurl=https%3A%2F%2Fwww.filiptravel.rs%2Fsr%2Fhotel%2Fsrbija%2Fkopaonik%2Fnebeska-stolica-2&docid=XHjLGx5e0LBYjM&w=800&h=482&q=nebeske%20stolice&ved=2ahUKEwiu8_e3xOP9AhV3aqQEHSTFCqEQMygCegUIARC9AQ|False
+11|0|Nina's|Apartment|7|1|2|3|https://google.com|False
+12|0|Filip's|Apartment|5|4|2|1|https://en.wikipedia.org/wiki/File:Greece_relief_location_map.jpg|False
+13|0|Vuki's|Cottage|5|1|6|2|https://en.wikipedia.org/wiki/File:Greece_relief_location_map.jpg|False
+14|0|PONOVO|House|1|1|1|1|https://google.com|False
+15|0|Milosev kamp|House|8|10|2|1|https://milos.com|False
+16|0|Loki's|House|15|2|3|1|http://google.com|False
+17|1|Milos's|House|15|2|3|1|http://google.com|True
+18|1|Uros's|House|15|2|3|1|http://google.com|False
+19|0|ppp|House|1|9|4|1|https://google.com|False
+20|0|JJJ|Apartment|1|2|2|7|https://bled.com|False
+21|0|Cas|House|2|3|2|1|hhhttt|False
+22|0|Maki`s|House|633|5|3|2|www.maki.com|False
+23|0|Luka`s|Apartment|8|5|5|2|www.kopaonik.com|False
+24|2|proba|Cottage|2|5|5|1|nijebitno.com|False
+25|0|Grand|House|7915|3|1|1|www.slike.com|False
+26|0|Ocena|Apartment|73|1|1|1|no|False
+27|0|Grade|Cottage|1074|1|1|1|https://nesto.jpg|False
+28|0|Vise|House|8324|1|1|1|link|False
+29|0|Jeca's|House|4|1|1|1|nes|False
+30|0|Dosta|Apartment|16822|1|1|1|no|False
+31|0|Generalna|Cottage|7|1|1|1|no|False
+32|0|Stres|House|7|1|1|1|link|False
+33|1|Reni|Apartment|3481|2|1|1|https://lol.com|False

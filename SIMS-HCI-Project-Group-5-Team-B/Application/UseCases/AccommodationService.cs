@@ -51,7 +51,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             return accomodationRepository.FindBy(propertyNames, values);
         }
-        public Accommodation getById(int id)
+        public Accommodation GetById(int id)
         {
             return GetAll().Find(acmd => acmd.Id == id);
         }
@@ -142,6 +142,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
             return accommodationsOfLogedInOwner;
         }
+
+        public List<string> GetOwnersAccommodations(Owner targetOwner)
+        {
+            List<Accommodation> allAccommodations = GetAll();
+            List<string> matchingAccommodationNames = allAccommodations
+                .Where(accommodation => accommodation.OwnerId == targetOwner.Id)
+                .Select(accommodation => accommodation.Name)
+                .Distinct()
+                .ToList();
+
+            return matchingAccommodationNames;
+        }
+
 
     }
 }

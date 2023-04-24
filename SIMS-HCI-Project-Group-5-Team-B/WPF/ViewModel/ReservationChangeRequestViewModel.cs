@@ -44,7 +44,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             if(NewReservationRequest.IsValid)
             {
-                if(reservationService.IsAccomodationAvailableForChangingReservationDates(NewReservationRequest.Reservation, NewReservationRequest.Start, NewReservationRequest.End))
+                if(reservationService.IsAccomodationAvailableForChangingReservationDates(NewReservationRequest.Reservation, NewReservationRequest.Start, NewReservationRequest.End)
+                    && reservationService.IsAccomodationNotInRenovation(NewReservationRequest.Reservation.Accommodation, NewReservationRequest.Start, NewReservationRequest.End))
                 {
                     NewReservationRequest.IsAvailable = "Yes";
                 }
