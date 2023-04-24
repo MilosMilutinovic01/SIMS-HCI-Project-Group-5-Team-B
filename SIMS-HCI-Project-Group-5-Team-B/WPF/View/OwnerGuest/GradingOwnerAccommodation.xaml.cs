@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -80,6 +81,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 MessageBox.Show("Data is not valid!");
             }
         }
-        
+
+        private void RenovationRequest_Button_Click(object sender, RoutedEventArgs e)
+        {
+            RenovationRequestForm renovationRequestForm = new RenovationRequestForm(SelectedReservation.AccommodationId);
+            renovationRequestForm.Show();
+        }
     }
 }
