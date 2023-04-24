@@ -70,6 +70,7 @@
         <WrapPanel Grid.Column="2" Grid.Row="2" FlowDirection="RightToLeft">
             <Button Content="Cancel" VerticalAlignment="Center" Margin="15" Width="40" Click="Cancel_Button_Click"></Button>
             <Button Content="Grade" VerticalAlignment="Center" Margin="15" Width="40" Click="Grade_Button_Click"></Button>
+            <Button Content="Renovation Request" VerticalAlignment="Center" Margin="15"  Click="RenovationRequest_Button_Click"></Button>
         </WrapPanel>
     </Grid>
 </Window>
