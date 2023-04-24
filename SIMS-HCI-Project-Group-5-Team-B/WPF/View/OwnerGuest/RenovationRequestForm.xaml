@@ -6,6 +6,16 @@
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest"
         mc:Ignorable="d"
         Title="RenovationRequestForm" Height="350" Width="480">
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"></ColumnDefinition>
@@ -23,11 +33,12 @@
 
         <Label Grid.Row="1" Height="30" FontSize="15" Grid.ColumnSpan="2" Margin="34,16,0,87">Comment</Label>
         <Label Grid.Row="2" Height="30" FontSize="15" Grid.ColumnSpan="2" Margin="34,17,0,54">Level</Label>
-        <TextBox Grid.Row="1" Grid.Column="2" Margin="0 0 0 15" Text="{Binding Path=NewRenovationRequest.Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextWrapping="Wrap"
+        <TextBox Grid.Row="1" Grid.Column="2" Margin="0 0 0 15" Text="{Binding Path=NewRenovationRequest.Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True }" TextWrapping="Wrap"
   AcceptsReturn="True"
+  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
   VerticalScrollBarVisibility="Visible"></TextBox>
         <ComboBox Grid.Row="2" Grid.Column="1" Height="30" Grid.ColumnSpan="3" Margin="137,17,34,54" SelectionChanged="ComboBox_SelectionChanged" >
-            <ComboBoxItem Tag="0">Level1 - Minor Renovations Needed</ComboBoxItem>
+            <ComboBoxItem Tag="0" IsSelected="True">Level1 - Minor Renovations Needed</ComboBoxItem>
             <ComboBoxItem Tag="1">Level2 - It Would Be Nice To Renovate</ComboBoxItem>
             <ComboBoxItem Tag="2">Level3 - Renovation Necessary</ComboBoxItem>
             <ComboBoxItem Tag="3">Level4 - Accommodation IS In Very Bad State, Renovation Necessary</ComboBoxItem>
