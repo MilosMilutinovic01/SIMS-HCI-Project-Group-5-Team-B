@@ -97,6 +97,19 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image x:Name="LetterRImage" Height="20" Width="20" Visibility="Collapsed" Source="/Resources/Images/LetterRImage.png">
+                                </Image>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding IsRenovatedInTheLastYear}" Value="True">
+                                        <Setter TargetName="LetterRImage" Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
 

@@ -23,6 +23,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private OwnerService ownerService;
         private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
         private SuperOwnerService superOwnerService;
+        private RenovationService renovationService;
         public ObservableCollection<Accommodation> Accomodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public string SearchName { get; set; } = "";
@@ -52,7 +53,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private int ownerGuestId;
 
-        public AccommodationsWindow(int ownerGuestId,LocationController locationController, OwnerService ownerService, AccommodationService accommodationService, ReservationService reservationService )
+        public AccommodationsWindow(int ownerGuestId,LocationController locationController, OwnerService ownerService, AccommodationService accommodationService, ReservationService reservationService)
         {
             InitializeComponent();
             DataContext = this;
@@ -63,10 +64,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             //Accomodations = new ObservableCollection<Accommodation>(accommodationController.GetAll());
             ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(this.reservationService);
             superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, this.accommodationService);
+            renovationService = new RenovationService();
+            renovationService.MarkRenovatiosThatTookPlaceInTheLastYear();
             Accomodations = new ObservableCollection<Accommodation>(superOwnerService.GetSortedAccommodations());
             this.ownerGuestId = ownerGuestId;
             //reservationController = new ReservationController(accommodationController);
-            
             states = locationController.GetStates();
         }
 

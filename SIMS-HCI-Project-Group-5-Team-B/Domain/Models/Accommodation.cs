@@ -176,11 +176,25 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
+        private bool isRenovatedInTheLastYear;
 
+        public bool IsRenovatedInTheLastYear
+        {
+            get { return isRenovatedInTheLastYear; }
+            set
+            {
+                if(value != isRenovatedInTheLastYear)
+                {
+                    isRenovatedInTheLastYear = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public Accommodation()
         {
             noticePeriod = 1;
+            isRenovatedInTheLastYear = false;
             pictureURLs = new List<string>();
         }
 
@@ -225,7 +239,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 maxGuests.ToString(),
                 minReservationDays.ToString(),
                 noticePeriod.ToString(),
-                PictureURLsString
+                PictureURLsString,
+                isRenovatedInTheLastYear.ToString(),
 
 
             };
@@ -264,6 +279,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             {
                 pictureURLs.Add(url);
             }
+
+            isRenovatedInTheLastYear = bool.Parse(values[9]);
 
 
         }
