@@ -48,7 +48,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             List<Renovation> renovations = new List<Renovation>();
             foreach (Renovation renovation in GetAll())
             {
-                if (renovation.Accommodation.Id == accommodationId)
+                if (renovation.AccommodationId == accommodationId)
                 {
                     renovations.Add(renovation);
                 }

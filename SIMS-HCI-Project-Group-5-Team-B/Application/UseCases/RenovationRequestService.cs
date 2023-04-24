@@ -12,10 +12,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     public class RenovationRequestService
     {
         private IRenovationRequestRepository renovationRequestRepository;
-        
+        private IAccommodationRepository accommodationRepository;
         public RenovationRequestService()
         {
             renovationRequestRepository = Injector.Injector.CreateInstance<IRenovationRequestRepository>();
+            accommodationRepository = Injector.Injector.CreateInstance<IAccommodationRepository>();
             GetAccommodationReference();
         }
 
@@ -50,7 +51,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         //TODO After Merge
         private void GetAccommodationReference()
         {
-
+            foreach(RenovationRequest renovationRequest in GetAll())
+            {
+                Accommodation accommodation = accommodationRepository.GetById(renovationRequest.AccommodationId);
+                if(accommodation != null)
+                {
+                    renovationRequest.Accommodation = accommodation;
+                }
+            }
         }
 
 

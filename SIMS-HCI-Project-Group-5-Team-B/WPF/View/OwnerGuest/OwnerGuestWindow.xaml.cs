@@ -65,7 +65,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void ShowAccomodation_Button_Click(object sender, RoutedEventArgs e)
         {
 
-            AccommodationsWindow accomodationsWindow = new AccommodationsWindow(activeOwnerGuest.Id, locationController, ownerService, accommodationService, reservationService);
+            AccommodationsWindow accomodationsWindow = new AccommodationsWindow(activeOwnerGuest.Id);
             accomodationsWindow.Show();
         }
 

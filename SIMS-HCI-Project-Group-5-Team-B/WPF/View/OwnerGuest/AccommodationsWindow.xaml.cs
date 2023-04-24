@@ -53,19 +53,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private int ownerGuestId;
 
-        public AccommodationsWindow(int ownerGuestId,LocationController locationController, OwnerService ownerService, AccommodationService accommodationService, ReservationService reservationService)
+        public AccommodationsWindow(int ownerGuestId)
         {
             InitializeComponent();
             DataContext = this;
-            this.locationController = locationController;
-            this.ownerService = ownerService;
-            this.accommodationService = accommodationService;
-            this.reservationService = reservationService;
+            locationController = new LocationController();
+            ownerService = new OwnerService();
+            renovationService = new RenovationService();
+            renovationService.MarkRenovatiosThatTookPlaceInTheLastYear();
+            this.accommodationService = new AccommodationService(locationController, ownerService);
+            this.reservationService = new ReservationService(this.accommodationService);
             //Accomodations = new ObservableCollection<Accommodation>(accommodationController.GetAll());
             ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(this.reservationService);
             superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, this.accommodationService);
-            renovationService = new RenovationService();
-            renovationService.MarkRenovatiosThatTookPlaceInTheLastYear();
+           // renovationService = new RenovationService();
+            //renovationService.MarkRenovatiosThatTookPlaceInTheLastYear();
             Accomodations = new ObservableCollection<Accommodation>(superOwnerService.GetSortedAccommodations());
             this.ownerGuestId = ownerGuestId;
             //reservationController = new ReservationController(accommodationController);
