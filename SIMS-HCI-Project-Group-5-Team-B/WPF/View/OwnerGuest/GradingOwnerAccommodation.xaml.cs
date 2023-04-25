@@ -84,7 +84,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void RenovationRequest_Button_Click(object sender, RoutedEventArgs e)
         {
-            RenovationRequestForm renovationRequestForm = new RenovationRequestForm(SelectedReservation.AccommodationId);
+            RenovationRequestForm renovationRequestForm = new RenovationRequestForm(SelectedReservation.Id);
             renovationRequestForm.Show();
         }
     }

@@ -14,9 +14,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
     {
         public RenovationRequest NewRenovationRequest { get; set; }
         private RenovationRequestService renovationRequestService;
-        public RenovationRequestViewModel(int accommodationId)
+        public RenovationRequestViewModel(int reservationId)
         {
-            NewRenovationRequest = new RenovationRequest(accommodationId);
+            NewRenovationRequest = new RenovationRequest(reservationId);
             renovationRequestService = new RenovationRequestService();
         }
 

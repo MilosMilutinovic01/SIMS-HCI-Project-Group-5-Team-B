@@ -21,9 +21,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest
     public partial class RenovationRequestForm : Window
     {
         private RenovationRequestViewModel viewModel;
-        public RenovationRequestForm(int accommodationid)
+        public RenovationRequestForm(int reservationId)
         {
-            viewModel = new RenovationRequestViewModel(accommodationid);
+            viewModel = new RenovationRequestViewModel(reservationId);
             InitializeComponent();
             
             this.DataContext = viewModel;
