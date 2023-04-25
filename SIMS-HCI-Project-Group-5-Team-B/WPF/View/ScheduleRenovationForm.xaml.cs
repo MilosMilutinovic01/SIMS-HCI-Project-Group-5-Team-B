@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
+using System.Collections.ObjectModel;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
 {
@@ -24,20 +25,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     {
         private readonly RenovationViewModel renovationViewModel;
         public AccommodationService accommodationService;
-        
+        public ObservableCollection<RenovationGridView> FutureRenovations;
 
-        public ScheduleRenovationForm(RenovationService renovationService, AccommodationService accommodationService, ReservationService reservationService,Owner owner)
+        public ScheduleRenovationForm(RenovationService renovationService, AccommodationService accommodationService, ReservationService reservationService,Owner owner, ObservableCollection<RenovationGridView> FutureRenovations, RenovationGridView SelectedRenovationGridView)
         {
             InitializeComponent();
-            renovationViewModel = new RenovationViewModel(renovationService, reservationService);
+            renovationViewModel = new RenovationViewModel(renovationService, reservationService,owner.Id, SelectedRenovationGridView);
             this.DataContext = renovationViewModel;
             this.accommodationService = accommodationService;
+            this.FutureRenovations = FutureRenovations;
             ShowAccommodations(owner);
         }
 
         private void Schedule_RenovationButton_Click(object sender, RoutedEventArgs e)
         {
-            renovationViewModel.Schedule();
+            renovationViewModel.Schedule(FutureRenovations);
         }
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {

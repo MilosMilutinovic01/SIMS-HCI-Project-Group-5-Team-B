@@ -15,34 +15,46 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 {
     public class RenovationViewModel
     {
-        public ObservableCollection<RenovationGridView> renovationGridViews { get; set; }
-        public RenovationGridView SelectedRenovationGridView { get; set; }
+        public ObservableCollection<RenovationGridView> FutureRenovations { get; set; }
+        public ObservableCollection<Renovation> PastRenovations { get; set; }
+        public RenovationGridView SelectedRenovationGridView;
         public Renovation NewRenovation { get; set; }
         public ObservableCollection<RenovationRecommendation> RenovationRecommendations { get; set; }
         public RenovationRecommendation SelectedDate { get; set; }
 
         private RenovationService renovationService;
         private ReservationService reservationService;
+        private int ownerId;
         
-
-        public RenovationViewModel(RenovationService renovationService,ReservationService reservationService)
+        
+        public RenovationViewModel(RenovationService renovationService,ReservationService reservationService, int ownerId, RenovationGridView SelectedRenovationGridView)
         {
             this.renovationService = renovationService;
             this.reservationService = reservationService;
+            this.ownerId = ownerId;
             NewRenovation = new Renovation();
             RenovationRecommendations = new ObservableCollection<RenovationRecommendation>();
             SelectedDate = new RenovationRecommendation(DateTime.MinValue, DateTime.MinValue);
             NewRenovation.StartDate = DateTime.Now;
-            NewRenovation.EndDate = DateTime.Now;  
+            NewRenovation.EndDate = DateTime.Now;
+            FutureRenovations = new ObservableCollection<RenovationGridView>(renovationService.GetFutureRenovationsView(ownerId));
+            PastRenovations = new ObservableCollection<Renovation>(renovationService.GetPastRenovations(ownerId));
+            this.SelectedRenovationGridView = SelectedRenovationGridView;
         }
 
         public void CallOff()
         {
             if (SelectedRenovationGridView != null)
             {
-
+                
+               SelectedRenovationGridView.Renovation.IsDeleted = true;
+               renovationService.Update(SelectedRenovationGridView.Renovation);
+               FutureRenovations.Remove(SelectedRenovationGridView);
+                
             }
         }
+
+
 
         public void CreateRenovation()
         {
@@ -50,6 +62,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             {
                 renovationService.Save(NewRenovation);
                 MessageBox.Show("Renovation scheduled!");
+                if(DateTime.Today.AddDays(5) < NewRenovation.StartDate)
+                {
+                    FutureRenovations.Add(new RenovationGridView(NewRenovation, true));
+                }
+                else
+                {
+                    FutureRenovations.Add(new RenovationGridView(NewRenovation, false));
+                }
             }
             else
             {
@@ -57,14 +77,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
         }
 
-        public void Schedule()
+        public void Schedule(ObservableCollection<RenovationGridView> FutureRenovations)
         {
             if(SelectedDate != null)
             {
                 NewRenovation.StartDate = SelectedDate.Start;
                 NewRenovation.EndDate = SelectedDate.End;
 
-                RenovationDescriptionWindow renovationDescriptionWindow = new RenovationDescriptionWindow(NewRenovation,renovationService,reservationService);
+                RenovationDescriptionWindow renovationDescriptionWindow = new RenovationDescriptionWindow(NewRenovation,renovationService,reservationService,ownerId,FutureRenovations, SelectedRenovationGridView);
                 renovationDescriptionWindow.Show();
             }
         }
@@ -90,5 +110,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 MessageBox.Show("Search can not be preformed because data is not valid!");
             }
         }
+
+
     }
 }

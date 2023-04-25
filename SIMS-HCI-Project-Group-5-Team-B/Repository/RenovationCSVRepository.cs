@@ -46,7 +46,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
         public List<Renovation> GetRenovationForAccommodation(int accommodationId)
         {
             List<Renovation> renovations = new List<Renovation>();
-            foreach (Renovation renovation in GetAll())
+            foreach (Renovation renovation in GetUndeleted())
             {
                 if (renovation.AccommodationId == accommodationId)
                 {
@@ -55,5 +55,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             }
             return renovations;
         }
+
+        public List<Renovation> GetUndeleted()
+        {
+            List<Renovation> undeletedRenovations = new List<Renovation>();
+            foreach(Renovation renovation in GetAll())
+            {
+                if (!renovation.IsDeleted)
+                {
+                    undeletedRenovations.Add(renovation);
+                }
+            }
+            return undeletedRenovations;
+        }
+
     }
 }

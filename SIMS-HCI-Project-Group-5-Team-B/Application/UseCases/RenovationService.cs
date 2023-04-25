@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
@@ -45,10 +46,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         private void GetAccommodationReference()
         {
-            foreach(Renovation renovation in GetAll())
+            foreach (Renovation renovation in GetAll())
             {
                 Accommodation accommodation = accommodationRepository.GetById(renovation.AccommodationId);
-                if(accommodation != null)
+                if (accommodation != null)
                 {
                     renovation.Accommodation = accommodation;
                 }
@@ -73,5 +74,52 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             }
         }
 
+        public List<Renovation> GetUndeleted()
+        {
+            return renovationRepository.GetUndeleted();
+        }
+
+        public bool IsRenovationDeletable(Renovation renovation)
+        {
+            //moze se obrisati,otkazati samo ako do renoviranja ima vise od 5 dana
+            if (DateTime.Today.AddDays(5) < renovation.StartDate)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public List<Renovation> GetPastRenovations(int ownerId)
+        {
+            List<Renovation> pastRenovations = new List<Renovation>();
+            foreach (Renovation renovation in GetUndeleted())
+            {
+                if (renovation.Accommodation.OwnerId == ownerId && renovation.StartDate < DateTime.Today)
+                {
+                    pastRenovations.Add(renovation);
+                }
+            }
+            return pastRenovations;
+        }
+
+
+        public List<RenovationGridView> GetFutureRenovationsView(int ownerId)
+        {
+            List<RenovationGridView> renovationGridViews = new List<RenovationGridView>();
+            foreach (Renovation renovation in GetUndeleted())
+            {
+                if (renovation.Accommodation.OwnerId == ownerId && renovation.StartDate >= DateTime.Today)
+                {
+                    bool isCancelable = true;
+                    if (!IsRenovationDeletable(renovation))
+                    {
+                        isCancelable = false;
+                    }
+                    renovationGridViews.Add(new RenovationGridView(renovation, isCancelable));
+                }
+            }
+            return renovationGridViews;
+
+        }
     }
 }
