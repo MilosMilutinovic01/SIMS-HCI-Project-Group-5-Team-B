@@ -178,6 +178,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
+        public double GetAverageGrade()
+        {
+            return Math.Round((cleanliness + rulesCompliance + stateOfInventory) / 3.0,2);
+        }
+
 
     }
 }
