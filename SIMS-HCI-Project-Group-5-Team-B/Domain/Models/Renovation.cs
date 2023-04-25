@@ -87,9 +87,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
+        public bool IsDeleted { get; set; }
+
         public Renovation()
         {
-
+            IsDeleted = false;
         }
 
         public void FromCSV(string[] values)
@@ -100,6 +102,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             EndDate = DateTime.Parse(values[3]);
             Description = values[4];
             RenovationDays = int.Parse(values[5]); 
+            IsDeleted = bool.Parse(values[6]);
 
         }
 
@@ -112,7 +115,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 StartDate.ToString(), 
                 EndDate.ToString(),
                 Description,
-                RenovationDays.ToString()
+                RenovationDays.ToString(),
+                IsDeleted.ToString()
             };
             return csvValues;
         }

@@ -38,6 +38,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private RenovationService renovationService;
         public ObservableCollection<Notification> Notifications { get; set; }
 
+        public ObservableCollection<Renovation> PastRenovations { get; set; }
+        public ObservableCollection<RenovationGridView> FutureRenovations { get; set; }
+        private readonly RenovationViewModel renovationViewModel;
+        public RenovationGridView SelectedRenovationGridView { get; set; }
+
         //private DateTime lastDisplayed;
         public OwnerWindow(string username)
         {
@@ -92,8 +97,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             OwnerNotificationsViewModel ownerNotificationsViewModel = new OwnerNotificationsViewModel(LogedInOwner.Id);
             Notifications = new ObservableCollection<Notification>(ownerNotificationsViewModel.Notifications);
             renovationService = new RenovationService();
-            
 
+            renovationViewModel = new RenovationViewModel(renovationService, reservationService, LogedInOwner.Id, SelectedRenovationGridView);
+            PastRenovations = new ObservableCollection<Renovation>(renovationViewModel.PastRenovations);
+            FutureRenovations = new ObservableCollection<RenovationGridView>(renovationViewModel.FutureRenovations);
 
         }
 
@@ -166,13 +173,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void Schedule_Button_Click(object sender, RoutedEventArgs e)
         {
-            ScheduleRenovationForm scheduleRenovationForm = new ScheduleRenovationForm(renovationService, accommodationService,reservationService,LogedInOwner);
+            ScheduleRenovationForm scheduleRenovationForm = new ScheduleRenovationForm(renovationService, accommodationService,reservationService,LogedInOwner, FutureRenovations, SelectedRenovationGridView);
             scheduleRenovationForm.Show();
         }
 
         private void CallOf_Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            CallOffRenovationWindow callOffRenovationWindow = new CallOffRenovationWindow(SelectedRenovationGridView, FutureRenovations, renovationService, reservationService,LogedInOwner.Id);
+            callOffRenovationWindow.Show();
         }
 
         private void Monthly_Statistics_Button_Click(object sender, RoutedEventArgs e)

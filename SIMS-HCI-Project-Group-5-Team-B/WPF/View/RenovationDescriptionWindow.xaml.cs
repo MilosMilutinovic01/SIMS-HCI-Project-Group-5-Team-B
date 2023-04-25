@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
+using System.Collections.ObjectModel;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
 {
@@ -25,12 +26,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
         
         public RenovationService renovationService;
         private readonly RenovationViewModel renovationViewModel;
-        public RenovationDescriptionWindow(Renovation NewRenovation,RenovationService renovationService, ReservationService reservationService)
+        public ObservableCollection<RenovationGridView> FutureRenovations { get; set; }
+        public RenovationDescriptionWindow(Renovation NewRenovation,RenovationService renovationService, ReservationService reservationService, int ownerId, ObservableCollection<RenovationGridView> FutureRenovations, RenovationGridView SelectedRenovationGridView)
         {
             InitializeComponent();
-            renovationViewModel = new RenovationViewModel(renovationService, reservationService);
+            renovationViewModel = new RenovationViewModel(renovationService, reservationService,ownerId, SelectedRenovationGridView);
             DataContext = renovationViewModel;
             renovationViewModel.NewRenovation = NewRenovation;
+            this.FutureRenovations = FutureRenovations;
           
         }
 
@@ -43,6 +46,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
         private void Confirm_Button_Click(object sender, RoutedEventArgs e)
         {
             renovationViewModel.CreateRenovation();
+            if (DateTime.Today.AddDays(5) < renovationViewModel.NewRenovation.StartDate)
+            {
+                FutureRenovations.Add(new RenovationGridView(renovationViewModel.NewRenovation, true));
+            }
+            else
+            {
+                FutureRenovations.Add(new RenovationGridView(renovationViewModel.NewRenovation, false));
+            }
+
         }
     }
 }

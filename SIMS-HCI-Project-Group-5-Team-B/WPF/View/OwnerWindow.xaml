@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        xmlns:VM="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel"
         mc:Ignorable="d"
         Title="OwnerWindow" Height="600" Width="950" Loaded="NotifyOwner">
 
@@ -207,6 +208,7 @@
                 </TabItem>
                 <TabItem x:Name="Renovation" Header="Renovation">
                     <Grid>
+                        
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
@@ -222,17 +224,18 @@
                         <Grid Grid.Column="0" Grid.Row="1">
                             <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,2,0,0">Future renovations</Label>
                             <Button HorizontalAlignment="Right" VerticalAlignment="Top" Height="20" Width="55" Margin="0,8,22,0" Click="Schedule_Button_Click">Schedule</Button>
-                            <DataGrid  Width="600" Height="100" ItemsSource="{Binding Path=FutureRenovations}"
-                                 AutoGenerateColumns="False" IsReadOnly="True" Margin="22,31,22,145" >
+                            <DataGrid  Width="600" Height="100"  ItemsSource="{Binding Path=FutureRenovations, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedRenovationGridView, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+                      AutoGenerateColumns="False" IsReadOnly="True" Margin="22,31,22,145" >
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Accommodation" Binding="{Binding Accommodation.Name}" Width="*"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Start date" Binding="{Binding StartDate}" Width="*"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="End date" Binding="{Binding EndDate}" Width="*"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="3*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Accommodation" Binding="{Binding Renovation.Accommodation.Name}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Start date" Binding="{Binding Renovation.StartDate}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="End date" Binding="{Binding Renovation.EndDate}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Description" Binding="{Binding Renovation.Description}" Width="3*"></DataGridTextColumn>
                                     <DataGridTemplateColumn x:Name="ButtonColumnCallOf">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button x:Name="callOfButton" Click="CallOf_Button_Click">Call Of</Button>
+                                                <Button x:Name="callOfButton" Click="CallOf_Button_Click"  IsEnabled="{Binding CanBeCalledOff, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >Call Of</Button>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>

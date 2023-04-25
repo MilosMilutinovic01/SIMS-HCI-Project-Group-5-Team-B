@@ -9,6 +9,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces
 {
     public interface IRenovationRepository
     {
+        public List<Renovation> GetUndeleted();
         public List<Renovation> GetAll();
         public Renovation GetById(int id);
         public void Save(Renovation renovation);
