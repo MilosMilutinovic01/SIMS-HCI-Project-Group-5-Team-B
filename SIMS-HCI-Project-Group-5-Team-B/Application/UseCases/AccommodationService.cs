@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 
 
@@ -12,13 +13,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
     public class AccommodationService
     {
-        private Repository<Accommodation> accomodationRepository;
+        private IAccommodationRepository accomodationRepository;
         private LocationController locationController;
         private OwnerService ownerService;
 
         public AccommodationService(LocationController locationController, OwnerService ownerService)
         {
-            accomodationRepository = new Repository<Accommodation>();
+            accomodationRepository = Injector.Injector.CreateInstance<IAccommodationRepository>();
             this.locationController = locationController;
             this.ownerService = ownerService;
             GetLocationReference();
