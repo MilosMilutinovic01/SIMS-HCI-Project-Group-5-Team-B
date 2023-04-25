@@ -4,10 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest"
+        xmlns:npp="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
         mc:Ignorable="d"
-        x:Name="GuideGuestWindowFrame" Title="MainGuideGuestWindow" Height="450" Width="800">
+        x:Name="GuideGuestWindowFrame" Title="MainGuideGuestWindow"
+        Height="600" Width="1100"
+        WindowStartupLocation="CenterScreen">
     <DockPanel>
-        <Grid x:Name="NavigationGrid" DockPanel.Dock="Top" HorizontalAlignment="Stretch" ButtonBase.Click="NavigationGrid_Click">
+        <Grid x:Name="NavigationGrid" DockPanel.Dock="Top" HorizontalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -19,24 +22,34 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="BackButton" Grid.Row="0" Grid.Column="0" Background="Transparent" BorderBrush="Transparent" Margin="10, 0, 0, 0">
+            <Button x:Name="BackButton" Grid.Row="0" Grid.Column="0" Click="BackButton_Click"
+                    Background="Transparent" BorderBrush="Transparent" Margin="10, 0, 0, 0">
                 <Image Source="/Resources/Images/GuideGuestLeftArrow.png" Height="25"/>
             </Button>
 
-            <Button x:Name="NotificationsButton" Grid.Row="0" Grid.Column="1" Background="Transparent" BorderBrush="Transparent" Margin="5, 0, 0, 0">
+            <Button x:Name="NotificationsButton" Grid.Row="0" Grid.Column="1" Click="NotificationsButton_Click"
+                    Background="Transparent" BorderBrush="Transparent" Margin="5, 0, 0, 0">
                 <Image Source="/Resources/Images/GuideGuestNotificationBell.png" Height="25"/>
             </Button>
-            
-            <Button x:Name="HomeButton" Grid.Row="0" Grid.Column="2" Background="Transparent" BorderBrush="Transparent" Margin="5, 0, 0, 0">
+
+            <Button x:Name="HomeButton" Grid.Row="0" Grid.Column="2" Click="HomeButton_Click"
+                    Background="Transparent" BorderBrush="Transparent" Margin="5, 0, 0, 0">
                 <Image Source="/Resources/Images/GuideGuestHome.png" Height="25"/>
             </Button>
-            
+
             <TextBox x:Name="SearchTextBox" Grid.Row="0" Grid.Column="3" Margin="10, 0, 10, 0"/>
-            
-            <Button x:Name="YourProfileButton" Grid.Row="0" Grid.Column="4" Background="Transparent" BorderBrush="Transparent" Margin="0, 0, 10, 0">
+
+            <Button x:Name="YourProfileButton" Grid.Row="0" Grid.Column="4" Click="YourProfileButton_Click"
+                    Background="Transparent" BorderBrush="Transparent" Margin="0, 0, 10, 0">
                 <Image Source="/Resources/Images/GuideGuestUser.png" Height="25"/>
             </Button>
         </Grid>
+        
         <Frame x:Name="MainFrame" DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden"/>
+
+        <Popup x:Name="NotificationPopup" AllowsTransparency="True"
+               HorizontalOffset="0" VerticalOffset="4">
+            <npp:NotificationUserControl></npp:NotificationUserControl>
+        </Popup>
     </DockPanel>
 </Window>

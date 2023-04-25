@@ -1,4 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest;
+﻿using SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.Pages;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest
@@ -24,12 +27,39 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest
         public MainGuideGuestWindow()
         {
             InitializeComponent();
-            mainGuideGuestWindowViewModel = new MainGuideGuestWindowViewModel(MainFrame.NavigationService);
+            mainGuideGuestWindowViewModel = new MainGuideGuestWindowViewModel();
         }
 
-        private void NavigationGrid_Click(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            mainGuideGuestWindowViewModel.Navigate((e.Source as Button).Name);
+            if (MainFrame.NavigationService.CanGoBack)
+            {
+                MainFrame.NavigationService.GoBack();
+            }
+        }
+
+        private void NotificationsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (NotificationPopup.IsOpen == false)
+            {
+                NotificationPopup.PlacementTarget = NotificationsButton;
+                NotificationPopup.IsOpen = true;
+            }
+            else
+            {
+                NotificationPopup.IsOpen = false;
+                NotificationPopup.Visibility = System.Windows.Visibility.Collapsed;
+            }
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.NavigationService.Content = mainGuideGuestWindowViewModel.GetTourSearchPage();
+        }
+
+        private void YourProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.NavigationService.Content = mainGuideGuestWindowViewModel.GetYourProfilePage();
         }
     }
 }
