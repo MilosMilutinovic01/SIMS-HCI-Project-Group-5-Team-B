@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest
     /// </summary>
     public partial class MainGuideGuestWindow : Window
     {
+        private MainGuideGuestWindowViewModel mainGuideGuestWindowViewModel;
         public MainGuideGuestWindow()
         {
             InitializeComponent();
+            mainGuideGuestWindowViewModel = new MainGuideGuestWindowViewModel(MainFrame.NavigationService);
+        }
+
+        private void NavigationGrid_Click(object sender, RoutedEventArgs e)
+        {
+            mainGuideGuestWindowViewModel.Navigate((e.Source as Button).Name);
         }
     }
 }

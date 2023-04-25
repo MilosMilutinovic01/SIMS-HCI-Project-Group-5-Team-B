@@ -72,9 +72,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B
 
             } else if(ComboBoxType.SelectedIndex == 1)//Guide_Guest is selected
             {
+                MainGuideGuestWindow mainGuideGuestWindow = new MainGuideGuestWindow();
+                mainGuideGuestWindow.Show();
                 //Pozovi funkciju koju hoces za GOSTA 2
-                TourWindow tourWindow = new TourWindow(user);
-                tourWindow.Show();
+                //TourWindow tourWindow = new TourWindow(user);
+                //tourWindow.Show();
 
             }
             else if(ComboBoxType.SelectedIndex == 2)//Owner is selected

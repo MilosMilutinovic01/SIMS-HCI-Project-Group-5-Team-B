@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\GuideGuestHome.png" />
+    <None Remove="Resources\Images\GuideGuestLeftArrow.png" />
+    <None Remove="Resources\Images\GuideGuestNotificationBell.png" />
+    <None Remove="Resources\Images\GuideGuestUser.png" />
     <None Remove="Resources\Images\hamburgerIcon.png" />
     <None Remove="Resources\Images\profile.png" />
     <None Remove="Resources\Images\StarImage.png" />
@@ -22,6 +26,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\GuideGuestHome.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\GuideGuestLeftArrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\GuideGuestNotificationBell.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\GuideGuestUser.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\hamburgerIcon.png" />
     <Resource Include="Resources\Images\profile.png" />
     <Resource Include="Resources\Images\StarImage.png" />
