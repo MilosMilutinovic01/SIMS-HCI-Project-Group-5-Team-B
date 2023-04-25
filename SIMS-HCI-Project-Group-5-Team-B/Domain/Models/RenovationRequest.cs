@@ -43,22 +43,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             } 
         }
 
-        private int accommodationId;
-        public int AccommodationId { get {  return accommodationId; } set {  accommodationId = value; } }
-        public Accommodation Accommodation;
+        private int reservationId;
+        public int ReservationId { get {  return reservationId; } set {  reservationId = value; } }
+        public Reservation Reservation;
 
         
 
-        public RenovationRequest(string comment, ReservationLevel level, Accommodation accommodation) 
+        public RenovationRequest(string comment, ReservationLevel level, Reservation reservation) 
         {
             this.Comment = comment;
             this.Level = level;
-            Accommodation = accommodation;
+            Reservation = reservation;
         
         }
-        public RenovationRequest(int accommodationId)
+        public RenovationRequest(int reservationId)
         {
-            AccommodationId = accommodationId;
+            ReservationId = reservationId;
         }
 
         public RenovationRequest() { }
@@ -79,7 +79,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 Id.ToString(),
                comment,
                Level.ToString(),
-               accommodationId.ToString()
+               reservationId.ToString()
             };
             return csvValues;
         }
@@ -88,7 +88,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         {
             Id = int.Parse(values[0]);
             comment = values[1];
-            accommodationId = int.Parse(values[3]);
+            reservationId = int.Parse(values[3]);
             if (values[2].Equals("Level1"))
             {
                 Level = ReservationLevel.Level1;

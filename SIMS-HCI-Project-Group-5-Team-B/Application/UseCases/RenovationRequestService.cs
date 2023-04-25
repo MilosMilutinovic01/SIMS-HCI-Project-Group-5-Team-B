@@ -12,18 +12,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     public class RenovationRequestService
     {
         private IRenovationRequestRepository renovationRequestRepository;
-        private IAccommodationRepository accommodationRepository;
+        private IReservationRepository reservationRepository;
         public RenovationRequestService()
         {
             renovationRequestRepository = Injector.Injector.CreateInstance<IRenovationRequestRepository>();
-            accommodationRepository = Injector.Injector.CreateInstance<IAccommodationRepository>();
-            GetAccommodationReference();
+            reservationRepository = Injector.Injector.CreateInstance<IReservationRepository>();
+            GetReservationReferences();
         }
 
         public void Delete(RenovationRequest renovationRequest)
         {
             renovationRequestRepository.Delete(renovationRequest);
-            GetAccommodationReference();
+            GetReservationReferences();
         }
 
         public List<RenovationRequest> GetAll()
@@ -39,24 +39,23 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         public void Save(RenovationRequest renovationRequest)
         {
             renovationRequestRepository.Save(renovationRequest);
-            GetAccommodationReference();
+            GetReservationReferences();
         }
 
         public void Update(RenovationRequest renovationRequest)
         {
             renovationRequestRepository.Update(renovationRequest);
-            GetAccommodationReference();
+            GetReservationReferences();
         }
 
-        //TODO After Merge
-        private void GetAccommodationReference()
+        private void GetReservationReferences()
         {
             foreach(RenovationRequest renovationRequest in GetAll())
             {
-                Accommodation accommodation = accommodationRepository.GetById(renovationRequest.AccommodationId);
-                if(accommodation != null)
+                Reservation reservation = reservationRepository.GetById(renovationRequest.ReservationId);
+                if(reservation != null)
                 {
-                    renovationRequest.Accommodation = accommodation;
+                    renovationRequest.Reservation = reservation;
                 }
             }
         }
