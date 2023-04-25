@@ -91,5 +91,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 MessageBox.Show("You have new notifactions!");
             }
         }
+
+        private void Grades_Button_Click(object sender, RoutedEventArgs e)
+        {
+            GradesWindow gradesWindow = new GradesWindow(activeOwnerGuest.Id);
+            gradesWindow.Show();
+        }
     }
 }
