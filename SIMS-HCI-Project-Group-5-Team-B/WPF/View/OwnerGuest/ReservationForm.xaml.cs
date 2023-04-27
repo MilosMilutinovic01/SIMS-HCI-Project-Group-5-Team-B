@@ -13,6 +13,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class ReservationForm : Window
     {
         private ReservationService reservationService;
+        private SuperOwnerGuestTitleService superOwnerGuestTitleService;
         public Reservation NewReservation { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -25,6 +26,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             InitializeComponent();
             this.DataContext = this;
             this.reservationService = reservationService;
+            superOwnerGuestTitleService = new SuperOwnerGuestTitleService();
             this.SelectedAccomodation = SelectedAccomodation;
             NewReservation = new Reservation();
             this.ownerGuestId = ownerGuestId;
@@ -106,6 +108,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             if(NewReservation.IsValid) 
             {
                 reservationService.Save(NewReservation);
+                //check for superOwner and update points
+                //if guest becomes with this reservation superGuest, discount can be applied only after this reservation
+                superOwnerGuestTitleService.UpdatePoints(ownerGuestId);
+                superOwnerGuestTitleService.BecomeSuperOwnerGuest();
                 Close();
             }
             else

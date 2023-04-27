@@ -76,7 +76,7 @@
                 </Border>
                 <Border Height="90" Width="111" Margin="20 20 0 0" BorderBrush="Black"  BorderThickness="3" >
                     <StackPanel>
-                        <TextBlock Height="55" Text="0" FontSize="30" TextAlignment="Center"></TextBlock>
+                        <TextBlock Height="55" Text="{Binding Path=MyPoints, Mode=OneWay}" FontSize="30" TextAlignment="Center"></TextBlock>
                         <TextBlock HorizontalAlignment="Center" FontSize="15"  VerticalAlignment="Center" >My Points</TextBlock>
                     </StackPanel>
                 </Border>
