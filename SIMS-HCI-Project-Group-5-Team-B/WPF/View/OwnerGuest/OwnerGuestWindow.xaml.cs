@@ -38,6 +38,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private OwnerGuestService ownerGuestService;
         private OwnerGuest activeOwnerGuest;
         private ReservationChangeRequestService reservationChangeRequestService;
+        private SuperOwnerGuestTitleService superOwnerGuestTitleService;
         private string username;
         
 
@@ -53,10 +54,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, accommodationService);
             ownerGuestService = new OwnerGuestService();
             reservationChangeRequestService = new ReservationChangeRequestService();
+            superOwnerGuestTitleService = new SuperOwnerGuestTitleService();
             activeOwnerGuest =  ownerGuestService.GetByUsername(username);
 
-            
 
+            //check for updates for superOwnerGuestTitle
+            superOwnerGuestTitleService.BecomeSuperOwnerGuest();
             this.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Del(ShowNotification));
         }
 

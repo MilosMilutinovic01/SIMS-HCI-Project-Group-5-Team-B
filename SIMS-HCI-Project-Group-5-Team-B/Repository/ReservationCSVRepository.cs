@@ -63,5 +63,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
         {
             return reservationRepository.GetAll();
         }
+
+        public List<Reservation> GetOwnerGuestsReservations(int ownerGuestId)
+        {
+            return GetUndeleted().FindAll(res => res.OwnerGuestId == ownerGuestId);
+        }
+
+        public List<Reservation> GetOwnerGuestsReservationInLastYear(int ownerGuestId)
+        {
+            // reservation is In Last year if the start and the end are in last year, check this
+            return GetOwnerGuestsReservations(ownerGuestId).FindAll(res => res.StartDate > DateTime.Today.AddYears(-1) && res.EndDate > DateTime.Today.AddYears(-1));
+        }
     }
 }

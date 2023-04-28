@@ -17,5 +17,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces
         public void Update(Reservation reservation);
         public List<Reservation> FindBy(string[] propertyNames, string[] values);
         public void SaveAll(List<Reservation> reservations);
+        public List<Reservation> GetOwnerGuestsReservations(int ownerGuestId);
+        public List<Reservation> GetOwnerGuestsReservationInLastYear(int ownerGuestId);
     }
 }
