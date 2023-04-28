@@ -89,5 +89,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
             }
 
         }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

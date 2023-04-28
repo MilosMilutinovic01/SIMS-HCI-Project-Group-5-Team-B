@@ -43,6 +43,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private readonly RenovationViewModel renovationViewModel;
         public RenovationGridView SelectedRenovationGridView { get; set; }
 
+        private readonly YearlyAccommodationStatisticsViewModel yearlyAccommodationStatisticsViewModel;
+        private RenovationRequestService renovationRequestService;
+        public ObservableCollection<YearlyAccommodationStatistics> YearlySelectedAccommodationStatistics { get; set; }
+        private int SelectedAccommmodationId;
+        public YearlyAccommodationStatistics SelectedYearlyAccommodationStatistics { get; set; }
+        private YearlyAccommodationStatisticsService yearlyAccommodationStatisticsService;
+        private MonthlyAccommodationStatisticsService monthlyAccommodationStatisticsService;
+
         //private DateTime lastDisplayed;
         public OwnerWindow(string username)
         {
@@ -101,6 +109,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             renovationViewModel = new RenovationViewModel(renovationService, reservationService, LogedInOwner.Id, SelectedRenovationGridView);
             PastRenovations = new ObservableCollection<Renovation>(renovationViewModel.PastRenovations);
             FutureRenovations = new ObservableCollection<RenovationGridView>(renovationViewModel.FutureRenovations);
+            ShowAccommodations(LogedInOwner);
+            renovationRequestService = new RenovationRequestService();
+            yearlyAccommodationStatisticsService = new YearlyAccommodationStatisticsService();
+            monthlyAccommodationStatisticsService = new MonthlyAccommodationStatisticsService();
+            yearlyAccommodationStatisticsViewModel = new YearlyAccommodationStatisticsViewModel(yearlyAccommodationStatisticsService);
 
         }
 
@@ -185,7 +198,49 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void Monthly_Statistics_Button_Click(object sender, RoutedEventArgs e)
         {
+            MonthlyAccommodationStatisticsWindow monthlyAccommodationStatisticsWindow = new MonthlyAccommodationStatisticsWindow(SelectedYearlyAccommodationStatistics, monthlyAccommodationStatisticsService,SelectedAccommmodationId);
+            monthlyAccommodationStatisticsWindow.Show();
+        }
+
+        private void Show_Statistics_Button_Click(object sender, RoutedEventArgs e)
+        {
+            YearlySelectedAccommodationStatistics = new ObservableCollection<YearlyAccommodationStatistics>(yearlyAccommodationStatisticsViewModel.GetYearlyAccommodationStatistics(SelectedAccommmodationId));
+            yearlyAccommodationStatisticsViewModel.MarkBusiest(YearlySelectedAccommodationStatistics);
+            dgStatistics.ItemsSource = YearlySelectedAccommodationStatistics;
+        }
+
+        public void ShowAccommodations(Owner owner)
+        {
+            foreach (Accommodation accommodation in accommodationService.GetAll())
+            {
+                if (accommodation.Owner.Id == owner.Id)
+                {
+                    ComboBoxItem cbItem = new ComboBoxItem();
+                    cbItem.Content = accommodation.Name;
+                    cbItem.Tag = accommodation.Id;
+                    if ((int)cbItem.Tag == accommodation.Id)
+                    {
+                        cbItem.IsSelected = true; // za prikaz podatka
+                    }
+                    Accommodation_ComboBox.Items.Add(cbItem);
+                }
+            }
+        }
+
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            foreach (ComboBoxItem comboBoxItem in Accommodation_ComboBox.Items)
+            {
+                if (comboBoxItem.IsSelected)
+                {
+                    //ovde treba da prosledi dalje izabrani smestaj za statistiku, treba proslediti fji koja ce izlistati statistiku za izabrani smetsaj ,prolsediti smetaj metodi
+                    // Get the selected item from the combo box
+                   SelectedAccommmodationId =(int)comboBoxItem.Tag;
+                }
+            }
 
         }
+
     }
 }
