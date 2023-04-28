@@ -117,9 +117,10 @@
                         <Grid Grid.Column="0" Grid.Row="1">
                             <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,68,0,0">Yearly statistcs</Label>
                             <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,23,0,0">Accommodation:</Label>
-                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="80" Margin="154,24,0,0"></ComboBox>
-                            <Button HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Margin="0,24,0,0">Show statistics</Button>
-                            <DataGrid  Width="600" Height="150" 
+                            <ComboBox Name="Accommodation_ComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="80" Margin="154,24,0,0" SelectionChanged="ComboBox_SelectionChanged"></ComboBox>
+                            <Button HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Margin="0,24,0,0" Click="Show_Statistics_Button_Click">Show statistics</Button>
+                            <DataGrid x:Name="dgStatistics" Width="600" Height="150" ItemsSource="{Binding Path=YearlySelectedAccommodationStatistics, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                  SelectedItem="{Binding Path=SelectedYearlyAccommodationStatistics, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                                  AutoGenerateColumns="False" IsReadOnly="True" Margin="22,94,22,24" >
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn>
@@ -128,18 +129,19 @@
                                                 <Image x:Name="StarImage" Height="20" Width="20" Visibility="Collapsed" Source="/Resources/Images/StarImage.png">
                                                 </Image>
                                                 <DataTemplate.Triggers>
-                                                    <DataTrigger Binding="{Binding Owner.IsSuperOwner}" Value="True">
+                                                    <DataTrigger Binding="{Binding IsBusiest}" Value="True">
                                                         <Setter TargetName="StarImage" Property="Visibility" Value="Visible"/>
                                                     </DataTrigger>
                                                 </DataTemplate.Triggers>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="Year" Width="*"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Number of reservations"  Width="3*"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Cancelled"  Width="*"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Reschedlued" Width="*" ></DataGridTextColumn>
-                                    <DataGridTextColumn Header="For renovation"  Width="1.5*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Busyness" Width="*"  Binding="{Binding Busyness}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Year" Width="*"  Binding="{Binding Year}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Number of reservations"  Width="3*" Binding="{Binding NumberReservations}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Cancelled"  Width="*" Binding="{Binding NumberOfCancelledReservations}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Reschedlued" Width="*" Binding="{Binding NumberOfChangedReservationDates}" ></DataGridTextColumn>
+                                    <DataGridTextColumn Header="For renovation"  Width="1.5*" Binding="{Binding NumberRenovationRequests}"></DataGridTextColumn>
                                     <DataGridTemplateColumn x:Name="ButtonMonthlyStatistics" Header="Monthly details" Width="1.5*">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
