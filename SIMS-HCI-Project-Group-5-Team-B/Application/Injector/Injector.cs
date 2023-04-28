@@ -19,6 +19,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.Injector
         { typeof(IRenovationRequestRepository), new RenovationRequestCSVRepository() },
         { typeof(IRenovationRepository), new RenovationCSVRepository() },
         { typeof(IAccommodationRepository), new AccommodationCSVRepository() },
+        { typeof(ISuperOwnerGuestTitleRepository), new SuperOwnerGuestTitleCSVRepository() },
 
         // Add more implementations here
     };
