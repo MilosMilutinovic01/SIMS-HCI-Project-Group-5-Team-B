@@ -54,12 +54,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
         }
 
-
-
         public void CreateRenovation()
         {
             if (NewRenovation.IsValid)
             {
+                NewRenovation.StartDate = SelectedDate.Start;
+                NewRenovation.EndDate = SelectedDate.End;
                 renovationService.Save(NewRenovation);
                 MessageBox.Show("Renovation scheduled!");
                 if(DateTime.Today.AddDays(5) < NewRenovation.StartDate)
@@ -77,18 +77,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
         }
 
-        public void Schedule(ObservableCollection<RenovationGridView> FutureRenovations)
-        {
-            if(SelectedDate != null)
-            {
-                NewRenovation.StartDate = SelectedDate.Start;
-                NewRenovation.EndDate = SelectedDate.End;
-
-                RenovationDescriptionWindow renovationDescriptionWindow = new RenovationDescriptionWindow(NewRenovation,renovationService,reservationService,ownerId,FutureRenovations, SelectedRenovationGridView);
-                renovationDescriptionWindow.Show();
-            }
-        }
-
         public void SeachAvailableDates()
         {
             if (NewRenovation.IsValid)
@@ -102,15 +90,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                         RenovationRecommendations.Add(item);
                     }
                 }
-
-
             }
             else
             {
                 MessageBox.Show("Search can not be preformed because data is not valid!");
             }
         }
-
-
     }
 }

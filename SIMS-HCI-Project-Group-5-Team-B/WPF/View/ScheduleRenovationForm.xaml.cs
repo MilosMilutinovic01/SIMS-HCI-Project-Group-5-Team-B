@@ -39,7 +39,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
 
         private void Schedule_RenovationButton_Click(object sender, RoutedEventArgs e)
         {
-            renovationViewModel.Schedule(FutureRenovations);
+            renovationViewModel.CreateRenovation();
+            if (DateTime.Today.AddDays(5) < renovationViewModel.NewRenovation.StartDate)
+            {
+                FutureRenovations.Add(new RenovationGridView(renovationViewModel.NewRenovation, true));
+            }
+            else
+            {
+                FutureRenovations.Add(new RenovationGridView(renovationViewModel.NewRenovation, false));
+            }
+            Close();
         }
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
