@@ -245,5 +245,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             cities = locationController.GetCityByState(ComboBoxStates.SelectedItem.ToString());
             ComboBoxCities.ItemsSource = cities;
         }
+
+        private void Details_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedAccommodation != null)
+            {
+                AccomodationDetailsWindow accomodationDetailsWindow = new AccomodationDetailsWindow(SelectedAccommodation, reservationService, ownerGuestId);
+                accomodationDetailsWindow.Show();
+            }
+        }
     }
 }
