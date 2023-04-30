@@ -51,5 +51,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             reservationForm.Show();
 
         }
+
+        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

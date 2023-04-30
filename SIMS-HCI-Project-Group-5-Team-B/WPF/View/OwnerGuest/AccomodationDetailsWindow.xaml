@@ -5,18 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         mc:Ignorable="d"
-        Title="AccomodationDetailsWindow" Height="450" Width="800">
+        Title="AccomodationDetailsWindow" Height="450" Width="500">
     <Grid>
         <Grid.ColumnDefinitions>
 
             <ColumnDefinition Width="287*"/>
-            <ColumnDefinition Width="113*"/>
+            <ColumnDefinition Width="120*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" Margin="10,50,0,38" HorizontalAlignment="Left" Width="563" RenderTransformOrigin="0.5,0.5">
+        <StackPanel>
+            <TextBlock Text="Accommodation" FontSize="24" Margin="15 10 0 0"></TextBlock>
+            <TextBlock Text="Details" FontSize="24" Margin="15 0 0 0"></TextBlock>
+        </StackPanel>
+        <Grid Grid.Row="1" Grid.Column="0" Margin="15,10,0,38" HorizontalAlignment="Left" Width="290" RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -30,49 +34,48 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="1.15*"></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="0.80*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Name" ></Label>
-            <Label Grid.Row="1" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Type" ></Label>
-            <Label Grid.Row="2" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="MaxGuests" ></Label>
-            <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="MinReservationDays" ></Label>
-            <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="NoticePeriod" ></Label>
-            <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Center" Content="Location" ></Label>
+            <Label Grid.Row="0" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="Name" Margin="10,7,0,8" Width="44"/>
+            <Label Grid.Row="2" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="Type" Margin="10,7,0,7" Width="37" />
+            <Label Grid.Row="3" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="MaxGuests" Margin="10,8,0,0" Width="73"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Text="Min Reservation
+                       Days" Margin="12,8,0,7" TextWrapping="Wrap" Width="102"/>
+            <Label Grid.Row="5" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="NoticePeriod" Margin="10,7,0,8" Width="84"/>
+            <Label Grid.Row="1" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="Location" Margin="10,7,0,8" Width="59"/>
 
 
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedAccommodation.Name}" Height="30">
-            </TextBlock>
-            <TextBlock   Grid.Row="1" Grid.Column="1" Text="{Binding SelectedAccommodation.Type}" Height="30">
-            </TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedAccommodation.MaxGuests}" Height="30">
-            </TextBlock>
-            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelectedAccommodation.MinReservationDays}" Height="30">
-            </TextBlock>
-            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding SelectedAccommodation.NoticePeriod}" Height="30">
-            </TextBlock>
-            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding SelectedAccommodation.Location}" Height="30">
-            </TextBlock>
-            <Button Grid.Column="0" Grid.Row=" 6" Content="Reserve" Width="100" Height="30" Click="Reserve_Button_Click"></Button>
-
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedAccommodation.Name}" FontSize="13" Margin="0 12 20 8" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedAccommodation.Type}" FontSize="13" HorizontalAlignment="Right" Margin="0 10 20 8"  />
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelectedAccommodation.MaxGuests}" FontSize="13" HorizontalAlignment="Right" Margin="0 10 20 8" />
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding SelectedAccommodation.MinReservationDays}" FontSize="13" HorizontalAlignment="Right" Margin="0 10 20 8" />
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding SelectedAccommodation.NoticePeriod}" FontSize="13" HorizontalAlignment="Right" Margin="0 10 20 8"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding SelectedAccommodation.Location}" FontSize="13" HorizontalAlignment="Right" Margin="0 12 20 8" Grid.ColumnSpan="2" TextWrapping="Wrap"/>
             
+            <WrapPanel Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" FlowDirection="RightToLeft">
+                <Button Grid.Column="0" Grid.Row=" 6" Content="Cancel" Click="Cancel_Button_Click" Margin="22,7,10,8"/>
+                <Button Grid.Column="0" Grid.Row=" 6" Content="Reserve" Click="Reserve_Button_Click" Margin="22,7,10,8"/>
+            </WrapPanel>
+
+
 
 
 
 
         </Grid>
-        <ListBox Grid.Column="1" Name="imageListBox" d:ItemsSource="{d:SampleData ItemCount=5}" >
+        <ListBox Grid.Column="1" Grid.RowSpan="2" Name="imageListBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0 10" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
-                        <Image Source="{Binding }" Width="200" Height="100"></Image>
+                        <Image Source="{Binding }" Width="110" Height="90"></Image>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
