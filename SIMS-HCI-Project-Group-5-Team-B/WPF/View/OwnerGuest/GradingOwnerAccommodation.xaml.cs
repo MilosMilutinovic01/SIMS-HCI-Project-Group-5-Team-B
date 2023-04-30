@@ -28,7 +28,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             InitializeComponent();
             this.DataContext = this;
-            OwnerAccommodationGrade = new OwnerAccommodationGrade();
+            OwnerAccommodationGrade = new OwnerAccommodationGrade(1,1,1,1,1);
             this.reservationView = reservationView;
             this.SelectedReservation = reservationView.Reservation;
             this.ownerAccommodationGradeService = ownerAccommodationGradeService;
