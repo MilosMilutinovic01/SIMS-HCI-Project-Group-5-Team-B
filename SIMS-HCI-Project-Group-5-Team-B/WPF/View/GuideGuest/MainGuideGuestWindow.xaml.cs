@@ -44,6 +44,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest
             {
                 NotificationPopup.PlacementTarget = NotificationsButton;
                 NotificationPopup.IsOpen = true;
+                NotificationPopup.StaysOpen = false;
             }
             else
             {
