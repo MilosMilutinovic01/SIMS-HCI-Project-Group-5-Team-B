@@ -24,8 +24,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         OwnerAccommodationGradeSevice ownerAccommodationGradeService;
         OwnerGuestGradeService ownerGuestGradeService;
         SuperOwnerService superOwnerService;
-        
-        public Owner LogedInOwner;
+        //ovo je pre bilo bez get; set;
+        public Owner LogedInOwner { get; set; }
         public ObservableCollection<Accommodation> AccomodationsOfLogedInOwner { get; set; }
         public ObservableCollection<Reservation> ReservationsForGrading { get; set; }
         public ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing { get; set; }
@@ -50,6 +50,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public YearlyAccommodationStatistics SelectedYearlyAccommodationStatistics { get; set; }
         private YearlyAccommodationStatisticsService yearlyAccommodationStatisticsService;
         private MonthlyAccommodationStatisticsService monthlyAccommodationStatisticsService;
+        public int GradeCount { get; set; } = 0;
 
         //private DateTime lastDisplayed;
         public OwnerWindow(string username)
@@ -114,6 +115,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             yearlyAccommodationStatisticsService = new YearlyAccommodationStatisticsService();
             monthlyAccommodationStatisticsService = new MonthlyAccommodationStatisticsService();
             yearlyAccommodationStatisticsViewModel = new YearlyAccommodationStatisticsViewModel(yearlyAccommodationStatisticsService);
+            GradeCount = superOwnerService.GetNumberOfGrades(LogedInOwner);
 
         }
 
@@ -165,11 +167,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             }
         }
 
+        //dodatna funckionalnost vezana za HCI
         private void Report_Button_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
+        private void Suggestions_Button_Click(object sender, RoutedEventArgs e)
+        {
+            AccommodationLocationSuggestionsWindow accommodationLocationSuggestionsWindow = new AccommodationLocationSuggestionsWindow();
+            accommodationLocationSuggestionsWindow.Show();
+        }
 
         private void Accept_Button_Click(object sender, RoutedEventArgs e)
         {
