@@ -21,6 +21,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public ObservableCollection<ReservationRecommendation> ReservationRecommendations { get; set; }
         public ReservationRecommendation SelectedDate { get; set; }
         private int ownerGuestId;
+        public string Header { get; private set; } 
+        public string Location { get; private set; }
         public ReservationForm(ReservationService reservationService, Accommodation SelectedAccomodation,int ownerGuestId)
         {
             InitializeComponent();
@@ -37,7 +39,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             guestNumberTextBox.Text = "1";
             ReservationRecommendations = new ObservableCollection<ReservationRecommendation>();
             SelectedDate = new ReservationRecommendation(DateTime.MinValue,DateTime.MinValue);
-            SetGuestNumberParameters();
+            SetHeaders();
+
 
         }
 
@@ -103,6 +106,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void Reserve_Button_Click(object sender, RoutedEventArgs e)
         {
+            if(SelectedDate == null)
+            {
+                return;
+            }
+
             NewReservation.StartDate = SelectedDate.Start;
             NewReservation.EndDate = SelectedDate.End;
             if(NewReservation.IsValid) 
@@ -143,29 +151,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             }
         }
 
-        private void DataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void SetHeaders()
         {
-            SetGuestNumberParameters();
-
-        }
-
-        private void SetGuestNumberParameters()
-        {
-            if (SelectedDate == null)
-                return;
-            if (SelectedDate.Start == DateTime.MinValue && SelectedDate.End == DateTime.MinValue)
-            {
-                //Date has not been selected
-                reservationButton.IsEnabled = false;
-                guestNumberDecreaseButton.IsEnabled = false;
-                guestNumberIncreaseButton.IsEnabled = false;
-            }
-            else
-            {
-                guestNumberDecreaseButton.IsEnabled = true;
-                guestNumberIncreaseButton.IsEnabled = true;
-                reservationButton.IsEnabled = true;
-            }
+            Header = SelectedAccomodation.Name + " Reservation";
+            Location = SelectedAccomodation.Location.ToString() ;
         }
     }
 }

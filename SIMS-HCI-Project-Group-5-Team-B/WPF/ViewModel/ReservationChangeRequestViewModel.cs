@@ -36,8 +36,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         private void SetHeader()
         {
-            Header = NewReservationRequest.Reservation.Accommodation.Name + "`s Change Request\n";
-            LocationHeader = NewReservationRequest.Reservation.Accommodation.Location.ToString();
+            Header = "   " + NewReservationRequest.Reservation.Accommodation.Name + "`s Change Request\n";
+            LocationHeader = "       " + NewReservationRequest.Reservation.Accommodation.Location.ToString();
         }
 
         public void CreateReservationChangeRequest()
