@@ -23,23 +23,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     /// </summary>
     public partial class ReservationChangeRequestForm : Window
     {
-        private readonly ReservationChangeRequestViewModel _viewModel;
+        
         public ReservationChangeRequestForm(ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests,SingleReservationViewModel selectedReservationView, ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService)
         {
             InitializeComponent();
-            _viewModel = new ReservationChangeRequestViewModel(ReservaitionChangeRequests, selectedReservationView, reservationChangeRequestService, reservationService);
-            this.DataContext = _viewModel;
+            this.DataContext = new ReservationChangeRequestViewModel(ReservaitionChangeRequests, selectedReservationView, reservationChangeRequestService, reservationService, this); ;
         }
 
-        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void Save_Button_Click(object sender, RoutedEventArgs e)
-        {
-            _viewModel.CreateReservationChangeRequest();
-            Close();
-        }
     }
 }

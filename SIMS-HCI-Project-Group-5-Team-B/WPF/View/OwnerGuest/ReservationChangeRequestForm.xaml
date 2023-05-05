@@ -16,6 +16,12 @@
 
         </ControlTemplate>
     </Window.Resources>
+
+    <!--This is for shortcuts-->
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding SendCommand}"/>
+        <KeyBinding Gesture="esc" Command="{Binding CloseCommand}"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -52,9 +58,18 @@
             <DatePicker Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"
                          SelectedDate="{Binding Path=NewReservationRequest.End,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15"></DatePicker>
         </Grid>
-        <WrapPanel Grid.Row="2" FlowDirection="RightToLeft">
-            <Button Margin="50 10 15 10" Click="Cancel_Button_Click" Height="37" Width="66">Close</Button>
-            <Button Margin="20 10" Click="Save_Button_Click" Height="37" Width="66">Send</Button>
+        <WrapPanel Grid.Row="2" FlowDirection="LeftToRight">
+
+            <Button Margin="200 10 15 10" Command="{Binding SendCommand}" Height="37" Width="66">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Text="Save          Ctrl + S" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
+            <Button Margin="20 10" Command="{Binding CloseCommand}" Height="37" Width="66">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Text="Close          esc" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
         </WrapPanel>
     </Grid>
 </Window>
