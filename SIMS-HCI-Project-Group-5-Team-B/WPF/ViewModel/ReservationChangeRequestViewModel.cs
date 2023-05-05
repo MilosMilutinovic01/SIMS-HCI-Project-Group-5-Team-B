@@ -18,12 +18,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public string LocationHeader { get; set; } = "";
         private ReservationChangeRequestService reservationChangeRequestService;
         private ReservationService reservationService;
-        private ReservationGridView selectedReservationView;
+        private SingleReservationViewModel selectedReservationView;
         private ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public ReservationChangeRequestViewModel(ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests,ReservationGridView selectedReservationView, ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService)
+        public ReservationChangeRequestViewModel(ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests,SingleReservationViewModel selectedReservationView, ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService)
         {
             this.reservationChangeRequestService = reservationChangeRequestService;
             this.reservationService = reservationService;

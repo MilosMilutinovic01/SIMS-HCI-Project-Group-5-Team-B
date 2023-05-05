@@ -18,10 +18,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest
     /// <summary>
     /// Interaction logic for GradesWindow.xaml
     /// </summary>
-    public partial class GradesWindow : Window
+    public partial class GradesPage : Page
     {
         private OwnerGuestGradesViewModel ownerGuestGradesViewModel;
-        public GradesWindow(int ownerGuestId)
+        public GradesPage(int ownerGuestId)
         {
             InitializeComponent();
             ownerGuestGradesViewModel = new OwnerGuestGradesViewModel(ownerGuestId);
@@ -36,7 +36,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest
 
         private void Close_Button_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            //Close();
         }
     }
 }

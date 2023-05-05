@@ -15,7 +15,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// <summary>
     /// Interaction logic for AccomodationsWindow.xaml
     /// </summary>
-    public partial class AccommodationsWindow : Window, INotifyPropertyChanged, IDataErrorInfo
+    public partial class AccommodationsPage : Page, INotifyPropertyChanged, IDataErrorInfo
     {
         private AccommodationService accommodationService;
         private LocationController locationController;
@@ -53,7 +53,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private int ownerGuestId;
 
-        public AccommodationsWindow(int ownerGuestId)
+        public AccommodationsPage(int ownerGuestId)
         {
             InitializeComponent();
             DataContext = this;
@@ -85,7 +85,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+           // Close();
         }
 
         private void Search_Button_Click(object sender, RoutedEventArgs e)

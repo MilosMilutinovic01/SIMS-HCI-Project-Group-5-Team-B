@@ -5,12 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         mc:Ignorable="d"
-        Title="OwnerGuestWindow" Height="450" Width="800">
+        Title="OwnerGuestWindow" Height="620" Width="920">
     <Grid>
-        <Button Content="Show Accomodation" HorizontalAlignment="Left" Margin="160,126,0,0" VerticalAlignment="Top" Click="ShowAccomodation_Button_Click"/>
-        <Button Content="Reservations" HorizontalAlignment="Left" Margin="177,202,0,0" VerticalAlignment="Top" Click="Reservations_Button_Click"/>
-        <Button Content="Notifications" HorizontalAlignment="Left" Margin="192,72,0,0" VerticalAlignment="Top" Click="Notifications_Button_Click"/>
-        <Button Content="Grades" HorizontalAlignment="Left" Margin="192,262,0,0" VerticalAlignment="Top" Click="Grades_Button_Click"/>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="540"></RowDefinition>
+        </Grid.RowDefinitions>
 
+        <Menu
+            FontSize="13"
+        VerticalAlignment="Top"
+        HorizontalAlignment="Center"
+        Background="LightGray"
+        BorderBrush="black" 
+        BorderThickness="1" Height="45" Width="920">
+
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+
+            <MenuItem Header="Account F1 "></MenuItem>
+            <MenuItem Header="Accommodations F2 " Click="ShowAccomodation_Button_Click"></MenuItem>
+            <MenuItem Header="Anywhere/Anytime F3 "></MenuItem>
+
+            <MenuItem Header="Reservations F4 " Click="Reservations_Button_Click"></MenuItem>
+            <MenuItem Header="Grades F5 " Click="Grades_Button_Click"></MenuItem>
+            <MenuItem Header="Forum F6 " ></MenuItem>
+            <MenuItem Header="Notifications F7 " Click="Notifications_Button_Click"></MenuItem>
+        </Menu>
+        <Frame Name="frame" NavigationUIVisibility="Hidden" Grid.Row="1"></Frame>
     </Grid>
 </Window>

@@ -24,7 +24,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     public partial class ReservationChangeRequestForm : Window
     {
         private readonly ReservationChangeRequestViewModel _viewModel;
-        public ReservationChangeRequestForm(ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests,ReservationGridView selectedReservationView, ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService)
+        public ReservationChangeRequestForm(ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests,SingleReservationViewModel selectedReservationView, ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService)
         {
             InitializeComponent();
             _viewModel = new ReservationChangeRequestViewModel(ReservaitionChangeRequests, selectedReservationView, reservationChangeRequestService, reservationService);
