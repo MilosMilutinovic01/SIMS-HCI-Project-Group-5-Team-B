@@ -68,20 +68,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void ShowAccomodation_Button_Click(object sender, RoutedEventArgs e)
         {
 
-            AccommodationsWindow accomodationsWindow = new AccommodationsWindow(activeOwnerGuest.Id);
-            accomodationsWindow.Show();
+            frame.Content= new AccommodationsPage(activeOwnerGuest.Id);
         }
 
         private void Reservations_Button_Click(object sender, RoutedEventArgs e)
         {
-            ReservationsWindow reservationsWindow = new ReservationsWindow(reservationService,ownerAccommodationGradeService,superOwnerService,ownerService, activeOwnerGuest.Id, reservationChangeRequestService);
-            reservationsWindow.Show();
+            
+            frame.Content = new ReservationsPage(reservationService, ownerAccommodationGradeService, superOwnerService, ownerService, activeOwnerGuest.Id, reservationChangeRequestService).Content;
         }
 
         private void Notifications_Button_Click(object sender, RoutedEventArgs e)
         {
-            NotificationsWindow notificationsWindow = new NotificationsWindow(activeOwnerGuest.Id);
-            notificationsWindow.Show();
+            frame.Content = new NotificationsPage(activeOwnerGuest.Id);
+            //notificationsWindow.Show();
         }
 
         private void ShowNotification()
@@ -97,8 +96,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void Grades_Button_Click(object sender, RoutedEventArgs e)
         {
-            GradesWindow gradesWindow = new GradesWindow(activeOwnerGuest.Id);
-            gradesWindow.Show();
+            frame.Content = new GradesPage(activeOwnerGuest.Id);
+           // gradesWindow.Show();
         }
     }
 }

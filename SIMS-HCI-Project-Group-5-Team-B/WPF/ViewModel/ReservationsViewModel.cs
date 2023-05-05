@@ -21,8 +21,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private NotificationController notificationController;
         private UserController userController;
         private ReservationChangeRequestService reservationChangeRequestService;
-        public ObservableCollection<ReservationGridView> ReservationViews { get; set; }
-        public ReservationGridView SelectedReservationView { get; set; }
+        public ObservableCollection<SingleReservationViewModel> ReservationViews { get; set; }
+        public SingleReservationViewModel SelectedReservationView { get; set; }
 
         public ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests { get; set; }
         private int ownerGuestId;
@@ -38,7 +38,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.reservationChangeRequestService = reservationChangeRequestService;
             this.ownerGuestId = ownerGuestId;
 
-            ReservationViews = new ObservableCollection<ReservationGridView>(GetReservationViews(ownerGuestId));
+            ReservationViews = new ObservableCollection<SingleReservationViewModel>(GetReservationViews(ownerGuestId));
             ReservaitionChangeRequests = new ObservableCollection<ReservationChangeRequest>(reservationChangeRequestService.GetOwnerGuestsReservationRequests(ownerGuestId));
         }
 
@@ -95,9 +95,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             return result;
         }
 
-        public List<ReservationGridView> GetReservationViews(int ownerGuestId)
+        public List<SingleReservationViewModel> GetReservationViews(int ownerGuestId)
         {
-            List<ReservationGridView> reservationViews = new List<ReservationGridView>();
+            List<SingleReservationViewModel> reservationViews = new List<SingleReservationViewModel>();
             foreach (Reservation reservation in reservationService.GetUndeleted())
             {
                 if (reservation.OwnerGuestId == ownerGuestId)
@@ -120,7 +120,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                         isCancelable = false;
                     }
 
-                    reservationViews.Add(new ReservationGridView(reservation, isForGrading, isModifiable, isCancelable));
+                    reservationViews.Add(new SingleReservationViewModel(reservation, isForGrading, isModifiable, isCancelable));
                 }
 
 

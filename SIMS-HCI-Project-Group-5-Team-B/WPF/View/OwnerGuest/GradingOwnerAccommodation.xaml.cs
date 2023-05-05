@@ -15,7 +15,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         //property for heading text
         public string Heading { get; set; }
         public Reservation SelectedReservation { get; set; }
-        private ReservationGridView reservationView;
+        private SingleReservationViewModel reservationView;
         public OwnerAccommodationGrade OwnerAccommodationGrade { get; set; }
         private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
         private ReservationService reservationService;
@@ -24,7 +24,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         
         private SuperOwnerService superOwnerService;
         private OwnerService ownerService;
-        public GradingOwnerAccommodation(OwnerAccommodationGradeSevice ownerAccommodationGradeService, ReservationService reservationService, ReservationGridView reservationView, SuperOwnerService superOwnerService, OwnerService ownerService)
+        public GradingOwnerAccommodation(OwnerAccommodationGradeSevice ownerAccommodationGradeService, ReservationService reservationService, SingleReservationViewModel reservationView, SuperOwnerService superOwnerService, OwnerService ownerService)
         {
             InitializeComponent();
             this.DataContext = this;

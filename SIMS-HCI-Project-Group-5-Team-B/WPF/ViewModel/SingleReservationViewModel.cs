@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 {
-    public class ReservationGridView : INotifyPropertyChanged
+    public class SingleReservationViewModel : INotifyPropertyChanged
     {
         public Reservation Reservation { get; set; }
         public bool isForGrading;
@@ -68,7 +68,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
 
         }
-        public ReservationGridView(Reservation reservation, bool isForGrading, bool isModifiable, bool isCancelable)
+        public SingleReservationViewModel(Reservation reservation, bool isForGrading, bool isModifiable, bool isCancelable)
         {
             Reservation = reservation;
             IsForGrading = isForGrading;

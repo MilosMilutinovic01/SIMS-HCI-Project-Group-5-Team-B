@@ -18,9 +18,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest
     /// <summary>
     /// Interaction logic for NotificationsWindow.xaml
     /// </summary>
-    public partial class NotificationsWindow : Window
+    public partial class NotificationsPage : Page
     {
-        public NotificationsWindow(int ownerGuestId)
+        public NotificationsPage(int ownerGuestId)
         {
             InitializeComponent();
             OwnerGuestNotificationsViewModel _viewModel = new OwnerGuestNotificationsViewModel(ownerGuestId);
