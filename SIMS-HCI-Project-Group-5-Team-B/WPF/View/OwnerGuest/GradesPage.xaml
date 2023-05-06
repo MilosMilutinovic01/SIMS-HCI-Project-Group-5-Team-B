@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="GradesWindow" Height="540" Width="900"
       Background="White">
+    <Page.InputBindings>
+        <KeyBinding Gesture="Ctrl+D" Command="{Binding DetailsCommand}"></KeyBinding>
+    </Page.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -51,8 +54,12 @@
                 <DataGridTemplateColumn x:Name="ButtonColumn">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <WrapPanel FlowDirection="RightToLeft">
-                                <Button Margin="5" x:Name="Details" Click="Details_Click">Details</Button>
+                            <WrapPanel FlowDirection="LeftToRight">
+                                <Button Margin="5" Width="66" x:Name="Details" Command="{Binding DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    <Button.Content>
+                                        <TextBlock  TextWrapping="Wrap" Text="Details    Ctrl + D" TextAlignment="Center"></TextBlock>
+                                    </Button.Content>
+                                </Button>
                             </WrapPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -65,9 +72,7 @@
                 <ColumnDefinition Width="3*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <WrapPanel Grid.Column="1" FlowDirection="RightToLeft" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Content="Cancel" Width="45" Height="25" Margin="20 20" Click="Close_Button_Click"/>
-            </WrapPanel>
+            
             <WrapPanel Grid.Column="0">
                 <Border Height="90" Width="111" Margin="20 20 0 0" BorderBrush="Black"  BorderThickness="3">
                     <StackPanel>

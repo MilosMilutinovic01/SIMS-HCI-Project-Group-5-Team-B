@@ -20,23 +20,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest
     /// </summary>
     public partial class GradesPage : Page
     {
-        private OwnerGuestGradesViewModel ownerGuestGradesViewModel;
         public GradesPage(int ownerGuestId)
         {
             InitializeComponent();
-            ownerGuestGradesViewModel = new OwnerGuestGradesViewModel(ownerGuestId);
-            this.DataContext = ownerGuestGradesViewModel;
+            this.DataContext = new OwnerGuestGradesViewModel(ownerGuestId);
         }
 
-        private void Details_Click(object sender, RoutedEventArgs e)
-        {
-            GradeDetailsWindow gradeDetailsWindow = new GradeDetailsWindow(ownerGuestGradesViewModel.SelectedGrade);
-            gradeDetailsWindow.Show();
-        }
-
-        private void Close_Button_Click(object sender, RoutedEventArgs e)
-        {
-            //Close();
-        }
     }
 }
