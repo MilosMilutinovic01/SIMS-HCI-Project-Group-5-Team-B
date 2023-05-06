@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Utilities;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -21,40 +23,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class AccomodationDetailsWindow : Window
     {
-        public Accommodation SelectedAccommodation { get; set; }
-        private ReservationService reservationService;
-        private int ownerGuestId;
+       
+
         public AccomodationDetailsWindow(Accommodation SelectedAccomodation, ReservationService reservationService, int ownerGuestId)
         {
             InitializeComponent();
-            DataContext = this;
-            this.SelectedAccommodation = SelectedAccomodation;
-            this.reservationService = reservationService;
-            this.ownerGuestId = ownerGuestId;
-            ShowImages();
+            DataContext = new AccommodatioDetailsViewModel(SelectedAccomodation, reservationService, ownerGuestId, this, imageListBox);
+     
 
         }
 
-        private void ShowImages()
-        {
-            imageListBox.Items.Clear();
-            
-            foreach(String imageSource in SelectedAccommodation.pictureURLs)
-            {
-                imageListBox.Items.Add(imageSource);
-            }
-        }
-
-        private void Reserve_Button_Click(object sender, RoutedEventArgs e)
-        {
-            ReservationForm reservationForm = new ReservationForm(reservationService, SelectedAccommodation, ownerGuestId);
-            reservationForm.Show();
-
-        }
-
-        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+       
     }
 }
