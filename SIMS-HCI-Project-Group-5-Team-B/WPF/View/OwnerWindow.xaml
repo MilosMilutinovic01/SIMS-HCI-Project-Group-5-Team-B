@@ -388,7 +388,7 @@
             <MenuItem x:Name="Renovation" Header="{ns:Loc Renovation}" Click="Renovation_Click"></MenuItem>
             <MenuItem x:Name="Forum" Header="{ns:Loc Forum}" Click="Owner_Forum_Click"></MenuItem>
             <MenuItem x:Name="Profile" Header="{ns:Loc Profile}" Click="Owner_Profile_Click"></MenuItem>
-            <MenuItem x:Name="Notifications" Header="{ns:Loc Notifications}"></MenuItem>
+            <MenuItem x:Name="Notifications" Header="{ns:Loc Notifications}" Click="Owner_Notifications_Click"></MenuItem>
         </Menu>
         <Frame Width="670" Height="350" Name="frame" NavigationUIVisibility="Hidden" Grid.Row="1"></Frame>
         <ComboBox Name="LocalizationComboBox" SelectionChanged="LocalizationComboBox_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="80" Margin="730,0,0,0">

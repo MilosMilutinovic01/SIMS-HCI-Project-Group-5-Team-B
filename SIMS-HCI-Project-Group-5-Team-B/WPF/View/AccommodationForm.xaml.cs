@@ -44,7 +44,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public List<string> states { get; set; }
         public List<string> cities;
 
-       
+   
 
         public AccommodationForm(ObservableCollection<Accommodation> AccomodationsOfLogedInOwner, Owner owner)
         {
@@ -59,7 +59,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             states = locationController.GetStates();
             this.AccomodationsOfLogedInOwner = AccomodationsOfLogedInOwner;
             this.owner = owner;
-
+   
         }
 
         

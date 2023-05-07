@@ -30,6 +30,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
         private OwnerService ownerService;
         public ObservableCollection<Accommodation> AccomodationsOfLogedInOwner { get; set; }
         public Owner LogedInOwner { get; set; }
+       
         public AccommodationPage(int ownerId)
         {
             InitializeComponent();
@@ -39,6 +40,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
             this.accommodationService = new AccommodationService(locationController, ownerService);
             AccomodationsOfLogedInOwner = new ObservableCollection<Accommodation>(accommodationService.GetAccommodationsOfLogedInOwner(ownerId));
             this.LogedInOwner = ownerService.getById(ownerId);
+            
         }
 
         private void Create_Accommodation_Click(object sender, RoutedEventArgs e)

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
+      xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
       mc:Ignorable="d" 
       d:DesignHeight="350" d:DesignWidth="670"
       Title="RequestsForChangingReservationPage">
@@ -18,26 +19,26 @@
         </Grid.RowDefinitions>
         <Grid Grid.Column="0" Grid.Row="0">
 
-            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="21,0,0,0">Click on the buttons to accept or decline request</Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="21,0,0,0" Content="{ns:Loc AcceptAndDeclineLabel}"></Label>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="1">
-            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,10,0,0">Requests for changing reservation</Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,10,0,0" Content="{ns:Loc RequestsForChangingReservation}"></Label>
             <DataGrid  Width="620" Height="200" ItemsSource="{Binding Path=OwnersPendingRequests, UpdateSourceTrigger=PropertyChanged}"
                                  SelectedItem="{Binding Path=SelectedReservationChangeRequest, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                                  AutoGenerateColumns="False" IsReadOnly="True" Margin="22,22,22,24" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Reservation.OwnerGuest.Name}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Surname" Binding="{Binding Reservation.OwnerGuest.Surname}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Accommodation" Binding="{Binding Reservation.Accommodation.Name}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Wanted start date" Binding="{Binding Start}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Wanted end date" Binding="{Binding End}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Availability" Binding="{Binding IsAvailable}" Width="*" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="{ns:Loc Name}" Binding="{Binding Reservation.OwnerGuest.Name}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{ns:Loc Surname}" Binding="{Binding Reservation.OwnerGuest.Surname}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{ns:Loc Accommodation}" Binding="{Binding Reservation.Accommodation.Name}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{ns:Loc WantedStartDate}" Binding="{Binding Start}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{ns:Loc WantedEndDate}" Binding="{Binding End}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{ns:Loc Availability}" Binding="{Binding IsAvailable}" Width="*" ></DataGridTextColumn>
                     <DataGridTemplateColumn x:Name="ButtonAcceptAndDeclineRequest">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <WrapPanel>
-                                    <Button x:Name="acceptButton" Click="Accept_Button_Click">Accept</Button>
-                                    <Button x:Name="declineButton" Click="Decline_Button_Click" >Decline</Button>
+                                        <Button x:Name="acceptButton" Click="Accept_Button_Click" Content="{ns:Loc Accept}"></Button>
+                                        <Button x:Name="declineButton" Click="Decline_Button_Click" Content="{ns:Loc Decline}"></Button>
                                 </WrapPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

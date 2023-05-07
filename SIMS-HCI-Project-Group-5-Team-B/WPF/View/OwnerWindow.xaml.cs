@@ -311,6 +311,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             frame.Content = new OwnerProfilePage();
         }
 
+        private void Owner_Notifications_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new OwnerNotificationsPage(LogedInOwner);
+        }
+
         private void LocalizationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox cBox = (ComboBox)sender;

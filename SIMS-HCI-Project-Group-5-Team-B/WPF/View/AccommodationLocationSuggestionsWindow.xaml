@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
+        xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
         mc:Ignorable="d"
-        Title="AccommodationLocationSuggestionsWindow" Height="600" Width="600">
+        Title="{ns:Loc AccommodationLocationSuggestionsWindow}" Height="600" Width="600">
     <Grid Margin="50 50 50 50">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -16,37 +17,37 @@
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0">Click on the 'Add' button to add accommodation on popular location</Label>
-        <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0">Click on the 'Delete' button to close accommodation on unpopular location</Label>
-        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0">Proposal of locations for opening new accommodations</Label>
+        <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Content="{ns:Loc AddOnPopularLocationLabel}"></Label>
+        <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0" Content="{ns:Loc DeleteOnUnpopularLocationLabel}"></Label>
+        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Content="{ns:Loc ProposalOfPopularLocations}"></Label>
         <DataGrid Grid.Row="1" Height="120" HorizontalAlignment="Center" VerticalAlignment="Top" Width="480" 
                       AutoGenerateColumns="False" IsReadOnly="True" Margin="0,26,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="City" ></DataGridTextColumn>
-                <DataGridTextColumn Width="*" Header="State"></DataGridTextColumn>
-                <DataGridTemplateColumn x:Name="ButtonAdd" Header="New Accommodation" Width="*">
+                <DataGridTextColumn Width="*" Header="{ns:Loc City}" ></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="{ns:Loc State}"></DataGridTextColumn>
+                <DataGridTemplateColumn x:Name="ButtonAdd" Header="{ns:Loc NewAccommodation}" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <WrapPanel>
-                                <Button x:Name="addButton" Click="AddAccommodation_Button_Click">Add</Button>
+                                <Button x:Name="addButton" Click="AddAccommodation_Button_Click" Content="{ns:Loc Add}"></Button>
                             </WrapPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0">Proposal of locations for closing existing accommodations</Label>
+        <Label Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Content="{ns:Loc ProposalOfUnpopularLocations}"></Label>
         <DataGrid Grid.Row="2" Height="120" HorizontalAlignment="Center" VerticalAlignment="Top" Width="480" Margin="0,26,0,0"  
                       AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="City" ></DataGridTextColumn>
-                <DataGridTextColumn Width="*" Header="State" ></DataGridTextColumn>
-                <DataGridTextColumn Width="*" Header="Name"></DataGridTextColumn>
-                <DataGridTemplateColumn x:Name="ButtonDelete" Header="Close Accommodation" Width="1.5*">
+                <DataGridTextColumn Width="*" Header="{ns:Loc City}" ></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="{ns:Loc State}" ></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="{ns:Loc Name}"></DataGridTextColumn>
+                <DataGridTemplateColumn x:Name="ButtonDelete" Header="{ns:Loc CloseAccommodation}" Width="1.5*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <WrapPanel>
-                                <Button x:Name="deleteButton" Click="DeleteAccommodation_Button_Click">Add</Button>
+                                <Button x:Name="deleteButton" Click="DeleteAccommodation_Button_Click" Content="{ns:Loc Delete}"></Button>
                             </WrapPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -54,6 +55,6 @@
                 
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Height="25" Width="60" Margin="430,26,0,0" Content="Cancel" Click="Cancel_Button_Click"></Button>
+        <Button Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Height="25" Width="60" Margin="430,26,0,0" Content="{ns:Loc Cancel}" Click="Cancel_Button_Click"></Button>
     </Grid>
 </Window>
