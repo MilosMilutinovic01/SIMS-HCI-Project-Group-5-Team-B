@@ -9,6 +9,7 @@ using System.Windows;
 using SIMS_HCI_Project_Group_5_Team_B.Notifications;
 using System.Text;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
+using SIMS_HCI_Project_Group_5_Team_B.Utilities;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 {
@@ -27,6 +28,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests { get; set; }
         private int ownerGuestId;
 
+
+        public RelayCommand GradeCommand { get; }
+        public RelayCommand ModifyCommand { get; }
+        public RelayCommand CancelReservationCommand { get; }
         public ReservationsViewModel(ReservationService reservationService, OwnerAccommodationGradeSevice ownerAccommodationGradeService, SuperOwnerService superOwnerService, OwnerService ownerService, int ownerGuestId, ReservationChangeRequestService reservationChangeRequestService)
         {
             this.reservationService = reservationService;
@@ -40,11 +45,35 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
             ReservationViews = new ObservableCollection<SingleReservationViewModel>(GetReservationViews(ownerGuestId));
             ReservaitionChangeRequests = new ObservableCollection<ReservationChangeRequest>(reservationChangeRequestService.GetOwnerGuestsReservationRequests(ownerGuestId));
+
+            //commands
+            GradeCommand = new RelayCommand(Grade_Execute, Grade_CanExecute);
+            ModifyCommand = new RelayCommand(Modify_Execute, Modify_CanExecute);
+            CancelReservationCommand = new RelayCommand(Cancel_Execute, Cancel_CanExecute);
+            
         }
 
-        public void Grade()
+        public bool Grade_CanExecute()
         {
-            if (SelectedReservationView != null)
+            //if(SelectedReservationView.isForGrading)
+                return true;
+        }
+
+        public bool Cancel_CanExecute()
+        {
+            //if (SelectedReservationView.IsCancelable)
+                return true;
+            //return false;
+        }
+        public bool Modify_CanExecute()
+        {
+            //if (SelectedReservationView.IsModifiable)
+                return true;
+           // return false;
+        }
+        public void Grade_Execute()
+        {
+            if (SelectedReservationView != null && SelectedReservationView.isForGrading)
             {
                 GradingOwnerAccommodation gradingOwnerAccommodatoinWindow = new GradingOwnerAccommodation(ownerAccommodationGradeService, reservationService, SelectedReservationView, superOwnerService, ownerService);
                 gradingOwnerAccommodatoinWindow.Show();
@@ -53,9 +82,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
         }
 
-        public void Modify()
+        public void Modify_Execute()
         {
-            if (SelectedReservationView != null)
+            if (SelectedReservationView != null && SelectedReservationView.IsModifiable)
             {
                 ReservationChangeRequestForm reservationChangeRequestForm = new ReservationChangeRequestForm(ReservaitionChangeRequests, SelectedReservationView, reservationChangeRequestService, reservationService);
                 reservationChangeRequestForm.Show();
@@ -66,9 +95,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
 
 
-        public void Cancel()
+        public void Cancel_Execute()
         {
-            if (SelectedReservationView != null)
+            if (SelectedReservationView != null && SelectedReservationView.IsCancelable)
             {
                 if (ConfirmReservationDeletion() == MessageBoxResult.Yes)
                 {

@@ -74,7 +74,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void Reservations_Button_Click(object sender, RoutedEventArgs e)
         {
             
-            frame.Content = new ReservationsPage(reservationService, ownerAccommodationGradeService, superOwnerService, ownerService, activeOwnerGuest.Id, reservationChangeRequestService).Content;
+            frame.Content = new ReservationsPage(reservationService, ownerAccommodationGradeService, superOwnerService, ownerService, activeOwnerGuest.Id, reservationChangeRequestService);
         }
 
         private void Notifications_Button_Click(object sender, RoutedEventArgs e)
