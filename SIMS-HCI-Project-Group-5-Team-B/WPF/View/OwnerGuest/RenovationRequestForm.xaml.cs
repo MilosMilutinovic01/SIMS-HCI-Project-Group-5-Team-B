@@ -20,29 +20,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest
     /// </summary>
     public partial class RenovationRequestForm : Window
     {
-        private RenovationRequestViewModel viewModel;
+
         public RenovationRequestForm(int reservationId)
         {
-            viewModel = new RenovationRequestViewModel(reservationId);
-            InitializeComponent();
-            
-            this.DataContext = viewModel;
+
+            InitializeComponent();           
+            this.DataContext = new RenovationRequestViewModel(reservationId, this, comboBox); ;
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            viewModel.SetLevel(sender);
-        }
-
-        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void Send_Button_Click(object sender, RoutedEventArgs e)
-        {
-            viewModel.Send();
-            Close();
-        }
+        
     }
 }

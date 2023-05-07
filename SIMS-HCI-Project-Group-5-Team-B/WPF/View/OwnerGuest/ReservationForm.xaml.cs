@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,6 +24,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private int ownerGuestId;
         public string Header { get; private set; } 
         public string Location { get; private set; }
+
+        public RelayCommand ReserveCommand { get;}
+        public RelayCommand CloseCommand { get;}
+        public RelayCommand GuestIncreaseCommand { get;}
+        public RelayCommand GuestDecreaseCommand { get;}
+        public RelayCommand DaysIncreaseCommand { get;}
+        public RelayCommand DaysDecreaseCommand { get;}
+        public RelayCommand SearchCommand { get;}
         public ReservationForm(ReservationService reservationService, Accommodation SelectedAccomodation,int ownerGuestId)
         {
             InitializeComponent();
@@ -41,10 +50,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             SelectedDate = new ReservationRecommendation(DateTime.MinValue,DateTime.MinValue);
             SetHeaders();
 
+            CloseCommand = new RelayCommand(Cancel_Executed,CanExecute);
+            ReserveCommand = new RelayCommand(Reserve_Executed,CanExecute);
+            GuestIncreaseCommand = new RelayCommand(GuestNumberIncrease_Executed,CanExecute);
+            GuestDecreaseCommand = new RelayCommand(GuestNumberDecrease_Executed,CanExecute);
+            DaysIncreaseCommand = new RelayCommand(ReservationDaysIncrease_Execute,CanExecute);
+            DaysDecreaseCommand = new RelayCommand(ReservationDaysDecrease_Execute,CanExecute);
+            SearchCommand = new RelayCommand(Search_Executed, CanExecute);
 
         }
 
-        private void ReservationDaysIncrease_Button_Click(object sender, RoutedEventArgs e)
+        public bool CanExecute()
+        {
+            return true;
+        }
+
+        public void ReservationDaysIncrease_Execute()
         {
             int currentValue = Int32.Parse(reservationDaysTextBox.Text);
 
@@ -54,7 +75,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         }
 
-        private void ReservationDaysDecrease_Button_Click(object sender, RoutedEventArgs e)
+        public void ReservationDaysDecrease_Execute()
         {
             int currentValue = Int32.Parse(reservationDaysTextBox.Text);
             if (currentValue > SelectedAccomodation.MinReservationDays)
@@ -75,12 +96,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             EndDate = NewReservation.EndDate;
         }
 
-        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
+        public void Cancel_Executed()
         {
             Close();
         }
 
-        private void Search_Button_CLick(object sender, RoutedEventArgs e)
+        public void Search_Executed()
         {
             SetReservationParameters(); 
             if (NewReservation.IsValid)
@@ -104,7 +125,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         }
 
-        private void Reserve_Button_Click(object sender, RoutedEventArgs e)
+        public void Reserve_Executed()
         {
             if(SelectedDate == null)
             {
@@ -129,7 +150,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         }
 
-        private void GuestNumberDecrease_Button_Click(object sender, RoutedEventArgs e)
+        public void GuestNumberDecrease_Executed()
         {
             
             int currentValue = Int32.Parse(guestNumberTextBox.Text);
@@ -141,7 +162,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         }
 
-        private void GuestNumberIncrease_Button_Click(object sender, RoutedEventArgs e)
+        public void GuestNumberIncrease_Executed()
         {
             int currentValue = Int32.Parse(guestNumberTextBox.Text);
             if(currentValue < SelectedAccomodation.MaxGuests)

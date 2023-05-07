@@ -24,13 +24,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest
         public GradeDetailsWindow(OwnerGuestGradesDTO SelectedGrade)
         {
             InitializeComponent();
-            OwnerGuestGradeDetailsViewModel _viewModel = new OwnerGuestGradeDetailsViewModel(SelectedGrade);
-            this.DataContext = _viewModel;
+            this.DataContext = new OwnerGuestGradeDetailsViewModel(SelectedGrade, this);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
     }
 }

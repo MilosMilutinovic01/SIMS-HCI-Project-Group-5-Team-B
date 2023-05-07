@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest"
         mc:Ignorable="d"
         Title="GradeDetailsWindow" Height="520" Width="630">
+    <Window.InputBindings>
+        <KeyBinding Gesture="esc" Command="{Binding CloseCommand}"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="79*"></RowDefinition>
@@ -106,7 +109,11 @@
                 <TextBlock  Text="{Binding Path=SelectedGrade.Grade.AdditionalComment}"  TextWrapping="Wrap" FontSize="15"></TextBlock>
             </Border>
 
-            <Button Grid.Column="2" Height="30" Width="50" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,16,21" Click="Button_Click">Close</Button>
+            <Button Grid.Column="2" Height="37" Width="66" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,16,21" Command ="{Binding CloseCommand}">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Text="Close          esc" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
         </Grid>
     </Grid>
 </Window>
