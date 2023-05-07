@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         xmlns:VM="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel"
+        xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
         mc:Ignorable="d"
         Title="OwnerWindow" Height="600" Width="950" Loaded="NotifyOwner">
 
     <Grid>
-        <Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -363,7 +364,37 @@
                     </Grid>
                 </TabItem>
             </TabControl>
-        </Grid>
+        </Grid>-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="7*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="1" Height="30" Width="670"  FontSize="12"
+        VerticalAlignment="Top"
+        HorizontalAlignment="Center"
+        Background="LightGray"
+        BorderBrush="black" 
+        BorderThickness="1" Margin="0,42,0,0">
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+            <MenuItem x:Name="Accommodation" Header="{ns:Loc Accommodation}" Click="Accommodation_Button_Click"></MenuItem>
+            <MenuItem x:Name="RequestsForChangingReservation" Header="{ns:Loc RequestsForChangingReservation}" Click="Requests_For_Changing_Reservation_Click"></MenuItem>
+            <MenuItem x:Name="Grading" Header="{ns:Loc Grading}" Click="Grading_Click"></MenuItem>
+
+            <MenuItem x:Name="Statistics" Header="{ns:Loc Statistics}" Click="Statistics_Click"></MenuItem>
+            <MenuItem x:Name="Renovation" Header="{ns:Loc Renovation}" Click="Renovation_Click"></MenuItem>
+            <MenuItem x:Name="Forum" Header="{ns:Loc Forum}" Click="Owner_Forum_Click"></MenuItem>
+            <MenuItem x:Name="Profile" Header="{ns:Loc Profile}" Click="Owner_Profile_Click"></MenuItem>
+            <MenuItem x:Name="Notifications" Header="{ns:Loc Notifications}" Click="Owner_Notifications_Click"></MenuItem>
+        </Menu>
+        <Frame Width="670" Height="350" Name="frame" NavigationUIVisibility="Hidden" Grid.Row="1"></Frame>
+        <ComboBox Name="LocalizationComboBox" SelectionChanged="LocalizationComboBox_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="80" Margin="730,0,0,0">
+            <ComboBoxItem Content="English"></ComboBoxItem>
+            <ComboBoxItem Content="Serbian"></ComboBoxItem>
+        </ComboBox>
     </Grid>
 
 </Window>

@@ -15,6 +15,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
     {
         public ObservableCollection<YearlyAccommodationStatistics> YearlyStatistics { get; set; }
         private YearlyAccommodationStatisticsService yearlyAccommodationStatisticsService;
+        public YearlyAccommodationStatistics SelectedYearlyAccommodationStatistics { get; set; }
 
         public YearlyAccommodationStatisticsViewModel(YearlyAccommodationStatisticsService yearlyAccommodationStatisticsService)
         {
@@ -22,7 +23,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.YearlyStatistics = new ObservableCollection<YearlyAccommodationStatistics>();
         }
 
-        public ObservableCollection<YearlyAccommodationStatistics> GetYearlyAccommodationStatistics(int accommodationId)
+        /*public ObservableCollection<YearlyAccommodationStatistics> GetYearlyAccommodationStatistics(int accommodationId)
         {
             /*List<Reservation> reservations = reservationService.GetAll();
             List<RenovationRequest> renovationRequests = renovationRequestService.GetAll();
@@ -68,7 +69,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 yearlyStatistics.Add(yearlyAccommodationStatistics);
             }
 
-            return yearlyStatistics;*/
+            return yearlyStatistics;
 
             YearlyStatistics.Clear();
             foreach(YearlyAccommodationStatistics yearlyAccommodationStatistics in yearlyAccommodationStatisticsService.GetYearlyAccommodationStatistics(accommodationId))
@@ -77,6 +78,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
             return YearlyStatistics;
 
+        }*/
+
+
+        public void GetYearlyAccommodationStatistics(int accommodationId)
+        {
+            YearlyStatistics.Clear();
+            foreach (YearlyAccommodationStatistics yearlyAccommodationStatistics in yearlyAccommodationStatisticsService.GetYearlyAccommodationStatistics(accommodationId))
+            {
+                YearlyStatistics.Add(yearlyAccommodationStatistics);
+            }
         }
 
         public void MarkBusiest(ObservableCollection<YearlyAccommodationStatistics> yearlyStatistics)

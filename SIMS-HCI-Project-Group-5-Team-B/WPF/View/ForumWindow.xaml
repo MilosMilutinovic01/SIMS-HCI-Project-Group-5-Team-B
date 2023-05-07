@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
+        xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
         mc:Ignorable="d"
-        Title="ForumWindow" Height="600" Width="600">
+        Title="{ns:Loc ForumWindow}" Height="600" Width="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -15,8 +16,8 @@
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="0.5*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Content="Comment with the star means that person has accommodation on location" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
-        <Label Content="Comments" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,364" Grid.RowSpan="2"/>
+        <Label Content="{ns:Loc CommentStarExplanation}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
+        <Label Content="{ns:Loc Comments}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,364" Grid.RowSpan="2"/>
         <ListBox Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Height="200" Width="560" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,28,0,0" >
             <ListBox.ItemTemplate >
                 <DataTemplate>
@@ -30,7 +31,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <TextBox Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Height="120" Width="560" Margin="0,246,0,0"/>
-        <Button Content="Close" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="70" Margin="510,0,0,0"></Button>
-        <Button Content="Add comment" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="90" Margin="405,0,0,0"></Button>
+        <Button Content="{ns:Loc Cancel}" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="70" Margin="510,0,0,0"></Button>
+        <Button Content="{ns:Loc AddComment}" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="90" Margin="405,0,0,0"></Button>
     </Grid>
 </Window>

@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
         mc:Ignorable="d"
-        Title="OwnerAccommodationGradeDetailsWindow" Height="600" Width="600">
+        Title="{ns:Loc OwnerAccommodationGradeDetailsWindow}" Height="600" Width="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -35,15 +36,15 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Name" ></Label>
-            <Label Grid.Row="1" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Surname" ></Label>
-            <Label Grid.Row="2" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Accommodation" ></Label>
-            <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Cleanliness" ></Label>
-            <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Owner Correctness" ></Label>
-            <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="State of inventory" ></Label>
-            <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Quietness" ></Label>
-            <Label Grid.Row="7" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="Privacy" ></Label>
-            <Label Grid.Row="8" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="AdditionalComment" ></Label>
+            <Label Grid.Row="0" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Name}" ></Label>
+            <Label Grid.Row="1" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Surname}" ></Label>
+            <Label Grid.Row="2" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Accommodation}" ></Label>
+            <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Cleanliness}" ></Label>
+            <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc OwnerCorrectness}" ></Label>
+            <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc StateOfInventory}" ></Label>
+            <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Quietness}" ></Label>
+            <Label Grid.Row="7" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Privacy}" ></Label>
+            <Label Grid.Row="8" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc AdditionalComment}" ></Label>
 
 
             <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.OwnerGuest.Name}" Height="30">
@@ -76,6 +77,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Grid.Column="0" Grid.Row="2" Height="20" Width="50" Content="Cancel" Click="Cancel_Button_Click" HorizontalAlignment="Right" Margin="0,0,50,0"></Button>
+        <Button Grid.Column="0" Grid.Row="2" Height="20" Width="50" Content="{ns:Loc Cancel}" Click="Cancel_Button_Click" HorizontalAlignment="Right" Margin="0,0,50,0"></Button>
     </Grid>
 </Window>

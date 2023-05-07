@@ -10,6 +10,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Notifications;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.View;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 {
@@ -20,17 +21,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private UserController userController;
         private NotificationController notificationController;
         public event PropertyChangedEventHandler? PropertyChanged;
-        public ReservationChangeRequest SelectedReservationChangeRequest;
+        public ReservationChangeRequest SelectedReservationChangeRequest { get; set; }
         public ObservableCollection<ReservationChangeRequest> OwnersPendingRequests { get; set; }
+        public Owner owner { get; set; }
 
 
-        public HandleReservationChangeRequestViewModel(ReservationChangeRequestService reservationChangeRequestService,ReservationService reservationService, Owner owner, ReservationChangeRequest SelectedReservationChangeRequest)
+        public HandleReservationChangeRequestViewModel(ReservationChangeRequestService reservationChangeRequestService,ReservationService reservationService, Owner owner/*,ReservationChangeRequest SelectedReservationChangeRequest*/)
         {
             this.reservationChangeRequestService = reservationChangeRequestService;
             this.reservationService = reservationService;
             userController = new UserController();
             notificationController = new NotificationController();
-            this.SelectedReservationChangeRequest = SelectedReservationChangeRequest;
+            this.owner = owner;
+            //this.SelectedReservationChangeRequest = SelectedReservationChangeRequest;
             OwnersPendingRequests = new ObservableCollection<ReservationChangeRequest>(reservationChangeRequestService.GetOwnersPendingRequests(owner));
         }
 
@@ -58,7 +61,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         }
 
 
-        public void DeclineReservationChangeRequest(ReservationChangeRequest SelectedReservationChangeRequest)
+        public void DeclineReservationChangeRequest()
         {
             if(SelectedReservationChangeRequest != null)
             {
@@ -90,6 +93,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             sb.Append($"Reservation: {SelectedReservationChangeRequest.Reservation.Accommodation.Name} From: {SelectedReservationChangeRequest.Reservation.StartDate} To: {SelectedReservationChangeRequest.Reservation.EndDate}");
             return sb.ToString();
         }
+
+
+      
 
     }
 }

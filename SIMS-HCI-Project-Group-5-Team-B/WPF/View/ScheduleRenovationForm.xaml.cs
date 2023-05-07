@@ -27,10 +27,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
         public AccommodationService accommodationService;
         public ObservableCollection<RenovationGridView> FutureRenovations;
 
-        public ScheduleRenovationForm(RenovationService renovationService, AccommodationService accommodationService, ReservationService reservationService,Owner owner, ObservableCollection<RenovationGridView> FutureRenovations, RenovationGridView SelectedRenovationGridView)
+        public ScheduleRenovationForm(RenovationService renovationService, AccommodationService accommodationService, ReservationService reservationService,Owner owner, ObservableCollection<RenovationGridView> FutureRenovations)
         {
             InitializeComponent();
-            renovationViewModel = new RenovationViewModel(renovationService, reservationService,owner.Id, SelectedRenovationGridView);
+            renovationViewModel = new RenovationViewModel(renovationService, reservationService,owner.Id);
             this.DataContext = renovationViewModel;
             this.accommodationService = accommodationService;
             this.FutureRenovations = FutureRenovations;

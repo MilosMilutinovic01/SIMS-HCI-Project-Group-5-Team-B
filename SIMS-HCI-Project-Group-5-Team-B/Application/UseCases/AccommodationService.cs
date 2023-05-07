@@ -129,13 +129,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         }
 
        
-        public List<Accommodation> GetAccommodationsOfLogedInOwner(Owner owner)
+        public List<Accommodation> GetAccommodationsOfLogedInOwner(int ownerId)
         {
             List<Accommodation> accomodations = accomodationRepository.GetAll();
             List<Accommodation> accommodationsOfLogedInOwner = new List<Accommodation>();
             foreach(Accommodation accommodation in accomodations)
             {
-                if(accommodation.Owner.Id == owner.Id)
+                if(accommodation.Owner.Id == ownerId)
                 {
                     accommodationsOfLogedInOwner.Add(accommodation);
                 }
