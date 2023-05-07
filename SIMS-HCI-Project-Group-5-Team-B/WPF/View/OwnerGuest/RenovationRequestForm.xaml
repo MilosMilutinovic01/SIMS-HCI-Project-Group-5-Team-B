@@ -16,6 +16,11 @@
 
         </ControlTemplate>
     </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding SendCommand}"></KeyBinding>
+        <KeyBinding Gesture="esc" Command="{Binding CloseCommand}"></KeyBinding>
+    </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"></ColumnDefinition>
@@ -37,8 +42,8 @@
   AcceptsReturn="True"
   Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
   VerticalScrollBarVisibility="Visible"></TextBox>
-        <ComboBox Grid.Row="2" Grid.Column="1" Height="30" Grid.ColumnSpan="3" Margin="137,17,34,54" SelectionChanged="ComboBox_SelectionChanged" >
-            <ComboBoxItem Tag="0" IsSelected="True">Level1 - Minor Renovations Needed</ComboBoxItem>
+        <ComboBox x:Name="comboBox" Grid.Row="2" Grid.Column="1" Height="30" Grid.ColumnSpan="3" Margin="137,17,34,54" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
+            <ComboBoxItem Tag="0" IsSelected="True" >Level1 - Minor Renovations Needed</ComboBoxItem>
             <ComboBoxItem Tag="1">Level2 - It Would Be Nice To Renovate</ComboBoxItem>
             <ComboBoxItem Tag="2">Level3 - Renovation Necessary</ComboBoxItem>
             <ComboBoxItem Tag="3">Level4 - Accommodation IS In Very Bad State, Renovation Necessary</ComboBoxItem>
@@ -46,8 +51,16 @@
         </ComboBox>
 
         <WrapPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft">
-            <Button Content="Cancel" VerticalAlignment="Center" Margin="15" Width="40" Click="Cancel_Button_Click"></Button>
-            <Button Content="Send" VerticalAlignment="Center" Margin="15" Width="40" Click="Send_Button_Click"></Button>
+            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66" Command="{Binding CloseCommand}">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Width="66"   Text="Cancel          esc" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
+            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66"  Command="{Binding SendCommand}">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Width="50"    Text="Send      Ctrl+S" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
         </WrapPanel>
     </Grid>
 </Window>
