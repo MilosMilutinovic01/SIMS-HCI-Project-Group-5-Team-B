@@ -28,7 +28,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
         private ReservationService reservationService;
         private AccommodationService accommodationService;
         private Owner owner;
-
+        public RenovationGridView SelectedRenovationGridView { get; set; }
         public RenovationPage(RenovationService renovationService, ReservationService reservationService, Owner owner, AccommodationService accommodationService)
         {
             InitializeComponent();
@@ -36,7 +36,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
             this.reservationService = reservationService;
             this.accommodationService = accommodationService;
             this.owner = owner;
-            renovationViewModel = new RenovationViewModel(renovationService, reservationService, owner.Id);
+            renovationViewModel = new RenovationViewModel(renovationService, reservationService, owner.Id, SelectedRenovationGridView);
             DataContext = renovationViewModel;
         }
 

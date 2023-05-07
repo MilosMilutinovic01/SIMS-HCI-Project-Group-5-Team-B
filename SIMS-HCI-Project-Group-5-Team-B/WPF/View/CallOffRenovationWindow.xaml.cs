@@ -30,14 +30,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
         public CallOffRenovationWindow(RenovationGridView SelectedRenovationGridView,ObservableCollection<RenovationGridView> FutureRenovations, RenovationService renovationService, ReservationService reservationService, int ownerId)
         {
             InitializeComponent();
-            renovationViewModel = new RenovationViewModel(renovationService, reservationService, ownerId);
-            this.FutureRenovations = FutureRenovations;
             this.SelectedRenovationGridView = SelectedRenovationGridView;
+            renovationViewModel = new RenovationViewModel(renovationService, reservationService, ownerId,SelectedRenovationGridView);
+            this.FutureRenovations = FutureRenovations;
+            
         }
 
         private void Confirm_Button_Click(object sender, RoutedEventArgs e)
         {
-            renovationViewModel.CallOff();
+            renovationViewModel.CallOff(SelectedRenovationGridView);
             FutureRenovations.Remove(SelectedRenovationGridView);
             Close();
         }
