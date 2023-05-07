@@ -17,7 +17,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
     {
         public ObservableCollection<RenovationGridView> FutureRenovations { get; set; }
         public ObservableCollection<Renovation> PastRenovations { get; set; }
-        public RenovationGridView SelectedRenovationGridView;
+        public RenovationGridView SelectedRenovationGridView { get; set; }
         public Renovation NewRenovation { get; set; }
         public ObservableCollection<RenovationRecommendation> RenovationRecommendations { get; set; }
         public RenovationRecommendation SelectedDate { get; set; }
@@ -27,7 +27,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private int ownerId;
         
         
-        public RenovationViewModel(RenovationService renovationService,ReservationService reservationService, int ownerId, RenovationGridView SelectedRenovationGridView)
+        public RenovationViewModel(RenovationService renovationService,ReservationService reservationService, int ownerId/*, RenovationGridView SelectedRenovationGridView*/)
         {
             this.renovationService = renovationService;
             this.reservationService = reservationService;
@@ -39,7 +39,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             NewRenovation.EndDate = DateTime.Now;
             FutureRenovations = new ObservableCollection<RenovationGridView>(renovationService.GetFutureRenovationsView(ownerId));
             PastRenovations = new ObservableCollection<Renovation>(renovationService.GetPastRenovations(ownerId));
-            this.SelectedRenovationGridView = SelectedRenovationGridView;
+            //this.SelectedRenovationGridView = SelectedRenovationGridView;
         }
 
         public void CallOff()

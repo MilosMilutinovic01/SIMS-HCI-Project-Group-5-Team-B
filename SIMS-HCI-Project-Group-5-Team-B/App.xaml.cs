@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using SIMS_HCI_Project_Group_5_Team_B.Localization;
 
 namespace SIMS_HCI_Project_Group_5_Team_B
 {
@@ -13,5 +14,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B
     /// </summary>
     public partial class App : System.Windows.Application
     {
+        public void ChangeLanguage(string lang)
+        {
+            TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo(lang);
+        }
     }
 }

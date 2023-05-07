@@ -1,0 +1,64 @@
+﻿<Page x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.StatisticsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="350" d:DesignWidth="670"
+      Title="StatisticsPage">
+    <Border BorderBrush="Black" BorderThickness="1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="5*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="0" Grid.Row="0">
+
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,5,0,0">Chose accommodation you want the statistics for and then click on 'Show statistics' button</Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,28,0,0">Year marked with the star was the busiest</Label>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="1">
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,68,0,0">Yearly statistcs</Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,23,0,0">Accommodation:</Label>
+                <ComboBox Name="Accommodation_ComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="80" Margin="154,24,0,0" SelectionChanged="ComboBox_SelectionChanged"></ComboBox>
+                <Button HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Margin="0,24,0,0" Click="Show_Statistics_Button_Click" >Show statistics</Button>
+                <DataGrid x:Name="dgStatistics" Width="620" Height="150" ItemsSource="{Binding Path=YearlyStatistics, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                  SelectedItem="{Binding Path=SelectedYearlyAccommodationStatistics, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+                                 AutoGenerateColumns="False" IsReadOnly="True" Margin="22,94,22,24" >
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image x:Name="StarImage" Height="20" Width="20" Visibility="Collapsed" Source="/Resources/Images/StarImage.png">
+                                    </Image>
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding IsBusiest}" Value="True">
+                                            <Setter TargetName="StarImage" Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Busyness" Width="*"  Binding="{Binding Busyness}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Year" Width="*"  Binding="{Binding Year}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Number of reservations"  Width="3*" Binding="{Binding NumberReservations}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Cancelled"  Width="*" Binding="{Binding NumberOfCancelledReservations}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Reschedlued" Width="*" Binding="{Binding NumberOfChangedReservationDates}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="For renovation"  Width="1.5*" Binding="{Binding NumberRenovationRequests}"></DataGridTextColumn>
+                        <DataGridTemplateColumn x:Name="ButtonMonthlyStatistics" Header="Monthly details" Width="1.5*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="monthlyStatisticsButton" Click="Monthly_Statistics_Button_Click">Monthly statistics</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </Border>
+</Page>

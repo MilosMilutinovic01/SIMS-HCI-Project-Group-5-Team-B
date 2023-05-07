@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
+
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
     /// <summary>
@@ -16,7 +17,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class OwnerWindow : Window
     {
-        LocationController locationService;
+        /*LocationController locationService;
         AccommodationService accommodationService;
         ReservationService reservationService;
         OwnerService ownerService;
@@ -52,11 +53,32 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private MonthlyAccommodationStatisticsService monthlyAccommodationStatisticsService;
         public int GradeCount { get; set; } = 0;
 
-        //private DateTime lastDisplayed;
+        //private DateTime lastDisplayed;*/
+
+
+        private LocationController locationService;
+        private AccommodationService accommodationService;
+        private ReservationService reservationService;
+        private OwnerService ownerService;
+        private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
+        private OwnerGuestGradeService ownerGuestGradeService;
+        private SuperOwnerService superOwnerService;
+        private ReservationChangeRequestService reservationChangeRequestService;
+        private RenovationService renovationService;
+        private RenovationRequestService renovationRequestService;
+        private YearlyAccommodationStatisticsService yearlyAccommodationStatisticsService;
+        private MonthlyAccommodationStatisticsService monthlyAccommodationStatisticsService;
+        public Owner LogedInOwner { get; set; }
+        private string username;
+
+        private App app;
+        private const string SRB = "sr-Latn-RS";
+        private const string ENG = "en-US";
+        private string currentLanguage;
         public OwnerWindow(string username)
         {
             InitializeComponent();
-            DataContext = this;
+            /*DataContext = this;
             locationService = new LocationController();
             ownerService = new OwnerService();
             accommodationService = new AccommodationService(locationService, ownerService);
@@ -88,7 +110,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             handleReservationChangeRequestViewModel = new HandleReservationChangeRequestViewModel(reservationChangeRequestService, reservationService, LogedInOwner, SelectedReservationChangeRequest);
             OwnersPendingRequests = new ObservableCollection<ReservationChangeRequest>(handleReservationChangeRequestViewModel.OwnersPendingRequests);
 
-            /*foreach(ReservationChangeRequest reservationChangeRequest in OwnersPendingRequests)
+            foreach(ReservationChangeRequest reservationChangeRequest in OwnersPendingRequests)
             {
                 if (reservationService.IsAccomodationAvailableForChangingReservationDates(reservationChangeRequest.Reservation, reservationChangeRequest.Start, reservationChangeRequest.End))
                 {
@@ -100,7 +122,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 }
                 reservationChangeRequestService.Update(reservationChangeRequest);
 
-            }*/
+            }
             
 
             OwnerNotificationsViewModel ownerNotificationsViewModel = new OwnerNotificationsViewModel(LogedInOwner.Id);
@@ -115,13 +137,47 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             yearlyAccommodationStatisticsService = new YearlyAccommodationStatisticsService();
             monthlyAccommodationStatisticsService = new MonthlyAccommodationStatisticsService();
             yearlyAccommodationStatisticsViewModel = new YearlyAccommodationStatisticsViewModel(yearlyAccommodationStatisticsService);
-            GradeCount = superOwnerService.GetNumberOfGrades(LogedInOwner);
+            GradeCount = superOwnerService.GetNumberOfGrades(LogedInOwner);*/
+            this.username = username;
+            locationService = new LocationController();
+            ownerService = new OwnerService();
+            accommodationService = new AccommodationService(locationService, ownerService);
+            reservationService = new ReservationService(accommodationService);
+            ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(reservationService);
+            ownerGuestGradeService = new OwnerGuestGradeService(reservationService);
+            superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, accommodationService);
+            reservationChangeRequestService = new ReservationChangeRequestService();
+            renovationService = new RenovationService();
+            renovationRequestService = new RenovationRequestService();
+            yearlyAccommodationStatisticsService = new YearlyAccommodationStatisticsService();
+            monthlyAccommodationStatisticsService = new MonthlyAccommodationStatisticsService();
+
+            LogedInOwner = ownerService.GetByUsername(username);
+            LogedInOwner.GradeAverage = superOwnerService.CalculateGradeAverage(LogedInOwner);
+
+            //OVU FJU DA AZUZIRANJE MOZDA DODATI U SUPEROWNERSERVICE
+            if (LogedInOwner.GradeAverage > 4.5 && superOwnerService.GetNumberOfGrades(LogedInOwner) >= 50)
+            {
+                LogedInOwner.IsSuperOwner = true;
+            }
+            else
+            {
+                LogedInOwner.IsSuperOwner = false;
+            }
+
+            ownerService.Update(LogedInOwner);
+
+            app = (App)System.Windows.Application.Current;
+            app.ChangeLanguage(ENG);
+            currentLanguage = ENG;
+
 
         }
 
+        //OVO TREBA DA OSTANE OVDE ALI TREBA IZMENITI
         private void NotifyOwner(object sender, RoutedEventArgs e)
         {
-            reservationsForGrading = reservationService.GetReservationsForGrading(LogedInOwner);
+            /*reservationsForGrading = reservationService.GetReservationsForGrading(LogedInOwner);
             if (reservationsForGrading.Count != 0 && Notifications.Count != 0)
             {
                 MessageBox.Show("You have guests to grade!!!");
@@ -135,10 +191,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             else if (Notifications.Count != 0)
             {
                 MessageBox.Show("You have new notifications!");
+            }*/
+            //************ FALI MESSAGE BOX ZA OCENE *************//
+            NotificationController notificationController = new NotificationController();
+            UserController userController = new UserController();
+            User user = userController.GetByUsername(username);
+            if (notificationController.Exists(user.Id))
+            {
+                MessageBox.Show("You have new notifactions!");
             }
         }
 
-        private void Create_Accommodation_Click(object sender, RoutedEventArgs e)
+        /*private void Create_Accommodation_Click(object sender, RoutedEventArgs e)
         {
             AccommodationForm accommodationForm = new AccommodationForm(AccomodationsOfLogedInOwner, LogedInOwner);
             accommodationForm.Show();
@@ -208,16 +272,72 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             MonthlyAccommodationStatisticsWindow monthlyAccommodationStatisticsWindow = new MonthlyAccommodationStatisticsWindow(SelectedYearlyAccommodationStatistics, monthlyAccommodationStatisticsService,SelectedAccommmodationId);
             monthlyAccommodationStatisticsWindow.Show();
+        }*/
+
+
+
+        private void Accommodation_Button_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new AccommodationPage(LogedInOwner.Id);
         }
 
-        private void Show_Statistics_Button_Click(object sender, RoutedEventArgs e)
+        private void Requests_For_Changing_Reservation_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new RequestsForChangingReservationPage(reservationChangeRequestService,reservationService,LogedInOwner);
+        }
+
+        private void Grading_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new GradingPage(reservationService,ownerAccommodationGradeService,ownerGuestGradeService,LogedInOwner);
+        }
+
+        private void Statistics_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new StatisticsPage(yearlyAccommodationStatisticsService,accommodationService,LogedInOwner,monthlyAccommodationStatisticsService);
+        }
+
+        private void Renovation_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new RenovationPage(renovationService,reservationService,LogedInOwner,accommodationService);
+        }
+
+        private void Owner_Forum_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new OwnerForumPage();
+        }
+
+        private void Owner_Profile_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new OwnerProfilePage();
+        }
+
+        private void LocalizationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cBox = (ComboBox)sender;
+            ComboBoxItem cbItem = (ComboBoxItem)cBox.SelectedItem;
+            string newType = (string)cbItem.Content;
+            if (newType == "English")
+            {
+                app.ChangeLanguage(ENG);
+                currentLanguage = ENG;
+            }
+            else if (newType == "Serbian")
+            {
+                app.ChangeLanguage(SRB);
+                currentLanguage = SRB;
+            }
+        }
+
+        //**********************OVO CE ICI ZA STATISTICS PAGE************************** 
+
+        /*private void Show_Statistics_Button_Click(object sender, RoutedEventArgs e)
         {
             YearlySelectedAccommodationStatistics = new ObservableCollection<YearlyAccommodationStatistics>(yearlyAccommodationStatisticsViewModel.GetYearlyAccommodationStatistics(SelectedAccommmodationId));
             yearlyAccommodationStatisticsViewModel.MarkBusiest(YearlySelectedAccommodationStatistics);
             dgStatistics.ItemsSource = YearlySelectedAccommodationStatistics;
-        }
+        }*/
 
-        public void ShowAccommodations(Owner owner)
+        /*public void ShowAccommodations(Owner owner)
         {
             foreach (Accommodation accommodation in accommodationService.GetAll())
             {
@@ -233,10 +353,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                     Accommodation_ComboBox.Items.Add(cbItem);
                 }
             }
-        }
+        }*/
 
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /*private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             foreach (ComboBoxItem comboBoxItem in Accommodation_ComboBox.Items)
             {
@@ -248,7 +368,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 }
             }
 
-        }
+        }*/
 
     }
 }

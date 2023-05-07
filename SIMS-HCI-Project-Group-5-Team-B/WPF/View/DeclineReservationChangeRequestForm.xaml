@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
         mc:Ignorable="d"
-        Title="DeclineReservationChangeRequestForm" Height="200" Width="300">
+        Title="DeclineReservationChangeRequestForm" Height="200" Width="300" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
