@@ -1,4 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
     public partial class ReviewsWindow : Window
     {
         private ReviewsViewModel reviewsViewModel;
-        public ReviewsWindow()
+        private TourGradeService tourGradeService;
+        private TourAttendanceService tourAttendanceService;
+        public ReviewsWindow(TourGradeService tourGradeService, int userId, TourAttendanceService tourAttendanceService)
         {
             InitializeComponent();
 
-            reviewsViewModel = new ReviewsViewModel();
+            this.tourAttendanceService = tourAttendanceService;
+            this.tourGradeService = tourGradeService;
+            reviewsViewModel = new ReviewsViewModel(tourGradeService, userId, tourAttendanceService);
+            this.DataContext = reviewsViewModel;
+        }
+
+        private void Window_GotFocus(object sender, RoutedEventArgs e)
+        {
             this.DataContext = reviewsViewModel;
         }
     }

@@ -16,10 +16,17 @@
 
         </ControlTemplate>
     </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+R" Command="{Binding SendRequestCommand}"/>
+        <KeyBinding Gesture="Ctrl+G" Command="{Binding GradeCommand}"/>
+        <KeyBinding Gesture="esc" Command="{Binding CloseCommand}"/>
+    </Window.InputBindings>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="0.3*"></ColumnDefinition>
             <ColumnDefinition Width="10*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -44,32 +51,56 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Height="30" FontSize="15" >Cleanliness</Label>
-            <Label Grid.Row="1" Grid.Column="0" Height="30" FontSize="15" >Owner Corectness</Label>
-            <Label Grid.Row="2" Grid.Column="0" Height="30" FontSize="15" >Inventory State</Label>
-            <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" >Quietness</Label>
-            <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" >Privacy</Label>
-            <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" >PictureURLs</Label>
-            <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" >Additional Comment</Label>
+            <Label Grid.Row="0" Grid.Column="0" Height="30" FontSize="13" VerticalAlignment="Top" >Cleanliness</Label>
+            <Label Grid.Row="1" Grid.Column="0" Height="30" FontSize="13" >Owner Corectness</Label>
+            <Label Grid.Row="2" Grid.Column="0" Height="30" FontSize="13" >Inventory State</Label>
+            <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="13" >Quietness</Label>
+            <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="13" >Privacy</Label>
+            <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="13" >PictureURLs</Label>
+            <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="13" >Additional Comment</Label>
 
-            <TextBox Grid.Row="0" Grid.Column="1" Margin="30 10 10 10" Text="{Binding OwnerAccommodationGrade.Cleanliness, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+            <Slider x:Name="CleanlinessSlider" Grid.Row="0" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=OwnerAccommodationGrade.Cleanliness, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.ColumnSpan="2" Height="38" Margin="146,0,0,0" Grid.RowSpan="2" VerticalAlignment="Top"
+                   Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
+            <TextBox Grid.Column="1" IsReadOnly="True" Grid.Row="0" Margin="10 15 0 0" Height="20" Width="20" HorizontalAlignment="Left" Text="{Binding ElementName=CleanlinessSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+            <Slider x:Name="OwnerCorrectnessSlider" Grid.Row="1" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=OwnerAccommodationGrade.OwnerCorrectness, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.ColumnSpan="2" Height="38" Margin="146,0,0,0" Grid.RowSpan="2" VerticalAlignment="Top"
+                   Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
+            <TextBox Grid.Column="1" IsReadOnly="True" Grid.Row="1" Margin="10 15 0 0" Height="20" Width="20" HorizontalAlignment="Left" Text="{Binding ElementName=OwnerCorrectnessSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+            <Slider x:Name="InventoryStateSlider" Grid.Row="2" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=OwnerAccommodationGrade.StateOfInventory, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.ColumnSpan="2" Height="38" Margin="146,0,0,0" Grid.RowSpan="2" VerticalAlignment="Top"
+                   Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
+            <TextBox Grid.Column="1" IsReadOnly="True" Grid.Row="2" Margin="10 15 0 0" Height="20" Width="20" HorizontalAlignment="Left" Text="{Binding ElementName=InventoryStateSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+            <Slider x:Name="QuietnessSlider" Grid.Row="3" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=OwnerAccommodationGrade.Quietness, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.ColumnSpan="2" Height="38" Margin="146,0,0,0" Grid.RowSpan="2" VerticalAlignment="Top"
+                   Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
+            <TextBox Grid.Column="1" IsReadOnly="True" Grid.Row="3" Margin="10 15 0 0" Height="20" Width="20" HorizontalAlignment="Left" Text="{Binding ElementName=QuietnessSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+            <Slider x:Name="PrivacySlider" Grid.Row="4" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=OwnerAccommodationGrade.Privacy, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.ColumnSpan="2" Height="38" Margin="146,0,0,0" Grid.RowSpan="2" VerticalAlignment="Top"
+                   Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
+            <TextBox Grid.Column="1" IsReadOnly="True" Grid.Row="4" Margin="10 15 0 0" Height="20" Width="20" HorizontalAlignment="Left" Text="{Binding ElementName=PrivacySlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            
+            
+            <TextBox Grid.Row="5" Grid.Column="1" Margin="0 5" Text="{Binding OwnerAccommodationGrade.PictureURLsString, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
-            <TextBox Grid.Row="1" Grid.Column="1" Margin="30 10 10 10" Text="{Binding OwnerAccommodationGrade.OwnerCorrectness, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
-            <TextBox Grid.Row="2" Grid.Column="1" Margin="30 10 10 10" Text="{Binding OwnerAccommodationGrade.StateOfInventory, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
-            <TextBox Grid.Row="3" Grid.Column="1" Margin="30 10 10 10" Text="{Binding OwnerAccommodationGrade.Quietness, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
-            <TextBox Grid.Row="4" Grid.Column="1" Margin="30 10 10 10" Text="{Binding OwnerAccommodationGrade.Privacy, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
-            <TextBox Grid.Row="5" Grid.Column="1" Margin="30 10 10 10" Text="{Binding OwnerAccommodationGrade.PictureURLsString, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
-            <TextBox Grid.RowSpan="2" Grid.Row="6" Grid.Column="1" Margin="10" Text="{Binding OwnerAccommodationGrade.AdditionalComment, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
+            <TextBox Grid.RowSpan="2" Grid.Row="6" Grid.Column="1" Margin="0 5" Text="{Binding OwnerAccommodationGrade.AdditionalComment, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"></TextBox>
         </Grid>
-        <WrapPanel Grid.Column="2" Grid.Row="2" FlowDirection="RightToLeft">
-            <Button Content="Cancel" VerticalAlignment="Center" Margin="15" Width="40" Click="Cancel_Button_Click"></Button>
-            <Button Content="Grade" VerticalAlignment="Center" Margin="15" Width="40" Click="Grade_Button_Click"></Button>
+        <WrapPanel Grid.Column="0" Grid.Row="2" FlowDirection="LeftToRight" Grid.ColumnSpan="4">
+            <Button  VerticalAlignment="Center" Margin="30 10"  Command="{Binding SendRequestCommand}">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Width="110" Height="37"  Text="Renovation Request          Ctrl + R" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
+            <Button  VerticalAlignment="Center" Margin="10 10" Width="66" Command="{Binding GradeCommand}">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Width="66" Height="37"  Text="Grade      Ctrl+G" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
+            <Button VerticalAlignment="Center" Margin="10 10" Width="66" Command="{Binding CloseCommand}" >
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Width="66" Height="37" Text="Close       esc" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
         </WrapPanel>
     </Grid>
 </Window>

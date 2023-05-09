@@ -25,6 +25,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     {
         public ObservableCollection<Appointment> HeldTours { get; set; }
         public ObservableCollection<Tour> LiveTour { get; set; }
+        public ObservableCollection<Voucher> Vouchers { get; set; }
         public Appointment SelectedHeldTour { get; set; }
 
         private GuideGuestViewModel guideGuestViewModel { get; set; }
@@ -41,8 +42,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
             this.guideGuestViewModel = new GuideGuestViewModel(appointmentService, tourGradeService);
 
             HeldTours = new ObservableCollection<Appointment>(guideGuestViewModel.GetAllHeldFor(loggedUser.Id));
+            
+            
             LiveTour = new ObservableCollection<Tour>();
-            LiveTour.Add(guideGuestViewModel.getLiveTour(loggedUser.Id));
+            if(guideGuestViewModel.getLiveTour(loggedUser.Id) != null)
+            {
+                LiveTour.Add(guideGuestViewModel.getLiveTour(loggedUser.Id));
+            }
+
+            Vouchers = new ObservableCollection<Voucher>(new VoucherService().GetAllValidFor(loggedUser.Id));
         }
 
         private void TrackTourButton_Click(object sender, RoutedEventArgs e)

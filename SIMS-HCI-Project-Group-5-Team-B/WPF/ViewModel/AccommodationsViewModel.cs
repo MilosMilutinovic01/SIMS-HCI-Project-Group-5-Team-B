@@ -1,21 +1,22 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Utilities;
+using SIMS_HCI_Project_Group_5_Team_B.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.View
+namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 {
-    /// <summary>
-    /// Interaction logic for AccomodationsWindow.xaml
-    /// </summary>
-    public partial class AccommodationsWindow : Window, INotifyPropertyChanged, IDataErrorInfo
+    public class AccommodationsViewModel:INotifyPropertyChanged, IDataErrorInfo
     {
         private AccommodationService accommodationService;
         private LocationController locationController;
@@ -23,13 +24,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private OwnerService ownerService;
         private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
         private SuperOwnerService superOwnerService;
+        private RenovationService renovationService;
         public ObservableCollection<Accommodation> Accomodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public string SearchName { get; set; } = "";
         public string City { get; set; }
         private string state;
-        public string State 
-        { 
+        public string State
+        {
             get
             {
                 return state;
@@ -37,13 +39,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             set
             {
                 state = value;
+                Cities = locationController.GetCityByState(state);
+                NotifyPropertyChanged(nameof(Cities));
                 NotifyPropertyChanged(nameof(State));
                 NotifyPropertyChanged(nameof(City));
-            } 
-        
+            }
+
         }
-        public List<string> states { get; set; }
-        public List<string> cities { get; set; }
+        public List<string> States { get; set; }
+        public List<string> Cities { get; set; }
         public string SearchType { get; set; } = "";
         public string SearchGuestsNumber { get; set; } = "";
         public string SearchDays { get; set; } = "";
@@ -52,25 +56,40 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private int ownerGuestId;
 
-        public AccommodationsWindow(int ownerGuestId,LocationController locationController, OwnerService ownerService, AccommodationService accommodationService, ReservationService reservationService )
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        //commands
+        public RelayCommand DetailsCommand { get; }
+        public RelayCommand ResetCommand { get; }
+        public RelayCommand SearchCommand { get; }
+
+        public AccommodationsViewModel(int ownerGuestId) 
         {
-            InitializeComponent();
-            DataContext = this;
-            this.locationController = locationController;
-            this.ownerService = ownerService;
-            this.accommodationService = accommodationService;
-            this.reservationService = reservationService;
+            locationController = new LocationController();
+            ownerService = new OwnerService();
+            renovationService = new RenovationService();
+            renovationService.MarkRenovatiosThatTookPlaceInTheLastYear();
+            this.accommodationService = new AccommodationService(locationController, ownerService);
+            this.reservationService = new ReservationService(this.accommodationService);
             //Accomodations = new ObservableCollection<Accommodation>(accommodationController.GetAll());
             ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(this.reservationService);
             superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, this.accommodationService);
+            // renovationService = new RenovationService();
+            //renovationService.MarkRenovatiosThatTookPlaceInTheLastYear();
             Accomodations = new ObservableCollection<Accommodation>(superOwnerService.GetSortedAccommodations());
             this.ownerGuestId = ownerGuestId;
             //reservationController = new ReservationController(accommodationController);
-            
-            states = locationController.GetStates();
+
+
+            States = locationController.GetStates();
+
+            //commands
+            DetailsCommand = new RelayCommand(Details_Execute, CanExecute);
+            SearchCommand = new RelayCommand(Search_Execute, CanExecute);
+            ResetCommand = new RelayCommand(Reset_Executed, CanExecute);
+
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
         private void NotifyPropertyChanged(string info)
         {
             if (PropertyChanged != null)
@@ -79,20 +98,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             }
         }
 
-        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void Search_Button_Click(object sender, RoutedEventArgs e)
+        public void Search_Execute()
         {
             List<Accommodation> searchResult;
             if (this.IsValid)
             {
-                
+
                 if (IsSearchParameter(SearchGuestsNumber) && IsSearchParameter(SearchDays))
                 {
-                    searchResult = accommodationService.GetSearchResult(FindLocationId(),SearchName,SearchType, Int32.Parse(SearchGuestsNumber), Int32.Parse(SearchDays));
+                    searchResult = accommodationService.GetSearchResult(FindLocationId(), SearchName, SearchType, Int32.Parse(SearchGuestsNumber), Int32.Parse(SearchDays));
                 }
                 else if (IsSearchParameter(SearchGuestsNumber) && !IsSearchParameter(SearchDays))
                 {
@@ -122,14 +136,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             }
         }
 
-        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (SelectedAccommodation != null)
-            {
-                AccomodationDetailsWindow accomodationDetailsWindow = new AccomodationDetailsWindow(SelectedAccommodation, reservationService, ownerGuestId);
-                accomodationDetailsWindow.Show();
-            }
-        }
+
         Regex numberRegex = new Regex(@"[\d]");
 
         public string this[string columnName]
@@ -142,9 +149,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                     {
                         return null;
                     }
-                    
+
                 }
-                
+
 
                 if (columnName == "City")
                 {
@@ -184,7 +191,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
             }
         }
-        private readonly string[] _validatedProperties = { "City","State", "SearchGuestsNumber", "SearchDays" };
+        private readonly string[] _validatedProperties = { "City", "State", "SearchGuestsNumber", "SearchDays" };
         public bool IsValid
         {
             get
@@ -210,7 +217,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 return -1;
             }
-            
+
             string State = this.State;
             string City = this.City;
 
@@ -227,19 +234,29 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             return locationId;
         }
 
-        private void Reset_Button_Click(object sender, RoutedEventArgs e)
+        public void Reset_Executed()
         {
             Accomodations.Clear();
-            foreach (Accommodation accommodation in accommodationService.GetAll())
+            foreach (Accommodation accommodation in superOwnerService.GetSortedAccommodations())
             {
                 Accomodations.Add(accommodation);
             }
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        public void Details_Execute()
         {
-            cities = locationController.GetCityByState(ComboBoxStates.SelectedItem.ToString());
-            ComboBoxCities.ItemsSource = cities;
+            if (SelectedAccommodation != null)
+            {
+                AccomodationDetailsWindow accomodationDetailsWindow = new AccomodationDetailsWindow(SelectedAccommodation, reservationService, ownerGuestId);
+                accomodationDetailsWindow.Show();
+            }
         }
+
+        public bool CanExecute()
+        {
+            return true;
+        }
+
     }
 }

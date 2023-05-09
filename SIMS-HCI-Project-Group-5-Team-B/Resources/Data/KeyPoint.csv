@@ -1,5 +1,5 @@
-1|Krusedol|True|1
-2|Jazak|True|1
+1|Krusedol|False|1
+2|Jazak|False|1
 3|Mala Remeta|False|1
 4|prvi|False|2
 5|drugi|False|2
@@ -16,3 +16,8 @@
 16|prvi|False|7
 17|drugi|False|7
 18|treci|False|7
+19|aaa|False|8
+20|bbb|False|8
+21|prvi kp|True|9
+22|drugi kp|False|9
+23|treci kp|False|9

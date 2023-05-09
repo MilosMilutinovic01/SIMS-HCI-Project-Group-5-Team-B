@@ -39,7 +39,8 @@
                 <Button Height="30" Click="AddTourClick" Margin="0,15,0,15">Create tour</Button>
                 <Button Height="30" Click="TrackinTourLiveClick" Margin="0,15,0,15">Track tour</Button>
                 <Button Height="30" Click="TourCancellationClick" Margin="0,15,0,15">Cancel tour</Button>
-                <Button Height="30" Margin="0,15,0,15" Click="SignOutClick">Sign out</Button>
+                <Button Height="30" Margin="0,15,0,15" Click="SignOutClick">Reviews</Button>
+                <Button Height="30" Margin="0,15,0,15" Click="MyToursClick">My tours</Button>
             </StackPanel>
         </Grid>
     </DockPanel>

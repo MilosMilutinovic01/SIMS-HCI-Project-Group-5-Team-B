@@ -1,4 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
+﻿using SIMS_HCI_Project_Group_5_Team_B.DTO;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +17,15 @@ using System.Windows.Shapes;
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest
 {
     /// <summary>
-    /// Interaction logic for NotificationsWindow.xaml
+    /// Interaction logic for GradeDetailsWindow.xaml
     /// </summary>
-    public partial class NotificationsWindow : Window
+    public partial class GradeDetailsWindow : Window
     {
-        public NotificationsWindow(int ownerGuestId)
+        public GradeDetailsWindow(OwnerGuestGradesDTO SelectedGrade)
         {
             InitializeComponent();
-            OwnerGuestNotificationsViewModel _viewModel = new OwnerGuestNotificationsViewModel(ownerGuestId);
-            this.DataContext = _viewModel;
+            this.DataContext = new OwnerGuestGradeDetailsViewModel(SelectedGrade, this);
         }
+
     }
 }

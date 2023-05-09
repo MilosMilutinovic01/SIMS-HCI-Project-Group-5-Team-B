@@ -13,12 +13,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         private AccommodationService accommodationService;
         private IOwnerGuestRepository ownerGuestRepository;
         private IReservationChangeRequestRepository reservationChangeRequestRepository;
+        private IRenovationRepository renovationRepository;
         public ReservationService(AccommodationService accommodationService)
         {
             this.reservationRepository = Injector.Injector.CreateInstance<IReservationRepository>();
             this.accommodationService = accommodationService;
             this.ownerGuestRepository = Injector.Injector.CreateInstance<IOwnerGuestRepository>();
             this.reservationChangeRequestRepository = Injector.Injector.CreateInstance<IReservationChangeRequestRepository>();
+            this.renovationRepository = Injector.Injector.CreateInstance<IRenovationRepository>();  
             GetAccomodationReference();
             GetOwnerGuestReference();
 
@@ -71,7 +73,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             foreach (Reservation reservation in GetAll())
             {
-                Accommodation accommodation = accommodationService.getById(reservation.AccommodationId);
+                Accommodation accommodation = accommodationService.GetById(reservation.AccommodationId);
                 if (accommodation != null)
                 {
                     reservation.Accommodation = accommodation;
@@ -126,7 +128,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             while (start.AddDays(reservationDays - 1) <= endDate)
             {
                 end = start.AddDays(reservationDays - 1);
-                if (IsAccomodationAvailable(selectedAccommodation, start, end))
+                if (IsAccomodationAvailable(selectedAccommodation, start, end) && IsAccomodationNotInRenovation(selectedAccommodation,start,end))
                 {
                     reservationRecommendations.Add(new ReservationRecommendation(start, end));
                 }
@@ -145,7 +147,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             while (count != 3)
             {
                 end = start.AddDays(reservationDays - 1);
-                if (IsAccomodationAvailable(selectedAccommodation, start, end))
+                if (IsAccomodationAvailable(selectedAccommodation, start, end) && IsAccomodationNotInRenovation(selectedAccommodation, start, end))
                 {
                     reservationRecommendations.Add(new ReservationRecommendation(start, end));
                     count++;
@@ -194,6 +196,31 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         }
 
+        public bool IsAccomodationNotInRenovation(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate)
+        {
+            List<Renovation> accomodationRenovations = renovationRepository.GetRenovationForAccommodation(selectedAccommodation.Id);
+
+            foreach (Renovation renovation in accomodationRenovations)
+            {
+                bool isInRange = startDate >= renovation.StartDate && startDate <= renovation.EndDate ||
+                                 endDate >= renovation.StartDate && endDate <= renovation.EndDate;
+
+                bool isOutOfRange = startDate <= renovation.StartDate && endDate >= renovation.EndDate;
+
+                if (isInRange)
+                {
+                    return false;
+                }
+                else if (isOutOfRange)
+                {
+                    return false;
+                }
+            }
+            return true;
+
+        }
+
+
         public bool IsReservationDeletable(Reservation reservation)
         {
             // reservation can not be deleted if there are pending requests
@@ -203,7 +230,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public bool IsReservationModifiable(Reservation reservation)
         {
-            return reservation.isModifiable() &&
+            return reservation.IsModifiable() &&
             !reservationChangeRequestRepository.GetAll().Any(chreq => chreq.ReservationId == reservation.Id && chreq.RequestStatus == REQUESTSTATUS.Pending);
         }
 
@@ -238,6 +265,26 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return true;
 
         }
+
+
+        public List<RenovationRecommendation> GetRenovationRecommendationsInTimeSpan(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int reservationDays)
+        {
+            List<RenovationRecommendation> renovationRecommendations = new List<RenovationRecommendation>();
+            DateTime start = startDate;
+            DateTime end = startDate;
+            while (start.AddDays(reservationDays - 1) <= endDate)
+            {
+                end = start.AddDays(reservationDays - 1);
+                if (IsAccomodationAvailable(selectedAccommodation, start, end))
+                {
+                    renovationRecommendations.Add(new RenovationRecommendation(start, end));
+                }
+                start = start.AddDays(1);
+            }
+
+            return renovationRecommendations;
+        }
+
 
     }
 }

@@ -47,7 +47,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             LoadData();
 
             tourController = new TourController();
-            tours = new ObservableCollection<Tour>(tourController.GetAll());
+            tours = new ObservableCollection<Tour>(tourService.GetAll());
         }
 
         private void LoadData()
@@ -80,7 +80,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
             if(DataGridTour.SelectedCells.Count > 0)
             {
-                TourAttendanceWindow tourAttendanceWindow = new TourAttendanceWindow(SelectedTour);
+                TourAttendanceWindow tourAttendanceWindow = new TourAttendanceWindow(SelectedTour, appointmentService);
                 tourAttendanceWindow.Show();
                 tourAttendanceWindow.Owner = this;
             }

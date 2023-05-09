@@ -1,0 +1,95 @@
+﻿<Page x:Class="SIMS_HCI_Project_Group_5_Team_B.View.ReservationsPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        mc:Ignorable="d"
+        Title="ReservationsWindow" Height="540" Width="900" 
+      Background="White">
+    <Page.InputBindings>
+        <KeyBinding Gesture="Ctrl+M" Command="{Binding ModifyCommand}"></KeyBinding>
+        <KeyBinding Gesture="Ctrl+D" Command="{Binding CancelReservationCommand}"></KeyBinding>
+        <KeyBinding Gesture="Ctrl+G" Command="{Binding GradeCommand}"></KeyBinding>
+    </Page.InputBindings>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Reservations" FontSize="25"></TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Reservation Requests" FontSize="20"></TextBlock>
+        <DataGrid Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="1" x:Name="ReservationsRequestsGrid" ItemsSource="{Binding Path=ReservaitionChangeRequests, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedReservationView, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+                      AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Accommodation" Binding="{Binding Reservation.Accommodation.Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Location" Binding="{Binding Reservation.Accommodation.Location}" Width="2*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Start" Binding="{Binding Start}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="End" Binding="{Binding End}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Guests No" Binding="{Binding Reservation.GuestsNumber}" Width="0.7*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Status" Binding="{Binding RequestStatus}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Comment" Binding="{Binding DenialComment}" Width="1.5*"></DataGridTextColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="My Reservations" FontSize="20"></TextBlock>
+        <DataGrid Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="ReservationsGrid" ItemsSource="{Binding Path=ReservationViews, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedReservationView, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+                      AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Accommodation" Binding="{Binding Reservation.Accommodation.Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Location" Binding="{Binding Reservation.Accommodation.Location}" Width="1.2*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Start" Binding="{Binding Reservation.StartDate}" Width="0.4*"></DataGridTextColumn>
+                <DataGridTextColumn Header="End" Binding="{Binding Reservation.EndDate}" Width="0.4*"></DataGridTextColumn>
+                <DataGridTextColumn  Binding="{Binding Reservation.GuestsNumber}" Width="0.3*">
+                    <DataGridTextColumn.Header>
+
+                        <TextBlock  Text="Guests   
+                                           No" Margin="0" TextWrapping="Wrap"/>
+
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn x:Name="ButtonColumn" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <WrapPanel FlowDirection="RightToLeft">
+                                <Button Width="50"  Margin="5" x:Name="gradeButton" Command="{Binding DataContext.GradeCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" IsEnabled="{Binding IsForGrading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <Button.Content>
+                                        <TextBlock Height="30" FontSize="10" TextWrapping="Wrap" Text="Grade     Ctrl+G"></TextBlock>
+                                        
+                                    </Button.Content>
+                                </Button>
+                                <Button Width="50" Command="{Binding DataContext.ModifyCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Margin="5" IsEnabled="{Binding IsModifiable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <Button.Content>
+                                        <TextBlock Height="30" FontSize="10" TextWrapping="Wrap" Text="Modify   Ctrl+M"></TextBlock>
+                                    </Button.Content>
+                                </Button>
+                                <Button Width="50" Command="{Binding DataContext.CancelReservationCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Margin="5" IsEnabled="{Binding IsCancelable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <Button.Content>
+                                        <TextBlock Height="30" FontSize="10" TextWrapping="Wrap" Text="Cancel     Ctrl+D"></TextBlock>
+                                    </Button.Content>
+                                </Button>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        
+    </Grid>
+    
+</Page>

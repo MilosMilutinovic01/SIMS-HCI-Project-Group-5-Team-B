@@ -37,7 +37,7 @@
                     <DataGridTextColumn Header="Check" Binding="{Binding Selected}" />
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid x:Name="GuestsDataGrid" Grid.Row="4" Grid.RowSpan="2" ItemsSource="{Binding Path=GuideGuest}" SelectedItem="{Binding Path=SelectedGuest}" IsReadOnly="True" AutoGenerateColumns="False" SelectionChanged="GuestsDataGrid_SelectionChanged">
+            <DataGrid x:Name="GuestsDataGrid" Grid.Row="4" Grid.RowSpan="2" ItemsSource="{Binding Path=GuideGuests}" SelectedItem="{Binding Path=SelectedGuest}" IsReadOnly="True" AutoGenerateColumns="False" SelectionChanged="GuestsDataGrid_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
                     <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" />

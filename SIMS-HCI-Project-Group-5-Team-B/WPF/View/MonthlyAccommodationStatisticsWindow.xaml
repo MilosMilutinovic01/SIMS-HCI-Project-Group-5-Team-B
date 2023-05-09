@@ -1,0 +1,78 @@
+﻿<Window x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.MonthlyAccommodationStatisticsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
+        xmlns:converters="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Converters"
+        xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
+        mc:Ignorable="d"
+        Title="{ns:Loc MonthlyAccommodationStatisticsWindow}" Height="600" Width="600">
+    <Window.Resources>
+        <converters:MonthNameConverter x:Key="MonthNameConverter"></converters:MonthNameConverter>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Content="{ns:Loc StarMonthExplanation}"></Label>
+        <WrapPanel Grid.Column="0" Grid.Row="1">
+            <Border Height="120" Width="240" Margin="40 20 0 0" BorderBrush="Black"  BorderThickness="3">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" FontSize="15" Text="{ns:Loc NumberOfReservations}"></TextBlock>
+                    <TextBlock Height="80"  Text="{Binding Path=SelectedYearlyAccommodationStatistics.NumberReservations, Mode=OneWay}" FontSize="60" VerticalAlignment="Center" TextAlignment="Center"></TextBlock>
+                </StackPanel>
+            </Border>
+            <Border Height="120" Width="240" Margin="40 20 0 0" BorderBrush="Black"  BorderThickness="3" >
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" FontSize="15"  VerticalAlignment="Center" Text="{ns:Loc CancelledReservations}" ></TextBlock>
+                    <TextBlock Height="80"  FontSize="60"  TextAlignment="Center" Text="{Binding Path=SelectedYearlyAccommodationStatistics.NumberOfCancelledReservations, Mode=OneWay}"></TextBlock>
+                </StackPanel>
+            </Border>
+        </WrapPanel>
+        <WrapPanel Grid.Column="0" Grid.Row="2">
+            <Border Height="120" Width="240" Margin="40 20 0 0" BorderBrush="Black"  BorderThickness="3">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" FontSize="15" Text="{ns:Loc RecommendedRenovation}"></TextBlock>
+                    <TextBlock Height="80" Text="{Binding Path=SelectedYearlyAccommodationStatistics.NumberRenovationRequests, Mode=OneWay}" FontSize="60" VerticalAlignment="Center" TextAlignment="Center"></TextBlock>
+                </StackPanel>
+            </Border>
+            <Border Height="120" Width="240" Margin="40 20 0 0" BorderBrush="Black"  BorderThickness="3" >
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" FontSize="15"  VerticalAlignment="Center"  Text="{ns:Loc RescheduledReservations}" ></TextBlock>
+                    <TextBlock Height="80"  FontSize="60" TextAlignment="Center"  Text="{Binding Path=SelectedYearlyAccommodationStatistics.NumberOfChangedReservationDates, Mode=OneWay}" ></TextBlock>
+                </StackPanel>
+            </Border>
+        </WrapPanel>
+        <DataGrid  ItemsSource="{Binding Path=MonthlyAccommodationsStatistics, UpdateSourceTrigger=PropertyChanged}"  AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="3" Height="150" Width="520" Margin="43,11,37,51">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image x:Name="StarImage" Height="20" Width="20" Visibility="Collapsed" Source="/Resources/Images/StarImage.png">
+                            </Image>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsBusiest}" Value="True">
+                                    <Setter TargetName="StarImage" Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="{ns:Loc Busyness}" Width="*"  Binding="{Binding Busyness}"></DataGridTextColumn>
+                <DataGridTextColumn Header="{ns:Loc Month}" Width="*" Binding="{Binding Month, Converter={StaticResource MonthNameConverter}}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="{ns:Loc NumberOfReservations}" Width="3*" Binding="{Binding NumberReservations}"></DataGridTextColumn>
+                <DataGridTextColumn Header="{ns:Loc Cancelled}" Width="2*" Binding="{Binding NumberOfCancelledReservations}"></DataGridTextColumn>
+                <DataGridTextColumn Header="{ns:Loc Rescheduled}" Width="2*" Binding="{Binding NumberOfChangedReservationDates}"></DataGridTextColumn>
+                <DataGridTextColumn Header="{ns:Loc ForRenovation}" Width="2*" Binding="{Binding NumberRenovationRequests}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="60" Margin="500,171,0,0" Content="{ns:Loc Cancel}" Click="Cancel_Button_Click"></Button>
+    </Grid>
+</Window>

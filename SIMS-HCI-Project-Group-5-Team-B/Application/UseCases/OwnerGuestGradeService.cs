@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.DTO;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
@@ -62,6 +63,44 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         }
 
+        public List<OwnerGuestGrade> GetObjectiveOwnerGuestsGrades(int ownerGuestId)
+        {
+            return ownerGuestGradeRepository.GetAll().FindAll(grade => grade.Reservation.OwnerGuestId == ownerGuestId && grade.Reservation.IsGraded && grade.Reservation.IsGradedByGuest);
+        }
+
+        
+        public List<OwnerGuestGradesDTO> GetOwnerGuestsGradesDTO(int ownerGuestId)
+        {
+            List<OwnerGuestGradesDTO> ownerGuestGrades = new List<OwnerGuestGradesDTO>();
+            foreach (OwnerGuestGrade grade in GetObjectiveOwnerGuestsGrades(ownerGuestId))
+            {
+                ownerGuestGrades.Add(new OwnerGuestGradesDTO(grade));
+            }
+            return ownerGuestGrades;
+        }
+
+        public double GetAverageGrade(int ownerGuestId)
+        {
+            double sum = 0;
+            int count = 0;
+            foreach(OwnerGuestGradesDTO grade in GetOwnerGuestsGradesDTO(ownerGuestId))
+            {
+                sum += grade.AverageGrade;
+                count++;
+            }
+
+            if(sum == 0)
+            {
+                return 0;
+            }
+
+            return sum / (count * 1.0);
+        }
+
+        public int GetGradesCount(int ownerGuestId)
+        {
+            return GetOwnerGuestsGradesDTO(ownerGuestId).Count;
+        }
     }
 
 }

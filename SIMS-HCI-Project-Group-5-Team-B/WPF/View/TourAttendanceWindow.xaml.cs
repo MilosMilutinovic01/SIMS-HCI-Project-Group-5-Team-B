@@ -23,24 +23,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class TourAttendanceWindow : Window
     {
         public Tour SelectedTour { get; set; }
+        public Appointment SelectedAppointment { get; set; }
         public int NumberOfPeople { get; set; }
         public List<DateTime> Available { get; set; }
+
+
         private DateTime SelectedDate { get; set; }
         private List<Appointment> Appointments { get; set; }
-        public Appointment SelectedAppointment { get; set; }
 
-        private AppointmentController appointmentController { get; set; }
-
+        private AppointmentService appointmentController { get; set; }
         private TemporaryTourAttendanceController tourAttendanceController;
+        private VoucherService voucherService;
 
-        public TourAttendanceWindow(Tour selectedTour)
+        public TourAttendanceWindow(Tour selectedTour, AppointmentService appointmentService)
         {
             this.SelectedTour = selectedTour;
             SelectedAppointment = new Appointment();
             Available = new List<DateTime>();
             Appointments = new List<Appointment>();
+            voucherService = new VoucherService();
 
-            appointmentController = new AppointmentController();
+            this.appointmentController = appointmentService;
             foreach (var appointment in appointmentController.GetAll())
             {
                 if (appointment.TourId == SelectedTour.Id && appointment.Start > DateTime.Now)
@@ -73,7 +76,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 MessageBox.Show("Number of people must be greater than zero");
                 return;
             }
-            if(SelectedAppointment.Start< DateTime.Now)
+            if(SelectedAppointment.Start < DateTime.Now)
             {
                 MessageBox.Show("Select date");
                 return;
@@ -81,7 +84,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
             if (SelectedAppointment.FreeSpace >= NumberOfPeople)
             {
-                tourAttendanceController.Save(new TourAttendance(SelectedAppointment.Id, NumberOfPeople, -1, -1));
+                var voucherId = -1;
+                if(VoucherComboBox.IsChecked == true)
+                {
+                    var voucher = voucherService.GetValidFor(0);
+                    voucherId = voucher != null ? voucher.Id : -1;
+                    if(voucherId != -1)
+                    {
+                        voucherService.Use(voucher);
+                    }
+                }
+                tourAttendanceController.Save(new TourAttendance(SelectedAppointment.Id, NumberOfPeople, -1, -1, voucherId));
                 SelectedAppointment.FreeSpace -= NumberOfPeople;
                 appointmentController.Update(SelectedAppointment);
                 FreeSpaceTextBlock.Text = SelectedAppointment.FreeSpace.ToString();

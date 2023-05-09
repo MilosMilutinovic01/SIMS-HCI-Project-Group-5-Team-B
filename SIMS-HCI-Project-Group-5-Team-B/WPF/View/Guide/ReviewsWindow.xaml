@@ -4,28 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide" xmlns:local1="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel"
         mc:Ignorable="d"
-        Title="ReviewsWindow" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+        Title="ReviewsWindow" Height="750" Width="430" WindowStartupLocation="CenterScreen" GotFocus="Window_GotFocus">
     <DockPanel>
         <DockPanel DockPanel.Dock="top" Height="30">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                 <Button>
                     <Image Source="/Resources/Images/hamburgerIcon.png" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Button>
-                <Label Content="Home" Margin="15,0,0,0" />
+                <Label Content="Reviews" Margin="15,0,0,0" />
             </StackPanel>
             <Button DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Image Source="/Resources/Images/threeDots.png" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Button>
         </DockPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Cards}">
+            <ItemsControl x:Name="Items" ItemsSource="{Binding Cards}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border Height="200" BorderBrush="Gray" BorderThickness="1" Margin="5">
                             <Grid>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
@@ -40,14 +41,16 @@
                                 <TextBlock Grid.Row="0" Text="{Binding GuestName}" Width="150" HorizontalAlignment="Left" Margin="10,5,0,0" FontSize="16" FontWeight="Normal" FontFamily="Elephant" />
                                 <TextBlock Grid.Row="1" Text="{Binding TourName}" Margin="10,0,0,0" />
                                 <TextBlock Grid.Row="2" Text="{Binding KeyPointName, StringFormat='Key point: {0}'}" FontWeight="Normal" Margin="10,0,0,0" />
-                                <DockPanel Grid.Row="3" Grid.ColumnSpan="2">
-                                    <TextBlock DockPanel.Dock="Left" Text="{Binding Rating, StringFormat='Rating: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    <CheckBox DockPanel.Dock="Right" IsChecked="{Binding Valid}" HorizontalAlignment="Right" Margin="0,0,10,0"></CheckBox>
-                                    <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right">Valid:</TextBlock>
+                                <DockPanel Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding GeneralKnowledge, StringFormat='General knowledge: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding LanguageKnowledge, StringFormat='Language knowledge: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding TourFun, StringFormat='Tour fun: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                    </StackPanel>
                                 </DockPanel>
-                                <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding Comment, StringFormat='Comment: {0}'}" FontWeight="Normal" Height="50" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">Report</Button>
-                                <Button Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">More</Button>
+                                <TextBlock Grid.Row="5" Grid.ColumnSpan="2" Text="{Binding Comment, StringFormat='Comment: {0}'}" FontWeight="Normal" Height="50" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                <Button Grid.Row="6" Grid.Column="1" Command="{Binding DataContext.ReportCommand, ElementName=Items}"
+                                        CommandParameter="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">Report</Button>
                             </Grid>
                         </Border>
                     </DataTemplate>

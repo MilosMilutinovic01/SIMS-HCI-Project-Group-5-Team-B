@@ -16,6 +16,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
         {
             LoadTour(tourRepository);
         }
+
+        public AppointmentCSVRepository()
+        {
+        }
+
         private void LoadTour(ITourRepository tourRepository)
         {
             foreach(var appointment in _data)
@@ -91,7 +96,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
         protected override string[] ToCSV(Appointment obj)
         {
             string[] csvValues =
-{
+            {
                 obj.Id.ToString(),
                 obj.TourId.ToString(),
                 obj.GuideId.ToString(),
@@ -103,6 +108,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
                 obj.CheckedKeyPointId.ToString(),
             };
             return csvValues;
+            //return appointmentRepository.GetAll();
         }
+
     }
 }

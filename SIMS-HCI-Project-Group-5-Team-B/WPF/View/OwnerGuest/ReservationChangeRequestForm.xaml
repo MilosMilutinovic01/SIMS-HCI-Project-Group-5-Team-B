@@ -16,6 +16,12 @@
 
         </ControlTemplate>
     </Window.Resources>
+
+    <!--This is for shortcuts-->
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding SendCommand}"/>
+        <KeyBinding Gesture="esc" Command="{Binding CloseCommand}"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -32,11 +38,11 @@
             <TextBlock Grid.Row="1" Text="{Binding Path=LocationHeader, Mode=OneWay}" FontSize="15"></TextBlock>
         </Grid>
 
-        <TextBlock Grid.Row="0" Text="{Binding Path=Header, Mode=OneWay}" FontSize="25"></TextBlock>
+        <TextBlock Grid.Row="0" Text="{Binding Path=Header, Mode=OneWay}" FontSize="25" ></TextBlock>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="30 0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="1.5*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -45,16 +51,25 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="center">Start</Label>
-            <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="center">End</Label>
-            <DatePicker Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" 
+            <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="center">Start</Label>
+            <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="center">End</Label>
+            <DatePicker Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" 
                          SelectedDate="{Binding Path=NewReservationRequest.Start,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True }" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15"></DatePicker>
-            <DatePicker Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+            <DatePicker Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"
                          SelectedDate="{Binding Path=NewReservationRequest.End,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15"></DatePicker>
         </Grid>
-        <WrapPanel Grid.Row="2" FlowDirection="RightToLeft">
-            <Button Margin="15" Click="Cancel_Button_Click">Close</Button>
-            <Button Margin="0 15" Click="Save_Button_Click">Send</Button>
+        <WrapPanel Grid.Row="2" FlowDirection="LeftToRight">
+
+            <Button Margin="200 10 15 10" Command="{Binding SendCommand}" Height="37" Width="66">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Text="Save          Ctrl + S" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
+            <Button Margin="20 10" Command="{Binding CloseCommand}" Height="37" Width="66">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Text="Close          esc" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
         </WrapPanel>
     </Grid>
 </Window>

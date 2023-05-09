@@ -38,7 +38,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private OwnerGuestService ownerGuestService;
         private OwnerGuest activeOwnerGuest;
         private ReservationChangeRequestService reservationChangeRequestService;
+        private SuperOwnerGuestTitleService superOwnerGuestTitleService;
         private string username;
+        
 
         public OwnerGuestWindow(string username)
         {
@@ -52,8 +54,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, accommodationService);
             ownerGuestService = new OwnerGuestService();
             reservationChangeRequestService = new ReservationChangeRequestService();
+            superOwnerGuestTitleService = new SuperOwnerGuestTitleService();
             activeOwnerGuest =  ownerGuestService.GetByUsername(username);
+
             
+            //check for updates for superOwnerGuestTitle
+            superOwnerGuestTitleService.BecomeSuperOwnerGuest();
             this.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Del(ShowNotification));
         }
 
@@ -62,20 +68,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void ShowAccomodation_Button_Click(object sender, RoutedEventArgs e)
         {
 
-            AccommodationsWindow accomodationsWindow = new AccommodationsWindow(activeOwnerGuest.Id, locationController, ownerService, accommodationService, reservationService);
-            accomodationsWindow.Show();
+            frame.Content= new AccommodationsPage(activeOwnerGuest.Id);
         }
 
         private void Reservations_Button_Click(object sender, RoutedEventArgs e)
         {
-            ReservationsWindow reservationsWindow = new ReservationsWindow(reservationService,ownerAccommodationGradeService,superOwnerService,ownerService, activeOwnerGuest.Id, reservationChangeRequestService);
-            reservationsWindow.Show();
+            
+            frame.Content = new ReservationsPage(reservationService, ownerAccommodationGradeService, superOwnerService, ownerService, activeOwnerGuest.Id, reservationChangeRequestService);
         }
 
         private void Notifications_Button_Click(object sender, RoutedEventArgs e)
         {
-            NotificationsWindow notificationsWindow = new NotificationsWindow(activeOwnerGuest.Id);
-            notificationsWindow.Show();
+            frame.Content = new NotificationsPage(activeOwnerGuest.Id);
+            //notificationsWindow.Show();
         }
 
         private void ShowNotification()
@@ -86,6 +91,31 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             if (notificationController.Exists(user.Id))
             {
                 MessageBox.Show("You have new notifactions!");
+            }
+        }
+
+        private void Grades_Button_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new GradesPage(activeOwnerGuest.Id);
+           // gradesWindow.Show();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.F2) {
+            ShowAccomodation_Button_Click(sender, e);
+            }
+            if(e.Key == Key.F4)
+            {
+                Reservations_Button_Click(sender, e);
+            }
+            if( e.Key == Key.F5)
+            {
+                Grades_Button_Click(sender, e);
+            }
+            if (e.Key == Key.F7)
+            {
+                Notifications_Button_Click(sender, e);
             }
         }
     }

@@ -1,0 +1,158 @@
+﻿<Page x:Class="SIMS_HCI_Project_Group_5_Team_B.View.AccommodationsPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      mc:Ignorable="d"
+        Title="Accomodations" Height="540" Width="900"
+      Background="White">
+
+    <Page.InputBindings>
+        <KeyBinding Gesture="Ctrl+R" Command="{Binding ResetCommand}"></KeyBinding>
+        <KeyBinding Gesture="Ctrl+D" Command="{Binding DetailsCommand}"></KeyBinding>
+        <KeyBinding Gesture="Ctrl+F" Command="{Binding SearchCommand}"></KeyBinding>
+    </Page.InputBindings>
+    
+    <Page.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+
+        </ControlTemplate>
+    </Page.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Grid.Column="0" Grid.Row="0" Margin="0" BorderBrush="Black" BorderThickness="2">
+
+        </Border>
+        <Grid Grid.Column="0" Grid.Row="0" Margin="10,10,10,100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Search" HorizontalAlignment="Center" FontSize="20" Grid.ColumnSpan= "2"></Label>
+            <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" FontSize="13">Name</Label>
+            <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" FontSize="13">State</Label>
+            <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" FontSize="13">City</Label>
+            <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="0,1,0,15">Type</Label>
+            <Label Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" FontSize="13">Guest Number</Label>
+            <Label Grid.Row="6" HorizontalAlignment="Left" FontSize="12" Height="41" VerticalAlignment="Top">Reservation Days</Label>
+
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=SearchName ,Mode=TwoWay, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Height="20" Margin="0,5,0,22"></TextBox>
+            <ComboBox Grid.Row="2" Grid.Column="1" x:Name="ComboBoxStates" Height="30" Text="{Binding Path=State, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" ItemsSource="{Binding States}" 
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"  Margin="0,3,0,18" >
+
+
+            </ComboBox>
+            <ComboBox Grid.Row="3" Grid.Column="1" x:Name="ComboBoxCities" Height="30" Text="{Binding Path=City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" ItemsSource="{Binding Cities, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,3,0,18" >
+
+            </ComboBox>
+            <ComboBox Grid.Row="4" Grid.Column="1" Height="30" SelectedValue="{Binding SearchType, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValuePath ="Content" Margin="0,4,0,18">
+                <ComboBoxItem>Apartment</ComboBoxItem>
+                <ComboBoxItem>House</ComboBoxItem>
+                <ComboBoxItem>Cottage</ComboBoxItem>
+            </ComboBox>
+            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=SearchGuestsNumber, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,6,0,25"/>
+            <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Path=SearchDays, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,6,0,26"/>
+
+            <WrapPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" FlowDirection="LeftToRight">
+                <Button Grid.Row="7" Grid.Column="0" Height="37" Width="66"  Command="{Binding ResetCommand}" Margin="50 10 20 0">
+                    <Button.Content>
+                        <TextBlock  TextWrapping="Wrap" Text="Reset          Ctrl + R" TextAlignment="Center"></TextBlock>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Row="7" Grid.Column="1" Height="37" Width="66"  Command="{Binding SearchCommand}" Margin="0 10 0 0">
+                    <Button.Content>
+                        <TextBlock  TextWrapping="Wrap" Text="Search          Ctrl + F" TextAlignment="Center"></TextBlock>
+                    </Button.Content>
+                </Button>
+            </WrapPanel>
+        </Grid>
+        <DockPanel Grid.Column="1" Grid.Row="0">
+            <WrapPanel DockPanel.Dock="Top" Height="50" VerticalAlignment="Top" FlowDirection="LeftToRight">
+                <TextBlock Text="Accommodation" Margin="10 10 0 10" FontSize="24"></TextBlock>
+            </WrapPanel>
+            
+            <DataGrid Width="auto" ItemsSource="{Binding Path=Accomodations, UpdateSourceTrigger=PropertyChanged}" Margin="10 10 10 25"
+                  SelectedItem="{Binding Path=SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+                      AutoGenerateColumns="False" IsReadOnly="True" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="2*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="0.75*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding MaxGuests}" Width="0.5*">
+                        <DataGridTextColumn.Header>
+
+                            <TextBlock  Text="Max   
+                                           Guests" Margin="0" TextWrapping="Wrap"/>
+
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image x:Name="StarImage" Height="20" Width="20" Visibility="Collapsed" Source="/Resources/Images/StarImage.png">
+                                </Image>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Owner.IsSuperOwner}" Value="True">
+                                        <Setter TargetName="StarImage" Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image x:Name="LetterRImage" Height="20" Width="20" Visibility="Collapsed" Source="/Resources/Images/LetterRImage.png">
+                                </Image>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding IsRenovatedInTheLastYear}" Value="True">
+                                        <Setter TargetName="LetterRImage" Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="0.5*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Margin="3" Command="{Binding DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    <Button.Content>
+                                        <TextBlock  TextWrapping="Wrap" Text="Details          Ctrl + D" TextAlignment="Center"></TextBlock>
+                                    </Button.Content>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </DockPanel>
+    </Grid>
+</Page>
