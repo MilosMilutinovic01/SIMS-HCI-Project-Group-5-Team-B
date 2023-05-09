@@ -24,12 +24,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.Pages
     /// </summary>
     public partial class TourSearchPage : Page
     {
-        public ObservableCollection<Tour> Tours { get; set; }
         public TourSearchPage()
         {
-            this.DataContext = this;
             InitializeComponent();
-            Tours = new ObservableCollection<Tour>((new TourService(new TourCSVRepository(new KeyPointCSVRepository(), new LocationCSVRepository()))).GetAll());
         }
     }
 }

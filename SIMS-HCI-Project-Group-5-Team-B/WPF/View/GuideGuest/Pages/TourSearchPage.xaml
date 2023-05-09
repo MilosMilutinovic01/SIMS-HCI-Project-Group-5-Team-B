@@ -4,9 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.Pages"
+      xmlns:viewModel="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest"
       mc:Ignorable="d" 
       d:DesignHeight="450" Width="1050"
       Title="TourSearchPage" Background="White">
+    <Page.DataContext>
+        <viewModel:TourSearchPageViewModel/>
+    </Page.DataContext>
 
     <Grid>
         <Grid.RowDefinitions>
