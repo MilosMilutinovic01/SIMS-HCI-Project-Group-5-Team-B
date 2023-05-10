@@ -39,5 +39,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             return tourRepository.NextId();
         }
+
+        public List<Tour> Search(Location Location, string Language, int Duration, int NumberOfPeople)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
