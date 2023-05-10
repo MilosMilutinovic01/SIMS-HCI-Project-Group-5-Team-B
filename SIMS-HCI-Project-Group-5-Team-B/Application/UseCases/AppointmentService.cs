@@ -15,10 +15,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     {
         private IAppointmentRepository appointmentRepository;
         private TourAttendanceService tourAttendanceService;
-        public AppointmentService(IAppointmentRepository appointmentRepository, TourAttendanceService tourAttendanceService)
+        public AppointmentService()
         {
-            this.tourAttendanceService = tourAttendanceService;
-            this.appointmentRepository = appointmentRepository;// Injector.Injector.CreateInstance<IAppointmentRepository>();
+            this.tourAttendanceService = new TourAttendanceService();
+            this.appointmentRepository = Injector.Injector.CreateInstance<IAppointmentRepository>();
         }
 
         public Appointment Find(int appointmentId)
