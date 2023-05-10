@@ -11,9 +11,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     public class KeyPointService
     {
         private IKeyPointRepository keyPointRepository;
-        public KeyPointService(IKeyPointRepository keyPointRepository)
+        public KeyPointService()
         {
-            this.keyPointRepository = keyPointRepository;
+            this.keyPointRepository = Injector.Injector.CreateInstance<IKeyPointRepository>();
         }
 
         public List<KeyPoint> GetAll()
