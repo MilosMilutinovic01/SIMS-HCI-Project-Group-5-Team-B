@@ -15,6 +15,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             this.tourRepository = tourRepository;
         }
+
+        public TourService()
+        {
+            this.tourRepository = Injector.Injector.CreateInstance<ITourRepository>();
+        }
         
         public List<Tour> GetAll()
         {

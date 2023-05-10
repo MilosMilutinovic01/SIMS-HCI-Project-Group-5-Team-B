@@ -1,4 +1,6 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using System;
 using System.Collections;
@@ -12,17 +14,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
 {
     public class AppointmentCSVRepository : CSVRepository<Appointment>, IAppointmentRepository
     {
-        public AppointmentCSVRepository(ITourRepository tourRepository) : base()
-        {
-            LoadTour(tourRepository);
-        }
+        public AppointmentCSVRepository() : base() { }
 
-        public AppointmentCSVRepository()
+        public void LoadData()
         {
-        }
-
-        private void LoadTour(ITourRepository tourRepository)
-        {
+            ITourRepository tourRepository = Injector.CreateInstance<ITourRepository>();
             foreach(var appointment in _data)
             {
                 appointment.Tour = tourRepository.GetAll().Find(t => t.Id == appointment.TourId);
