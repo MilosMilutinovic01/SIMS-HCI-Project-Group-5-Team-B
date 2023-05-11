@@ -5,5 +5,8 @@
     <Setting Name="LastShownDate" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)">2023-03-14</Value>
     </Setting>
+    <Setting Name="currentLanguage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">en-US</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

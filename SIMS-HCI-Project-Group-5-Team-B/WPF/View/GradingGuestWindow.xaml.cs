@@ -75,6 +75,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
                 Close();
             }
+            else
+            {
+                if (Properties.Settings.Default.currentLanguage == "en-US")
+                {
+                    MessageBox.Show("Reservation  can't be graded, because fileds are not valid");
+                }
+                else
+                {
+                    MessageBox.Show("Rezervacija ne moze biti ocenjena, jer polja nisu validna");
+                }
+            }
         }
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)

@@ -85,6 +85,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
+
+
+
         private int maxGuests;
         public int MaxGuests
         {
@@ -293,39 +296,87 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 if (columnName == "Name")
                 {
                     if (string.IsNullOrEmpty(Name))
-                        return "The field must be filled";
+                    {
+                        if(Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "The field must be filled";
+                        }
+                        else
+                        {
+                            return "Polje mora biti popunjeno";
+                        }
+                    }
+                        
                 }
                 else if (columnName == "Type")
                 {
                     if (string.IsNullOrEmpty(Type))
-                        return "The field must be filled";
+                    {
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "The field must be filled";
+                        }
+                        else
+                        {
+                            return "Polje mora biti popunjeno";
+                        }
+                    }
                 }
                 else if (columnName == "MaxGuests")
                 {
                     if (MaxGuests < 1)
                     {
-                        return "Value must be greater than zero";
+
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "Value must be greater than zero";
+                        }
+                        else
+                        {
+                            return "Vrednost mora biti veca od nule";
+                        }
                     }
                 }
                 else if (columnName == "MinReservationDays")
                 {
                     if (MinReservationDays < 1)
                     {
-                        return "Value must be greater than zero";
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "Value must be greater than zero";
+                        }
+                        else
+                        {
+                            return "Vrednost mora biti veca od nule";
+                        }
                     }
                 }
                 else if (columnName == "NoticePeriod")
                 {
                     if (NoticePeriod < 1)
                     {
-                        return "Value must be greater than zero";
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "Value must be greater than zero";
+                        }
+                        else
+                        {
+                            return "Vrednost mora biti veca od nule";
+                        }
                     }
                 }
                 else if (columnName == "PictureURLsString")
                 {
                     if (string.IsNullOrEmpty(PictureURLsString))
                     {
-                        return "This field must be filled";
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "The field must be filled";
+                        }
+                        else
+                        {
+                            return "Polje mora biti popunjeno";
+                        }
                     }
                 }
                 return null;
