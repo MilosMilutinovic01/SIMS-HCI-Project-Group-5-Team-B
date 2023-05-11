@@ -9,10 +9,12 @@ using ToastNotifications.Lifetime;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
+    public enum TourRequestStatuses { WAITING, EXPIRED, ACCEPTED }
+
+
     public class TourRequest : INotifyPropertyChanged
     {
-        public enum TourRequestStatuses { WAITING, EXPIRED, ACCEPTED }
-
+        public int Id { get; set; }
         private Location location;
         public Location Location
         {
@@ -111,21 +113,36 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
-        private TourRequestStatuses tourRequestStatus;
-        public TourRequestStatuses TourRequestStatus
+        private TourRequestStatuses status;
+        public string Status
         {
-            get => tourRequestStatus;
+            get
+            {
+                if (status == TourRequestStatuses.WAITING) return "WAITING";
+                else if (status == TourRequestStatuses.EXPIRED) return "EXPIRED";
+                else return "ACCEPTED";
+            }
             set
             {
-                if(tourRequestStatus != value)
+                if(value == "WAITING" && status != TourRequestStatuses.WAITING)
                 {
-                    tourRequestStatus = value;
+                    status = TourRequestStatuses.WAITING;
+                    OnPropertyChanged();
+                }
+                else if (value == "EXPIRED" && status != TourRequestStatuses.EXPIRED)
+                {
+                    status = TourRequestStatuses.EXPIRED;
+                    OnPropertyChanged();
+                }
+                else if (value == "ACCEPTED" && status != TourRequestStatuses.ACCEPTED)
+                {
+                    status = TourRequestStatuses.ACCEPTED;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public TourRequest(int locationId, string description, string language, int maxGuests, DateOnly dateRangeStart, DateOnly dateRangeEnd, TourRequestStatuses tourRequestStatus)
+        public TourRequest(int locationId, string description, string language, int maxGuests, DateOnly dateRangeStart, DateOnly dateRangeEnd, TourRequestStatuses status)
         {
             LocationId = locationId;
             Description = description;
@@ -133,8 +150,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             MaxGuests = maxGuests;
             DateRangeStart = dateRangeStart;
             DateRangeEnd = dateRangeEnd;
-            TourRequestStatus = tourRequestStatus;
+            Status = status;
         }
+
+        public TourRequest() { }
 
 
 
