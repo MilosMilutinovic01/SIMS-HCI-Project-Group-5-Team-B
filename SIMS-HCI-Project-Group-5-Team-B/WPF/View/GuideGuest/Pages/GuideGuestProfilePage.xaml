@@ -5,9 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.Pages"
       xmlns:fpp="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
+      xmlns:viewModel="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="1050"
       Title="GuideGuestProfilePage" Background="White">
+    <Page.DataContext>
+        <viewModel:GuideGuestProfileViewModel/>
+    </Page.DataContext>
 
     <Grid>
         <Grid.ColumnDefinitions>
