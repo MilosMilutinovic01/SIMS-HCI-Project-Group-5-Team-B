@@ -70,7 +70,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private MonthlyAccommodationStatisticsService monthlyAccommodationStatisticsService;
         public Owner LogedInOwner { get; set; }
         private string username;
-
         private App app;
         private const string SRB = "sr-Latn-RS";
         private const string ENG = "en-US";
@@ -168,9 +167,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             ownerService.Update(LogedInOwner);
 
             app = (App)System.Windows.Application.Current;
-            app.ChangeLanguage(ENG);
+            /*app.ChangeLanguage(ENG);
             currentLanguage = ENG;
-
+            Properties.Settings.Default.currentLanguage = ENG;
+            Properties.Settings.Default.Save();*/
+            if(Properties.Settings.Default.currentLanguage == "en-US")
+            {
+                LocalizationComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                LocalizationComboBox.SelectedIndex = 1;
+            }
 
         }
 
@@ -323,13 +331,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             string newType = (string)cbItem.Content;
             if (newType == "English")
             {
+                Properties.Settings.Default.currentLanguage = ENG;
                 app.ChangeLanguage(ENG);
                 currentLanguage = ENG;
+                Properties.Settings.Default.Save();
             }
             else if (newType == "Serbian")
             {
+                //pristupi i promeni settingsu i toj prom
+                Properties.Settings.Default.currentLanguage = SRB;
                 app.ChangeLanguage(SRB);
                 currentLanguage = SRB;
+                Properties.Settings.Default.Save();
+                //trebao bi save iz setingsa
             }
         }
 

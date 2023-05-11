@@ -27,28 +27,41 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
         public AccommodationService accommodationService;
         public ObservableCollection<RenovationGridView> FutureRenovations;
         public RenovationGridView SelectedRenovationGridView { get; set; }
-        public ScheduleRenovationForm(RenovationService renovationService, AccommodationService accommodationService, ReservationService reservationService,Owner owner, ObservableCollection<RenovationGridView> FutureRenovations)
+        public ScheduleRenovationForm(RenovationViewModel renovationViewModel, AccommodationService accommodationService,Owner owner)
         {
             InitializeComponent();
-            renovationViewModel = new RenovationViewModel(renovationService, reservationService,owner.Id,SelectedRenovationGridView);
-            this.DataContext = renovationViewModel;
+            this.renovationViewModel = renovationViewModel;
+            DataContext = renovationViewModel;
             this.accommodationService = accommodationService;
-            this.FutureRenovations = FutureRenovations;
             ShowAccommodations(owner);
         }
 
         private void Schedule_RenovationButton_Click(object sender, RoutedEventArgs e)
         {
-            renovationViewModel.CreateRenovation();
-            if (DateTime.Today.AddDays(5) < renovationViewModel.NewRenovation.StartDate)
+            /*if (renovationViewModel.SelectedDate.Start != DateTime.MinValue && renovationViewModel.SelectedDate.End != DateTime.MinValue)
+            {*/
+                renovationViewModel.CreateRenovation();
+                /*if (DateTime.Today.AddDays(5) < renovationViewModel.NewRenovation.StartDate)
+                {
+                    FutureRenovations.Add(new RenovationGridView(renovationViewModel.NewRenovation, true));
+                }
+                else
+                {
+                    FutureRenovations.Add(new RenovationGridView(renovationViewModel.NewRenovation, false));
+                }*/
+                Close();
+            //}
+            /*else
             {
-                FutureRenovations.Add(new RenovationGridView(renovationViewModel.NewRenovation, true));
-            }
-            else
-            {
-                FutureRenovations.Add(new RenovationGridView(renovationViewModel.NewRenovation, false));
-            }
-            Close();
+                if (Properties.Settings.Default.currentLanguage == "en-US")
+                {
+                    MessageBox.Show("Renovation can't be scheduled, because wanted date was not selected");
+                }
+                else
+                {
+                    MessageBox.Show("Renoviranje ne moze biti zakazno, jer datumi nisu odabrani");
+                }
+            }*/
         }
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {

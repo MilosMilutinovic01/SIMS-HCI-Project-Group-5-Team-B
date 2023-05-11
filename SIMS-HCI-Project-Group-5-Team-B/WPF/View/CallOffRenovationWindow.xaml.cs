@@ -25,21 +25,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     {
 
         private readonly RenovationViewModel renovationViewModel;
-        public ObservableCollection<RenovationGridView> FutureRenovations { get; set; }
-        public RenovationGridView SelectedRenovationGridView { get; set; }
-        public CallOffRenovationWindow(RenovationGridView SelectedRenovationGridView,ObservableCollection<RenovationGridView> FutureRenovations, RenovationService renovationService, ReservationService reservationService, int ownerId)
+        //public ObservableCollection<RenovationGridView> FutureRenovations { get; set; }
+        //public RenovationGridView SelectedRenovationGridView { get; set; }
+        public CallOffRenovationWindow(RenovationViewModel renovationViewModel)
         {
             InitializeComponent();
-            this.SelectedRenovationGridView = SelectedRenovationGridView;
-            renovationViewModel = new RenovationViewModel(renovationService, reservationService, ownerId,SelectedRenovationGridView);
-            this.FutureRenovations = FutureRenovations;
+            this.renovationViewModel = renovationViewModel;
+            DataContext = renovationViewModel;
             
         }
 
         private void Confirm_Button_Click(object sender, RoutedEventArgs e)
         {
-            renovationViewModel.CallOff(SelectedRenovationGridView);
-            FutureRenovations.Remove(SelectedRenovationGridView);
+            renovationViewModel.CallOff();
+            //FutureRenovations.Remove(SelectedRenovationGridView);
             Close();
         }
 

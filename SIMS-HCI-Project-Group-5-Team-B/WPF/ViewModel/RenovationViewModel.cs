@@ -27,7 +27,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private int ownerId;
         
         
-        public RenovationViewModel(RenovationService renovationService,ReservationService reservationService, int ownerId, RenovationGridView SelectedRenovationGridView)
+        public RenovationViewModel(RenovationService renovationService,ReservationService reservationService, int ownerId/*, RenovationGridView SelectedRenovationGridView*/)
         {
             this.renovationService = renovationService;
             this.reservationService = reservationService;
@@ -39,10 +39,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             NewRenovation.EndDate = DateTime.Now;
             FutureRenovations = new ObservableCollection<RenovationGridView>(renovationService.GetFutureRenovationsView(ownerId));
             PastRenovations = new ObservableCollection<Renovation>(renovationService.GetPastRenovations(ownerId));
-            this.SelectedRenovationGridView = SelectedRenovationGridView;
+            //this.SelectedRenovationGridView = SelectedRenovationGridView;
         }
 
-        public void CallOff(RenovationGridView SelectedRenovationGridView)
+        public void CallOff()
         {
             if (SelectedRenovationGridView != null)
             {
@@ -56,30 +56,40 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public void CreateRenovation()
         {
-            if (NewRenovation.IsValid)
-            {
-                NewRenovation.StartDate = SelectedDate.Start;
-                NewRenovation.EndDate = SelectedDate.End;
-                renovationService.Save(NewRenovation);
-                MessageBox.Show("Renovation scheduled!");
-                if(DateTime.Today.AddDays(5) < NewRenovation.StartDate)
+            
+                if (NewRenovation.IsValid)
                 {
-                    FutureRenovations.Add(new RenovationGridView(NewRenovation, true));
+                    NewRenovation.StartDate = SelectedDate.Start;
+                    NewRenovation.EndDate = SelectedDate.End;
+                    renovationService.Save(NewRenovation);
+                    MessageBox.Show("Renovation scheduled!");
+                    if (DateTime.Today.AddDays(5) < NewRenovation.StartDate)
+                    {
+                        FutureRenovations.Add(new RenovationGridView(NewRenovation, true));
+                    }
+                    else
+                    {
+                        FutureRenovations.Add(new RenovationGridView(NewRenovation, false));
+                    }
                 }
                 else
                 {
-                    FutureRenovations.Add(new RenovationGridView(NewRenovation, false));
+                    if (Properties.Settings.Default.currentLanguage == "en-US")
+                    {
+                        MessageBox.Show("Renovation can't be scheduled, because fileds are not valid");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Renoviranje ne moze biti zakazano, jer polja nisu validna");
+                    }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Renovation can not be scheduled\nBecause data is not valid!");
-            }
+            
+            
         }
 
         public void SeachAvailableDates()
         {
-            if (NewRenovation.IsValid)
+            if (NewRenovation.IsValidForSearch)
             {
                 RenovationRecommendations.Clear();
                 List<RenovationRecommendation> list = reservationService.GetRenovationRecommendationsInTimeSpan(NewRenovation.Accommodation, NewRenovation.StartDate, NewRenovation.EndDate, NewRenovation.RenovationDays);
@@ -93,7 +103,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
             else
             {
-                MessageBox.Show("Search can not be preformed because data is not valid!");
+               
+                    if (Properties.Settings.Default.currentLanguage == "en-US")
+                    {
+                        MessageBox.Show("Search can not be preformed because data is not valid!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Pretraga ne moze biti izvrsena jer vrednosti nisu validne");
+                    }
+                
+                //MessageBox.Show("Search can not be preformed because data is not valid!");
             }
         }
     }
