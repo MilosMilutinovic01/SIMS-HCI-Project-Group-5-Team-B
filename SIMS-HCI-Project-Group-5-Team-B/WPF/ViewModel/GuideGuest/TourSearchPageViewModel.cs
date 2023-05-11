@@ -51,7 +51,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         {
             locationController = new LocationController();
 
-            Tours = new ObservableCollection<Tour>((new TourService(new TourCSVRepository(new KeyPointCSVRepository(), new LocationCSVRepository()))).GetAll());
+            Tours = new ObservableCollection<Tour>((new TourService(new TourCSVRepository())).GetAll());
 
             States = locationController.GetStates();
             Cities = new ObservableCollection<string>();
