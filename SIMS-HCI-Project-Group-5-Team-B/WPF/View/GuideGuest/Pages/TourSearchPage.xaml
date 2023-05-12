@@ -77,17 +77,17 @@
                     <TextBlock Text="Duration:" Grid.Column="8" Grid.Row="0"/>
 
                     <ComboBox x:Name="LocationStateComboBox" Grid.Column="1" Grid.Row="0" 
-                              ItemsSource="{Binding States}" SelectedItem="{Binding SelectedState, Mode=TwoWay}"/>
+                              ItemsSource="{Binding States}" SelectedItem="{Binding SelectedState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <ComboBox x:Name="LocationCityComboBox" Grid.Column="3" Grid.Row="0"
-                              ItemsSource="{Binding Cities}" SelectedItem="{Binding SelectedCity,Mode=TwoWay}"/>
-                    <TextBox x:Name="NumberOfGuestsTextBox" Grid.Column="5" Grid.Row="0" Text="{Binding NumberOfGuests, Mode=TwoWay}"/>
-                    <TextBox x:Name="LanguageTextBox" Grid.Column="7" Grid.Row="0" Text="{Binding Language, Mode=TwoWay}"/>
-                    <TextBox x:Name="DurationTextBox" Grid.Column="9" Grid.Row="0" Text="{Binding Duration, Mode=TwoWay}"/>
+                              ItemsSource="{Binding Cities}" SelectedItem="{Binding SelectedCity,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="NumberOfGuestsTextBox" Grid.Column="5" Grid.Row="0" Text="{Binding NumberOfGuests, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="LanguageTextBox" Grid.Column="7" Grid.Row="0" Text="{Binding Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="DurationTextBox" Grid.Column="9" Grid.Row="0" Text="{Binding Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     
                     <WrapPanel Grid.Row="1" Grid.ColumnSpan="10" Grid.Column="0" HorizontalAlignment="Right" Margin="0, 8, 0, 0">
                         <Button x:Name="SearchButton" Content="Search" Command="{Binding SearchCommand}"
                             Margin="5, 0, 10, 0" Padding="2" Width="60" FontSize="15"/>
-                        <Button x:Name="ResetButton" Content="Reset" Command="{Binding }"
+                        <Button x:Name="ResetButton" Content="Reset" Command="{Binding ResetCommand}"
                             Margin="0, 0, 0, 0" Padding="2" Width="60" FontSize="15"/>
                     </WrapPanel>
                 </Grid>
