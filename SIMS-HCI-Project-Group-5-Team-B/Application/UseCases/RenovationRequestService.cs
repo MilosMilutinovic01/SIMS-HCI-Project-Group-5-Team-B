@@ -38,14 +38,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public void Save(RenovationRequest renovationRequest)
         {
-            renovationRequestRepository.Save(renovationRequest);
-            GetReservationReferences();
+            if(!Exists(renovationRequest.ReservationId))
+            {
+                renovationRequestRepository.Save(renovationRequest);
+                GetReservationReferences();
+            }
         }
 
         public void Update(RenovationRequest renovationRequest)
         {
             renovationRequestRepository.Update(renovationRequest);
             GetReservationReferences();
+        }
+
+        public bool Exists(int reservationId)
+        {
+            return GetAll().Any(resReq => resReq.ReservationId == reservationId);
         }
 
         private void GetReservationReferences()
