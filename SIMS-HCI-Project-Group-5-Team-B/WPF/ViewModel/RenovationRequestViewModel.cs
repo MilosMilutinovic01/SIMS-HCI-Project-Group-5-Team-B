@@ -23,6 +23,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public RelayCommand CloseCommand { get;}
         protected RenovationRequestForm window;
         private ComboBoxItem selectedItem;
+        private int reservationId;
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private void NotifyPropertyChanged(string info)
@@ -50,13 +51,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public RenovationRequestViewModel(int reservationId, RenovationRequestForm window, ComboBox comboBox)
         {
+            this.reservationId = reservationId;
             NewRenovationRequest = new RenovationRequest(reservationId);
             renovationRequestService = new RenovationRequestService();
             this.window = window;
             SelectedItem = (ComboBoxItem)comboBox.Items[0];
             //commands
-            SendCommand = new RelayCommand(Send_Execute,CanExecute);
-            CloseCommand = new RelayCommand(Close_Execute, CanExecute);
+            SendCommand = new RelayCommand(Send_Execute,SendCanExecute);
+            CloseCommand = new RelayCommand(Close_Execute);
         }
 
         public void Send_Execute()
@@ -73,9 +75,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
         }
 
-        public bool CanExecute()
+        public bool SendCanExecute()
         {
-            return true;
+            return !renovationRequestService.Exists(reservationId);
         }
 
         public void Close_Execute()
