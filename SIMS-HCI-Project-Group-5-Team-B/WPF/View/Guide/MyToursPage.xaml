@@ -1,0 +1,58 @@
+﻿<Page x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide.MyToursPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide"
+        mc:Ignorable="d"
+        Title="MyTours" Height="750" Width="430" Background="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Label VerticalAlignment="Bottom" HorizontalAlignment="Center">Choose year:</Label>
+            <ComboBox x:Name="ComboBoxYear" HorizontalAlignment="Center" VerticalAlignment="Bottom" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBoxItem Content="2020"/>
+                <ComboBoxItem Content="2021"/>
+                <ComboBoxItem Content="2022"/>
+                <ComboBoxItem Content="2023"/>
+            </ComboBox>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
+            <TextBlock Text="Most visited in selected year:" HorizontalAlignment="Left"></TextBlock>
+            <DataGrid x:Name="MostVisitedToursDataGrid" ItemsSource="{Binding Path=MostVisitedAppointment}" SelectedItem="{Binding Path=SelectedAppointment}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Tour.Name}" />
+                    <DataGridTextColumn Header="State" Width="*" Binding="{Binding Tour.Location.State}" />
+                    <DataGridTextColumn Header="City" Width="*" Binding="{Binding Tour.Location.City}" />
+                    <DataGridTextColumn Header="Language" Width="*" Binding="{Binding Tour.Language}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3">
+            <TextBlock Text="All finished Tours:" HorizontalAlignment="Left"></TextBlock>
+            <DataGrid x:Name="AllFinishedToursDataGrid" ItemsSource="{Binding Path=FinishedAppointments}" SelectedItem="{Binding Path=SelectedAppointment}" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Tour.Name}" />
+                    <DataGridTextColumn Header="State" Width="*" Binding="{Binding Tour.Location.State}" />
+                    <DataGridTextColumn Header="City" Width="*" Binding="{Binding Tour.Location.City}" />
+                    <DataGridTextColumn Header="Language" Width="*" Binding="{Binding Tour.Language}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <Button Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ShowStatsButton_Click">Show statistics</Button>
+    </Grid>
+</Page>

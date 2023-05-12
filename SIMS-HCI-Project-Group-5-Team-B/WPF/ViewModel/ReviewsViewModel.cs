@@ -2,6 +2,7 @@
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.DTO;
+using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
     {
         private ObservableCollection<Card> cards;
         public bool result;
+        private TourGradeService tourGradeService;
+        private TourAttendanceService tourAttendanceService;
         public ObservableCollection<Card> Cards
         {
             get { return cards; }
@@ -32,8 +35,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public RelayCommandWithParams ReportCommand { get; }
 
-        public ReviewsViewModel(TourGradeService tourGradeService, int userId, TourAttendanceService tourAttendanceService)
+        public ReviewsViewModel(int userId)
         {
+            TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
+            TourGradeCSVRepository tourGradeCSVRepository = new TourGradeCSVRepository();
+
+            this.tourAttendanceService = new TourAttendanceService(tourAttendanceCSVRepository);
+            this.tourGradeService = new TourGradeService(tourGradeCSVRepository);
+
             Cards = new ObservableCollection<Card>();
 
             UserController userController = new UserController();

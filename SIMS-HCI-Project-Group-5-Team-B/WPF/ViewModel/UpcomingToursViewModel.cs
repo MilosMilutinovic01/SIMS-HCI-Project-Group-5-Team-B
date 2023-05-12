@@ -1,0 +1,76 @@
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Repository;
+using SIMS_HCI_Project_Group_5_Team_B.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
+{
+    public class UpcomingToursViewModel : ViewModel
+    {
+        #region fields
+        private AppointmentService appointmentService;
+        private VoucherService voucherService;
+        public TourAttendanceService tourAttendanceService;
+        public ObservableCollection<Appointment> AvailableAppointments { get; }
+        public Appointment SelectedAppointment { get; set; }
+        public RelayCommand CancelTourCommand { get; set; }
+
+        public int userId;
+        #endregion
+
+        #region actions
+        private bool CanExecute_NavigateCommand(object obj)
+        {
+            return true;
+        }
+        private void Execute_CancelTourCommand(object obj)
+        {
+            //bool result = MessageBox.Show("Are you sure you want to cancel selected tour?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+            if (SelectedAppointment.Cancelled == false)
+            {
+                SelectedAppointment.Cancelled = true;
+                appointmentService.Update(SelectedAppointment);
+                voucherService.SendVouchers(SelectedAppointment.Id);
+                RefreshAppointments();
+            }
+            //else
+            //{
+            //    //MessageBox.Show("Already cancelled!");
+            //}
+        }
+        #endregion
+
+        public UpcomingToursViewModel()
+        {
+            //this.userId = userId;
+            KeyPointCSVRepository keyPointCSVRepository = new KeyPointCSVRepository();
+            LocationCSVRepository locationCSVRepository = new LocationCSVRepository();
+            TourCSVRepository tourCSVRepository = new TourCSVRepository(keyPointCSVRepository, locationCSVRepository);
+            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository(tourCSVRepository);
+            TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
+            tourAttendanceService = new TourAttendanceService(tourAttendanceCSVRepository);
+            this.appointmentService = new AppointmentService(appointmentCSVRepository, tourAttendanceService);
+            voucherService = new VoucherService();
+
+            this.CancelTourCommand = new RelayCommand(Execute_CancelTourCommand, CanExecute_NavigateCommand);
+            AvailableAppointments = new ObservableCollection<Appointment>();
+
+            RefreshAppointments();
+        }
+
+        private void RefreshAppointments()
+        {
+            AvailableAppointments.Clear();
+            foreach (Appointment appointment in appointmentService.GetUpcoming(8))
+            {
+                AvailableAppointments.Add(appointment);
+            }
+        }
+    }
+}

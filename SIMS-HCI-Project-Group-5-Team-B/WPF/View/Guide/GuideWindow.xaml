@@ -6,7 +6,246 @@
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         mc:Ignorable="d"
         Title="Guide" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="Menu" x:Key="MenuStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Menu}">
+                        <Border BorderThickness="1">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0"
+                                 EndPoint="0,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="#FF888888"
+                                                Offset="0.0" />
+                                            <GradientStop Color="#FF888888"
+                                                Offset="1.0" />
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                 StartPoint="0.5,0">
+                                    <GradientStop Color="#FF888888"
+                                        Offset="0" />
+                                    <GradientStop Color="#FF888888"
+                                        Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <StackPanel ClipToBounds="True"
+                                Orientation="Vertical"
+                                IsItemsHost="True" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="MenuItem" x:Key="BaseMenuItem">
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Width" Value="33" />
+            <Setter Property="Margin" Value="3"></Setter>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="2"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Grid x:Name="MenuItemGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="MenuItemBorder" Grid.ColumnSpan="2">
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0"
+                                 EndPoint="0,1">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStopCollection>
+                                                <GradientStop Color="#FF888888"
+                                                Offset="0.0" />
+                                                <GradientStop Color="#FF888888"
+                                                Offset="1.0" />
+                                            </GradientStopCollection>
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1"
+                                 StartPoint="0.5,0">
+                                        <GradientStop Color="#FF888888"
+                                        Offset="0" />
+                                        <GradientStop Color="#FF888888"
+                                        Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <StackPanel ClipToBounds="True"
+                                    Orientation="Horizontal"
+                                    IsItemsHost="True" />
+                            </Border>
+                            <ContentPresenter x:Name="IconPresenter"  ContentSource="Icon"/>
+                            <ContentPresenter ContentSource="Header"
+                                          Margin="7, 1, 7, 1" Grid.Column="1" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="MenuItemBorder" Property="Background" Value="CadetBlue" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Path=Checker}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:1" Storyboard.TargetProperty="Width" From="0" To="350" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--<Style TargetType="MenuItem" x:Key="StartMenuItem">
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Width" Value="35" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Grid x:Name="MenuItemGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="MenuItemBorder" Grid.ColumnSpan="2">
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0"
+                                 EndPoint="0,1">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStopCollection>
+                                                <GradientStop Color="#FF888888"
+                                                Offset="0.0" />
+                                                <GradientStop Color="#FF888888"
+                                                Offset="1.0" />
+                                            </GradientStopCollection>
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1"
+                                 StartPoint="0.5,0">
+                                        <GradientStop Color="#FF888888"
+                                        Offset="0" />
+                                        <GradientStop Color="#FF888888"
+                                        Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <StackPanel ClipToBounds="True"
+                                    Orientation="Horizontal"
+                                    IsItemsHost="True" />
+                            </Border>
+                            <ContentPresenter x:Name="IconPresenter"  ContentSource="Icon"/>
+                            <ContentPresenter ContentSource="Header"
+                                          Margin="7, 1, 7, 1" Grid.Column="1" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="MenuItemBorder" Property="Background" Value="CadetBlue" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Path=Checker}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:1" Storyboard.TargetProperty="Width" From="33" To="200" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>-->
+
+    </Window.Resources>
     <DockPanel>
+        <Menu DockPanel.Dock="Left" Style="{StaticResource MenuStyle}">
+            <MenuItem Style="{StaticResource BaseMenuItem}" Name="OpenMenuItem" Command="{Binding OpenMenuCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/hamburgerIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Create tour" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToCreateTourPageCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/plusIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Tour tracking" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTrackingTourPageCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/locationIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Upcoming tours" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToUpcomingToursPageCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/upcomingIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="My tours" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToMyToursPageCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/myToursIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Reviews" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToReviewsPageCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/reviewsIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Tour requests" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourRequestsPageCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/requestIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Tour requests with statistics" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourRequestsWithStatisticsPageCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/statisticsIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </Menu>
+        <!--<Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+        </Grid>-->
+        <Grid DockPanel.Dock="Bottom" Height="30">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Grid.Row="0" Background="White" BorderThickness="0" Margin="5" Command="{Binding GoBackCommand}">
+                <Image Source="/Resources/Images/leftArrow.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
+            </Button>
+            <Button Grid.Column="1" Grid.Row="0" Background="White" BorderThickness="0" Margin="5" Command="{Binding NavigateToMyToursPageCommand}">
+                <Image Source="/Resources/Images/homeIcon.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
+            </Button>
+            <Button Grid.Column="2" Grid.Row="0" Background="White" BorderThickness="0" Margin="5" Command="{Binding NavigateToMyToursPageCommand}">
+                <Image Source="/Resources/Images/bellIcon.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
+            </Button>
+        </Grid>
+        <Frame x:Name="frame" NavigationUIVisibility="Hidden"/>
+    </DockPanel>
+    <!--<DockPanel>
         <DockPanel DockPanel.Dock="top" Height="30">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                 <Button>
@@ -19,29 +258,6 @@
             </Button>
         </DockPanel>
         
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Image Source="/Resources/Images/profile.png" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"></Image>
-            <Label Grid.Row="1" Grid.Column="1" Content="{Binding Source=Username}" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
-            
-            <StackPanel Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Center">
-                <Button Height="30" Click="AddTourClick" Margin="0,15,0,15">Create tour</Button>
-                <Button Height="30" Click="TrackinTourLiveClick" Margin="0,15,0,15">Track tour</Button>
-                <Button Height="30" Click="TourCancellationClick" Margin="0,15,0,15">Cancel tour</Button>
-                <Button Height="30" Margin="0,15,0,15" Click="SignOutClick">Reviews</Button>
-                <Button Height="30" Margin="0,15,0,15" Click="MyToursClick">My tours</Button>
-            </StackPanel>
-        </Grid>
-    </DockPanel>
+        
+    </DockPanel>-->
 </Window>

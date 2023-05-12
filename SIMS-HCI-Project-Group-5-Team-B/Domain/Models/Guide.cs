@@ -34,16 +34,30 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 }
             }
         }
+        private string username;
+        public string Username
+        {
+            get { return username; }
+            set
+            {
+                if (value != username)
+                {
+                    username = value;
+                }
+            }
+        }
         public Guide()
         {
             Id = 0;
             Name = "Milos";
             Surname = "Milutinovic";
+            Username = "mikica";
         }
-        public Guide(string name, string surname)
+        public Guide(string name, string surname, string username)
         {
             Name = name;
             Surname = surname;
+            Username = username;
         }
 
         public void FromCSV(string[] values)
