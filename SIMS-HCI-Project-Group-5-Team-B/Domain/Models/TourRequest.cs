@@ -12,7 +12,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
     public enum TourRequestStatuses { WAITING, EXPIRED, ACCEPTED }
 
 
-    public class TourRequest : INotifyPropertyChanged
+    public class TourRequest : INotifyPropertyChanged, IDataErrorInfo
     {
         public int Id { get; set; }
         private Location location;
@@ -85,8 +85,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
-        private DateOnly dateRangeStart;
-        public DateOnly DateRangeStart
+        private DateTime dateRangeStart;
+        public DateTime DateRangeStart
         {
             get => dateRangeStart;
             set
@@ -99,8 +99,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
-        private DateOnly dateRangeEnd;
-        public DateOnly DateRangeEnd
+        private DateTime dateRangeEnd;
+        public DateTime DateRangeEnd
         {
             get => dateRangeEnd;
             set
@@ -142,7 +142,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
-        public TourRequest(int locationId, string description, string language, int maxGuests, DateOnly dateRangeStart, DateOnly dateRangeEnd, TourRequestStatuses status)
+        public TourRequest(int locationId, string description, string language, int maxGuests, DateTime dateRangeStart, DateTime dateRangeEnd, string status)
         {
             LocationId = locationId;
             Description = description;
@@ -154,6 +154,74 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         }
 
         public TourRequest() { }
+
+
+
+
+        public string Error => null;
+
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Description")
+                {
+                    if(Description == null || Description == string.Empty)
+                    {
+                        return "Tour request must have description";
+                    }
+                }
+                else if (columnName == "Language")
+                {
+                    if (Language == null || Language == string.Empty)
+                    {
+                        return "Tour request must have language";
+                    }
+                }
+                else if (columnName == "MaxGuests")
+                {
+                    if(MaxGuests < 1)
+                    {
+                        return "Max guests must be greater than 0";
+                    }
+                }
+                else if (columnName == "DateRangeStart")
+                {
+                    if (DateRangeStart < DateTime.Now.AddDays(2))
+                    {
+                        return "Date range must start 2 days from now";
+                    }
+                }
+                else if (columnName == "DateRangeEnd")
+                {
+                    if (DateRangeEnd > DateRangeStart)
+                    {
+                        return "Date range can't end before it started";
+                    }
+                }
+                return null;
+            }
+        }
+
+        private readonly string[] _validatedProperties = { "GuideGeneralKnowlegde", "GuideLanguageKnowledge", "TourFun" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
+        }
+
+
+
+
 
 
 

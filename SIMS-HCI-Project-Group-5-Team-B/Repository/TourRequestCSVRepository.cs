@@ -4,6 +4,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,8 +81,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             newTourRequest.Description = values[2];
             newTourRequest.Language = values[3];
             newTourRequest.MaxGuests = int.Parse(values[4]);
-            newTourRequest.DateRangeStart = DateOnly.Parse(values[5]);
-            newTourRequest.DateRangeEnd = DateOnly.Parse(values[6]);
+            newTourRequest.DateRangeStart = Convert.ToDateTime(values[5], CultureInfo.GetCultureInfo("en-US"));
+            newTourRequest.DateRangeEnd = Convert.ToDateTime(values[6], CultureInfo.GetCultureInfo("en-US"));
             newTourRequest.Status = values[7];
 
             return newTourRequest;
@@ -96,8 +97,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
                 obj.Description,
                 obj.Language,
                 obj.MaxGuests.ToString(),
-                obj.DateRangeStart.ToString(),
-                obj.DateRangeEnd.ToString(),
+                obj.DateRangeStart.ToString(CultureInfo.GetCultureInfo("en-US")),
+                obj.DateRangeEnd.ToString(CultureInfo.GetCultureInfo("en-US")),
                 obj.Status,
             };
             return csvValues;
