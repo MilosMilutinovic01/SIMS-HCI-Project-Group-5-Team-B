@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         mc:Ignorable="d"
-        Title="GradingOwnerAccommodation" Height="450" Width="380">
+        Title="GradingOwnerAccommodation" Height="450" Width="380"
+        Background="#c8a2c8">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
