@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
         mc:Ignorable="d"
-        Title="ReservationChangeRequestForm" Height="300" Width="427"
+        Title="ReservationChangeRequestForm" Height="300" Width="427" WindowStartupLocation="CenterScreen"
         Background="#c8a2c8">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">

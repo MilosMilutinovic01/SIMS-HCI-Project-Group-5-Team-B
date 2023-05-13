@@ -98,7 +98,7 @@
                 <TextBlock Text="Accommodation" Margin="10 10 0 10" FontSize="24"></TextBlock>
             </WrapPanel>
             
-            <DataGrid Width="auto" ItemsSource="{Binding Path=Accomodations, UpdateSourceTrigger=PropertyChanged}" Margin="10 10 10 25"
+            <DataGrid Width="auto" ItemsSource="{Binding Path=Accomodations, UpdateSourceTrigger=PropertyChanged}" Margin="10 10 20 25"
                   SelectedItem="{Binding Path=SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                       AutoGenerateColumns="False" IsReadOnly="True" >
                 <DataGrid.Resources>

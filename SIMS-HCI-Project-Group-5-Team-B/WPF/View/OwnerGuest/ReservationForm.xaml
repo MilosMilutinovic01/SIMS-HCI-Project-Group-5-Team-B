@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         xmlns:converters="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Converters"
         mc:Ignorable="d"
-        Title="Reservation Form" Height="720" Width="470"
+        Title="Reservation Form" Height="720" Width="470" WindowStartupLocation="CenterScreen"
         Background="#c8a2c8">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
