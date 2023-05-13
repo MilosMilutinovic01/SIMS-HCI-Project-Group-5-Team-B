@@ -3,11 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest"
+        xmlns:local="SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest"
+        xmlns:converters="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Converters"
         mc:Ignorable="d"
         Title="GradesWindow" Height="540" Width="920"
       Background="#c8a2c8">
-    <Page.InputBindings>
+    <Page.Resources>
+        <converters:DateConverter x:Key="DateConverter"></converters:DateConverter>
+    </Page.Resources>
+        <Page.InputBindings>
         <KeyBinding Gesture="Ctrl+D" Command="{Binding DetailsCommand}"></KeyBinding>
     </Page.InputBindings>
     <Grid>
@@ -30,8 +34,8 @@
                 <DataGridTextColumn Header="Owner Name" Binding="{Binding OwnerName}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Accommodation" Binding="{Binding Grade.Reservation.Accommodation.Name}" Width="1.2*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Location" Binding="{Binding Grade.Reservation.Accommodation.Location}" Width="2.2*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Start" Binding="{Binding Grade.Reservation.StartDate}" Width="0.7*"></DataGridTextColumn>
-                <DataGridTextColumn Header="End" Binding="{Binding Grade.Reservation.EndDate}" Width="0.7*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Start" Binding="{Binding Grade.Reservation.StartDate, Converter={StaticResource DateConverter}}" Width="0.7*"></DataGridTextColumn>
+                <DataGridTextColumn Header="End" Binding="{Binding Grade.Reservation.EndDate, Converter={StaticResource DateConverter}}" Width="0.7*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Paid on Time" Binding="{Binding CompletedOnTime}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">

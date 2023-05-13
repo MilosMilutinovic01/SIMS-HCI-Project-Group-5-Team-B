@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        xmlns:converters="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Converters"
         mc:Ignorable="d"
         Title="Reservation Form" Height="720" Width="470"
         Background="#c8a2c8">
@@ -16,6 +17,7 @@
             </StackPanel>
 
         </ControlTemplate>
+        <converters:DateConverter x:Key="DateConverter"></converters:DateConverter>
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Gesture="Ctrl+S" Command="{Binding SearchCommand}"></KeyBinding>
@@ -91,8 +93,8 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Start" Binding="{Binding Start}" Width="2*"></DataGridTextColumn>
-                <DataGridTextColumn Header="End" Binding="{Binding End}" Width="2*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Start" Binding="{Binding Start, Converter={StaticResource DateConverter}}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="End" Binding="{Binding End, Converter={StaticResource DateConverter}}" Width="*"></DataGridTextColumn>
                 <DataGridTemplateColumn Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
