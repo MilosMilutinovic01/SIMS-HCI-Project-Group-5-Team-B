@@ -184,6 +184,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                             return "Polje mora biti popunjeno";
                         }
                     }
+                }else if(columnName == "RenovationDays")
+                {
+                    if (RenovationDays < 0)
+                    {
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "Value must be greater than zero";
+                        }
+                        else
+                        {
+                            return "Vrednost mora biti veca od nule";
+                        }
+                    }
                 }
 
                 return null;

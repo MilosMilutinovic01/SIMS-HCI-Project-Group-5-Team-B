@@ -36,20 +36,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
             this.reservationService = reservationService;
             this.accommodationService = accommodationService;
             this.owner = owner;
-            renovationViewModel = new RenovationViewModel(renovationService, reservationService, owner.Id/*, SelectedRenovationGridView*/);
-            DataContext = renovationViewModel;
+            //renovationViewModel = new RenovationViewModel(renovationService, reservationService, owner.Id/*, SelectedRenovationGridView*/);
+            this.DataContext = new RenovationViewModel(renovationService, reservationService, owner,accommodationService/*, SelectedRenovationGridView*/);
         }
 
-        private void Schedule_Button_Click(object sender, RoutedEventArgs e)
+        /*private void Schedule_Button_Click(object sender, RoutedEventArgs e)
         {
             ScheduleRenovationForm scheduleRenovationForm = new ScheduleRenovationForm(renovationViewModel,accommodationService,owner);
             scheduleRenovationForm.Show();
-        }
+        }*/
 
-        private void CallOf_Button_Click(object sender, RoutedEventArgs e)
-        {
-            CallOffRenovationWindow callOffRenovationWindow = new CallOffRenovationWindow(renovationViewModel);
-            callOffRenovationWindow.Show();
-        }
+
+       
     }
 }

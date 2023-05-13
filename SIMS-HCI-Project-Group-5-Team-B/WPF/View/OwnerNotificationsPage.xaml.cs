@@ -22,12 +22,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     /// </summary>
     public partial class OwnerNotificationsPage : Page
     {
-        private OwnerNotificationsViewModel ownerNotificationsViewModel;
+        
         public OwnerNotificationsPage(Owner owner)
         {
             InitializeComponent();
-            ownerNotificationsViewModel = new OwnerNotificationsViewModel(owner.Id);
-            DataContext = ownerNotificationsViewModel;
+            this.DataContext = new OwnerNotificationsViewModel(owner.Id);
         }
     }
 }

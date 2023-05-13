@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     /// </summary>
     public partial class OwnerProfilePage : Page
     {
-        public OwnerProfilePage()
+        public OwnerProfilePage(Owner owner, SuperOwnerService superOwnerService)
         {
             InitializeComponent();
+            this.DataContext = new OwnerProfileViewModel(owner,superOwnerService);
         }
     }
 }

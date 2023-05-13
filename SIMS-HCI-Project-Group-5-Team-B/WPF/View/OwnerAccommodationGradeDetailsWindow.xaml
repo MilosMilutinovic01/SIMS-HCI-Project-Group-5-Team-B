@@ -77,6 +77,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Grid.Column="0" Grid.Row="2" Height="20" Width="50" Content="{ns:Loc Cancel}" Click="Cancel_Button_Click" HorizontalAlignment="Right" Margin="0,0,50,0"></Button>
+        <Button Grid.Column="0" Grid.Row="2" Height="20" Width="50" Content="{ns:Loc Cancel}" Command="{Binding CancelCommand}" HorizontalAlignment="Right" Margin="0,0,50,0"></Button>
     </Grid>
 </Window>
