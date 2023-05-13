@@ -22,9 +22,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             tourRequestRepository.Save(newTourRequest);
         }
 
-        public void GetAll()
+        public void Update(TourRequest newTourRequest)
         {
-            tourRequestRepository.GetAll();
+            tourRequestRepository.Update(newTourRequest);
+        }
+
+        public List<TourRequest> GetAll()
+        {
+            return tourRequestRepository.GetAll();
+        }
+
+        public List<TourRequest> GetFor(int guideGuestId)
+        {
+            return tourRequestRepository.GetAll().FindAll(req => req.GuideGuestId == guideGuestId);
         }
     }
 }

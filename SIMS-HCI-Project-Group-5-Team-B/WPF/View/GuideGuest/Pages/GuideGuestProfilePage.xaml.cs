@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

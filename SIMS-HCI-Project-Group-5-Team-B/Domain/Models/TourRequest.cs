@@ -15,6 +15,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
     public class TourRequest : INotifyPropertyChanged, IDataErrorInfo
     {
         public int Id { get; set; }
+        private int guideGuestId;
+        public int GuideGuestId
+        {
+            get => guideGuestId;
+            set
+            {
+                if(guideGuestId != value)
+                {
+                    guideGuestId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private Location location;
         public Location Location
         {
@@ -142,8 +155,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
-        public TourRequest(int locationId, string description, string language, int maxGuests, DateTime dateRangeStart, DateTime dateRangeEnd, string status)
+        public TourRequest(int guideGuestId, int locationId, string description, string language, int maxGuests, DateTime dateRangeStart, DateTime dateRangeEnd, string status)
         {
+            GuideGuestId = guideGuestId;
             LocationId = locationId;
             Description = description;
             Language = language;

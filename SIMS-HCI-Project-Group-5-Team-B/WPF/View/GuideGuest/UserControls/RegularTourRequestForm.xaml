@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
+             x:Name="root"
              mc:Ignorable="d" 
              Height="380" Width="300"
              Background="Transparent">
@@ -46,15 +47,17 @@
                 Text="Description:" FontSize="15"/>
 
             <ComboBox Grid.Column="1" Grid.Row="1"/>
-            <TextBox Grid.Column="1" Grid.Row="2"/>
-            <TextBox Grid.Column="1" Grid.Row="3"/>
-            <DatePicker Grid.Column="1" Grid.Row="4"/>
-            <DatePicker Grid.Column="1" Grid.Row="5"/>
-            <TextBlock Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Background="WhiteSmoke"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding TourRequest.Language, ElementName=root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding TourRequest.MaxGuests ,ElementName=root,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <DatePicker Grid.Column="1" Grid.Row="4" Text="{Binding TourRequest.DateRangeStart, ElementName=root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <DatePicker Grid.Column="1" Grid.Row="5" Text="{Binding TourRequest.DateRangeEnd, ElementName=root,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Background="WhiteSmoke"
+                       Text="{Binding TourRequest.Description, ElementName=root, Mode=TwoWay}"/>
 
-            <WrapPanel Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Right">
-                <Button Content="Save"/>
-                <Button Content="Cancel"/>
+            <WrapPanel Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Right"
+                       DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
+                <Button x:Name="SaveRegularTourRequestButton" Content="Save" Command="{Binding SaveCommand}"/>
+                <Button x:Name="CancelRegularTourRequestButton" Content="Cancel" Command="{Binding CancelCommand}"/>
             </WrapPanel>
         </Grid>
     </Grid>

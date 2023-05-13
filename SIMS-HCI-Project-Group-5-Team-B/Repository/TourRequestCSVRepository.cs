@@ -77,13 +77,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             TourRequest newTourRequest = new TourRequest();
 
             newTourRequest.Id = int.Parse(values[0]);
-            newTourRequest.LocationId = int.Parse(values[1]);
-            newTourRequest.Description = values[2];
-            newTourRequest.Language = values[3];
-            newTourRequest.MaxGuests = int.Parse(values[4]);
-            newTourRequest.DateRangeStart = Convert.ToDateTime(values[5], CultureInfo.GetCultureInfo("en-US"));
-            newTourRequest.DateRangeEnd = Convert.ToDateTime(values[6], CultureInfo.GetCultureInfo("en-US"));
-            newTourRequest.Status = values[7];
+            newTourRequest.GuideGuestId = int.Parse(values[1]);
+            newTourRequest.LocationId = int.Parse(values[2]);
+            newTourRequest.Description = values[3];
+            newTourRequest.Language = values[4];
+            newTourRequest.MaxGuests = int.Parse(values[5]);
+            newTourRequest.DateRangeStart = Convert.ToDateTime(values[6], CultureInfo.GetCultureInfo("en-US"));
+            newTourRequest.DateRangeEnd = Convert.ToDateTime(values[7], CultureInfo.GetCultureInfo("en-US"));
+            newTourRequest.Status = values[8];
 
             return newTourRequest;
         }
@@ -93,6 +94,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             string[] csvValues =
             {
                 obj.Id.ToString(),
+                obj.GuideGuestId.ToString(),
                 obj.LocationId.ToString(),
                 obj.Description,
                 obj.Language,
