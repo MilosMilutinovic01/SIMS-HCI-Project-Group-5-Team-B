@@ -25,7 +25,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest
         {
 
             InitializeComponent();           
-            this.DataContext = new RenovationRequestViewModel(reservationId, this, comboBox); ;
+            this.DataContext = new RenovationRequestViewModel(reservationId, this); ;
         }
 
         

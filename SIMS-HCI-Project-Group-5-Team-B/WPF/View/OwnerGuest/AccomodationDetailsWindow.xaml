@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         mc:Ignorable="d"
-        Title="AccomodationDetailsWindow" Height="450" Width="500">
+        Title="AccomodationDetailsWindow" Height="450" Width="500" WindowStartupLocation="CenterScreen"
+        Background="#c8a2c8">
     <Window.InputBindings>
         <KeyBinding Gesture="Ctrl+R" Command="{Binding ReserveCommand}"/>
         <KeyBinding Gesture="esc" Command="{Binding CancelCommand}"/>
@@ -85,7 +86,7 @@
 
 
         </Grid>
-        <ListBox Grid.Column="1" Grid.RowSpan="2" Name="imageListBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0 10" >
+        <ListBox Grid.Column="1" Grid.RowSpan="2" Name="imageListBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0 10" Background="LightGray" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
