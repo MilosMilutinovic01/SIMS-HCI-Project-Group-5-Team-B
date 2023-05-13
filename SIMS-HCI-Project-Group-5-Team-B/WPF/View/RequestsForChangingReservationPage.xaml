@@ -37,8 +37,8 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <WrapPanel>
-                                        <Button x:Name="acceptButton" Click="Accept_Button_Click" Content="{ns:Loc Accept}"></Button>
-                                        <Button x:Name="declineButton" Click="Decline_Button_Click" Content="{ns:Loc Decline}"></Button>
+                                        <Button x:Name="acceptButton" Command="{Binding DataContext.AcceptRequestCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Content="{ns:Loc Accept}"></Button>
+                                        <Button x:Name="declineButton" Command="{Binding DataContext.DeclineRequestCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Content="{ns:Loc Decline}"></Button>
                                 </WrapPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

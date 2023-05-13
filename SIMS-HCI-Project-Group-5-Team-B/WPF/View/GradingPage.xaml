@@ -35,7 +35,7 @@
                         <DataGridTemplateColumn x:Name="ButtonColumnGrade">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="gradeButton" Click="Grade_Button_Click" Content="{ns:Loc Grade}"></Button>
+                                    <Button x:Name="gradeButton" Command="{Binding DataContext.GuestGradingWindowCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Content="{ns:Loc Grade}"></Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -52,7 +52,7 @@
                         <DataGridTemplateColumn x:Name="ButtonColumnDetails">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="detailsButton" Click="Details_Button_Click" Content="{ns:Loc Details}"></Button>
+                                    <Button x:Name="detailsButton" Command="{Binding DataContext.OwnerAccommodationGradeDetailsWindowCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Content="{ns:Loc Details}"></Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

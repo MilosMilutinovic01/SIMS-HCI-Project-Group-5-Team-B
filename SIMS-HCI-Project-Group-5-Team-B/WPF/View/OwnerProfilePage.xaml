@@ -9,37 +9,37 @@
       d:DesignHeight="350" d:DesignWidth="670"
       Title="OwnerProfilePage">
     <Border BorderBrush="Black" BorderThickness="1">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"></RowDefinition>
-            <RowDefinition Height="1.5*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Content="{ns:Loc SuperOwnerExplanation}"></Label>
-        <Image x:Name="ProfileImage" Grid.Row="1" HorizontalAlignment="Left" Height="130" Width="130" Margin="40,10,0,10" Source="/Resources/Images/OwnerProfile.png" ></Image>
-        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,15,0,0" Content="{ns:Loc Name}"></Label>
-        <TextBlock Grid.Row="1" Height="25" HorizontalAlignment="Left" Width="80" Text="{Binding LogedInOwner.Name}" Margin="250,19,0,117" TextAlignment="Left"></TextBlock>
-        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,45,0,0" Content="{ns:Loc Surname}"></Label>
-        <TextBlock Grid.Row="1" Height="25" HorizontalAlignment="Left" Width="80" Text="{Binding LogedInOwner.Surname}" Margin="260,49,0,87" TextAlignment="Left"></TextBlock>
-        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,75,0,0" Content="{ns:Loc NumberOfGrades}"></Label>
-        <TextBlock Grid.Row="1" Height="25" HorizontalAlignment="Left" Width="80" Text="{Binding GradeCount}" Margin="300,79,0,57" TextAlignment="Left"></TextBlock>
-        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,105,0,0" Content="{ns:Loc GradingAverage}"></Label>
-        <TextBlock Grid.Row="1" Height="25" HorizontalAlignment="Left" Width="80" Text="{Binding LogedInOwner.GradeAverage}" Margin="300,109,0,27" TextAlignment="Left"></TextBlock>
-        <Image x:Name="MedalImage" Grid.Row="2"  Height="80" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" Source="/Resources/Images/OwnerMedalImage.png" Margin="65,10,0,10">
-            <Image.Style>
-                <Style TargetType="{x:Type Image}">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                    <Style.Triggers>
-                        <DataTrigger Value="True" Binding="{Binding LogedInOwner.IsSuperOwner}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Image.Style>
-        </Image>
-    </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"></RowDefinition>
+                <RowDefinition Height="1.5*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Content="{ns:Loc SuperOwnerExplanation}"></Label>
+            <Image x:Name="ProfileImage" Grid.Row="1" HorizontalAlignment="Left" Height="130" Width="130" Margin="40,10,0,10" Source="/Resources/Images/OwnerProfile.png" ></Image>
+            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,15,0,0" Content="{ns:Loc Name}"></Label>
+            <TextBlock Grid.Row="1" Height="25" HorizontalAlignment="Left" Width="80" Text="{Binding Owner.Name}" Margin="300,18,0,131" TextAlignment="Left"></TextBlock>
+            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,45,0,0" Content="{ns:Loc Surname}"></Label>
+            <TextBlock Grid.Row="1" Height="25" HorizontalAlignment="Left" Width="80" Text="{Binding Owner.Surname}" Margin="300,49,0,100" TextAlignment="Left"></TextBlock>
+            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,75,0,0" Content="{ns:Loc NumberOfGrades}"></Label>
+            <TextBlock Grid.Row="1" Height="25" HorizontalAlignment="Left" Width="80" Text="{Binding NumberOfGrades}" Margin="300,80,0,69" TextAlignment="Left"></TextBlock>
+            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,105,0,0" Content="{ns:Loc GradingAverage}"></Label>
+            <TextBlock Grid.Row="1" Height="25" HorizontalAlignment="Left" Width="80" Text="{Binding Owner.GradeAverage}" Margin="300,110,0,39" TextAlignment="Left"></TextBlock>
+            <Image x:Name="MedalImage" Grid.Row="2"  Height="80" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" Source="/Resources/Images/OwnerMedalImage.png" Margin="65,10,0,10">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Value="True" Binding="{Binding Owner.IsSuperOwner}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+        </Grid>
     </Border>
 </Page>
