@@ -22,7 +22,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public RelayCommand SendCommand { get;}
         public RelayCommand CloseCommand { get;}
         protected RenovationRequestForm window;
-        private ComboBoxItem selectedItem;
+        private string selectedItem;
         private int reservationId;
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -35,27 +35,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         }
 
 
-        public ComboBoxItem SelectedItem {
+        public string SelectedItem {
             get { return selectedItem; }
             set { 
                 if(selectedItem != value)
                 {
                     selectedItem = value;
                     NotifyPropertyChanged(nameof(SelectedItem));
-                    NewRenovationRequest.Level = (ReservationLevel)int.Parse(SelectedItem.Tag.ToString());
+                    NewRenovationRequest.Level = GetReservationLevel(selectedItem);
 
                 }
             }
         }
 
 
-        public RenovationRequestViewModel(int reservationId, RenovationRequestForm window, ComboBox comboBox)
+        public RenovationRequestViewModel(int reservationId, RenovationRequestForm window)
         {
             this.reservationId = reservationId;
             NewRenovationRequest = new RenovationRequest(reservationId);
             renovationRequestService = new RenovationRequestService();
             this.window = window;
-            SelectedItem = (ComboBoxItem)comboBox.Items[0];
+           SelectedItem = "Level1 - Minor Renovations Needed";
             //commands
             SendCommand = new RelayCommand(Send_Execute,SendCanExecute);
             CloseCommand = new RelayCommand(Close_Execute);
@@ -83,6 +83,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public void Close_Execute()
         {
             window.Close();
+        }
+
+        private ReservationLevel GetReservationLevel(string selectedItem)
+        {
+            if (selectedItem.Contains("Level1"))
+            {
+                return ReservationLevel.Level1;
+            }
+            if (selectedItem.Contains("Level2"))
+            {
+                return ReservationLevel.Level2;
+            }
+            if (selectedItem.Contains("Level3"))
+            {
+                return ReservationLevel.Level3;
+            }
+            if (selectedItem.Contains("Level4"))
+            {
+                return ReservationLevel.Level4;
+            }
+            return ReservationLevel.Level5;
         }
     }
 }
