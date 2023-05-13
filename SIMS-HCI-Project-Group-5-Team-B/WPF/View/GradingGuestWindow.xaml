@@ -42,17 +42,15 @@
         <TextBox Grid.Column="1" Grid.Row="1" Margin="0 30 180 20" Text="{Binding ElementName=RulesComplianceSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <Slider x:Name="StateOfInventorySlider" Grid.Column="1" Grid.Row="2" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=NewOwnerGuestGrade.StateOfInventory, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></Slider>
         <TextBox Grid.Column="1" Grid.Row="2" Margin="0 30 180 20" Text="{Binding ElementName=StateOfInventorySlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <ComboBox Grid.Column="1" Grid.Row="3" Height="40" Name="PaymentOnTime_ComboBox" SelectionChanged="PaymentOnTimeComboBox" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Text="{Binding Path=ComplaintsFromOtherGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
-            <ComboBoxItem>Yes</ComboBoxItem>
-            <ComboBoxItem>No</ComboBoxItem>
+        <ComboBox Grid.Column="1" Grid.Row="3" Height="40" Name="PaymentOnTime_ComboBox" ItemsSource="{Binding BoolAnswers}" SelectedItem="{Binding SelectedIsPaymentCompletedOnTime, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" >
+
         </ComboBox>
-        <ComboBox Grid.Column="1" Grid.Row="4" Height="40" Name="ComplaintsFromOtherGuests_ComboBox" SelectionChanged="ComplaintsFromOtherGuestsComboBox" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Text="{Binding Path=IsPaymentCompletedOnTime, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
-            <ComboBoxItem >Yes</ComboBoxItem>
-            <ComboBoxItem>No</ComboBoxItem>
+        <ComboBox Grid.Column="1" Grid.Row="4" Height="40" Name="ComplaintsFromOtherGuests_ComboBox" ItemsSource="{Binding BoolAnswers}" SelectedItem="{Binding SelectedComplatintsFromGuests}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"  >
+
         </ComboBox>
         <TextBox Grid.Column="1" Grid.Row="5" Height="40" Text="{Binding Path=NewOwnerGuestGrade.AdditionalComment, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
-        <Button Grid.Column="1" Grid.Row="6" Height="30" HorizontalAlignment="Left" Width="50"  Content="{ns:Loc Grade}" Click="Grade_Button_Click" Margin="125,18,0,18"></Button>
-        <Button Grid.Column="1" Grid.Row="6" Height="30" HorizontalAlignment="Right" Width="50" Content="{ns:Loc Cancel}" Click="Cancel_Button_Click"></Button>
+        <Button Grid.Column="1" Grid.Row="6" Height="30" HorizontalAlignment="Left" Width="50" Command="{Binding GradeCommand}" Content="{ns:Loc Grade}" Margin="125,18,0,18"></Button>
+        <Button Grid.Column="1" Grid.Row="6" Height="30" HorizontalAlignment="Right" Width="50" Command="{Binding CancelCommand}" Content="{ns:Loc Cancel}" ></Button>
 
     </Grid>
 
