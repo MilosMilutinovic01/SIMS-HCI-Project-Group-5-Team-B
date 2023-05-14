@@ -3,6 +3,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,7 +43,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public List<Tour> Search(Location Location, string Language, int Duration, int NumberOfPeople)
         {
-            throw new NotImplementedException();
+            return tourRepository.GetAll().FindAll(t => (Location.State == string.Empty || t.Location.State == Location.State) &&
+                                                        (Location.City == string.Empty || t.Location.City == Location.City) &&
+                                                        (Language == string.Empty || t.Language == Language) &&
+                                                        (Duration == 0 || t.Duration == Duration) &&
+                                                        t.MaxGuests >= NumberOfPeople);
         }
     }
 }

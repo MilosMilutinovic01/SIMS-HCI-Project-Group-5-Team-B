@@ -5,10 +5,26 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.Pages"
       xmlns:fpp="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
+      xmlns:viewModel="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest"
+      xmlns:forms="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="1050"
       Title="GuideGuestProfilePage" Background="White">
+    <Page.DataContext>
+        <viewModel:GuideGuestProfileViewModel/>
 
+    </Page.DataContext>
+
+    <!--<Style TargetType="{x:Type forms:RegularTourRequestForm}">
+        <Setter Property="Visibility">
+            <Setter.Value>
+                <ControlTemplate>
+                    <
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
@@ -86,11 +102,11 @@
 
                     <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="Your regular tour requests"/>
                     <WrapPanel Grid.Row="0" HorizontalAlignment="Right">
-                        <Button x:Name="EditRegularTourRequestButton" Content="Edit"/>
-                        <Button x:Name="AddNewRegularTourRequestButton" Content="Add new"/>
+                        <Button x:Name="EditRegularTourRequestButton" Content="Edit" Command="{Binding EditRegularTourRequestCommand}"/>
+                        <Button x:Name="AddNewRegularTourRequestButton" Content="Add new" Command="{Binding AddNewRegularTourRequestCommand}"/>
                     </WrapPanel>
 
-                    <DataGrid Grid.Row="1"/>
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding TourRequests}" SelectedItem="{Binding SelectedTourRequest, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
 
                 <!-- Special tour requests -->
@@ -123,17 +139,28 @@
             </Grid>
         </Grid>
 
-        <Popup x:Name="RegularTourRequestPopup" AllowsTransparency="True"
-            HorizontalOffset="0" VerticalOffset="4">
-            <fpp:RegularTourRequestForm/>
-        </Popup>
-        <Popup x:Name="SpecialTourRequestPopup" AllowsTransparency="True"
-            HorizontalOffset="0" VerticalOffset="4">
-            <fpp:SpecialTourRequestForm/>
-        </Popup>
-        <Popup x:Name="TourTrackingPopup" AllowsTransparency="True"
-            HorizontalOffset="0" VerticalOffset="4">
-            <fpp:TourTrackingForm/>
-        </Popup>
+        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="400" Width="300">
+                <forms:RegularTourRequestForm x:Name="RegularTourRequestForm"
+                                              TourRequest="{Binding SelectedTourRequest}"
+                                              SaveCommand="{Binding SaveRegularTourRequestCommand}"
+                                              CancelCommand="{Binding CancelRegularTourRequestCommand}">
+                    <forms:RegularTourRequestForm.Style>
+                        <Style TargetType="{x:Type forms:RegularTourRequestForm}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShowRegularTourRequestForm}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </forms:RegularTourRequestForm.Style>
+                    <!--<DataTrigger Binding="{Binding ShowRegularTourRequestForm}" Value="True">
+                        <Setter TargetName="RegularTourRequestForm" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>-->
+                </forms:RegularTourRequestForm>
+            </StackPanel>
+        </Grid>
+        
     </Grid>
 </Page>
