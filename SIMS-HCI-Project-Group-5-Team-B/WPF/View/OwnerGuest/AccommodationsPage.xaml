@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       mc:Ignorable="d"
-        Title="Accomodations" Height="540" Width="900"
-      Background="White">
+        Title="Accomodations" Height="540" Width="920"
+      Background="#c8a2c8">
 
     <Page.InputBindings>
         <KeyBinding Gesture="Ctrl+R" Command="{Binding ResetCommand}"></KeyBinding>
@@ -98,9 +98,14 @@
                 <TextBlock Text="Accommodation" Margin="10 10 0 10" FontSize="24"></TextBlock>
             </WrapPanel>
             
-            <DataGrid Width="auto" ItemsSource="{Binding Path=Accomodations, UpdateSourceTrigger=PropertyChanged}" Margin="10 10 10 25"
+            <DataGrid Width="auto" ItemsSource="{Binding Path=Accomodations, UpdateSourceTrigger=PropertyChanged}" Margin="10 10 20 25"
                   SelectedItem="{Binding Path=SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                       AutoGenerateColumns="False" IsReadOnly="True" >
+                <DataGrid.Resources>
+                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#a2a2c8" />
+                    </Style>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="2*"></DataGridTextColumn>

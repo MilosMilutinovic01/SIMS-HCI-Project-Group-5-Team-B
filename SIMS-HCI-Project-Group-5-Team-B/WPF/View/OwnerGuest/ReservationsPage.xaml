@@ -4,14 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+      xmlns:converters="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Converters"
         mc:Ignorable="d"
-        Title="ReservationsWindow" Height="540" Width="900" 
-      Background="White">
+        Title="ReservationsWindow" Height="540" Width="920" 
+      Background="#c8a2c8">
+    <Page.Resources>
+        <converters:DateConverter x:Key="DateConverter"></converters:DateConverter>
+    </Page.Resources>
     <Page.InputBindings>
         <KeyBinding Gesture="Ctrl+M" Command="{Binding ModifyCommand}"></KeyBinding>
         <KeyBinding Gesture="Ctrl+D" Command="{Binding CancelReservationCommand}"></KeyBinding>
         <KeyBinding Gesture="Ctrl+G" Command="{Binding GradeCommand}"></KeyBinding>
     </Page.InputBindings>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"></ColumnDefinition>
@@ -33,12 +38,17 @@
         <TextBlock Grid.Row="1" Grid.Column="1" Text="Reservation Requests" FontSize="20"></TextBlock>
         <DataGrid Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="1" x:Name="ReservationsRequestsGrid" ItemsSource="{Binding Path=ReservaitionChangeRequests, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedReservationView, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
-                      AutoGenerateColumns="False" IsReadOnly="True">
+                      AutoGenerateColumns="False" IsReadOnly="True" >
+            <DataGrid.Resources>
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#a2a2c8" />
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Accommodation" Binding="{Binding Reservation.Accommodation.Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Location" Binding="{Binding Reservation.Accommodation.Location}" Width="2*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Start" Binding="{Binding Start}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="End" Binding="{Binding End}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Start" Binding="{Binding Start, Converter={StaticResource DateConverter}}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="End" Binding="{Binding End, Converter={StaticResource DateConverter}}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Guests No" Binding="{Binding Reservation.GuestsNumber}" Width="0.7*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Status" Binding="{Binding RequestStatus}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Comment" Binding="{Binding DenialComment}" Width="1.5*"></DataGridTextColumn>
@@ -49,11 +59,16 @@
         <DataGrid Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="ReservationsGrid" ItemsSource="{Binding Path=ReservationViews, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedReservationView, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                       AutoGenerateColumns="False" IsReadOnly="True">
-            <DataGrid.Columns>
+            <DataGrid.Resources>
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#a2a2c8" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns >
                 <DataGridTextColumn Header="Accommodation" Binding="{Binding Reservation.Accommodation.Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Location" Binding="{Binding Reservation.Accommodation.Location}" Width="1.2*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Start" Binding="{Binding Reservation.StartDate}" Width="0.4*"></DataGridTextColumn>
-                <DataGridTextColumn Header="End" Binding="{Binding Reservation.EndDate}" Width="0.4*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Start" Binding="{Binding Reservation.StartDate, Converter={StaticResource DateConverter}}" Width="0.4*"></DataGridTextColumn>
+                <DataGridTextColumn Header="End" Binding="{Binding Reservation.EndDate, Converter={StaticResource DateConverter}}" Width="0.4*"></DataGridTextColumn>
                 <DataGridTextColumn  Binding="{Binding Reservation.GuestsNumber}" Width="0.3*">
                     <DataGridTextColumn.Header>
 

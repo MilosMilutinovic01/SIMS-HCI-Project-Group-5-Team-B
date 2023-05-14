@@ -21,6 +21,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public OwnerAccommodationGrade OwnerAccommodationGrade { get; set; }
         private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
         private ReservationService reservationService;
+        private RenovationRequestService renovationRequestService;
         //private ObservableCollection<ReservationGridView> ReservationViews;
 
 
@@ -42,13 +43,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.reservationService = reservationService;
             this.superOwnerService = superOwnerService;
             this.ownerService = ownerService;
+            renovationRequestService = new RenovationRequestService();
             Heading = string.Empty;
             FormHeading();
             this.window = window;
 
             //commands
             CloseCommand = new RelayCommand(Cancel_Exexute, CanExecute);
-            SendRequestCommand = new RelayCommand(RenovationRequest_Exexute, CanExecute);
+            SendRequestCommand = new RelayCommand(RenovationRequest_Exexute, SendRequestCanExecute);
             GradeCommand = new RelayCommand(Grade_Execute, CanExecute);
 
         }
@@ -104,6 +106,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public bool CanExecute()
         {
             return true;
+        }
+
+        public bool SendRequestCanExecute()
+        {
+            return ! renovationRequestService.Exists(SelectedReservation.Id);
         }
     }
 }

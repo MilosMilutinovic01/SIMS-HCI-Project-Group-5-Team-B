@@ -267,15 +267,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         }
 
 
-        public List<RenovationRecommendation> GetRenovationRecommendationsInTimeSpan(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int reservationDays)
+        public List<RenovationRecommendation> GetRenovationRecommendationsInTimeSpan(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int renovationDays)
         {
             List<RenovationRecommendation> renovationRecommendations = new List<RenovationRecommendation>();
             DateTime start = startDate;
             DateTime end = startDate;
-            while (start.AddDays(reservationDays - 1) <= endDate)
+            while (start.AddDays(renovationDays - 1) <= endDate)
             {
-                end = start.AddDays(reservationDays - 1);
-                if (IsAccomodationAvailable(selectedAccommodation, start, end))
+                end = start.AddDays(renovationDays - 1);
+                if (IsAccomodationAvailable(selectedAccommodation, start, end) && IsAccomodationNotInRenovation(selectedAccommodation,start,end))
                 {
                     renovationRecommendations.Add(new RenovationRecommendation(start, end));
                 }
