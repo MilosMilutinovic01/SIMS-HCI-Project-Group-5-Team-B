@@ -141,6 +141,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 //if guest becomes with this reservation superGuest, discount can be applied only after this reservation
                 superOwnerGuestTitleService.UpdatePoints(ownerGuestId);
                 superOwnerGuestTitleService.BecomeSuperOwnerGuest();
+                MessageBox.Show("Reservation was successful");
                 Close();
             }
             else
