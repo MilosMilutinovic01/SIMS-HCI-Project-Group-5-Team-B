@@ -15,16 +15,6 @@
 
     </Page.DataContext>
 
-    <!--<Style TargetType="{x:Type forms:RegularTourRequestForm}">
-        <Setter Property="Visibility">
-            <Setter.Value>
-                <ControlTemplate>
-                    <
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>-->
-    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>

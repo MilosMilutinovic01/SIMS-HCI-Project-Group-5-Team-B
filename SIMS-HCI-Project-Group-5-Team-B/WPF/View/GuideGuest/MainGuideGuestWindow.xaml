@@ -56,7 +56,10 @@
 
         <Popup x:Name="NotificationPopup" AllowsTransparency="True"
                HorizontalOffset="0" VerticalOffset="4">
-            <npp:NotificationUserControl></npp:NotificationUserControl>
+            <npp:NotificationUserControl Notifications="{Binding Path=Notifications}"
+                                         CloseCommand="{Binding CloseNotificationCommand}"
+                                         VisitCommand="{Binding VisitTourNotificationCommand}"
+                                         JoinCommand="{Binding JoinTourNotificationCommand}"/>
         </Popup>
     </Grid>
 </Window>

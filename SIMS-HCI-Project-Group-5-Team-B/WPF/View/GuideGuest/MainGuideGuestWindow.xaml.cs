@@ -28,6 +28,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest
         {
             InitializeComponent();
             mainGuideGuestWindowViewModel = new MainGuideGuestWindowViewModel();
+            this.DataContext = mainGuideGuestWindowViewModel;
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
