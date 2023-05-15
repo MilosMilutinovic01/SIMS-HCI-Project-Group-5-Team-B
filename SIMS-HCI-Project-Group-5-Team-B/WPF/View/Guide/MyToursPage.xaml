@@ -38,7 +38,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Command="{Binding DataContext.ShowStatisticsCommand, 
-                                  RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">Statistics</Button>
+                                  RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" HorizontalAlignment="Center">Statistics</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -57,13 +57,13 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Command="{Binding DataContext.ShowStatisticsCommand, 
-                                  RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">Statistics</Button>
+                                  RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" HorizontalAlignment="Center">Statistics</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <Button Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" >Report on scheduled tours</Button>
+        <Button Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click" >Report on scheduled tours</Button>
     </Grid>
 </Page>

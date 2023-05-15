@@ -10,6 +10,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
     public class Guide: User, ISerializable
     {
         public int Id { get; set; }
+
         private string name;
         public string Name
         {

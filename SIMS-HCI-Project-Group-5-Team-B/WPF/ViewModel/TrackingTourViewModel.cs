@@ -21,6 +21,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private AppointmentService appointmentService;
         private NotificationController notificationController;
         private TourAttendanceService tourAttendanceService;
+        private TemporaryTourAttendanceController tourAttendanceController;
 
         public ObservableCollection<Appointment> AvailableAppointments { get; set; }
         public ObservableCollection<KeyPoint> KeyPoints { get; set; }
@@ -39,6 +40,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                     selectedAppointment = value;
                     OnPropertyChanged(nameof(SelectedAppointment));
                     RefreshKeyPoints();
+                    LoadGuests();
                 }
             }
         }
@@ -46,6 +48,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public GuideGuest SelectedGuest { get; set; }
         public RelayCommand StartTourCommand { get; set; }
         public RelayCommand EndTourCommand { get; set; }
+        public RelayCommand CheckKeyPointCommand { get; set; }
         public int userId;
 
         #region actions
@@ -90,6 +93,45 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
         }
 
+        private void Execute_CheckKeyPointCommand(object obj)
+        {
+
+            if (SelectedKeyPoint == KeyPoints[0] || SelectedKeyPoint.Selected == true)
+            {
+                MessageBox.Show("Already selected!");
+                //keyPointName = KeyPoints[0].Name;
+            }
+            //else if (isLastKeyPoint)
+            else if(false)
+            {
+                SelectedKeyPoint.Selected = true;
+                keyPointsController.Update(SelectedKeyPoint);
+                //keyPointName = SelectedKeyPoint.Name;
+
+                SelectedAppointment.Ended = true;
+                SelectedAppointment.CheckedKeyPointId = SelectedKeyPoint.Id;
+                appointmentService.Update(SelectedAppointment);
+
+                MessageBox.Show("Tour ended!");
+            }
+            //else if (KeyPoints[KeyPointsDataGrid.SelectedIndex - 1].Selected == true)
+            else if(true)
+            {
+                SelectedAppointment.CheckedKeyPointId = SelectedKeyPoint.Id;
+                appointmentService.Update(SelectedAppointment);
+
+                SelectedKeyPoint.Selected = true;
+                keyPointsController.Update(SelectedKeyPoint);
+                //keyPointName = SelectedKeyPoint.Name;
+            }
+            else
+            {
+                MessageBox.Show("Can't select this key point before previous is selected!");
+            }
+
+            RefreshKeyPoints();
+        }
+
         private void RefreshKeyPoints()
         {
             KeyPoints.Clear();
@@ -114,6 +156,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.tourAttendanceService = new TourAttendanceService(tourAttendanceCSVRepository);
             this.appointmentService = new AppointmentService(appointmentCSVRepository, tourAttendanceService);
             notificationController = new NotificationController();
+            tourAttendanceController = new TemporaryTourAttendanceController();
 
             AvailableAppointments = new ObservableCollection<Appointment>(appointmentService.GetAllAvaillable(8));
             KeyPoints = new ObservableCollection<KeyPoint>();
@@ -121,6 +164,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
             this.StartTourCommand = new RelayCommand(Execute_StartTourCommand, CanExecute_NavigateCommand);
             this.EndTourCommand = new RelayCommand(Execute_EndTourCommand, CanExecute_NavigateCommand);
+            this.CheckKeyPointCommand = new RelayCommand(Execute_CheckKeyPointCommand, CanExecute_NavigateCommand);
 
             CheckStarted();
         }
@@ -139,6 +183,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                     break;
                 }
             }
+        }
+
+        private void LoadGuests()
+        {
+            if (SelectedAppointment != null)
+            {
+                GuideGuests.Clear();
+                foreach (int guest in tourAttendanceController.FindAllGuestsByAppointment(SelectedAppointment.Id))
+                {
+                    UserController userController = new UserController();
+                    GuideGuests.Add(new GuideGuest(guest, userController.getById(guest).Username));
+                }
+            }
+            RefreshKeyPoints();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

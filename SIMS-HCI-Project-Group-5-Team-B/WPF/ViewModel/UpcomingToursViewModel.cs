@@ -37,7 +37,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             {
                 SelectedAppointment.Cancelled = true;
                 appointmentService.Update(SelectedAppointment);
-                voucherService.SendVouchers(SelectedAppointment.Id);
+                voucherService.SendVouchers(1,SelectedAppointment.Id);
                 RefreshAppointments();
             }
             else if(SelectedAppointment.Cancelled == true)

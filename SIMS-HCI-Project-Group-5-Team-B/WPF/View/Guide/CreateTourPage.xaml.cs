@@ -49,8 +49,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         public List<Appointment> appointments;
         public List<DateTime> starts;
         public List<string> locations { get; set; }
-        //public List<string> states { get; set; }
-        //public List<string> cities;
+        public List<string> states { get; set; }
+        public List<string> cities;
         public CreateTourPage()
         {
             InitializeComponent();
@@ -70,7 +70,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             appointments = new List<Appointment>();
             starts = new List<DateTime>();
             locations = locationController.GetAllAsStrings();
-            //states = locationController.GetStates();
+            states = locationController.GetStates();
         }
 
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
@@ -139,8 +139,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //cities = locationController.GetCityByState(ComboBoxStates.SelectedItem.ToString());
-            //ComboBoxCities.ItemsSource = cities;
+            cities = locationController.GetCityByState(ComboBoxStates.SelectedItem.ToString());
+            ComboBoxCities.ItemsSource = cities;
         }
 
         private void AddImageButton_Click(object sender, RoutedEventArgs e)

@@ -65,9 +65,17 @@
         <Label Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="22,0,0,0">Description:</Label>
         <TextBox Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <ComboBox x:Name="ComboBoxLocations" Grid.Row="1" Grid.Column="2" Text="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding locations}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Center" SelectionChanged="ComboBox_SelectionChanged"/>
-
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ComboBox x:Name="ComboBoxStates" Grid.Row="0" Grid.Column="0" Text="{Binding Path=Location.State, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding states}" VerticalAlignment="Center" SelectionChanged="ComboBox_SelectionChanged"/>
+            <ComboBox x:Name="ComboBoxCities" Grid.Row="0" Grid.Column="1" Text="{Binding Path=Location.City, UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding cities}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+        </Grid>
         <TextBox Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Language, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
         <DockPanel Grid.Row="3" Grid.Column="2" VerticalAlignment="Center">

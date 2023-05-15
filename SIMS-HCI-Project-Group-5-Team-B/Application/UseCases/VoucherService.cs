@@ -48,13 +48,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return voucherRepository.FindBy(propertyNames, values);
         }
 
-        public void SendVouchers(int tourAppointmentId)
+        public void SendVouchers(int guideId, int tourAppointmentId)
         {
             List<int> guestIds = tourAttendanceController.FindAllGuestsByAppointment(tourAppointmentId);
             List<Voucher> vouchers = new List<Voucher>();
             foreach(int guestId in guestIds)
             {
-                vouchers.Add(new Voucher(guestId, DateTime.Now));
+                vouchers.Add(new Voucher(guideId, guestId, DateTime.Now));
             }
             SaveAll(vouchers);
         }
