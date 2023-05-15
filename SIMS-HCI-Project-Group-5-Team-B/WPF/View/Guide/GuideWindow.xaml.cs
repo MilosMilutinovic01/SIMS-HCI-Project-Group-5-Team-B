@@ -3,6 +3,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.View;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,61 +20,14 @@ using System.Windows.Shapes;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
-    /// <summary>
-    /// Interaction logic for GuideWindow.xaml
-    /// </summary>
     public partial class GuideWindow : Window
     {
-        private GuideService guideService;
-        
-        private TourService tourService;
-        private AppointmentService appointmentService;
-        private TourAttendanceService tourAttendanceService;
-        private TourGradeService tourGradeService;
-        public int userId;
-        public GuideWindow(int userId)
+        public GuideViewModel GuideViewModel { get; set; }
+        public GuideWindow(Guide guide)
         {
-            this.userId = userId;
             InitializeComponent();
-            LoadData();
-            guideService = new GuideService();
-        }
-
-        private void LoadData()
-        {
-            tourService = new TourService();
-            tourAttendanceService = new TourAttendanceService();
-            tourGradeService = new TourGradeService();
-            appointmentService = new AppointmentService();
-        }
-        private void AddTourClick(object sender, RoutedEventArgs e)
-        {
-            TourCreateForm tourForm = new TourCreateForm(tourService,appointmentService);
-            tourForm.Show();
-        }
-
-        private void TrackinTourLiveClick(object sender, RoutedEventArgs e)
-        {
-            TrackingTourLiveWindow trackingTourLive = new TrackingTourLiveWindow(appointmentService, userId);
-            trackingTourLive.Show();
-        }
-
-        private void TourCancellationClick(object sender, RoutedEventArgs e)
-        {
-            TourCancelWindow tourCancel = new TourCancelWindow(appointmentService, userId);
-            tourCancel.Show();
-        }
-
-        private void SignOutClick(object sender, RoutedEventArgs e)
-        {
-            ReviewsWindow reviewsWindow = new ReviewsWindow(tourGradeService, userId, tourAttendanceService);
-            reviewsWindow.Show();
-        }
-
-        private void MyToursClick(object sender, RoutedEventArgs e)
-        {
-            MyTours myTours = new MyTours(appointmentService, tourAttendanceService, userId);
-            myTours.Show();
+            this.GuideViewModel = new GuideViewModel(guide, this.frame.NavigationService, frame);
+            this.DataContext = this.GuideViewModel;
         }
     }
 }

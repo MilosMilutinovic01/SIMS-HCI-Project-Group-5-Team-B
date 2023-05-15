@@ -1,4 +1,4 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+﻿    using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -30,9 +30,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
 
             this.tourAttendanceService = tourAttendanceService;
             this.tourGradeService = tourGradeService;
-            reviewsViewModel = new ReviewsViewModel(tourGradeService, userId, tourAttendanceService);
+            reviewsViewModel = new ReviewsViewModel(userId);
             this.DataContext = reviewsViewModel;
         }
+        //prebaci servise u viewModel i sve radi unutar njega i ovde i kroz ostale prozore za view
 
         private void Window_GotFocus(object sender, RoutedEventArgs e)
         {
