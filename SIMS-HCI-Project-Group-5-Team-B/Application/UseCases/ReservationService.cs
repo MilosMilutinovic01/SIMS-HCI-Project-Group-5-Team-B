@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         private IOwnerGuestRepository ownerGuestRepository;
         private IReservationChangeRequestRepository reservationChangeRequestRepository;
         private IRenovationRepository renovationRepository;
+        private IRenovationService renovationService;
         public ReservationService(AccommodationService accommodationService)
         {
             this.reservationRepository = Injector.Injector.CreateInstance<IReservationRepository>();
             this.accommodationService = accommodationService;
             this.ownerGuestRepository = Injector.Injector.CreateInstance<IOwnerGuestRepository>();
             this.reservationChangeRequestRepository = Injector.Injector.CreateInstance<IReservationChangeRequestRepository>();
-            this.renovationRepository = Injector.Injector.CreateInstance<IRenovationRepository>();  
+            this.renovationRepository = Injector.Injector.CreateInstance<IRenovationRepository>();
+            this.renovationService = Injector.ServiceInjector.CreateInstance<IRenovationService>();
             GetAccomodationReference();
             GetOwnerGuestReference();
 
@@ -128,7 +131,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             while (start.AddDays(reservationDays - 1) <= endDate)
             {
                 end = start.AddDays(reservationDays - 1);
-                if (IsAccomodationAvailable(selectedAccommodation, start, end) && IsAccomodationNotInRenovation(selectedAccommodation,start,end))
+                if (IsAccomodationAvailable(selectedAccommodation, start, end) && renovationService.IsAccomodationNotInRenovation(selectedAccommodation,start,end))
                 {
                     reservationRecommendations.Add(new ReservationRecommendation(start, end));
                 }
@@ -147,7 +150,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             while (count != 3)
             {
                 end = start.AddDays(reservationDays - 1);
-                if (IsAccomodationAvailable(selectedAccommodation, start, end) && IsAccomodationNotInRenovation(selectedAccommodation, start, end))
+                if (IsAccomodationAvailable(selectedAccommodation, start, end) && renovationService.IsAccomodationNotInRenovation(selectedAccommodation, start, end))
                 {
                     reservationRecommendations.Add(new ReservationRecommendation(start, end));
                     count++;
@@ -196,29 +199,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         }
 
-        public bool IsAccomodationNotInRenovation(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate)
-        {
-            List<Renovation> accomodationRenovations = renovationRepository.GetRenovationForAccommodation(selectedAccommodation.Id);
-
-            foreach (Renovation renovation in accomodationRenovations)
-            {
-                bool isInRange = startDate >= renovation.StartDate && startDate <= renovation.EndDate ||
-                                 endDate >= renovation.StartDate && endDate <= renovation.EndDate;
-
-                bool isOutOfRange = startDate <= renovation.StartDate && endDate >= renovation.EndDate;
-
-                if (isInRange)
-                {
-                    return false;
-                }
-                else if (isOutOfRange)
-                {
-                    return false;
-                }
-            }
-            return true;
-
-        }
 
 
         public bool IsReservationDeletable(Reservation reservation)
@@ -275,7 +255,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             while (start.AddDays(renovationDays - 1) <= endDate)
             {
                 end = start.AddDays(renovationDays - 1);
-                if (IsAccomodationAvailable(selectedAccommodation, start, end) && IsAccomodationNotInRenovation(selectedAccommodation,start,end))
+                if (IsAccomodationAvailable(selectedAccommodation, start, end) && renovationService.IsAccomodationNotInRenovation(selectedAccommodation,start,end))
                 {
                     renovationRecommendations.Add(new RenovationRecommendation(start, end));
                 }

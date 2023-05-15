@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -24,12 +25,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     public partial class RenovationPage : Page
     {
         private RenovationViewModel renovationViewModel;
-        private RenovationService renovationService;
+        private IRenovationService renovationService;
         private ReservationService reservationService;
         private AccommodationService accommodationService;
         private Owner owner;
         //public RenovationGridView SelectedRenovationGridView { get; set; }
-        public RenovationPage(RenovationService renovationService, ReservationService reservationService, Owner owner, AccommodationService accommodationService)
+        public RenovationPage(IRenovationService renovationService, ReservationService reservationService, Owner owner, AccommodationService accommodationService)
         {
             InitializeComponent();
             this.renovationService = renovationService;
