@@ -18,6 +18,15 @@
                 <DataGridTextColumn Header="Start" Width="*" Binding="{Binding Start}" />
                 <DataGridTextColumn Header="State" Width="*" Binding="{Binding Tour.Location.State}" />
                 <DataGridTextColumn Header="City" Width="*" Binding="{Binding Tour.Location.City}" />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Click" Command="{Binding CancelTourCommand, 
+                                  RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                            CommandParameter="{Binding}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Click="CancelTourButton_Click">Cancel tour</Button>

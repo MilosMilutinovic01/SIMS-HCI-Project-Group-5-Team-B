@@ -4,20 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        xmlns:Syncfusion="http://schemas.syncfusion.com/wpf"
         mc:Ignorable="d"
-        Title="Tracking Tour Live" Height="750" Width="430" Background="White">
+        Title="Tracking Tour Live" Height="730" Width="400" Background="White">
 
     <DockPanel>
-        <ToolBar DockPanel.Dock="Top" Height="30">
+        <!--<ToolBar DockPanel.Dock="Top" Height="30">
             <Button x:Name="TourStartButton" Content="Start" Click="TourStartButton_Click"></Button>
             <Button x:Name="KeyPointCheckButton" Content="Check" Click="KeyPointCheckButton_Click"></Button>
-        </ToolBar>
+        </ToolBar>-->
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -26,28 +23,26 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <DataGrid x:Name="AvailableAppointmentDataGrid" Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding Path=AvailableAppointments}" SelectedItem="{Binding Path=SelectedAppointment}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"  SelectionChanged="AppointmentsDataGrid_SelectionChanged">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Tour.Name}" />
-                    <DataGridTextColumn Header="Start" Binding="{Binding Start}" />
-                </DataGrid.Columns>
-            </DataGrid>
-            <DataGrid x:Name="KeyPointsDataGrid" Grid.Row="2" Grid.RowSpan="2" ItemsSource="{Binding Path=KeyPoints}" SelectedItem="{Binding Path=SelectedKeyPoint}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Check" Binding="{Binding Selected}" />
-                </DataGrid.Columns>
-            </DataGrid>
-            <DataGrid x:Name="GuestsDataGrid" Grid.Row="4" Grid.RowSpan="2" ItemsSource="{Binding Path=GuideGuests}" SelectedItem="{Binding Path=SelectedGuest}" IsReadOnly="True" AutoGenerateColumns="False" SelectionChanged="GuestsDataGrid_SelectionChanged">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" />
-                </DataGrid.Columns>
-            </DataGrid>
-            <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Content="End" Click="EndButton_Click" Margin="15"></Button>
-                <Button x:Name="SendRequestButton" Content="SendRequest" Click="SendRequestButton_Click1" Margin="15"></Button>
+            <StackPanel Grid.Row="0" Margin="0,10,0,0">
+                <Label FontSize="16" Margin="10,0,0,0">Tours:</Label>
+                <DataGrid x:Name="AvailableAppointmentDataGrid" ItemsSource="{Binding Path=AvailableAppointments}" SelectedItem="{Binding Path=SelectedAppointment}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Height="200">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Tour.Name}" />
+                        <DataGridTextColumn Header="Start" Binding="{Binding Start}" />
+                    </DataGrid.Columns>
+                </DataGrid>
             </StackPanel>
+
+            <StackPanel Grid.Row="1" Margin="0,10,0,0">
+                <Label FontSize="16" Margin="10,0,0,0">Guests:</Label>
+                <DataGrid x:Name="GuestsDataGrid" Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding Path=GuideGuests}" SelectedItem="{Binding Path=SelectedGuest}" IsReadOnly="True" AutoGenerateColumns="False" Height="200">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
         </Grid>
     </DockPanel>
 </Page>

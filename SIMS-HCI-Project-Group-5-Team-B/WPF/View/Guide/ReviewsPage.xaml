@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide" xmlns:local1="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel"
+        xmlns:controls="using:Windows.UI.Xaml.Controls"  
         mc:Ignorable="d"
-        Title="ReviewsWindow" Height="750" Width="430" Background="White">
+        Title="ReviewsWindow" Height="730" Width="380" Background="White">
 
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -16,6 +17,7 @@
                         <Border Height="200" BorderBrush="Gray" BorderThickness="1" Margin="5">
                             <Grid>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
@@ -38,8 +40,8 @@
                                         <TextBlock Text="{Binding TourFun, StringFormat='Tour fun: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
                                     </StackPanel>
                                 </DockPanel>
-                                <TextBlock Grid.Row="5" Grid.ColumnSpan="2" Text="{Binding Comment, StringFormat='Comment: {0}'}" FontWeight="Normal" Height="50" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                <Button Grid.Row="6" Grid.Column="1" Command="{Binding DataContext.ReportCommand, ElementName=Items}"
+                                <TextBlock Grid.Row="5" Grid.RowSpan="2" ScrollViewer.CanContentScroll="True" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding Comment, StringFormat='Comment: {0}'}" Margin="10,0,0,0" FontWeight="Normal" Height="50" HorizontalAlignment="Left" />
+                                <Button Grid.Row="7" Grid.Column="1" Command="{Binding DataContext.ReportCommand, ElementName=Items}"
                                         CommandParameter="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">Report</Button>
                             </Grid>
                         </Border>

@@ -62,7 +62,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
 
             if(ComboBoxType.SelectedIndex == 0)//Guide is selected
             {
-                Guide guide = new Guide("Milos", "Milutinovic", "mikica");
+                Guide guide = new Guide("Milos", "Milutinovic");
                 GuideWindow guideWindow = new GuideWindow(guide);
                 guideWindow.Show();
 

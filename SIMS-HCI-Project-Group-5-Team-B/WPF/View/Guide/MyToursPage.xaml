@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide"
         mc:Ignorable="d"
-        Title="MyTours" Height="750" Width="430" Background="White">
+        Title="MyTours" Height="700" Width="400" Background="White">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -24,15 +24,10 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Label VerticalAlignment="Bottom" HorizontalAlignment="Center">Choose year:</Label>
-            <ComboBox x:Name="ComboBoxYear" HorizontalAlignment="Center" VerticalAlignment="Bottom" SelectionChanged="ComboBox_SelectionChanged">
-                <ComboBoxItem Content="2020"/>
-                <ComboBoxItem Content="2021"/>
-                <ComboBoxItem Content="2022"/>
-                <ComboBoxItem Content="2023"/>
-            </ComboBox>
+            <ComboBox HorizontalAlignment="Center" VerticalAlignment="Bottom" ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYear, Mode=TwoWay}"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
-            <TextBlock Text="Most visited in selected year:" HorizontalAlignment="Left"></TextBlock>
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center">
+            <TextBlock Text="Most visited in selected year:" HorizontalAlignment="Left" FontSize="16"></TextBlock>
             <DataGrid x:Name="MostVisitedToursDataGrid" ItemsSource="{Binding Path=MostVisitedAppointment}" SelectedItem="{Binding Path=SelectedAppointment}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Tour.Name}" />
@@ -43,7 +38,7 @@
             </DataGrid>
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3">
-            <TextBlock Text="All finished Tours:" HorizontalAlignment="Left"></TextBlock>
+            <TextBlock Text="All finished Tours:" HorizontalAlignment="Left" FontSize="16"></TextBlock>
             <DataGrid x:Name="AllFinishedToursDataGrid" ItemsSource="{Binding Path=FinishedAppointments}" SelectedItem="{Binding Path=SelectedAppointment}" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Tour.Name}" />
@@ -53,6 +48,6 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <Button Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ShowStatsButton_Click">Show statistics</Button>
+        <Button Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding ShowStatisticsCommand}" Click="ShowStatsButton_Click">Show statistics</Button>
     </Grid>
 </Page>

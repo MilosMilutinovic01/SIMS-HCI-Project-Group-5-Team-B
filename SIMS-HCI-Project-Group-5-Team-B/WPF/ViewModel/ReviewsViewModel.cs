@@ -53,7 +53,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 string username = userController.getById(tg.GuideGuestId).Username;
                 int keyPointArrivedId = tourAttendanceService.GetById(tg.TourAttendanceId).KeyPointGuestArrivedId;
                 string keyPointName = keyPointsController.GetById(keyPointArrivedId).Name;
-                Cards.Add(new Card(username, keyPointName, tg.GuideGeneralKnowledge, tg.GuideLanguageKnowledge, tg.TourFun, tg.Comment, false, false));
+                Cards.Add(new Card(username, keyPointName, tg.GuideGeneralKnowledge, tg.GuideLanguageKnowledge, tg.TourFun, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", false, false));
             }
 
             ReportCommand = new RelayCommandWithParams(Report);

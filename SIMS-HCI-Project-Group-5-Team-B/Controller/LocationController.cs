@@ -22,6 +22,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
         {
             return locationRepository.GetAll();
         }
+
+        public List<string> GetAllAsStrings()
+        {
+            List<string> locations = new List<string>();
+            foreach(var location in locationRepository.GetAll()) 
+            {
+                locations.Add(location.ToString());
+            }
+            return locations;
+        }
+
         public void Save(Location newLocation)
         {
             locationRepository.Save(newLocation);

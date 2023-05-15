@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:cvt="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Converters"
         mc:Ignorable="d"
         Title="Tour Creation" Height="700" Width="380" Background="White">
     <Page.Resources>
@@ -16,86 +17,115 @@
             </StackPanel>
         </ControlTemplate>
     </Page.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="1.4*"></RowDefinition>
+            <RowDefinition Height="1.4*" ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition />
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.3*"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1.5*"></ColumnDefinition>
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="0.3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Tour name</Label>
-        <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Location</Label>
-        <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Description</Label>
-        <Label Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Language</Label>
-        <Label Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Maximum guests</Label>
-        <Label Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Key points</Label>
-        <Label Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Start</Label>
-        <Label Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Duration</Label>
-        <Label Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Images</Label>
-        <TextBox Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"/>
-        <Grid Grid.Row="1" Grid.Column="2">
+        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="22,0,0,0">Tour name:</Label>
+        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="22,0,0,0">Location:</Label>
+        <Label Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="22,0,0,0">Language:</Label>
+        <Label Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="22,0,0,0">Maximum guests:</Label>
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" Margin="22,66,0,0" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">Key points:</Label>
+        </Grid>
+        <Grid Grid.Row="5" Grid.ColumnSpan="2" Margin="22,0,0,66" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">Start:</Label>
+        </Grid>
+        <Label Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="22,0,0,0">Duration:</Label>
+        <Grid Grid.Row="7" Grid.ColumnSpan="2" Margin="22,0,0,66" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <ComboBox x:Name="ComboBoxStates" Grid.Row="0" Grid.Column="0" Text="{Binding Path=Location.State, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding states}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Center" Margin="10,0,0,0" SelectionChanged="ComboBox_SelectionChanged"/>
-            <ComboBox x:Name="ComboBoxCities" Grid.Row="0" Grid.Column="1" Text="{Binding Path=Location.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  ItemsSource="{Binding cities}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Top">Images:</Label>
         </Grid>
+        <Label Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="22,0,0,0">Description:</Label>
+        <TextBox Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+        <ComboBox x:Name="ComboBoxLocations" Grid.Row="1" Grid.Column="2" Text="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding locations}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Center" SelectionChanged="ComboBox_SelectionChanged"/>
 
-        <TextBox Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"/>
-        <TextBox Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Language, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"/>
-        <TextBox Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.MaxGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"/>
+        <TextBox Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Language, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+        <DockPanel Grid.Row="3" Grid.Column="2" VerticalAlignment="Center">
+            <TextBox Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged,Converter={cvt:IntegerToStringConverter}}"></TextBox>
+            <Slider x:Name="slider" Maximum="20" Value="{Binding Path=Tour.MaxGuests}"></Slider>
+        </DockPanel>
+        <!--TextBox Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.MaxGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"/>-->
+        <!--<TextBox Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.MaxGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"/>-->
+        <Grid Grid.Row="4" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"></ColumnDefinition>
+                <ColumnDefinition Width="1.3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="KeyPointTextBox" Grid.Column="0" Grid.Row="0" Text="{Binding Path=KeyPoint.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Center" />
+            <Button Content="Add" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="AddKeyPointsButton_Click"></Button>
+            <ListBox x:Name="KeyPointsListBox" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Height="45"></ListBox>
+        </Grid>
         <Grid Grid.Row="5" Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="6*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1.3*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="KeyPointTextBox" Grid.Column="0" DockPanel.Dock="Left" Text="{Binding Path=KeyPoint.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0" VerticalAlignment="Center" />
-            <Button Content="Add" Grid.Column="1" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,0,0" Click="AddKeyPointsButton_Click"></Button>
+            <xctk:DateTimePicker x:Name="StartDatePicker" Grid.Column="0" VerticalAlignment="Center" Text="{Binding DateTime}"/>
+            <Button Content="Add" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="AddStartButton_Click"></Button>
+            <ListBox x:Name="StartsListBox" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Height="45"></ListBox>
         </Grid>
-        <Grid Grid.Row="6" Grid.Column="2">
+        <DockPanel Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" >
+            <TextBox Text="{Binding ElementName=slider1,Path=Value,UpdateSourceTrigger=PropertyChanged,Converter={cvt:IntegerToStringConverter}}"></TextBox>
+            <Slider x:Name="slider1" Value="{Binding Path=Tour.Duration}" Maximum="10"></Slider>
+        </DockPanel>
+        <Grid Grid.Row="7" Grid.Column="2">
+            <!--<TextBox VerticalAlignment="Center" Text="{Binding Path=Tour.ImageUrls, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>-->
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="6*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1.3*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <xctk:DateTimePicker x:Name="StartDatePicker" Grid.Column="0" VerticalAlignment="Center" Text="{Binding DateTime}" Margin="10,0,0,0"/>
-            <Button Content="Add" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Click="AddStartButton_Click"></Button>
+            <Button Grid.Column="1" Width="30" Height="30" VerticalAlignment="Top" Style="{StaticResource {x:Type Button}}" Click="AddImageButton_Click" Margin="0,0,0,0" Background="White" BorderBrush="White" Padding="0,0,0,0">
+                <Image Source="/Resources/Images/addImageIcon.png"/>
+            </Button>
+            <ListBox x:Name="ImagesListBox" Grid.Column="0" VerticalAlignment="Top" Height="45"/>
         </Grid>
-        <TextBox Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"/>
-        <TextBox Grid.Row="8" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.ImageUrls, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"/>
-        <StackPanel Grid.Row="9" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Width="70" Height="20" Margin="0,0,20,0" Content="Create" Click="CreateTourButton_Click"></Button>
-        </StackPanel>
+        <TextBox Grid.Row="8" Grid.Column="2" VerticalAlignment="Top" TextWrapping="Wrap" Height="45" Text="{Binding Path=Tour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+        <Button HorizontalAlignment="Right" Grid.Row="9" Grid.Column="2" VerticalAlignment="Top" Width="70" Content="Create" Click="CreateTourButton_Click"></Button>
     </Grid>
 </Page>

@@ -243,7 +243,9 @@
                 <Image Source="/Resources/Images/bellIcon.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
             </Button>
         </Grid>
-        <Frame x:Name="frame" NavigationUIVisibility="Hidden"/>
+        <!--<ScrollViewer>-->
+            <Frame x:Name="frame" NavigationUIVisibility="Hidden"/>
+        <!--</ScrollViewer>-->
     </DockPanel>
     <!--<DockPanel>
         <DockPanel DockPanel.Dock="top" Height="30">

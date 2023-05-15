@@ -28,21 +28,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         public MyToursPage()
         {
             InitializeComponent();
-            //this.myToursViewModel = new MyToursViewModel(appointmentService, tourAttendanceService, userId);
+            this.myToursViewModel = new MyToursViewModel(8);
             this.DataContext = myToursViewModel;
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //RefreshData();
         }
 
         
 
         private void ShowStatsButton_Click(object sender, RoutedEventArgs e)
         {
-            //TourStatistics tourStatistics = new TourStatistics(SelectedAppointment.Id, tourAttendanceService);
-            //tourStatistics.Show();
+            
         }
     }
 }

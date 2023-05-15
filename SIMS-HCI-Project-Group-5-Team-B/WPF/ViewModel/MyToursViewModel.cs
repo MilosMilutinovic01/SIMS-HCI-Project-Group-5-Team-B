@@ -1,11 +1,15 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Repository;
+using SIMS_HCI_Project_Group_5_Team_B.Utilities;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
@@ -13,7 +17,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
     public class MyToursViewModel
     {
         #region fields
-        public string Year { get; set; }
+        public string SelectedYear 
+        {
+            get { return "2023"; }
+            set
+            {
+                if(SelectedYear != value) 
+                {
+                    SelectedYear = value;
+                    RefreshData();
+                }
+            }
+        }
+        public RelayCommand ShowStatisticsCommand { get; set; }
+        public List<string> Years { get; set; }
         public ObservableCollection<Appointment> MostVisitedAppointment { get; set; }
         public Appointment SelectedAppointment { get; set; }
         public ObservableCollection<Appointment> FinishedAppointments { get; set; }
@@ -22,14 +39,43 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private AppointmentService appointmentService;
         private TourAttendanceService tourAttendanceService;
         #endregion
-        public MyToursViewModel(AppointmentService appointmentService, TourAttendanceService tourAttendanceService, int userId)
+
+        #region actions
+        private bool CanExecute_NavigateCommand(object obj)
+        {
+            return true;
+        }
+
+        private void Execute_ShowStatisticsCommand(object obj)
+        {
+            if (SelectedAppointment == null)
+            {
+                MessageBox.Show("You must select appointment!");
+                return;
+            }
+            TourStatistics tourStatistics = new TourStatistics(SelectedAppointment.Id, tourAttendanceService);
+            tourStatistics.Show();
+        }
+        #endregion
+        public MyToursViewModel(int userId)
         {
             this.userId = userId;
-            this.appointmentService = appointmentService;
-            this.tourAttendanceService = tourAttendanceService;
+            KeyPointCSVRepository keyPointCSVRepository = new KeyPointCSVRepository();
+            LocationCSVRepository locationCSVRepository = new LocationCSVRepository();
+            TourCSVRepository tourCSVRepository = new TourCSVRepository(keyPointCSVRepository, locationCSVRepository);
+            TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
+            TourGradeCSVRepository tourGradeCSVRepository = new TourGradeCSVRepository();
+            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository(tourCSVRepository);
+
+            this.tourAttendanceService = new TourAttendanceService(tourAttendanceCSVRepository);
+            this.appointmentService = new AppointmentService(appointmentCSVRepository, tourAttendanceService);
 
             MostVisitedAppointment = new ObservableCollection<Appointment>();
             FinishedAppointments = new ObservableCollection<Appointment>();
+
+            this.ShowStatisticsCommand = new RelayCommand(Execute_ShowStatisticsCommand, CanExecute_NavigateCommand);
+            Years = new List<string>();
+            Years.Add("2023");
 
             RefreshData();
         }
@@ -39,17 +85,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             MostVisitedAppointment.Clear();
             FinishedAppointments.Clear();
 
-            //if ((ComboBoxItem)ComboBoxYear.SelectedItem != null)
-            //    Year = ((ComboBoxItem)ComboBoxYear.SelectedItem).Content.ToString();
-            //else
-            //    Year = null;
-            //MostVisitedAppointment.Add(appointmentService.GetMostVisitedTour(Convert.ToInt32(Year), userId));
+            MostVisitedAppointment.Add(appointmentService.GetMostVisitedTour(Convert.ToInt32(SelectedYear), userId));
 
-            //if (appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year), userId) == null)
-            //    FinishedAppointments.Add(new Appointment());
-            //else
-            //    foreach (Appointment t in appointmentService.GetFinishedToursByYear(Convert.ToInt32(Year), userId))
-            //        FinishedAppointments.Add(t);
+            if (appointmentService.GetFinishedToursByYear(Convert.ToInt32(SelectedYear), userId) == null)
+                FinishedAppointments.Add(new Appointment());
+            else
+                foreach (Appointment a in appointmentService.GetFinishedToursByYear(Convert.ToInt32(SelectedYear), userId))
+                    FinishedAppointments.Add(a);
         }
     }
 }
