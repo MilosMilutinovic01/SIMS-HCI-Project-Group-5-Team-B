@@ -31,7 +31,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             set { keyPointGuestArrivedId = value; }
         }
         private int voucherId;
-        public int VucherId
+        public int VoucherId
         {
             get { return voucherId; }
             set { voucherId = value; }
@@ -41,7 +41,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         {
 
         }
-
 
         public TourAttendance(int appointmentId, int peopleAttending, int keyPointGuestArrivedId, int guideGuestId, int voucherId)
         {

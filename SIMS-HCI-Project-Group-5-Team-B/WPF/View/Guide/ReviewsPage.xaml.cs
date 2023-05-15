@@ -1,8 +1,5 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
-using SIMS_HCI_Project_Group_5_Team_B.Repository;
-using SIMS_HCI_Project_Group_5_Team_B.View;
-using SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -16,18 +13,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.View
+namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
 {
-    public partial class GuideWindow : Window
+    /// <summary>
+    /// Interaction logic for ReviewsPage.xaml
+    /// </summary>
+    public partial class ReviewsPage : Page
     {
-        public GuideViewModel GuideViewModel { get; set; }
-        public GuideWindow(Guide guide)
+        public ReviewsViewModel reviewsViewModel { get; set; }
+        public ReviewsPage()//probaj da dodas parametre i da pokupis kroz binding(potrazi na gimu mozda ima u primeru)
         {
             InitializeComponent();
-            this.GuideViewModel = new GuideViewModel(guide, this.frame.NavigationService, frame);
-            this.DataContext = this.GuideViewModel;
+            this.reviewsViewModel = new ReviewsViewModel(1);
+            this.DataContext = this.reviewsViewModel;
         }
     }
 }

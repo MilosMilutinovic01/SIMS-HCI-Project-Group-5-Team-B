@@ -9,17 +9,50 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\addImageIcon.png" />
+    <None Remove="Resources\Images\bellIcon.png" />
     <None Remove="Resources\Images\GuideGuestHome.png" />
     <None Remove="Resources\Images\GuideGuestLeftArrow.png" />
     <None Remove="Resources\Images\GuideGuestNotificationBell.png" />
     <None Remove="Resources\Images\GuideGuestUser.png" />
     <None Remove="Resources\Images\hamburgerIcon.png" />
+    <None Remove="Resources\Images\homeIcon.png" />
+    <None Remove="Resources\Images\home_icon.jpg" />
+    <None Remove="Resources\Images\leftArrow.png" />
     <None Remove="Resources\Images\LetterRImage.png" />
+    <None Remove="Resources\Images\locationIcon.png" />
+    <None Remove="Resources\Images\myToursIcon.png" />
     <None Remove="Resources\Images\OwnerMedalImage.png" />
     <None Remove="Resources\Images\OwnerProfile.png" />
+    <None Remove="Resources\Images\plusIcon.png" />
     <None Remove="Resources\Images\profile.png" />
+    <None Remove="Resources\Images\requestIcon.png" />
+    <None Remove="Resources\Images\reviewsIcon.png" />
     <None Remove="Resources\Images\StarImage.png" />
+    <None Remove="Resources\Images\statisticsIcon.png" />
     <None Remove="Resources\Images\threeDots.png" />
+    <None Remove="Resources\Images\upcomingIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\addImageIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\bellIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\homeIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\home_icon.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\leftArrow.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\statisticsIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +62,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\hamburgerIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\GuideGuestHome.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -43,11 +79,29 @@
     </Resource>
     <Resource Include="Resources\Images\hamburgerIcon.png" />
     <Resource Include="Resources\Images\LetterRImage.png" />
+    <Resource Include="Resources\Images\locationIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\myToursIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\OwnerMedalImage.png" />
     <Resource Include="Resources\Images\OwnerProfile.png" />
+    <Resource Include="Resources\Images\plusIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\profile.png" />
+    <Resource Include="Resources\Images\requestIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\reviewsIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\StarImage.png" />
     <Resource Include="Resources\Images\threeDots.png" />
+    <Resource Include="Resources\Images\upcomingIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

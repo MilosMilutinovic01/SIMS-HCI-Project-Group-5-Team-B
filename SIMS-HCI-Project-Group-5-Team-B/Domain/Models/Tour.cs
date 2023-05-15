@@ -83,7 +83,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 if (maxGuests != value && value > 0)
                 {
                     maxGuests = value;
-                    OnPropertyChanged();
                 }
             }
         }
@@ -97,7 +96,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 if (duration != value && value > 0)
                 {
                     duration = value;
-                    OnPropertyChanged();
                 }
             }
         }
@@ -169,9 +167,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             duration = double.Parse(values[7]);
             imageUrls = values[8];
         }
-
-        Regex maxGuestsRegex = new Regex("^([1-9][0-9]*)$");
-        Regex durationRegex = new Regex("^[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$\r\n");
         public string Error => null;
 
         public string this[string columnName]
@@ -193,36 +188,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                     if (string.IsNullOrEmpty(Language))
                         return "The field must be filled";
                 }
-                else if (columnName == "MaxGuests")
-                {
-                    if (MaxGuests < 1)
-                        return "Value must be greater than zero";
-
-                    Match match = maxGuestsRegex.Match(MaxGuests.ToString());
-                    if (!match.Success)
-                        return "Maximum guests needs to be number";
-                }
-                else if (columnName == "Duration")
-                {
-                    if (Duration < 0)
-                    {
-                        return "Value must be greater than zero";
-
-                        Match match = durationRegex.Match(MaxGuests.ToString());
-                        if (!match.Success)
-                            return "Maximum guests needs to be number";
-                    }
-                }
-                else if (columnName == "ImageUrls")
-                {
-                    if (string.IsNullOrEmpty(ImageUrls))
-                        return "The field must be filled";
-                }
+                //else if (columnName == "ImageUrls")
+                //{
+                //    if (string.IsNullOrEmpty(ImageUrls))
+                //        return "The field must be filled";
+                //}
                 return null;
             }
         }
 
-        private readonly string[] _validatedProperties = { "Name", "Description", "Language", "MaxGuests", "Duration", "ImageUrls" };
+        private readonly string[] _validatedProperties = { "Name", "Description", "Language" };
 
         public bool IsValid
         {

@@ -5,19 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide"
         mc:Ignorable="d"
-        Title="TourStatistics" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+        Title="TourStatistics" Height="550" Width="430" WindowStartupLocation="CenterScreen">
     <DockPanel>
-        <DockPanel DockPanel.Dock="top" Height="30">
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                <Button>
-                    <Image Source="/Resources/Images/hamburgerIcon.png" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                </Button>
-                <Label Content="Statistics" Margin="15,0,0,0" />
-            </StackPanel>
-            <Button DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Image Source="/Resources/Images/threeDots.png" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            </Button>
-        </DockPanel>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>

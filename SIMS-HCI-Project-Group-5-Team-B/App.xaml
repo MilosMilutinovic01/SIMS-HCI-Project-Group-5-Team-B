@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B"
              StartupUri="WPF/View/MainWindow.xaml">
     <Application.Resources>
-         
+
     </Application.Resources>
 </Application>
