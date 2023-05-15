@@ -4,6 +4,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Notifications;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -174,6 +175,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 Properties.Settings.Default.Save();
                 //trebao bi save iz setingsa
             }
+        }
+        private void Toggle2_Checked(object sender, RoutedEventArgs e)
+        {
+            app.ChangeTheme(new Uri("Themes/DarkTheme.xaml", UriKind.Relative));
+        }
+
+        private void Toggle2_Unchecked(object sender, RoutedEventArgs e)
+        {
+            app.ChangeTheme(new Uri("Themes/LightTheme.xaml", UriKind.Relative));
         }
     }
 }

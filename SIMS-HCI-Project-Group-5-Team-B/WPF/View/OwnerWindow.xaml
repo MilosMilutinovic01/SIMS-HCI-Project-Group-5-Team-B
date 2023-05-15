@@ -7,7 +7,7 @@
         xmlns:VM="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel"
         xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
         mc:Ignorable="d"
-        Title="OwnerWindow" Height="600" Width="950" Loaded="NotifyOwner">
+        Title="OwnerWindow" Height="600" Width="950" Loaded="NotifyOwner" Style="{DynamicResource OwnerWindowStyle}" WindowStartupLocation="CenterScreen">
 
     <Grid>
         <!--<Grid.ColumnDefinitions>
@@ -369,32 +369,51 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="7*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="1" Height="30" Width="670"  FontSize="12"
+        <Menu Grid.Row="1" Height="30" Width="830"  FontSize="12"
         VerticalAlignment="Top"
-        HorizontalAlignment="Center"
-        Background="LightGray"
-        BorderBrush="black" 
-        BorderThickness="1" Margin="0,42,0,0">
+        HorizontalAlignment="Center" Margin="0,10,0,0" Style="{DynamicResource MenuStyle}">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
-            <MenuItem x:Name="Accommodation" Header="{ns:Loc Accommodation}" Click="Accommodation_Button_Click"></MenuItem>
-            <MenuItem x:Name="RequestsForChangingReservation" Header="{ns:Loc RequestsForChangingReservation}" Click="Requests_For_Changing_Reservation_Click"></MenuItem>
-            <MenuItem x:Name="Grading" Header="{ns:Loc Grading}" Click="Grading_Click"></MenuItem>
+            <MenuItem x:Name="Accommodation" Header="{ns:Loc Accommodation}" Click="Accommodation_Button_Click"  Style="{DynamicResource MenuItemStyle}" Margin="15,0,-15,0" ></MenuItem>
+            <MenuItem x:Name="RequestsForChangingReservation" Header="{ns:Loc RequestsForChangingReservation}"  Click="Requests_For_Changing_Reservation_Click" Style="{DynamicResource MenuItemStyle}" Margin="35,0,-35,0"/>
+            <MenuItem x:Name="Grading" Header="{ns:Loc Grading}" Click="Grading_Click"   Style="{DynamicResource MenuItemStyle}" Margin="55,0,-55,0"></MenuItem>
 
-            <MenuItem x:Name="Statistics" Header="{ns:Loc Statistics}" Click="Statistics_Click"></MenuItem>
-            <MenuItem x:Name="Renovation" Header="{ns:Loc Renovation}" Click="Renovation_Click"></MenuItem>
-            <MenuItem x:Name="Forum" Header="{ns:Loc Forum}" Click="Owner_Forum_Click"></MenuItem>
-            <MenuItem x:Name="Profile" Header="{ns:Loc Profile}" Click="Owner_Profile_Click"></MenuItem>
-            <MenuItem x:Name="Notifications" Header="{ns:Loc Notifications}" Click="Owner_Notifications_Click"></MenuItem>
+            <MenuItem x:Name="Statistics" Header="{ns:Loc Statistics}" Click="Statistics_Click"  Style="{DynamicResource MenuItemStyle}" Margin="75,0,-75,0"></MenuItem>
+            <MenuItem x:Name="Renovation" Header="{ns:Loc Renovation}" Click="Renovation_Click"  Style="{DynamicResource MenuItemStyle}" Margin="95,0,-95,0"></MenuItem>
+            <MenuItem x:Name="Forum" Header="{ns:Loc Forum}" Click="Owner_Forum_Click"  Style="{DynamicResource MenuItemStyle}" Margin="115,0,-115,0"></MenuItem>
+            <MenuItem x:Name="Profile" Header="{ns:Loc Profile}" Click="Owner_Profile_Click"  Style="{DynamicResource MenuItemStyle}" Margin="135,0,-135,0" ></MenuItem>
+            <MenuItem x:Name="Notifications" Header="{ns:Loc Notifications}" Click="Owner_Notifications_Click" Style="{DynamicResource MenuItemStyle}" Margin="155,0,-155,0"  ></MenuItem>
         </Menu>
-        <Frame Width="670" Height="350" Name="frame" NavigationUIVisibility="Hidden" Grid.Row="1"></Frame>
-        <ComboBox Name="LocalizationComboBox" SelectionChanged="LocalizationComboBox_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="80" Margin="730,0,0,0">
+        <Frame Name="frame" NavigationUIVisibility="Hidden" Grid.Row="1" Margin="55,40,55,62"/>
+        <ComboBox Name="LocalizationComboBox" SelectionChanged="LocalizationComboBox_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="80" Margin="811,28,0,0" >
             <ComboBoxItem Content="English"></ComboBoxItem>
             <ComboBoxItem Content="Serbian"></ComboBoxItem>
         </ComboBox>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="Dark theme:" Margin="606,28,0,0"/>
+        <ToggleButton x:Name="Toggle2"
+                         Height="30" Checked="Toggle2_Checked" Unchecked="Toggle2_Unchecked" Margin="684,20,186,15">
+            <ToggleButton.Template>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="B1" Background="Gray"
+                                CornerRadius="20" Padding="1">
+                        <Border x:Name="B2" Background="White"
+                                    Width="{TemplateBinding Height}"
+                                    CornerRadius="20" HorizontalAlignment="Left">
+                            <ContentPresenter/>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="B2" Property="HorizontalAlignment" Value="Right"/>
+                            <Setter TargetName="B1" Property="Background" Value="DarkSlateBlue"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </ToggleButton.Template>
+        </ToggleButton>
     </Grid>
 
 </Window>
