@@ -121,7 +121,7 @@
     <value>Accept</value>
   </data>
   <data name="AcceptAndDeclineLabel" xml:space="preserve">
-    <value>Click on the buttons to accept or decline request</value>
+    <value>Click on the buttons to accept or decline request ☑️❎</value>
   </data>
   <data name="AcceptingRequest" xml:space="preserve">
     <value>Accepting request</value>
@@ -151,7 +151,7 @@
     <value>Additional Comment</value>
   </data>
   <data name="AddOnPopularLocationLabel" xml:space="preserve">
-    <value>Click on the 'Add' button to add accommodation on popular location</value>
+    <value>Click on the 'Add' button to add accommodation on popular location ➕</value>
   </data>
   <data name="Availability" xml:space="preserve">
     <value>Availability</value>
@@ -169,7 +169,7 @@
     <value>Are you sure you want to call of the renovation?</value>
   </data>
   <data name="CallOffLabel" xml:space="preserve">
-    <value>Click on the 'Call off' button to cancel renovation</value>
+    <value>Click on the 'Call off' button to cancel renovation 🗙</value>
   </data>
   <data name="CallOffRenovationWindow" xml:space="preserve">
     <value>Call Off Renovation Window</value>
@@ -199,7 +199,7 @@
     <value>Comments</value>
   </data>
   <data name="CommentStarExplanation" xml:space="preserve">
-    <value>Comment with the star means that person has accommodation on location</value>
+    <value>Comment with the star means that person has accommodation on location 🌟</value>
   </data>
   <data name="ComplaintsFromOtherGuests" xml:space="preserve">
     <value>Complaints From Other Guests</value>
@@ -226,7 +226,7 @@
     <value>Delete</value>
   </data>
   <data name="DeleteOnUnpopularLocationLabel" xml:space="preserve">
-    <value>Click on the 'Delete' button to close accommodation on unpopular location</value>
+    <value>Click on the 'Delete' button to close accommodation on unpopular location 🗙</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -235,7 +235,7 @@
     <value>Details</value>
   </data>
   <data name="DetailsLabel" xml:space="preserve">
-    <value>Click on the 'Details' button to see detailed view of grades</value>
+    <value>Click on the 'Details' button to see detailed view of grades 💬</value>
   </data>
   <data name="EndDate" xml:space="preserve">
     <value>End Date</value>
@@ -256,7 +256,7 @@
     <value>Future renovations</value>
   </data>
   <data name="GenerateLabel" xml:space="preserve">
-    <value>Click on the 'Generate' button to generate reservation report for accommodation</value>
+    <value>Click on the 'Generate' button to generate reservation report for accommodation 📝</value>
   </data>
   <data name="Grade" xml:space="preserve">
     <value>Grade</value>
@@ -265,7 +265,7 @@
     <value>Grade Average</value>
   </data>
   <data name="GradeLabel" xml:space="preserve">
-    <value>Click on the 'Grade' button to grade a guest</value>
+    <value>Click on the 'Grade' button to grade a guest 👩🏻‍🏫</value>
   </data>
   <data name="GradesGivenByGuests" xml:space="preserve">
     <value>Grades given by guests</value>
@@ -313,7 +313,7 @@
     <value>Notifications</value>
   </data>
   <data name="NotificationsFromGuests" xml:space="preserve">
-    <value>Notifications you got from guests</value>
+    <value>Notifications you got from guests 🔔</value>
   </data>
   <data name="NumberOfGrades" xml:space="preserve">
     <value>Number of grades</value>
@@ -382,7 +382,7 @@
     <value>Schedule</value>
   </data>
   <data name="ScheduleLabel" xml:space="preserve">
-    <value>Click on the 'Schedule' button for scheduling renovation</value>
+    <value>Click on the 'Schedule' button for scheduling renovation 🗓️</value>
   </data>
   <data name="ScheduleRenovationForm" xml:space="preserve">
     <value>Schedule Renovation Form</value>
@@ -391,31 +391,31 @@
     <value>Search</value>
   </data>
   <data name="SearchLabel" xml:space="preserve">
-    <value>Click on the 'Search' button to see available dates</value>
+    <value>Click on the 'Search' button to see available dates 🔍</value>
   </data>
   <data name="Show" xml:space="preserve">
     <value>Show</value>
   </data>
   <data name="ShowLabel" xml:space="preserve">
-    <value>Click on the 'Show' button to see comments on forum</value>
+    <value>Click on the 'Show' button to see comments on forum 💭</value>
   </data>
   <data name="ShowStatistics" xml:space="preserve">
     <value>Show Statistics</value>
   </data>
   <data name="ShowStatisticsLabel" xml:space="preserve">
-    <value>Chose accommodation you want the statistics for and then click on 'Show statistics' button</value>
+    <value>Chose accommodation you want the statistics for and then click on 'Show statistics' button 📊</value>
   </data>
   <data name="StarForumExplanation" xml:space="preserve">
-    <value>Star symbolizes that forum is very useful</value>
+    <value>Star symbolizes that forum is very useful 🌟</value>
   </data>
   <data name="StarMonthExplanation" xml:space="preserve">
-    <value>Month marked with the star was the busiest</value>
+    <value>Month marked with the star was the busiest 🌟</value>
   </data>
   <data name="StartDate" xml:space="preserve">
     <value>Start Date</value>
   </data>
   <data name="StarYearExplanation" xml:space="preserve">
-    <value>Year marked with the star was the busiest</value>
+    <value>Year marked with the star was the busiest 🌟</value>
   </data>
   <data name="State" xml:space="preserve">
     <value>State</value>
@@ -430,7 +430,7 @@
     <value>Suggestions for new location</value>
   </data>
   <data name="SuperOwnerExplanation" xml:space="preserve">
-    <value>If you are super-owner your accommodation will be shown first to the guests</value>
+    <value>If you are super-owner your accommodation will be shown first to the guests 🏅</value>
   </data>
   <data name="Surname" xml:space="preserve">
     <value>Surname</value>
@@ -460,7 +460,7 @@
     <value>Yearly statistics</value>
   </data>
   <data name="YourAccommodations" xml:space="preserve">
-    <value>Your Accommodations</value>
+    <value>Your Accommodations 🏠</value>
   </data>
   <data name="YourNotifications" xml:space="preserve">
     <value>Your notifications</value>

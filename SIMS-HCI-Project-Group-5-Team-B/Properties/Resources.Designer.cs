@@ -70,7 +70,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click on the buttons to accept or decline request.
+        ///   Looks up a localized string similar to Click on the buttons to accept or decline request ☑️❎.
         /// </summary>
         public static string AcceptAndDeclineLabel {
             get {
@@ -160,7 +160,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click on the &apos;Add&apos; button to add accommodation on popular location.
+        ///   Looks up a localized string similar to Click on the &apos;Add&apos; button to add accommodation on popular location ➕.
         /// </summary>
         public static string AddOnPopularLocationLabel {
             get {
@@ -214,7 +214,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click on the &apos;Call off&apos; button to cancel renovation.
+        ///   Looks up a localized string similar to Click on the &apos;Call off&apos; button to cancel renovation 🗙.
         /// </summary>
         public static string CallOffLabel {
             get {
@@ -304,7 +304,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comment with the star means that person has accommodation on location.
+        ///   Looks up a localized string similar to Comment with the star means that person has accommodation on location 🌟.
         /// </summary>
         public static string CommentStarExplanation {
             get {
@@ -385,7 +385,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click on the &apos;Delete&apos; button to close accommodation on unpopular location.
+        ///   Looks up a localized string similar to Click on the &apos;Delete&apos; button to close accommodation on unpopular location 🗙.
         /// </summary>
         public static string DeleteOnUnpopularLocationLabel {
             get {
@@ -412,7 +412,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click on the &apos;Details&apos; button to see detailed view of grades.
+        ///   Looks up a localized string similar to Click on the &apos;Details&apos; button to see detailed view of grades 💬.
         /// </summary>
         public static string DetailsLabel {
             get {
@@ -475,7 +475,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click on the &apos;Generate&apos; button to generate reservation report for accommodation.
+        ///   Looks up a localized string similar to Click on the &apos;Generate&apos; button to generate reservation report for accommodation 📝.
         /// </summary>
         public static string GenerateLabel {
             get {
@@ -502,7 +502,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click on the &apos;Grade&apos; button to grade a guest.
+        ///   Looks up a localized string similar to Click on the &apos;Grade&apos; button to grade a guest 👩🏻‍🏫.
         /// </summary>
         public static string GradeLabel {
             get {
@@ -646,7 +646,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notifications you got from guests.
+        ///   Looks up a localized string similar to Notifications you got from guests 🔔.
         /// </summary>
         public static string NotificationsFromGuests {
             get {
@@ -853,7 +853,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click on the &apos;Schedule&apos; button for scheduling renovation.
+        ///   Looks up a localized string similar to Click on the &apos;Schedule&apos; button for scheduling renovation 🗓️.
         /// </summary>
         public static string ScheduleLabel {
             get {
@@ -880,7 +880,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click on the &apos;Search&apos; button to see available dates.
+        ///   Looks up a localized string similar to Click on the &apos;Search&apos; button to see available dates 🔍.
         /// </summary>
         public static string SearchLabel {
             get {
@@ -898,7 +898,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click on the &apos;Show&apos; button to see comments on forum.
+        ///   Looks up a localized string similar to Click on the &apos;Show&apos; button to see comments on forum 💭.
         /// </summary>
         public static string ShowLabel {
             get {
@@ -916,7 +916,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chose accommodation you want the statistics for and then click on &apos;Show statistics&apos; button.
+        ///   Looks up a localized string similar to Chose accommodation you want the statistics for and then click on &apos;Show statistics&apos; button 📊.
         /// </summary>
         public static string ShowStatisticsLabel {
             get {
@@ -925,7 +925,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Star symbolizes that forum is very useful.
+        ///   Looks up a localized string similar to Star symbolizes that forum is very useful 🌟.
         /// </summary>
         public static string StarForumExplanation {
             get {
@@ -934,7 +934,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Month marked with the star was the busiest.
+        ///   Looks up a localized string similar to Month marked with the star was the busiest 🌟.
         /// </summary>
         public static string StarMonthExplanation {
             get {
@@ -952,7 +952,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Year marked with the star was the busiest.
+        ///   Looks up a localized string similar to Year marked with the star was the busiest 🌟.
         /// </summary>
         public static string StarYearExplanation {
             get {
@@ -997,7 +997,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you are super-owner your accommodation will be shown first to the guests.
+        ///   Looks up a localized string similar to If you are super-owner your accommodation will be shown first to the guests 🏅.
         /// </summary>
         public static string SuperOwnerExplanation {
             get {
@@ -1087,7 +1087,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your Accommodations.
+        ///   Looks up a localized string similar to Your Accommodations 🏠.
         /// </summary>
         public static string YourAccommodations {
             get {
