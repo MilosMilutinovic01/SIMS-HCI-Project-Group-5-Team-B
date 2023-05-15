@@ -18,6 +18,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using System.IO;
+using SIMS_HCI_Project_Group_5_Team_B.Repository;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
 {
@@ -26,6 +28,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
     /// </summary>
     public partial class CreateTourPage : Page
     {
+        //public CreateTourViewModel createTourViewModel { get; set; }
+        //public CreateTourPage()
+        //{
+        //    InitializeComponent();
+        //    createTourViewModel = new CreateTourViewModel();
+        //    this.DataContext = createTourViewModel;
+        //}
         private TourController tourService;
         private LocationController locationController;
         private KeyPointsController keyPointsController;

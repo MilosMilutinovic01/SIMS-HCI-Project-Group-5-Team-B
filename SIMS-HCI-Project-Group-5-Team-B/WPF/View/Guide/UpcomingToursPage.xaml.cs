@@ -28,7 +28,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         {
             InitializeComponent();
             this.upcomingToursViewModel = new UpcomingToursViewModel();
-            this.DataContext = this.upcomingToursViewModel;
+            this.DataContext = upcomingToursViewModel;
         }
     }
 }

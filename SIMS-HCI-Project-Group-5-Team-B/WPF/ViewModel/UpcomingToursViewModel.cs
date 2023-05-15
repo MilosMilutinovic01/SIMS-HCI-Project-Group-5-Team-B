@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 {
@@ -25,24 +26,24 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         #endregion
 
         #region actions
-        private bool CanExecute_NavigateCommand(object obj)
+        private bool CanExecute_Command(object obj)
         {
             return true;
         }
         private void Execute_CancelTourCommand(object obj)
         {
-            //bool result = MessageBox.Show("Are you sure you want to cancel selected tour?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
-            if (SelectedAppointment.Cancelled == false)
+            bool result = MessageBox.Show("Are you sure you want to cancel selected tour?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+            if (result && SelectedAppointment.Cancelled == false)
             {
                 SelectedAppointment.Cancelled = true;
                 appointmentService.Update(SelectedAppointment);
                 voucherService.SendVouchers(SelectedAppointment.Id);
                 RefreshAppointments();
             }
-            //else
-            //{
-            //    //MessageBox.Show("Already cancelled!");
-            //}
+            else if(SelectedAppointment.Cancelled == true)
+            {
+                MessageBox.Show("Already cancelled!");
+            }
         }
         #endregion
 
@@ -58,7 +59,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.appointmentService = new AppointmentService(appointmentCSVRepository, tourAttendanceService);
             voucherService = new VoucherService();
 
-            this.CancelTourCommand = new RelayCommand(Execute_CancelTourCommand, CanExecute_NavigateCommand);
+            this.CancelTourCommand = new RelayCommand(Execute_CancelTourCommand, CanExecute_Command);
             AvailableAppointments = new ObservableCollection<Appointment>();
 
             RefreshAppointments();

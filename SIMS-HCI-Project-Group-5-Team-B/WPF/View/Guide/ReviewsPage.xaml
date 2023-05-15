@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide" xmlns:local1="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel"
         xmlns:controls="using:Windows.UI.Xaml.Controls"  
         mc:Ignorable="d"
-        Title="ReviewsWindow" Height="730" Width="380" Background="White">
+        Title="ReviewsWindow" Background="White">
 
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -31,16 +31,19 @@
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Row="0" Text="{Binding GuestName}" Width="150" HorizontalAlignment="Left" Margin="10,5,0,0" FontSize="16" FontWeight="Normal" FontFamily="Elephant" />
-                                <TextBlock Grid.Row="1" Text="{Binding TourName}" Margin="10,0,0,0" />
+                                <TextBlock Grid.Row="1" Text="{Binding TourName, StringFormat='Tour name: {0}'}" FontWeight="Normal" Margin="10,0,0,0" />
                                 <TextBlock Grid.Row="2" Text="{Binding KeyPointName, StringFormat='Key point: {0}'}" FontWeight="Normal" Margin="10,0,0,0" />
-                                <DockPanel Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                                <DockPanel Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="0">
                                     <StackPanel>
                                         <TextBlock Text="{Binding GeneralKnowledge, StringFormat='General knowledge: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
                                         <TextBlock Text="{Binding LanguageKnowledge, StringFormat='Language knowledge: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
                                         <TextBlock Text="{Binding TourFun, StringFormat='Tour fun: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
                                     </StackPanel>
                                 </DockPanel>
+                                <CheckBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0">Valid</CheckBox>
                                 <TextBlock Grid.Row="5" Grid.RowSpan="2" ScrollViewer.CanContentScroll="True" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding Comment, StringFormat='Comment: {0}'}" Margin="10,0,0,0" FontWeight="Normal" Height="50" HorizontalAlignment="Left" />
+                                <Button Grid.Row="7" Grid.Column="0" Command="{Binding DataContext.MoreCommand, ElementName=Items}"
+                                        CommandParameter="{Binding}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">More</Button>
                                 <Button Grid.Row="7" Grid.Column="1" Command="{Binding DataContext.ReportCommand, ElementName=Items}"
                                         CommandParameter="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">Report</Button>
                             </Grid>

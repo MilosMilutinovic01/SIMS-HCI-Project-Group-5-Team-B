@@ -34,6 +34,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         }
 
         public RelayCommandWithParams ReportCommand { get; }
+        public RelayCommandWithParams MoreCommand { get; }
 
         public ReviewsViewModel(int userId)
         {
@@ -57,6 +58,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
 
             ReportCommand = new RelayCommandWithParams(Report);
+            MoreCommand = new RelayCommandWithParams(More);
         }
 
         private void Report(object parameter)
@@ -65,6 +67,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             
             if (parameter is Card selectedCard && result)
                 selectedCard.Reported = true;
+        }
+
+        private void More(object parameter)
+        {
+            result = MessageBox.Show("Display more?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

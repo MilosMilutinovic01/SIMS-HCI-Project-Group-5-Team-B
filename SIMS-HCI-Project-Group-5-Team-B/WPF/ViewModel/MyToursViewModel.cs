@@ -38,6 +38,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         private AppointmentService appointmentService;
         private TourAttendanceService tourAttendanceService;
+
+
         #endregion
 
         #region actions

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide"
         mc:Ignorable="d"
-        Title="MyTours" Height="700" Width="400" Background="White">
+        Title="MyTours" Background="White">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -26,7 +26,7 @@
             <Label VerticalAlignment="Bottom" HorizontalAlignment="Center">Choose year:</Label>
             <ComboBox HorizontalAlignment="Center" VerticalAlignment="Bottom" ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYear, Mode=TwoWay}"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center">
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" VerticalAlignment="Center">
             <TextBlock Text="Most visited in selected year:" HorizontalAlignment="Left" FontSize="16"></TextBlock>
             <DataGrid x:Name="MostVisitedToursDataGrid" ItemsSource="{Binding Path=MostVisitedAppointment}" SelectedItem="{Binding Path=SelectedAppointment}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center">
                 <DataGrid.Columns>
@@ -34,10 +34,18 @@
                     <DataGridTextColumn Header="State" Width="*" Binding="{Binding Tour.Location.State}" />
                     <DataGridTextColumn Header="City" Width="*" Binding="{Binding Tour.Location.City}" />
                     <DataGridTextColumn Header="Language" Width="*" Binding="{Binding Tour.Language}" />
+                    <DataGridTemplateColumn Header="Statistics" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding DataContext.ShowStatisticsCommand, 
+                                  RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">Statistics</Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3">
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5">
             <TextBlock Text="All finished Tours:" HorizontalAlignment="Left" FontSize="16"></TextBlock>
             <DataGrid x:Name="AllFinishedToursDataGrid" ItemsSource="{Binding Path=FinishedAppointments}" SelectedItem="{Binding Path=SelectedAppointment}" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
@@ -45,9 +53,17 @@
                     <DataGridTextColumn Header="State" Width="*" Binding="{Binding Tour.Location.State}" />
                     <DataGridTextColumn Header="City" Width="*" Binding="{Binding Tour.Location.City}" />
                     <DataGridTextColumn Header="Language" Width="*" Binding="{Binding Tour.Language}" />
+                    <DataGridTemplateColumn Header="Statistics" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding DataContext.ShowStatisticsCommand, 
+                                  RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">Statistics</Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <Button Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding ShowStatisticsCommand}" Click="ShowStatsButton_Click">Show statistics</Button>
+        <Button Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" >Report on scheduled tours</Button>
     </Grid>
 </Page>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         xmlns:Syncfusion="http://schemas.syncfusion.com/wpf"
         mc:Ignorable="d"
-        Title="Tracking Tour Live" Height="730" Width="400" Background="White">
+        Title="Tracking Tour Live" Background="White">
 
     <DockPanel>
         <!--<ToolBar DockPanel.Dock="Top" Height="30">
@@ -29,6 +29,23 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding Tour.Name}" />
                         <DataGridTextColumn Header="Start" Binding="{Binding Start}" />
+                        <DataGridTextColumn Header="Duration" Binding="{Binding Tour.Duration}" />
+                        <DataGridTemplateColumn Header="Start" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding DataContext.StartTourCommand, 
+                                  RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">Start</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="End" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding DataContext.EndTourCommand, 
+                                  RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">End</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
