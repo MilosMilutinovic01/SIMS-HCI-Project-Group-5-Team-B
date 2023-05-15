@@ -11,10 +11,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     public class TourGradeService
     {
         private ITourGradeRepository tourGradeRepository;
-        public TourGradeService(ITourGradeRepository tourGradeRepository)
+
+        public TourGradeService()
         {
-            this.tourGradeRepository = tourGradeRepository;
+            this.tourGradeRepository = Injector.Injector.CreateInstance<ITourGradeRepository>();
         }
+
         public void Save(TourGrade tourGrade)
         {
             tourGradeRepository.Save(tourGrade);

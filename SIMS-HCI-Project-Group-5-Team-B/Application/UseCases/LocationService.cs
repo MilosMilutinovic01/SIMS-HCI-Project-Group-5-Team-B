@@ -12,9 +12,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     {
         private ILocationRepository locationRepository;
 
-        public LocationService(ILocationRepository locationRepository)
+        public LocationService()
         {
-            this.locationRepository = locationRepository;
+            this.locationRepository = Injector.Injector.CreateInstance<ILocationRepository>();
         }
         
         public List<Location> GetAll()

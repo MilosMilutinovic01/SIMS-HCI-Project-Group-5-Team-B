@@ -23,28 +23,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     /// </summary>
     public partial class AcceptReservationChangeRequestWindow : Window
     {
-        private readonly HandleReservationChangeRequestViewModel _viewModel;
-        public ObservableCollection<ReservationChangeRequest> OwnersPendingRequests { get; set; }
-        public ReservationChangeRequest SelectedReservationChangeRequest { get; set; }
+       
         public AcceptReservationChangeRequestWindow(ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService, Owner owner, ReservationChangeRequest SelectedReservationChangeRequest, ObservableCollection<ReservationChangeRequest> OwnersPendingRequests)
         {
             InitializeComponent();
-            _viewModel = new HandleReservationChangeRequestViewModel(reservationChangeRequestService, reservationService, owner, SelectedReservationChangeRequest);
-            this.OwnersPendingRequests = OwnersPendingRequests;
-            this.SelectedReservationChangeRequest = SelectedReservationChangeRequest;
-            
+            HandleReservationChangeRequestViewModel _viewModel = new HandleReservationChangeRequestViewModel(reservationChangeRequestService, reservationService, owner); 
+            this.DataContext = _viewModel;
+            _viewModel.SelectedReservationChangeRequest = SelectedReservationChangeRequest;
+            _viewModel.OwnersPendingRequests = OwnersPendingRequests;
         }
 
-        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void Confirm_Button_Click(object sender, RoutedEventArgs e)
-        {
-            _viewModel.AcceptReservationChangeRequest();
-            OwnersPendingRequests.Remove(SelectedReservationChangeRequest);
-            Close();
-        }
     }
 }

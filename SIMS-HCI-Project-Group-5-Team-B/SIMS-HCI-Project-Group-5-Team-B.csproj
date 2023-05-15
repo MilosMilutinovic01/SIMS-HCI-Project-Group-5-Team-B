@@ -11,6 +11,10 @@
   <ItemGroup>
     <None Remove="Resources\Images\addImageIcon.png" />
     <None Remove="Resources\Images\bellIcon.png" />
+    <None Remove="Resources\Images\GuideGuestHome.png" />
+    <None Remove="Resources\Images\GuideGuestLeftArrow.png" />
+    <None Remove="Resources\Images\GuideGuestNotificationBell.png" />
+    <None Remove="Resources\Images\GuideGuestUser.png" />
     <None Remove="Resources\Images\hamburgerIcon.png" />
     <None Remove="Resources\Images\homeIcon.png" />
     <None Remove="Resources\Images\home_icon.jpg" />
@@ -61,6 +65,19 @@
     <Resource Include="Resources\Images\hamburgerIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\GuideGuestHome.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\GuideGuestLeftArrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\GuideGuestNotificationBell.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\GuideGuestUser.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\hamburgerIcon.png" />
     <Resource Include="Resources\Images\LetterRImage.png" />
     <Resource Include="Resources\Images\locationIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -88,11 +105,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.sr-Latn-RS.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

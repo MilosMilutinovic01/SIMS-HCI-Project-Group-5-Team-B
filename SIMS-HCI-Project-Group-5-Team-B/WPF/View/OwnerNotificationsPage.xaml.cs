@@ -1,4 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +12,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest
+namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
 {
     /// <summary>
-    /// Interaction logic for NotificationsWindow.xaml
+    /// Interaction logic for OwnerNotificationsPage.xaml
     /// </summary>
-    public partial class NotificationsWindow : Window
+    public partial class OwnerNotificationsPage : Page
     {
-        public NotificationsWindow(int ownerGuestId)
+        
+        public OwnerNotificationsPage(Owner owner)
         {
             InitializeComponent();
-            OwnerGuestNotificationsViewModel _viewModel = new OwnerGuestNotificationsViewModel(ownerGuestId);
-            this.DataContext = _viewModel;
+            this.DataContext = new OwnerNotificationsViewModel(owner.Id);
         }
     }
 }

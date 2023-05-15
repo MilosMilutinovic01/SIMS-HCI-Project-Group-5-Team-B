@@ -1,4 +1,5 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
+using SIMS_HCI_Project_Group_5_Team_B.Notifications;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
@@ -15,14 +16,32 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.Injector
         { typeof(IOwnerGuestRepository), new OwnerGuestCSVRepository() },
         { typeof(IReservationChangeRequestRepository), new ReservationChangeRequestCSVRepository() },
         { typeof(IReservationRepository), new ReservationCSVRepository() },
-        { typeof(IAppointmentRepository), new AppointmentCSVRepository() },
         { typeof(IRenovationRequestRepository), new RenovationRequestCSVRepository() },
         { typeof(IRenovationRepository), new RenovationCSVRepository() },
         { typeof(IAccommodationRepository), new AccommodationCSVRepository() },
         { typeof(ISuperOwnerGuestTitleRepository), new SuperOwnerGuestTitleCSVRepository() },
-
+        { typeof(IKeyPointRepository), new KeyPointCSVRepository() },
+        { typeof(ILocationRepository), new LocationCSVRepository() },
+        { typeof(ITourAttendanceRepository), new TourAttendanceCSVRepository() },
+        { typeof(ITourGradeRepository), new TourGradeCSVRepository() },
+        { typeof(ITourRepository), new TourCSVRepository() },
+        { typeof(IAppointmentRepository), new AppointmentCSVRepository() },
+        { typeof(ITourRequestRepository), new TourRequestCSVRepository() },
+        { typeof(INotificationRepository), new NotificationCSVRepository() },
         // Add more implementations here
     };
+        public static void LoadData()
+        {
+            try{
+                (_implementations[typeof(ITourRepository)] as TourCSVRepository).LoadData();
+                (_implementations[typeof(IAppointmentRepository)] as AppointmentCSVRepository).LoadData();
+                (_implementations[typeof(ITourRequestRepository)] as TourRequestCSVRepository).LoadData();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Error occured");
+            }
+        }
 
         public static T CreateInstance<T>()
         {

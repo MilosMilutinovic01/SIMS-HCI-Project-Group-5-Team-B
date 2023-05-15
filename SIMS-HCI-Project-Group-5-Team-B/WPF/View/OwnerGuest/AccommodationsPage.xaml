@@ -1,12 +1,19 @@
-﻿<Window x:Class="SIMS_HCI_Project_Group_5_Team_B.View.AccommodationsWindow"
+﻿<Page x:Class="SIMS_HCI_Project_Group_5_Team_B.View.AccommodationsPage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
-        mc:Ignorable="d"
-        Title="Accomodations" Height="540" Width="900">
-    <Window.Resources>
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      mc:Ignorable="d"
+        Title="Accomodations" Height="540" Width="920"
+      Background="#c8a2c8">
+
+    <Page.InputBindings>
+        <KeyBinding Gesture="Ctrl+R" Command="{Binding ResetCommand}"></KeyBinding>
+        <KeyBinding Gesture="Ctrl+D" Command="{Binding DetailsCommand}"></KeyBinding>
+        <KeyBinding Gesture="Ctrl+F" Command="{Binding SearchCommand}"></KeyBinding>
+    </Page.InputBindings>
+    
+    <Page.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
                 <!-- Placeholder for the TextBox itself -->
@@ -15,7 +22,8 @@
             </StackPanel>
 
         </ControlTemplate>
-    </Window.Resources>
+    </Page.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"></ColumnDefinition>
@@ -52,11 +60,12 @@
 
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=SearchName ,Mode=TwoWay, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Height="20" Margin="0,5,0,22"></TextBox>
-            <ComboBox Grid.Row="2" Grid.Column="1" x:Name="ComboBoxStates" Height="30" Text="{Binding Path=State, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" ItemsSource="{Binding states}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" SelectionChanged="ComboBox_SelectionChanged" Margin="0,3,0,18">
+            <ComboBox Grid.Row="2" Grid.Column="1" x:Name="ComboBoxStates" Height="30" Text="{Binding Path=State, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" ItemsSource="{Binding States}" 
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"  Margin="0,3,0,18" >
+
 
             </ComboBox>
-            <ComboBox Grid.Row="3" Grid.Column="1" x:Name="ComboBoxCities" Height="30" Text="{Binding Path=City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" ItemsSource="{Binding cities}"
+            <ComboBox Grid.Row="3" Grid.Column="1" x:Name="ComboBoxCities" Height="30" Text="{Binding Path=City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" ItemsSource="{Binding Cities, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,3,0,18" >
 
             </ComboBox>
@@ -72,20 +81,31 @@
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,6,0,26"/>
 
             <WrapPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" FlowDirection="LeftToRight">
-                <Button Grid.Row="7" Grid.Column="0" Height="25" Width="45" Content="Reset" Click="Reset_Button_Click" Margin="100 10 20 0"></Button>
-                <Button Grid.Row="7" Grid.Column="1" Height="25" Width="45" Content="Search" Click="Search_Button_Click" Margin="0 10 0 0"></Button>
+                <Button Grid.Row="7" Grid.Column="0" Height="37" Width="66"  Command="{Binding ResetCommand}" Margin="50 10 20 0">
+                    <Button.Content>
+                        <TextBlock  TextWrapping="Wrap" Text="Reset          Ctrl + R" TextAlignment="Center"></TextBlock>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Row="7" Grid.Column="1" Height="37" Width="66"  Command="{Binding SearchCommand}" Margin="0 10 0 0">
+                    <Button.Content>
+                        <TextBlock  TextWrapping="Wrap" Text="Search          Ctrl + F" TextAlignment="Center"></TextBlock>
+                    </Button.Content>
+                </Button>
             </WrapPanel>
         </Grid>
         <DockPanel Grid.Column="1" Grid.Row="0">
             <WrapPanel DockPanel.Dock="Top" Height="50" VerticalAlignment="Top" FlowDirection="LeftToRight">
                 <TextBlock Text="Accommodation" Margin="10 10 0 10" FontSize="24"></TextBlock>
             </WrapPanel>
-            <WrapPanel DockPanel.Dock="Bottom" Height="50" FlowDirection="RightToLeft">
-                <Button Content="Close" IsCancel="True" Height="25" Width="60" VerticalAlignment="Center" Margin="20 10" Click="Cancel_Button_Click"></Button>
-            </WrapPanel>
-            <DataGrid Width="auto" ItemsSource="{Binding Path=Accomodations, UpdateSourceTrigger=PropertyChanged}" Margin="10 10 10 10"
+            
+            <DataGrid Width="auto" ItemsSource="{Binding Path=Accomodations, UpdateSourceTrigger=PropertyChanged}" Margin="10 10 20 25"
                   SelectedItem="{Binding Path=SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
-                      AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="DataGrid_MouseDoubleClick">
+                      AutoGenerateColumns="False" IsReadOnly="True" >
+                <DataGrid.Resources>
+                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#a2a2c8" />
+                    </Style>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="2*"></DataGridTextColumn>
@@ -127,7 +147,11 @@
                     <DataGridTemplateColumn Width="0.5*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Margin="3" Click="Details_Button_Click">Details</Button>
+                                <Button Margin="3" Command="{Binding DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    <Button.Content>
+                                        <TextBlock  TextWrapping="Wrap" Text="Details          Ctrl + D" TextAlignment="Center"></TextBlock>
+                                    </Button.Content>
+                                </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -136,4 +160,4 @@
 
         </DockPanel>
     </Grid>
-</Window>
+</Page>

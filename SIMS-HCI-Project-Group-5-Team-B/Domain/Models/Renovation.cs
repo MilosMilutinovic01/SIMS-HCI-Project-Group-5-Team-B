@@ -146,24 +146,81 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 {
                     if (StartDate < DateTime.Today)
                     {
-                        return "The reservation can not be in the past";
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "The reservation can not be in the past";
+                        }
+                        else
+                        {
+                            return "Rezervacija ne sme biti u proslosti";
+                        }
                     }
 
                 }
                 else if (columnName == "EndDate")
                 {
                     if (StartDate > EndDate)
-                        return "End Date must be greater than Start Date";
+                    {
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "Start date can not be bigger than end date";
+                        }
+                        else
+                        {
+                            return "Datum pocetka ne moze biti veci od datuma kraja";
+                        }
+                    }
+                }
+                else if (columnName == "Description")
+                {
+                    if (string.IsNullOrEmpty(Description))
+                    {
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "This field must be filled";
+                        }
+                        else
+                        {
+                            return "Polje mora biti popunjeno";
+                        }
+                    }
+                }else if(columnName == "RenovationDays")
+                {
+                    if (RenovationDays < 0)
+                    {
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "Value must be greater than zero";
+                        }
+                        else
+                        {
+                            return "Vrednost mora biti veca od nule";
+                        }
+                    }
                 }
 
                 return null;
             }
         }
 
-        private readonly string[] _validatedProperties = { "StartDate", "EndDate" };
+        private readonly string[] _validatedProperties = { "Accommodation","StartDate", "EndDate", "RenovationDays","Description" };
+
+        private readonly string[] _validatedPropertiesForSearch = { "StartDate", "EndDate", "RenovationDays" };
 
         public event PropertyChangedEventHandler? PropertyChanged;
+        public bool IsValidForSearch
+        {
+            get
+            {
+                foreach (var property in _validatedPropertiesForSearch)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
 
+                return true;
+            }
+        }
 
         public bool IsValid
         {

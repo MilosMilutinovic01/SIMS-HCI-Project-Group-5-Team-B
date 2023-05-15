@@ -19,7 +19,7 @@
 19|0|ppp|House|1|9|4|1|https://google.com|False
 20|0|JJJ|Apartment|1|2|2|7|https://bled.com|False
 21|0|Cas|House|2|3|2|1|hhhttt|False
-22|0|Maki`s|House|633|5|3|2|www.maki.com|False
+22|0|Maki`s|House|633|5|3|2|www.maki.com|True
 23|0|Luka`s|Apartment|8|5|5|2|www.kopaonik.com|False
 24|2|proba|Cottage|2|5|5|1|nijebitno.com|True
 25|0|Grand|House|7915|3|1|1|www.slike.com|False
@@ -29,5 +29,9 @@
 29|0|Jeca's|House|4|1|1|1|nes|False
 30|0|Dosta|Apartment|16822|1|1|1|no|False
 31|0|Generalna|Cottage|7|1|1|1|no|False
-32|0|Stres|House|7|1|1|1|link|False
+32|0|Stres|House|7|1|1|1|link|True
 33|1|Reni|Apartment|3481|2|1|1|https://lol.com|True
+34|1|HCI|House|7|2|2|2|nema|True
+35|0|frer|Cottage|8314|1|1|1|f|True
+36|1|Lokalizacija|Apartment|8316|1|1|1|fcffv|False
+37|1|Ferari|Cottage|8015|2|2|1|rrr|False

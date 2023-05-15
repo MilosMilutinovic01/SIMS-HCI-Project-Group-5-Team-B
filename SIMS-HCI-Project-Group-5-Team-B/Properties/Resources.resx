@@ -1,0 +1,468 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="AcceptAndDeclineLabel" xml:space="preserve">
+    <value>Click on the buttons to accept or decline request</value>
+  </data>
+  <data name="AcceptingRequest" xml:space="preserve">
+    <value>Accepting request</value>
+  </data>
+  <data name="AcceptionCheck" xml:space="preserve">
+    <value>Are you sure you want to accept the request?</value>
+  </data>
+  <data name="AcceptReservationChangeRequestWindow" xml:space="preserve">
+    <value>Accept Reservation Change Request Window</value>
+  </data>
+  <data name="Accommodation" xml:space="preserve">
+    <value>Accommodation</value>
+  </data>
+  <data name="AccommodationLocationSuggestionsWindow" xml:space="preserve">
+    <value>Accommodation Location Suggestions Window</value>
+  </data>
+  <data name="AccommodationWindow" xml:space="preserve">
+    <value>Accommodation Window</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>Add comment</value>
+  </data>
+  <data name="AdditionalComment" xml:space="preserve">
+    <value>Additional Comment</value>
+  </data>
+  <data name="AddOnPopularLocationLabel" xml:space="preserve">
+    <value>Click on the 'Add' button to add accommodation on popular location</value>
+  </data>
+  <data name="Availability" xml:space="preserve">
+    <value>Availability</value>
+  </data>
+  <data name="AvailableForums" xml:space="preserve">
+    <value>Available forums</value>
+  </data>
+  <data name="Busyness" xml:space="preserve">
+    <value>Busyness</value>
+  </data>
+  <data name="CallOff" xml:space="preserve">
+    <value>Call Off</value>
+  </data>
+  <data name="CallOffCheck" xml:space="preserve">
+    <value>Are you sure you want to call of the renovation?</value>
+  </data>
+  <data name="CallOffLabel" xml:space="preserve">
+    <value>Click on the 'Call off' button to cancel renovation</value>
+  </data>
+  <data name="CallOffRenovationWindow" xml:space="preserve">
+    <value>Call Off Renovation Window</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="CancelledReservations" xml:space="preserve">
+    <value>Cancelled reservations</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Cleanliness" xml:space="preserve">
+    <value>Cleanliness</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CloseAccommodation" xml:space="preserve">
+    <value>Close accommodation</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="CommentStarExplanation" xml:space="preserve">
+    <value>Comment with the star means that person has accommodation on location</value>
+  </data>
+  <data name="ComplaintsFromOtherGuests" xml:space="preserve">
+    <value>Complaints From Other Guests</value>
+  </data>
+  <data name="CompletedPaymentOnTime" xml:space="preserve">
+    <value>Completed Payment On Time</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Decline</value>
+  </data>
+  <data name="DeclineReservationChangeRequestForm" xml:space="preserve">
+    <value>Decline Reservation ChangeRequest Form</value>
+  </data>
+  <data name="DecliningRequest" xml:space="preserve">
+    <value>Declining request</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteOnUnpopularLocationLabel" xml:space="preserve">
+    <value>Click on the 'Delete' button to close accommodation on unpopular location</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="DetailsLabel" xml:space="preserve">
+    <value>Click on the 'Details' button to see detailed view of grades</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="ExpectedNumberOfDays" xml:space="preserve">
+    <value>Expected number of days</value>
+  </data>
+  <data name="ForRenovation" xml:space="preserve">
+    <value>For renovation</value>
+  </data>
+  <data name="Forum" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ForumWindow" xml:space="preserve">
+    <value>Forum Window</value>
+  </data>
+  <data name="FutureRenovations" xml:space="preserve">
+    <value>Future renovations</value>
+  </data>
+  <data name="GenerateLabel" xml:space="preserve">
+    <value>Click on the 'Generate' button to generate reservation report for accommodation</value>
+  </data>
+  <data name="Grade" xml:space="preserve">
+    <value>Grade</value>
+  </data>
+  <data name="GradeAverage" xml:space="preserve">
+    <value>Grade Average</value>
+  </data>
+  <data name="GradeLabel" xml:space="preserve">
+    <value>Click on the 'Grade' button to grade a guest</value>
+  </data>
+  <data name="GradesGivenByGuests" xml:space="preserve">
+    <value>Grades given by guests</value>
+  </data>
+  <data name="Grading" xml:space="preserve">
+    <value>Grading</value>
+  </data>
+  <data name="GradingAverage" xml:space="preserve">
+    <value>Grading average</value>
+  </data>
+  <data name="GradingGuestWindow" xml:space="preserve">
+    <value>Grading Guest Window</value>
+  </data>
+  <data name="MaxGuests" xml:space="preserve">
+    <value>Maximum Guests</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="MinReservationDays" xml:space="preserve">
+    <value>Minimal Reservation Days</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="MonthlyAccommodationStatisticsWindow" xml:space="preserve">
+    <value>Monthly Accommodation Statistics Window</value>
+  </data>
+  <data name="MonthlyDetails" xml:space="preserve">
+    <value>Monthly details</value>
+  </data>
+  <data name="MonthlyStatistics" xml:space="preserve">
+    <value>Monthly statistics</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NewAccommodation" xml:space="preserve">
+    <value>New accommodation</value>
+  </data>
+  <data name="NoticePeriod" xml:space="preserve">
+    <value>Notice Period</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="NotificationsFromGuests" xml:space="preserve">
+    <value>Notifications you got from guests</value>
+  </data>
+  <data name="NumberOfGrades" xml:space="preserve">
+    <value>Number of grades</value>
+  </data>
+  <data name="NumberOfReservations" xml:space="preserve">
+    <value> Number of reservations</value>
+  </data>
+  <data name="OptionalExplanation" xml:space="preserve">
+    <value>Optional explanation:</value>
+  </data>
+  <data name="OwnerAccommodationGradeDetailsWindow" xml:space="preserve">
+    <value>Owner Accommodation Grade Details Window</value>
+  </data>
+  <data name="OwnerCorrectness" xml:space="preserve">
+    <value>Owner correctness</value>
+  </data>
+  <data name="OwnerWindow" xml:space="preserve">
+    <value>Owner Window</value>
+  </data>
+  <data name="PastRenovations" xml:space="preserve">
+    <value>Past renovations</value>
+  </data>
+  <data name="PictureURLs" xml:space="preserve">
+    <value>Picture URLs</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="ProposalOfPopularLocations" xml:space="preserve">
+    <value>Proposal of locations for opening new accommodations</value>
+  </data>
+  <data name="ProposalOfUnpopularLocations" xml:space="preserve">
+    <value>Proposal of locations for closing existing accommodations</value>
+  </data>
+  <data name="Quietness" xml:space="preserve">
+    <value>Quietness</value>
+  </data>
+  <data name="RecommendedRenovation" xml:space="preserve">
+    <value>Recommended renovation</value>
+  </data>
+  <data name="Renovation" xml:space="preserve">
+    <value>Renovation</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Report</value>
+  </data>
+  <data name="RequestsForChangingReservation" xml:space="preserve">
+    <value>Requests for changing reservation</value>
+  </data>
+  <data name="Rescheduled" xml:space="preserve">
+    <value>Rescheduled</value>
+  </data>
+  <data name="RescheduledReservations" xml:space="preserve">
+    <value>Rescheduled reservations</value>
+  </data>
+  <data name="ReservationForGrading" xml:space="preserve">
+    <value>Reservations for grading</value>
+  </data>
+  <data name="RulesCompliance" xml:space="preserve">
+    <value>Rules Compliance</value>
+  </data>
+  <data name="Schedule" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
+  <data name="ScheduleLabel" xml:space="preserve">
+    <value>Click on the 'Schedule' button for scheduling renovation</value>
+  </data>
+  <data name="ScheduleRenovationForm" xml:space="preserve">
+    <value>Schedule Renovation Form</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SearchLabel" xml:space="preserve">
+    <value>Click on the 'Search' button to see available dates</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="ShowLabel" xml:space="preserve">
+    <value>Click on the 'Show' button to see comments on forum</value>
+  </data>
+  <data name="ShowStatistics" xml:space="preserve">
+    <value>Show Statistics</value>
+  </data>
+  <data name="ShowStatisticsLabel" xml:space="preserve">
+    <value>Chose accommodation you want the statistics for and then click on 'Show statistics' button</value>
+  </data>
+  <data name="StarForumExplanation" xml:space="preserve">
+    <value>Star symbolizes that forum is very useful</value>
+  </data>
+  <data name="StarMonthExplanation" xml:space="preserve">
+    <value>Month marked with the star was the busiest</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="StarYearExplanation" xml:space="preserve">
+    <value>Year marked with the star was the busiest</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="StateOfInventory" xml:space="preserve">
+    <value>State Of Inventory</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="SuggestionsForNewLocation" xml:space="preserve">
+    <value>Suggestions for new location</value>
+  </data>
+  <data name="SuperOwnerExplanation" xml:space="preserve">
+    <value>If you are super-owner your accommodation will be shown first to the guests</value>
+  </data>
+  <data name="Surname" xml:space="preserve">
+    <value>Surname</value>
+  </data>
+  <data name="TimeRangeEndingTime" xml:space="preserve">
+    <value>Time range ending time</value>
+  </data>
+  <data name="TimeRangeStartingTime" xml:space="preserve">
+    <value>Time range starting time</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Useful" xml:space="preserve">
+    <value>Useful</value>
+  </data>
+  <data name="WantedEndDate" xml:space="preserve">
+    <value>Wanted end date</value>
+  </data>
+  <data name="WantedStartDate" xml:space="preserve">
+    <value>Wanted start date</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="YearlyStatistics" xml:space="preserve">
+    <value>Yearly statistics</value>
+  </data>
+  <data name="YourAccommodations" xml:space="preserve">
+    <value>Your Accommodations</value>
+  </data>
+  <data name="YourNotifications" xml:space="preserve">
+    <value>Your notifications</value>
+  </data>
+</root>

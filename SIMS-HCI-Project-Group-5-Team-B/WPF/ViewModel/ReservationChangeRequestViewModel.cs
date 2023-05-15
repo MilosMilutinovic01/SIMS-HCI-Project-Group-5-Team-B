@@ -1,5 +1,7 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Utilities;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,12 +20,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public string LocationHeader { get; set; } = "";
         private ReservationChangeRequestService reservationChangeRequestService;
         private ReservationService reservationService;
-        private ReservationGridView selectedReservationView;
+        private SingleReservationViewModel selectedReservationView;
         private ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests;
-
+        private ReservationChangeRequestForm window;
+        public RelayCommand SendCommand { get;}   
+        public RelayCommand CloseCommand { get;}
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public ReservationChangeRequestViewModel(ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests,ReservationGridView selectedReservationView, ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService)
+        public ReservationChangeRequestViewModel(ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests,SingleReservationViewModel selectedReservationView, ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService, ReservationChangeRequestForm window)
         {
             this.reservationChangeRequestService = reservationChangeRequestService;
             this.reservationService = reservationService;
@@ -31,6 +35,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             NewReservationRequest = new ReservationChangeRequest(selectedReservationView.Reservation);
             this.ReservaitionChangeRequests = ReservaitionChangeRequests;
             SetHeader();
+            this.window = window;
+
+            //commands
+            SendCommand = new RelayCommand(CreateReservationChangeRequest, CanExecute);
+            CloseCommand = new RelayCommand(Close, CanExecute);
 
         }
 
@@ -40,6 +49,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             LocationHeader = "       " + NewReservationRequest.Reservation.Accommodation.Location.ToString();
         }
 
+        public bool CanExecute()
+        {
+            return true;
+        }
+
+        public void Close()
+        {
+            window.Close();
+        }
         public void CreateReservationChangeRequest()
         {
             if(NewReservationRequest.IsValid)
@@ -60,12 +78,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 selectedReservationView.IsModifiable = false;
                 ReservaitionChangeRequests.Add(NewReservationRequest);
                 MessageBox.Show("Request sent!");
+                Close();
             }
             else
             {
                 MessageBox.Show("Request can not be formed\nBecause data is not valid!");
             }
         }
+
+        
 
     }
 }

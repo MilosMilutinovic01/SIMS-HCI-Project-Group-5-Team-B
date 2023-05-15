@@ -15,9 +15,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     {
 
         private ITourAttendanceRepository tourAttendanceRepository;
-        public TourAttendanceService(ITourAttendanceRepository tourAttendanceRepository)
+        public TourAttendanceService()
         {
-            this.tourAttendanceRepository = tourAttendanceRepository;
+            this.tourAttendanceRepository = Injector.Injector.CreateInstance<ITourAttendanceRepository>();
         }
 
         public List<TourAttendance> GetAllFor(int guideGuestId)

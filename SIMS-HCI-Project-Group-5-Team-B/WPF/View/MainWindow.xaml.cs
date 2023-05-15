@@ -17,6 +17,8 @@ using System.Windows.Navigation;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using System.IO;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest;
 
 namespace SIMS_HCI_Project_Group_5_Team_B
 {
@@ -42,6 +44,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
             //locationController = new LocationController();
             //locationController.ChangeCsvFile("../../../Resources/Data/Locations.csv");
             //tourController = new TourController(locationController);
+            Injector.LoadData();
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
@@ -68,10 +71,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B
 
             } else if(ComboBoxType.SelectedIndex == 1)//Guide_Guest is selected
             {
-
+                MainGuideGuestWindow mainGuideGuestWindow = new MainGuideGuestWindow();
+                mainGuideGuestWindow.Show();
                 //Pozovi funkciju koju hoces za GOSTA 2
-                TourWindow tourWindow = new TourWindow(user);
-                tourWindow.Show();
+                //TourWindow tourWindow = new TourWindow(user);
+                //tourWindow.Show();
 
             }
             else if(ComboBoxType.SelectedIndex == 2)//Owner is selected

@@ -23,28 +23,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     /// </summary>
     public partial class CallOffRenovationWindow : Window
     {
-
-        private readonly RenovationViewModel renovationViewModel;
-        public ObservableCollection<RenovationGridView> FutureRenovations { get; set; }
-        public RenovationGridView SelectedRenovationGridView { get; set; }
-        public CallOffRenovationWindow(RenovationGridView SelectedRenovationGridView,ObservableCollection<RenovationGridView> FutureRenovations, RenovationService renovationService, ReservationService reservationService, int ownerId)
+        public CallOffRenovationWindow(RenovationService renovationService,ReservationService reservationService,Owner owner,RenovationGridView SelectedRenovationGridView, ObservableCollection<RenovationGridView> FutureRenovations, AccommodationService accommodationService)
         {
             InitializeComponent();
-            renovationViewModel = new RenovationViewModel(renovationService, reservationService, ownerId, SelectedRenovationGridView);
-            this.FutureRenovations = FutureRenovations;
-            this.SelectedRenovationGridView = SelectedRenovationGridView;
-        }
-
-        private void Confirm_Button_Click(object sender, RoutedEventArgs e)
-        {
-            renovationViewModel.CallOff();
-            FutureRenovations.Remove(SelectedRenovationGridView);
-            Close();
-        }
-
-        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
+            RenovationViewModel renovationViewModel = new RenovationViewModel(renovationService, reservationService, owner,accommodationService);
+            this.DataContext = renovationViewModel;
+            renovationViewModel.SelectedRenovationGridView = SelectedRenovationGridView;
+            renovationViewModel.FutureRenovations = FutureRenovations;
+            
         }
     }
 }

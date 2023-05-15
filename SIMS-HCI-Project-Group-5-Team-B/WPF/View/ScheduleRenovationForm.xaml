@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:viewModel="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel"
+        xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
         mc:Ignorable="d"
-        Title="ScheduleRenovationForm" Height="600" Width="600">
+        Title="{ns:Loc ScheduleRenovationForm}" Height="600" Width="600">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -17,48 +18,48 @@
             </StackPanel>
         </ControlTemplate>
     </Window.Resources>
-    <Grid Margin="50 50 50 50">
+    <Grid Margin="50 20 50 50">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="3*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Grid.Column="0" Grid.Row="0" Content="Click on the search button to see available dates" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Margin="52,-4,0,0"></Label>
-        <Label Grid.Column="0" Content="Click ont he schedule button for scheduling" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Margin="52,37,0,0"/>
-        <Label Grid.Column="0" Grid.Row="1" Content="Accommodation" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35" Margin="52,0,0,0"/>
-        <Label Grid.Column="0" Grid.Row="2" Content="Time range starting time" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35" Margin="52,0,0,0"/>
-        <Label Grid.Column="0" Grid.Row="3" Content="Time range ending time" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35" Margin="52,0,0,0"/>
-        <Label Grid.Column="0" Grid.Row="4" Content="Expected number of days" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35" Margin="52,0,0,0"/>
-        <ComboBox Name="Accommodation_ComboBox" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="25" Margin="300,0,0,0" SelectionChanged="ComboBox_SelectionChanged">
+        <Label Grid.Column="0" Grid.Row="0" Content="{ns:Loc SearchLabel}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Margin="52,-4,0,0"></Label>
+        <Label Grid.Column="0" Content="{ns:Loc ScheduleLabel}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Margin="52,21,0,0"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="{ns:Loc Accommodation}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35" Margin="52,0,0,0"/>
+        <Label Grid.Column="0" Grid.Row="2" Content="{ns:Loc TimeRangeStartingTime}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35" Margin="52,0,0,0"/>
+        <Label Grid.Column="0" Grid.Row="3" Content="{ns:Loc TimeRangeEndingTime}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35" Margin="52,0,0,0"/>
+        <Label Grid.Column="0" Grid.Row="4" Content="{ns:Loc ExpectedNumberOfDays}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35" Margin="52,0,0,0"/>
+        <ComboBox Name="Accommodation_ComboBox" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="25" Margin="300,7,0,0" ItemsSource="{Binding AccommodationNames}" SelectedItem="{Binding SelectedAccommodationName}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
 
         </ComboBox>
-        <DatePicker Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="25" Width="150" Margin="300,0,0,0" SelectedDate="{Binding Path=NewRenovation.StartDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+        <DatePicker Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="150" Margin="300,7,0,0" SelectedDate="{Binding Path=NewRenovation.StartDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
 
         </DatePicker>
-        <DatePicker Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="25" Width="150" Margin="300,0,0,0" SelectedDate="{Binding Path=NewRenovation.EndDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+        <DatePicker Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="150" Margin="300,7,0,0" SelectedDate="{Binding Path=NewRenovation.EndDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
 
         </DatePicker>
-        <xctk:IntegerUpDown Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="25" Width="150"  Name="myUpDownControl" Margin="300,0,0,0"  Text="{Binding Path=NewRenovation.RenovationDays, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+        <xctk:IntegerUpDown Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="150"  Name="myUpDownControl" Margin="300,7,0,0"  Text="{Binding Path=NewRenovation.RenovationDays, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
         </xctk:IntegerUpDown>
-        <Button Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="25" Width="60" Margin="390,0,0,0" Content="Search" Click="Search_Button_Click"></Button>
-        <DataGrid Grid.Row="6" Height="80" HorizontalAlignment="Left" VerticalAlignment="Center" Width="400" Margin="52,0,0,0" ItemsSource="{Binding Path=RenovationRecommendations, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=SelectedDate, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged" 
+        <Button Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="25" Width="60" Margin="390,0,0,0" Content="{ns:Loc Search}" Command="{Binding SearchAvailableDatesCommand}" ></Button>
+        <DataGrid Grid.Row="6" Height="70" HorizontalAlignment="Left" VerticalAlignment="Center" Width="400" Margin="52,0,0,0" ItemsSource="{Binding Path=RenovationRecommendations, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedDate, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" 
                       AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Start date" Binding="{Binding Start}"></DataGridTextColumn>
-                <DataGridTextColumn Width="*" Header="End date" Binding="{Binding End}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="{ns:Loc StartDate}" Binding="{Binding Start}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="{ns:Loc EndDate}" Binding="{Binding End}"></DataGridTextColumn>
                 <!--<DataGridTemplateColumn x:Name="ButtonScheduleRenovation" Width="*" Header="Schedule">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -68,9 +69,9 @@
                 </DataGridTemplateColumn>-->
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Left" Height="25" Width="60" Margin="390,0,0,0" Content="Cancel" Click="Cancel_Button_Click"></Button>
-        <Button Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Left" Height="25" Width="60" Margin="314,0,0,0" Content="Schedule" Click="Schedule_RenovationButton_Click"></Button>
-        <Label Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="52 0 0 0">Description</Label>
+        <Button Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Left" Height="25" Width="60" Margin="390,0,0,0" Content="{ns:Loc Cancel}" Command="{Binding CancelCommand}" ></Button>
+        <Button Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Left" Height="25" Width="60" Margin="314,0,0,0" Content="{ns:Loc Schedule}" Command="{Binding ScheduleRenovationCommand}"></Button>
+        <Label Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="52 0 0 0" Content="{ns:Loc Description}"></Label>
         <TextBox Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="80" Width="300" Margin="151,0,0,0" Text="{Binding Path=NewRenovation.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
     </Grid>

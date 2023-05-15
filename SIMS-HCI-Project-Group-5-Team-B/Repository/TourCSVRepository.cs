@@ -1,34 +1,34 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Xml.Linq;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Repository
 {
     public class TourCSVRepository : CSVRepository<Tour>, ITourRepository
     {
-        public TourCSVRepository(IKeyPointRepository keyPointRepository, ILocationRepository locationRepository) : base()
+        public bool LoadedData = false;
+        public TourCSVRepository() : base() { }
+
+        public void LoadData()
         {
-            LoadKeypoints(keyPointRepository);
-            LoadLocation(locationRepository);
+            LoadLocation();
+            LoadKeypoints();
         }
 
-        private void LoadLocation(ILocationRepository locationRepository)
+        private void LoadLocation()
         {
-            foreach(var tour in _data)
+            ILocationRepository locationRepository = Injector.CreateInstance<ILocationRepository>();
+            foreach (var tour in _data)
             {
                 tour.Location = locationRepository.GetAll().Find(l => l.Id == tour.LocationId);
             }
         }
 
-        private void LoadKeypoints(IKeyPointRepository keyPointRepository)
+        private void LoadKeypoints()
         {
+            IKeyPointRepository keyPointRepository = Injector.CreateInstance<IKeyPointRepository>();
             foreach (var tour in _data)
             {
                 tour.KeyPoints = keyPointRepository.GetAll().FindAll(kp => kp.TourId == tour.Id);

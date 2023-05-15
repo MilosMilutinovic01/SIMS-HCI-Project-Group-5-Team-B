@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         mc:Ignorable="d"
-        Title="GradingOwnerAccommodation" Height="450" Width="380">
+        Title="GradingOwnerAccommodation" Height="450" Width="380" WindowStartupLocation="CenterScreen"
+        Background="#c8a2c8">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -16,6 +17,13 @@
 
         </ControlTemplate>
     </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+R" Command="{Binding SendRequestCommand}"/>
+        <KeyBinding Gesture="Ctrl+G" Command="{Binding GradeCommand}"/>
+        <KeyBinding Gesture="esc" Command="{Binding CloseCommand}"/>
+    </Window.InputBindings>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -78,10 +86,22 @@
             <TextBox Grid.RowSpan="2" Grid.Row="6" Grid.Column="1" Margin="0 5" Text="{Binding OwnerAccommodationGrade.AdditionalComment, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"></TextBox>
         </Grid>
-        <WrapPanel Grid.Column="2" Grid.Row="2" FlowDirection="RightToLeft">
-            <Button Content="Cancel" VerticalAlignment="Center" Margin="15" Width="40" Click="Cancel_Button_Click"></Button>
-            <Button Content="Grade" VerticalAlignment="Center" Margin="15" Width="40" Click="Grade_Button_Click"></Button>
-            <Button Content="Renovation Request" VerticalAlignment="Center" Margin="15"  Click="RenovationRequest_Button_Click"></Button>
+        <WrapPanel Grid.Column="0" Grid.Row="2" FlowDirection="LeftToRight" Grid.ColumnSpan="4">
+            <Button  VerticalAlignment="Center" Margin="30 10"  Command="{Binding SendRequestCommand}">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Width="110" Height="37"  Text="Renovation Request          Ctrl + R" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
+            <Button  VerticalAlignment="Center" Margin="10 10" Width="66" Command="{Binding GradeCommand}">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Width="66" Height="37"  Text="Grade      Ctrl+G" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
+            <Button VerticalAlignment="Center" Margin="10 10" Width="66" Command="{Binding CloseCommand}" >
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Width="66" Height="37" Text="Close       esc" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
         </WrapPanel>
     </Grid>
 </Window>
