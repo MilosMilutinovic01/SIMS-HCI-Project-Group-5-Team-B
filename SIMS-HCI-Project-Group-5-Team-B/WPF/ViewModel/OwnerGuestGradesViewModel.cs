@@ -32,7 +32,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             locationController = new LocationController();
             ownerService = new OwnerService();
             accommodationService = new AccommodationService(locationController, ownerService);
-            reservationService = new ReservationService(accommodationService);
+            reservationService = new ReservationService();
             ownerGuestGradeService = new OwnerGuestGradeService(reservationService);
             superOwnerGuestTitleService = new SuperOwnerGuestTitleService();
 

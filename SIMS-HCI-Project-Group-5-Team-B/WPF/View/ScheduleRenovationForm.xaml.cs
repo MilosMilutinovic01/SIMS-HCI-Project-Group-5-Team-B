@@ -15,6 +15,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System.Collections.ObjectModel;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
 {
@@ -23,7 +24,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     /// </summary>
     public partial class ScheduleRenovationForm : Window
     {
-        public ScheduleRenovationForm(RenovationService renovationService,ReservationService reservationService, AccommodationService accommodationService,Owner owner, ObservableCollection<RenovationGridView> FutureRenovations)
+        public ScheduleRenovationForm(IRenovationService renovationService,ReservationService reservationService, AccommodationService accommodationService,Owner owner, ObservableCollection<RenovationGridView> FutureRenovations)
         {
             InitializeComponent();
             RenovationViewModel renovationViewModel = new RenovationViewModel(renovationService, reservationService,owner,accommodationService);

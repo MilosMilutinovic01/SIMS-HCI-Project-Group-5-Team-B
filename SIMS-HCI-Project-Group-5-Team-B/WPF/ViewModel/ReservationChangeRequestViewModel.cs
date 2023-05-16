@@ -1,5 +1,7 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View;
 using System;
@@ -26,6 +28,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public RelayCommand SendCommand { get;}   
         public RelayCommand CloseCommand { get;}
         public event PropertyChangedEventHandler? PropertyChanged;
+        private IRenovationService renovationService;
 
         public ReservationChangeRequestViewModel(ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests,SingleReservationViewModel selectedReservationView, ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService, ReservationChangeRequestForm window)
         {
@@ -34,6 +37,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.selectedReservationView = selectedReservationView;
             NewReservationRequest = new ReservationChangeRequest(selectedReservationView.Reservation);
             this.ReservaitionChangeRequests = ReservaitionChangeRequests;
+            this.renovationService = Injector.CreateInstance<IRenovationService>();
+
             SetHeader();
             this.window = window;
 
@@ -63,7 +68,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             if(NewReservationRequest.IsValid)
             {
                 if(reservationService.IsAccomodationAvailableForChangingReservationDates(NewReservationRequest.Reservation, NewReservationRequest.Start, NewReservationRequest.End)
-                    && reservationService.IsAccomodationNotInRenovation(NewReservationRequest.Reservation.Accommodation, NewReservationRequest.Start, NewReservationRequest.End))
+                    && renovationService.IsAccomodationNotInRenovation(NewReservationRequest.Reservation.Accommodation, NewReservationRequest.Start, NewReservationRequest.End))
                 {
                     NewReservationRequest.IsAvailable = "Yes";
                 }

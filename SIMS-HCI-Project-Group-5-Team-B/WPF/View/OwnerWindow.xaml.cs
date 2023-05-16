@@ -1,6 +1,8 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.Notifications;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
@@ -27,7 +29,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private OwnerGuestGradeService ownerGuestGradeService;
         private SuperOwnerService superOwnerService;
         private ReservationChangeRequestService reservationChangeRequestService;
-        private RenovationService renovationService;
+        private IRenovationService renovationService;
         private RenovationRequestService renovationRequestService;
         private YearlyAccommodationStatisticsService yearlyAccommodationStatisticsService;
         private MonthlyAccommodationStatisticsService monthlyAccommodationStatisticsService;
@@ -44,12 +46,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             locationService = new LocationController();
             ownerService = new OwnerService();
             accommodationService = new AccommodationService(locationService, ownerService);
-            reservationService = new ReservationService(accommodationService);
+            reservationService = new ReservationService();
             ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(reservationService);
             ownerGuestGradeService = new OwnerGuestGradeService(reservationService);
             superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, accommodationService);
             reservationChangeRequestService = new ReservationChangeRequestService();
-            renovationService = new RenovationService();
+            renovationService = ServiceInjector.CreateInstance<IRenovationService>();
             renovationRequestService = new RenovationRequestService();
             yearlyAccommodationStatisticsService = new YearlyAccommodationStatisticsService();
             monthlyAccommodationStatisticsService = new MonthlyAccommodationStatisticsService();

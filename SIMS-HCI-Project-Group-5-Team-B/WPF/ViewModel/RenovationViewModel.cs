@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View;
 using System;
@@ -19,7 +20,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public RenovationRecommendation SelectedDate { get; set; }
         public string SelectedAccommodationName { get; set; }
         public List<string> AccommodationNames { get; set; }
-        private RenovationService renovationService;
+        private IRenovationService renovationService;
         private ReservationService reservationService;
         private AccommodationService accommodationService;
         private Owner Owner { get; set; }
@@ -30,7 +31,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public RelayCommand SearchAvailableDatesCommand { get; }
         
         public RelayCommand ScheduleRenovationCommand { get; }
-        public RenovationViewModel(RenovationService renovationService,ReservationService reservationService, Owner owner,AccommodationService accommodationService)
+        public RenovationViewModel(IRenovationService renovationService,ReservationService reservationService, Owner owner,AccommodationService accommodationService)
         {
             this.renovationService = renovationService;
             this.reservationService = reservationService;
@@ -40,8 +41,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             NewRenovation = new Renovation();
             RenovationRecommendations = new ObservableCollection<RenovationRecommendation>();
             SelectedDate = new RenovationRecommendation(DateTime.MinValue, DateTime.MinValue);
-            NewRenovation.StartDate = DateTime.Now;
-            NewRenovation.EndDate = DateTime.Now;
+            NewRenovation.StartDate = DateTime.Today;
+            NewRenovation.EndDate = DateTime.Today;
             FutureRenovations = new ObservableCollection<RenovationGridView>(renovationService.GetFutureRenovationsView(owner.Id));
             PastRenovations = new ObservableCollection<Renovation>(renovationService.GetPastRenovations(owner.Id));
             GetAccommodationNames(owner.Id);
