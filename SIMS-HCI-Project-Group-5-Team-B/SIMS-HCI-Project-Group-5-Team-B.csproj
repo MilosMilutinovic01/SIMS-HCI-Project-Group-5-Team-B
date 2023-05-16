@@ -77,7 +77,6 @@
     <Resource Include="Resources\Images\GuideGuestUser.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Images\hamburgerIcon.png" />
     <Resource Include="Resources\Images\LetterRImage.png" />
     <Resource Include="Resources\Images\locationIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
