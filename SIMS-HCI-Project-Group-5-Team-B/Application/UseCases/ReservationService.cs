@@ -11,15 +11,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     public class ReservationService
     {
         private IReservationRepository reservationRepository;
-        private AccommodationService accommodationService;
+        private IAccommodationRepository accommodationRepository;
         private IOwnerGuestRepository ownerGuestRepository;
         private IReservationChangeRequestRepository reservationChangeRequestRepository;
         private IRenovationRepository renovationRepository;
         private IRenovationService renovationService;
-        public ReservationService(AccommodationService accommodationService)
+        public ReservationService()
         {
             this.reservationRepository = Injector.Injector.CreateInstance<IReservationRepository>();
-            this.accommodationService = accommodationService;
+            this.accommodationRepository = Injector.Injector.CreateInstance<IAccommodationRepository>();
             this.ownerGuestRepository = Injector.Injector.CreateInstance<IOwnerGuestRepository>();
             this.reservationChangeRequestRepository = Injector.Injector.CreateInstance<IReservationChangeRequestRepository>();
             this.renovationRepository = Injector.Injector.CreateInstance<IRenovationRepository>();
@@ -76,7 +76,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             foreach (Reservation reservation in GetAll())
             {
-                Accommodation accommodation = accommodationService.GetById(reservation.AccommodationId);
+                Accommodation accommodation = accommodationRepository.GetById(reservation.AccommodationId);
                 if (accommodation != null)
                 {
                     reservation.Accommodation = accommodation;

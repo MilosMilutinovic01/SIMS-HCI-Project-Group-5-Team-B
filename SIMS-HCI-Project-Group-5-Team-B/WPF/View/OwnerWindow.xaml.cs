@@ -45,7 +45,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             locationService = new LocationController();
             ownerService = new OwnerService();
             accommodationService = new AccommodationService(locationService, ownerService);
-            reservationService = new ReservationService(accommodationService);
+            reservationService = new ReservationService();
             ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(reservationService);
             ownerGuestGradeService = new OwnerGuestGradeService(reservationService);
             superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, accommodationService);

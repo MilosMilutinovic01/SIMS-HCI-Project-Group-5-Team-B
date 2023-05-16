@@ -72,7 +72,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             renovationService = ServiceInjector.CreateInstance<IRenovationService>();    
             renovationService.MarkRenovatiosThatTookPlaceInTheLastYear();
             this.accommodationService = new AccommodationService(locationController, ownerService);
-            this.reservationService = new ReservationService(this.accommodationService);
+            this.reservationService = new ReservationService();
             //Accomodations = new ObservableCollection<Accommodation>(accommodationController.GetAll());
             ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(this.reservationService);
             superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, this.accommodationService);
