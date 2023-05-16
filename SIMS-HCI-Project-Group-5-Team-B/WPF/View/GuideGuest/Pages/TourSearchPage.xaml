@@ -5,12 +5,48 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.Pages"
       xmlns:viewModel="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest"
+      xmlns:dto="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.DTO"
+      xmlns:components="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" Width="1050"
       Title="TourSearchPage" Background="White">
     <Page.DataContext>
         <viewModel:TourSearchPageViewModel/>
     </Page.DataContext>
+
+    <Page.Resources>
+        <DataTemplate x:Name="GuideGuestTourDTOTemplate" DataType="{x:Type dto:GuideGuestTourDTO}">
+            <Button Height="130" Width="330" Background="Transparent" Margin="5" HorizontalContentAlignment="Left"
+                    Command="{Binding DataContext.TourClickedCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}">
+                <StackPanel Margin="2" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Image Height="126" Width="126" Source="{Binding FirstImage}"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding Tour.Name}" Grid.Row="0"/>
+                        <TextBlock Text="{Binding Tour.Location}" Grid.Row="1"/>
+                        <TextBlock Text="{Binding Tour.Language}" Grid.Row="2"/>
+                        <TextBlock Text="{Binding Tour.MaxGuests}" Grid.Row="3"/>
+                    </Grid>
+                </StackPanel>
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <BooleanAnimationUsingKeyFrames Storyboard.Target="{x:Reference Name=TourInformationPopup}" Storyboard.TargetProperty="IsOpen">
+                                    <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                                </BooleanAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+        </DataTemplate>
+    </Page.Resources>
     <!--xmlns:wpfTool="http://schemas.xceed.com/wpf/xaml/toolkit"-->
     
     <Grid>
@@ -102,28 +138,6 @@
                     <Grid>
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <ItemsControl x:Name="TourList" ItemsSource="{Binding Tours}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Button Height="130" Width="330" Background="Transparent" Margin="5"
-                                            CommandParameter="{Binding}" HorizontalContentAlignment="Left">
-                                            <StackPanel Margin="2" Orientation="Horizontal" HorizontalAlignment="Left">
-                                                <Image Height="126" Width="126"/>
-                                                <Grid>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition/>
-                                                        <RowDefinition/>
-                                                        <RowDefinition/>
-                                                        <RowDefinition/>
-                                                    </Grid.RowDefinitions>
-                                                    <TextBlock Text="{Binding Name}" Grid.Row="0"/>
-                                                    <TextBlock Text="{Binding Location}" Grid.Row="1"/>
-                                                    <TextBlock Text="{Binding Language}" Grid.Row="2"/>
-                                                    <TextBlock Text="{Binding MaxGuests}" Grid.Row="3"/>
-                                                </Grid>
-                                            </StackPanel>
-                                        </Button>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel/>
@@ -146,6 +160,11 @@
                 </DataTemplate>
             </ContentPresenter.ContentTemplate>
         </ContentPresenter>
-        
+
+        <Popup x:Name="TourInformationPopup" AllowsTransparency="True" StaysOpen="False"
+               Placement="Center">
+            <components:TourInformationUserControl
+                TourDTO="{Binding ClickedTour}" BookTourCommand="{Binding}"/>
+        </Popup>
     </Grid>
 </Page>

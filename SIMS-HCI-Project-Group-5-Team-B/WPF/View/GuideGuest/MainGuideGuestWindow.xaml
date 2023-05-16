@@ -27,24 +27,37 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="BackButton" Grid.Row="0" Grid.Column="0" Click="BackButton_Click"
+            <Button x:Name="BackButton" Grid.Row="0" Grid.Column="0" Command="{Binding BackCommand}"
                     Background="Transparent" BorderBrush="Transparent" Margin="10, 0, 0, 0">
                 <Image Source="/Resources/Images/GuideGuestLeftArrow.png" Height="25"/>
             </Button>
 
-            <Button x:Name="NotificationsButton" Grid.Row="0" Grid.Column="1" Click="NotificationsButton_Click"
+            <Button x:Name="NotificationsButton" Grid.Row="0" Grid.Column="1"
                     Background="Transparent" BorderBrush="Transparent" Margin="5, 0, 0, 0">
-                <Image Source="/Resources/Images/GuideGuestNotificationBell.png" Height="25"/>
+                <Button.Content>
+                    <Image Source="/Resources/Images/GuideGuestNotificationBell.png" Height="25"/>
+                </Button.Content>
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <BooleanAnimationUsingKeyFrames Storyboard.TargetName="NotificationPopup" Storyboard.TargetProperty="IsOpen">
+                                    <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                                </BooleanAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
             </Button>
 
-            <Button x:Name="HomeButton" Grid.Row="0" Grid.Column="2" Click="HomeButton_Click"
+            <Button x:Name="HomeButton" Grid.Row="0" Grid.Column="2" Command="{Binding HomeCommand}"
                     Background="Transparent" BorderBrush="Transparent" Margin="5, 0, 0, 0">
                 <Image Source="/Resources/Images/GuideGuestHome.png" Height="25"/>
             </Button>
 
             <TextBox x:Name="SearchTextBox" Grid.Row="0" Grid.Column="3" Margin="10, 0, 10, 0"/>
 
-            <Button x:Name="YourProfileButton" Grid.Row="0" Grid.Column="4" Click="YourProfileButton_Click"
+            <Button x:Name="YourProfileButton" Grid.Row="0" Grid.Column="4" Command="{Binding ProfileCommand}"
                     Background="Transparent" BorderBrush="Transparent" Margin="0, 0, 10, 0">
                 <Image Source="/Resources/Images/GuideGuestUser.png" Height="25"/>
             </Button>
@@ -55,7 +68,8 @@
                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
         <Popup x:Name="NotificationPopup" AllowsTransparency="True"
-               HorizontalOffset="0" VerticalOffset="4">
+               HorizontalOffset="0" VerticalOffset="4" StaysOpen="False"
+               PopupAnimation="Fade" PlacementTarget="{Binding ElementName=NotificationsButton, Mode=OneWay}">
             <npp:NotificationUserControl Notifications="{Binding Path=Notifications}"
                                          CloseCommand="{Binding CloseNotificationCommand}"
                                          VisitCommand="{Binding VisitTourNotificationCommand}"

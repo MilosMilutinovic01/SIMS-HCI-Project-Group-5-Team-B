@@ -27,41 +27,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest
         public MainGuideGuestWindow()
         {
             InitializeComponent();
-            mainGuideGuestWindowViewModel = new MainGuideGuestWindowViewModel();
+            mainGuideGuestWindowViewModel = new MainGuideGuestWindowViewModel(MainFrame.NavigationService);
             this.DataContext = mainGuideGuestWindowViewModel;
-        }
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (MainFrame.NavigationService.CanGoBack)
-            {
-                MainFrame.NavigationService.GoBack();
-            }
-        }
-
-        private void NotificationsButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (NotificationPopup.IsOpen == false)
-            {
-                NotificationPopup.PlacementTarget = NotificationsButton;
-                NotificationPopup.IsOpen = true;
-                NotificationPopup.StaysOpen = false;
-            }
-            else
-            {
-                NotificationPopup.IsOpen = false;
-                NotificationPopup.Visibility = System.Windows.Visibility.Collapsed;
-            }
-        }
-
-        private void HomeButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.NavigationService.Content = mainGuideGuestWindowViewModel.GetTourSearchPage();
-        }
-
-        private void YourProfileButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.NavigationService.Content = mainGuideGuestWindowViewModel.GetYourProfilePage();
         }
     }
 }
