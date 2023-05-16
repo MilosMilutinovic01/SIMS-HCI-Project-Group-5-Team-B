@@ -106,8 +106,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             //this.NavService.Navigate(
             //    new Uri("WPF/View/Guide/TourRequestsPage.xaml", UriKind.Relative));
-            Page reviews = new ReviewsPage();
-            this.frame.NavigationService.Navigate(reviews);
+            Page tourRequest = new TourRequestPage();
+            this.frame.NavigationService.Navigate(tourRequest);
         }
 
         private void Execute_NavigateToTourRequestsWithStatisticsPageCommand()
