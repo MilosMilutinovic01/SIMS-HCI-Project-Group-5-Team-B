@@ -6,9 +6,9 @@
       xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
       xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
       mc:Ignorable="d" 
-      d:DesignHeight="350" d:DesignWidth="670"
+      d:DesignHeight="420" d:DesignWidth="840"
       Title="OwnerProfilePage">
-    <Border BorderBrush="Black" BorderThickness="1">
+    <Border Style="{DynamicResource BorderStyle}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -18,16 +18,16 @@
                 <RowDefinition Height="1.5*"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Content="{ns:Loc SuperOwnerExplanation}"></Label>
-            <Image x:Name="ProfileImage" Grid.Row="1" HorizontalAlignment="Left" Height="130" Width="130" Margin="40,10,0,10" Source="/Resources/Images/OwnerProfile.png" ></Image>
-            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,15,0,0" Content="{ns:Loc Name}"></Label>
-            <TextBlock Grid.Row="1" Height="25" HorizontalAlignment="Left" Width="80" Text="{Binding Owner.Name}" Margin="300,18,0,131" TextAlignment="Left"></TextBlock>
-            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,45,0,0" Content="{ns:Loc Surname}"></Label>
-            <TextBlock Grid.Row="1" Height="25" HorizontalAlignment="Left" Width="80" Text="{Binding Owner.Surname}" Margin="300,49,0,100" TextAlignment="Left"></TextBlock>
-            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,75,0,0" Content="{ns:Loc NumberOfGrades}"></Label>
-            <TextBlock Grid.Row="1" Height="25" HorizontalAlignment="Left" Width="80" Text="{Binding NumberOfGrades}" Margin="300,80,0,69" TextAlignment="Left"></TextBlock>
-            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,105,0,0" Content="{ns:Loc GradingAverage}"></Label>
-            <TextBlock Grid.Row="1" Height="25" HorizontalAlignment="Left" Width="80" Text="{Binding Owner.GradeAverage}" Margin="300,110,0,39" TextAlignment="Left"></TextBlock>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Content="{ns:Loc SuperOwnerExplanation}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
+            <Image x:Name="ProfileImage" Grid.Row="1" HorizontalAlignment="Left"  Margin="40,10,0,10" Source="/Resources/Images/OwnerProfile.png" ></Image>
+            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,15,0,0" Content="{ns:Loc Name}" Style="{DynamicResource LabelStyle}"></Label>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Left" Width="80" Text="{Binding Owner.Name}" Margin="360,20,0,164" TextAlignment="Left"></TextBlock>
+            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,50,0,0" Content="{ns:Loc Surname}" Style="{DynamicResource LabelStyle}"></Label>
+            <TextBlock Grid.Row="1"  HorizontalAlignment="Left" Width="80" Text="{Binding Owner.Surname}" Margin="360,55,0,129" TextAlignment="Left"></TextBlock>
+            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,85,0,0" Content="{ns:Loc NumberOfGrades}" Style="{DynamicResource LabelStyle}"></Label>
+            <TextBlock Grid.Row="1"  HorizontalAlignment="Left" Width="80" Text="{Binding NumberOfGrades}" Margin="360,90,0,94" TextAlignment="Left"></TextBlock>
+            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,120,0,0" Content="{ns:Loc GradingAverage}" Style="{DynamicResource LabelStyle}"></Label>
+            <TextBlock Grid.Row="1"  HorizontalAlignment="Left" Width="80" Text="{Binding Owner.GradeAverage}" Margin="360,125,0,59" TextAlignment="Left"></TextBlock>
             <Image x:Name="MedalImage" Grid.Row="2"  Height="80" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" Source="/Resources/Images/OwnerMedalImage.png" Margin="65,10,0,10">
                 <Image.Style>
                     <Style TargetType="{x:Type Image}">

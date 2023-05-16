@@ -24,19 +24,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     /// </summary>
     public partial class RenovationPage : Page
     {
-        private RenovationViewModel renovationViewModel;
-        private IRenovationService renovationService;
-        private ReservationService reservationService;
-        private AccommodationService accommodationService;
-        private Owner owner;
+
         //public RenovationGridView SelectedRenovationGridView { get; set; }
         public RenovationPage(IRenovationService renovationService, ReservationService reservationService, Owner owner, AccommodationService accommodationService)
         {
             InitializeComponent();
-            this.renovationService = renovationService;
-            this.reservationService = reservationService;
-            this.accommodationService = accommodationService;
-            this.owner = owner;
+            
             //renovationViewModel = new RenovationViewModel(renovationService, reservationService, owner.Id/*, SelectedRenovationGridView*/);
             this.DataContext = new RenovationViewModel(renovationService, reservationService, owner,accommodationService/*, SelectedRenovationGridView*/);
         }

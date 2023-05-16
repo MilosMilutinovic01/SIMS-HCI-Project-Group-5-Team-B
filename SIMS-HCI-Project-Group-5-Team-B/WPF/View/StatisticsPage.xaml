@@ -6,9 +6,9 @@
       xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
       xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
       mc:Ignorable="d" 
-      d:DesignHeight="350" d:DesignWidth="670"
+      d:DesignHeight="420" d:DesignWidth="840"
       Title="StatisticsPage">
-    <Border BorderBrush="Black" BorderThickness="1">
+    <Border Style="{DynamicResource BorderStyle}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -19,20 +19,20 @@
             </Grid.RowDefinitions>
             <Grid Grid.Column="0" Grid.Row="0">
 
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,5,0,0" Content="{ns:Loc ShowStatisticsLabel}"></Label>
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,28,0,0" Content="{ns:Loc StarYearExplanation}"></Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,5,0,0" Content="{ns:Loc ShowStatisticsLabel}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,28,0,0" Content="{ns:Loc StarYearExplanation}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
             </Grid>
             <Grid Grid.Column="0" Grid.Row="1">
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,68,0,0" Content="{ns:Loc YearlyStatistics}"></Label>
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,23,0,0" Content="{ns:Loc Accommodation}"></Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,70,0,0" Content="{ns:Loc YearlyStatistics}" Style="{DynamicResource LabelStyle}"></Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,23,0,0" Content="{ns:Loc Accommodation}" Style="{DynamicResource LabelStyle}"></Label>
                 <ComboBox Name="Accommodation_ComboBox" ItemsSource="{Binding AccommodationNames}" SelectedItem="{Binding SelectedAccommodationName}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="80" Margin="154,24,0,0">
-                    
-                    
+
+
                 </ComboBox>
-                <Button HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Margin="0,24,0,0" Command="{Binding ShowCommand}" Content="{ns:Loc ShowStatistics}"></Button>
-                <DataGrid x:Name="dgStatistics" Width="620" Height="150" ItemsSource="{Binding Path=YearlyStatistics, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Margin="290,24,0,0" Command="{Binding ShowCommand}" Content="{ns:Loc ShowStatistics}" Style="{DynamicResource ButtonStyle}"></Button>
+                <DataGrid x:Name="dgStatistics"  ItemsSource="{Binding Path=YearlyStatistics, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                   SelectedItem="{Binding Path=SelectedYearlyAccommodationStatistics, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
-                                 AutoGenerateColumns="False" IsReadOnly="True" Margin="22,94,22,24" >
+                                 AutoGenerateColumns="False" IsReadOnly="True" Margin="22,100,22,40" >
                     <DataGrid.Columns>
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>
@@ -56,7 +56,7 @@
                         <DataGridTemplateColumn x:Name="ButtonMonthlyStatistics" Header="{ns:Loc MonthlyDetails}" Width="1.5*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="monthlyStatisticsButton" Command="{Binding DataContext.MonthlyStatisticsCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Content="{ns:Loc MonthlyStatistics}"></Button>
+                                    <Button x:Name="monthlyStatisticsButton" Command="{Binding DataContext.MonthlyStatisticsCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Content="{ns:Loc MonthlyStatistics}" Style="{DynamicResource ButtonInDataGridStyle}"></Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
