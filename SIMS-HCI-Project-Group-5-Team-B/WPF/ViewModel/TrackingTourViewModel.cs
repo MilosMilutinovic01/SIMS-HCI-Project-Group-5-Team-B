@@ -25,7 +25,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public ObservableCollection<Appointment> AvailableAppointments { get; set; }
         public ObservableCollection<KeyPoint> KeyPoints { get; set; }
-        public ObservableCollection<GuideGuest> GuideGuests { get; set; }
+        public ObservableCollection<SIMS_HCI_Project_Group_5_Team_B.Domain.Models.GuideGuest> GuideGuests { get; set; }
         private Appointment selectedAppointment;
         public Appointment SelectedAppointment 
         {
@@ -45,19 +45,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
         }
         public KeyPoint SelectedKeyPoint { get; set; }
-        public GuideGuest SelectedGuest { get; set; }
+        public SIMS_HCI_Project_Group_5_Team_B.Domain.Models.GuideGuest SelectedGuest { get; set; }
         public RelayCommand StartTourCommand { get; set; }
         public RelayCommand EndTourCommand { get; set; }
         public RelayCommand CheckKeyPointCommand { get; set; }
         public int userId;
 
         #region actions
-        private bool CanExecute_NavigateCommand(object obj)
+        private bool CanExecute_NavigateCommand()
         {
             return true;
         }
 
-        private void Execute_StartTourCommand(object obj)
+        private void Execute_StartTourCommand()
         {
             if (SelectedAppointment.Ended)
             {
@@ -83,7 +83,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
         }
 
-        private void Execute_EndTourCommand(object obj)
+        private void Execute_EndTourCommand()
         {
             bool result = MessageBox.Show("Are you sure you want to end?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
             if (result)
@@ -93,7 +93,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
         }
 
-        private void Execute_CheckKeyPointCommand(object obj)
+        private void Execute_CheckKeyPointCommand()
         {
 
             if (SelectedKeyPoint == KeyPoints[0] || SelectedKeyPoint.Selected == true)
@@ -145,22 +145,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public TrackingTourViewModel() 
         {
-            KeyPointCSVRepository keyPointCSVRepository = new KeyPointCSVRepository();
-            LocationCSVRepository locationCSVRepository = new LocationCSVRepository();
-            TourCSVRepository tourCSVRepository = new TourCSVRepository(keyPointCSVRepository, locationCSVRepository);
-            TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
-            TourGradeCSVRepository tourGradeCSVRepository = new TourGradeCSVRepository();
-            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository(tourCSVRepository);
-
             this.keyPointsController = new KeyPointsController();
-            this.tourAttendanceService = new TourAttendanceService(tourAttendanceCSVRepository);
-            this.appointmentService = new AppointmentService(appointmentCSVRepository, tourAttendanceService);
+            this.tourAttendanceService = new TourAttendanceService();
+            this.appointmentService = new AppointmentService();
             notificationController = new NotificationController();
             tourAttendanceController = new TemporaryTourAttendanceController();
 
             AvailableAppointments = new ObservableCollection<Appointment>(appointmentService.GetAllAvaillable(8));
             KeyPoints = new ObservableCollection<KeyPoint>();
-            GuideGuests = new ObservableCollection<GuideGuest>();
+            GuideGuests = new ObservableCollection<SIMS_HCI_Project_Group_5_Team_B.Domain.Models.GuideGuest>();
 
             this.StartTourCommand = new RelayCommand(Execute_StartTourCommand, CanExecute_NavigateCommand);
             this.EndTourCommand = new RelayCommand(Execute_EndTourCommand, CanExecute_NavigateCommand);
@@ -193,7 +186,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 foreach (int guest in tourAttendanceController.FindAllGuestsByAppointment(SelectedAppointment.Id))
                 {
                     UserController userController = new UserController();
-                    GuideGuests.Add(new GuideGuest(guest, userController.getById(guest).Username));
+                    GuideGuests.Add(new SIMS_HCI_Project_Group_5_Team_B.Domain.Models.GuideGuest(guest, userController.getById(guest).Username));
                 }
             }
             RefreshKeyPoints();

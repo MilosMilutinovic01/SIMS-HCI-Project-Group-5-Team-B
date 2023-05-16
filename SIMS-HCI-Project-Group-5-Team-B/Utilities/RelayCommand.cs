@@ -9,21 +9,23 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Utilities
 {
     public class RelayCommand : ICommand
     {
-        readonly Action<object> _execute;
-        readonly Predicate<object> _canExecute;
+        private readonly Action _execute;
+        private readonly Func<bool> _canExecute;
 
-        public RelayCommand(Action<object> execute) : this(execute, null) { }
-        public RelayCommand(Action<Object> execute, Predicate<object> canExecute)
+        public RelayCommand(Action execute)
+            : this(execute, null)
         {
-            if (execute == null)
-                throw new Exception("execute");
-            _execute = execute;
-            _canExecute = canExecute;
         }
 
-        public bool CanExecute(object parameter)
+        public RelayCommand(Action execute, Func<bool> canExecute)
         {
-            return _canExecute == null ? true : _canExecute(parameter);
+            if (execute == null)
+            {
+                throw new ArgumentNullException("execute");
+            }
+
+            _execute = execute;
+            _canExecute = canExecute;
         }
 
         public event EventHandler CanExecuteChanged
@@ -32,9 +34,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Utilities
             remove { CommandManager.RequerySuggested -= value; }
         }
 
+        public bool CanExecute(object parameter)
+        {
+            return _canExecute == null ? true : _canExecute();
+        }
+
         public void Execute(object parameter)
         {
-            _execute(parameter);
+            _execute();
         }
     }
 }

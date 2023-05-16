@@ -34,16 +34,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         {
             KeyPointCSVRepository keyPointCSVRepository = new KeyPointCSVRepository();
             LocationCSVRepository locationCSVRepository = new LocationCSVRepository();
-            TourCSVRepository tourCSVRepository = new TourCSVRepository(keyPointCSVRepository, locationCSVRepository);
+            TourCSVRepository tourCSVRepository = new TourCSVRepository();
 
             TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
             TourGradeCSVRepository tourGradeCSVRepository = new TourGradeCSVRepository();
-            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository(tourCSVRepository);
+            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository();
 
-            tourService = new TourService(tourCSVRepository);
-            tourAttendanceService = new TourAttendanceService(tourAttendanceCSVRepository);
-            tourGradeService = new TourGradeService(tourGradeCSVRepository);
-            appointmentService = new AppointmentService(appointmentCSVRepository, tourAttendanceService);
+            tourService = new TourService();
+            tourAttendanceService = new TourAttendanceService();
+            tourGradeService = new TourGradeService();
+            appointmentService = new AppointmentService();
         }
         public HomePage(SIMS_HCI_Project_Group_5_Team_B.Domain.Models.Guide guide, Frame frame)
         {

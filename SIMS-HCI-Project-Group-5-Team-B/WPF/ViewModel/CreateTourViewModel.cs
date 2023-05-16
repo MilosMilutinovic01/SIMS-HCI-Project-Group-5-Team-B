@@ -62,12 +62,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         #endregion
 
         #region actions
-        private bool CanExecute_Command(object obj)
+        private bool CanExecute_Command()
         {
             return true;
         }
 
-        private void Execute_CreateTourCommand(object obj)
+        private void Execute_CreateTourCommand()
         {
             bool isValid = Tour.IsValid && KeyPoint.IsValid;
             if (keyPoints.Count() < 2)
@@ -140,7 +140,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             cities = locationController.GetCityByState(state);
         }
 
-        private void Execute_AddImageCommand(object obj)
+        private void Execute_AddImageCommand()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png|All files (*.*)|*.*";
@@ -163,12 +163,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             keyPointsController = new KeyPointsController();
             KeyPointCSVRepository keyPointCSVRepository = new KeyPointCSVRepository();
             LocationCSVRepository locationCSVRepository = new LocationCSVRepository();
-            TourCSVRepository tourCSVRepository = new TourCSVRepository(keyPointCSVRepository, locationCSVRepository);
+            TourCSVRepository tourCSVRepository = new TourCSVRepository();
             TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
-            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository(tourCSVRepository);
+            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository();
 
-            this.tourAttendanceService = new TourAttendanceService(tourAttendanceCSVRepository);
-            this.appointmentService = new AppointmentService(appointmentCSVRepository, tourAttendanceService);
+            this.tourAttendanceService = new TourAttendanceService();
+            this.appointmentService = new AppointmentService();
 
             this.CreateTourCommand = new RelayCommand(Execute_CreateTourCommand, CanExecute_Command);
             //this.AddKeyPointCommand = new RelayCommand(Execute_AddKeyPointCommand, CanExecute_Command);

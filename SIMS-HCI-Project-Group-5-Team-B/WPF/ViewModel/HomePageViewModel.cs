@@ -60,12 +60,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         #region actions
 
-        private bool CanExecute_NavigateCommand(object obj)
+        private bool CanExecute_NavigateCommand()
         {
             return true;
         }
 
-        private void Execute_SignOutCommand(object obj)
+        private void Execute_SignOutCommand()
         {
             bool result = MessageBox.Show("Are you sure you want to sign out?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
             if(result)
@@ -78,7 +78,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
         }
 
-        private void Execute_ResignCommand(object obj)
+        private void Execute_ResignCommand()
         {
             bool result = MessageBox.Show("Are you sure you want to resign?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
             if (result)
@@ -91,7 +91,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
         }
 
-        private void Execute_NavigateToCreateTourPageCommand(object obj)
+        private void Execute_NavigateToCreateTourPageCommand()
         {
             //this.NavService.Navigate(
             //    new Uri("WPF/View/Guide/CreateTourPage.xaml", UriKind.Relative));
@@ -99,31 +99,31 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.frame.NavigationService.Navigate(createTour);
         }
 
-        private void Execute_NavigateToTrackingTourPageCommand(object obj)
+        private void Execute_NavigateToTrackingTourPageCommand()
         {
             Page trackingTour = new TrackingTourPage();
             this.frame.NavigationService.Navigate(trackingTour);
         }
 
-        private void Execute_NavigateToUpcomingToursPageCommand(object obj)
+        private void Execute_NavigateToUpcomingToursPageCommand()
         {
             Page upcomingToursPage = new UpcomingToursPage();
             this.frame.NavigationService.Navigate(upcomingToursPage);
         }
 
-        private void Execute_NavigateToMyToursPageCommand(object obj)
+        private void Execute_NavigateToMyToursPageCommand()
         {
             Page myTours = new MyToursPage();
             this.frame.NavigationService.Navigate(myTours);
         }
 
-        private void Execute_NavigateToReviewsPageCommand(object obj)
+        private void Execute_NavigateToReviewsPageCommand()
         {
             Page reviews = new ReviewsPage();
             this.frame.NavigationService.Navigate(reviews);
         }
 
-        private void Execute_NavigateToTourRequestsPageCommand(object obj)
+        private void Execute_NavigateToTourRequestsPageCommand()
         {
             //this.NavService.Navigate(
             //    new Uri("WPF/View/Guide/TourRequestsPage.xaml", UriKind.Relative));
@@ -131,7 +131,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.frame.NavigationService.Navigate(reviews);
         }
 
-        private void Execute_NavigateToTourRequestsWithStatisticsPageCommand(object obj)
+        private void Execute_NavigateToTourRequestsWithStatisticsPageCommand()
         {
             //this.NavService.Navigate(
             //    new Uri("WPF/View/Guide/TourRequestsWithStatisticsPage.xaml", UriKind.Relative));
@@ -153,7 +153,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.NavigateToReviewsPageCommand = new RelayCommand(Execute_NavigateToReviewsPageCommand, CanExecute_NavigateCommand);
             this.NavigateToTourRequestsPageCommand = new RelayCommand(Execute_NavigateToTourRequestsPageCommand, CanExecute_NavigateCommand);
             this.NavigateToTourRequestsWithStatisticsPageommand = new RelayCommand(Execute_NavigateToTourRequestsWithStatisticsPageCommand, CanExecute_NavigateCommand);
-            this.OpenMenuCommand = new RelayCommand(execute => this.Checker = !this.Checker, CanExecute_NavigateCommand);
+            //this.OpenMenuCommand = new RelayCommand(execute => this.Checker = !this.Checker, CanExecute_NavigateCommand);
             this.SignOutCommand = new RelayCommand(Execute_SignOutCommand, CanExecute_NavigateCommand);
             this.ResignCommand = new RelayCommand(Execute_ResignCommand, CanExecute_NavigateCommand);
             this.Checker = false;

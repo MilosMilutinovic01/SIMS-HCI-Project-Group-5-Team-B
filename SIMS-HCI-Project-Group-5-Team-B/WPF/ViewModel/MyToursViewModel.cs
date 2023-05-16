@@ -43,12 +43,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         #endregion
 
         #region actions
-        private bool CanExecute_NavigateCommand(object obj)
+        private bool CanExecute_NavigateCommand()
         {
             return true;
         }
 
-        private void Execute_ShowStatisticsCommand(object obj)
+        private void Execute_ShowStatisticsCommand()
         {
             if (SelectedAppointment == null)
             {
@@ -64,13 +64,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.userId = userId;
             KeyPointCSVRepository keyPointCSVRepository = new KeyPointCSVRepository();
             LocationCSVRepository locationCSVRepository = new LocationCSVRepository();
-            TourCSVRepository tourCSVRepository = new TourCSVRepository(keyPointCSVRepository, locationCSVRepository);
+            TourCSVRepository tourCSVRepository = new TourCSVRepository();
             TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
             TourGradeCSVRepository tourGradeCSVRepository = new TourGradeCSVRepository();
-            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository(tourCSVRepository);
+            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository();
 
-            this.tourAttendanceService = new TourAttendanceService(tourAttendanceCSVRepository);
-            this.appointmentService = new AppointmentService(appointmentCSVRepository, tourAttendanceService);
+            this.tourAttendanceService = new TourAttendanceService();
+            this.appointmentService = new AppointmentService();
 
             MostVisitedAppointment = new ObservableCollection<Appointment>();
             FinishedAppointments = new ObservableCollection<Appointment>();

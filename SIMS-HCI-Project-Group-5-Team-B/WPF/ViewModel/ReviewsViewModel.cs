@@ -42,8 +42,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
             TourGradeCSVRepository tourGradeCSVRepository = new TourGradeCSVRepository();
 
-            this.tourAttendanceService = new TourAttendanceService(tourAttendanceCSVRepository);
-            this.tourGradeService = new TourGradeService(tourGradeCSVRepository);
+            this.tourAttendanceService = new TourAttendanceService();
+            this.tourGradeService = new TourGradeService();
 
             Cards = new ObservableCollection<Card>();
 

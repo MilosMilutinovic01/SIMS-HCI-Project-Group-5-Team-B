@@ -52,14 +52,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             //this.userId = userId;
             KeyPointCSVRepository keyPointCSVRepository = new KeyPointCSVRepository();
             LocationCSVRepository locationCSVRepository = new LocationCSVRepository();
-            TourCSVRepository tourCSVRepository = new TourCSVRepository(keyPointCSVRepository, locationCSVRepository);
-            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository(tourCSVRepository);
+            TourCSVRepository tourCSVRepository = new TourCSVRepository();
+            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository();
             TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
-            tourAttendanceService = new TourAttendanceService(tourAttendanceCSVRepository);
-            this.appointmentService = new AppointmentService(appointmentCSVRepository, tourAttendanceService);
+            tourAttendanceService = new TourAttendanceService();
+            this.appointmentService = new AppointmentService();
             voucherService = new VoucherService();
 
-            this.CancelTourCommand = new RelayCommand(Execute_CancelTourCommand, CanExecute_Command);
+            //this.CancelTourCommand = new RelayCommand();
             AvailableAppointments = new ObservableCollection<Appointment>();
 
             RefreshAppointments();

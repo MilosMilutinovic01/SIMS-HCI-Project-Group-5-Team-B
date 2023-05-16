@@ -53,24 +53,24 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public RelayCommand NavigateToTourRequestsWithStatisticsPageCommand { get; set; }
 
-        public RelayCommand OpenMenuCommand { get; set; }
+        public RelayCommandWithParams OpenMenuCommand { get; set; }
 
         public RelayCommand GoBackCommand { get; set; }
         #endregion
 
         #region actions
-        private bool CanExecute_NavigateCommand(object obj)
+        private bool CanExecute_NavigateCommand()
         {
             return true;
         }
 
-        private void Execute_GoBackCommand(object obj)
+        private void Execute_GoBackCommand()
         {
             if(this.frame.NavigationService.CanGoBack)
                 this.frame.NavigationService.GoBack();
         }
 
-        private void Execute_NavigateToCreateTourPageCommand(object obj)
+        private void Execute_NavigateToCreateTourPageCommand()
         {
             //this.NavService.Navigate(
             //    new Uri("WPF/View/Guide/CreateTourPage.xaml", UriKind.Relative));
@@ -78,31 +78,31 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.frame.NavigationService.Navigate(createTour);
         }
 
-        private void Execute_NavigateToTrackingTourPageCommand(object obj)
+        private void Execute_NavigateToTrackingTourPageCommand()
         {
             Page trackingTour = new TrackingTourPage();
             this.frame.NavigationService.Navigate(trackingTour);
         }
 
-        private void Execute_NavigateToUpcomingToursPageCommand(object obj)
+        private void Execute_NavigateToUpcomingToursPageCommand()
         {
             Page upcomingToursPage = new UpcomingToursPage();
             this.frame.NavigationService.Navigate(upcomingToursPage);
         }
 
-        private void Execute_NavigateToMyToursPageCommand(object obj)
+        private void Execute_NavigateToMyToursPageCommand()
         {
             Page myTours = new MyToursPage();
             this.frame.NavigationService.Navigate(myTours);
         }
 
-        private void Execute_NavigateToReviewsPageCommand(object obj)
+        private void Execute_NavigateToReviewsPageCommand()
         {
             Page reviews = new ReviewsPage();
             this.frame.NavigationService.Navigate(reviews);
         }
 
-        private void Execute_NavigateToTourRequestsPageCommand(object obj)
+        private void Execute_NavigateToTourRequestsPageCommand()
         {
             //this.NavService.Navigate(
             //    new Uri("WPF/View/Guide/TourRequestsPage.xaml", UriKind.Relative));
@@ -110,7 +110,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.frame.NavigationService.Navigate(reviews);
         }
 
-        private void Execute_NavigateToTourRequestsWithStatisticsPageCommand(object obj)
+        private void Execute_NavigateToTourRequestsWithStatisticsPageCommand()
         {
             //this.NavService.Navigate(
             //    new Uri("WPF/View/Guide/TourRequestsWithStatisticsPage.xaml", UriKind.Relative));
@@ -124,16 +124,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             KeyPointCSVRepository keyPointCSVRepository = new KeyPointCSVRepository();
             LocationCSVRepository locationCSVRepository = new LocationCSVRepository();
-            TourCSVRepository tourCSVRepository = new TourCSVRepository(keyPointCSVRepository, locationCSVRepository);
+            TourCSVRepository tourCSVRepository = new TourCSVRepository();
             TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
             TourGradeCSVRepository tourGradeCSVRepository = new TourGradeCSVRepository();
-            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository(tourCSVRepository);
+            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository();
 
             guideService = new GuideService();
             tourService = new TourService(tourCSVRepository);
-            tourAttendanceService = new TourAttendanceService(tourAttendanceCSVRepository);
-            tourGradeService = new TourGradeService(tourGradeCSVRepository);
-            appointmentService = new AppointmentService(appointmentCSVRepository, tourAttendanceService);
+            tourAttendanceService = new TourAttendanceService();
+            tourGradeService = new TourGradeService();
+            appointmentService = new AppointmentService();
 
             this.NavService = navService;
             Username = "Username: " + guideService.getById(1).Username;
@@ -145,7 +145,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.NavigateToReviewsPageCommand = new RelayCommand(Execute_NavigateToReviewsPageCommand, CanExecute_NavigateCommand);
             this.NavigateToTourRequestsPageCommand = new RelayCommand(Execute_NavigateToTourRequestsPageCommand, CanExecute_NavigateCommand);
             this.NavigateToTourRequestsWithStatisticsPageCommand = new RelayCommand(Execute_NavigateToTourRequestsWithStatisticsPageCommand, CanExecute_NavigateCommand);
-            this.OpenMenuCommand = new RelayCommand(execute => this.Checker = !this.Checker, CanExecute_NavigateCommand);
+            this.OpenMenuCommand = new RelayCommandWithParams(execute => this.Checker = !this.Checker);
             this.GoBackCommand = new RelayCommand(Execute_GoBackCommand, CanExecute_NavigateCommand);
             this.Checker = false;
             this.frame = frame;
