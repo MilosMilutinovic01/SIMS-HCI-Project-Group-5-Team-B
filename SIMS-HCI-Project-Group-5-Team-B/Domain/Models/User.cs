@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
-    public enum UserType { Guide =0, GuideGuest, Owner, OwnerGuest };
+    public enum USERTYPE { Guide =0, GuideGuest, Owner, OwnerGuest };
     public class User : ISerializable, INotifyPropertyChanged
     {
         private int id;
@@ -54,8 +54,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
-        private UserType type;
-        public UserType Type
+        private USERTYPE type;
+        public USERTYPE Type
         {
             get { return type; }
             set { type = value; OnPropertyChanged(); }
@@ -80,13 +80,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             username = values[1];
             password = values[2];
             if (string.Equals(values[3], "Owner"))
-                type = UserType.Owner;
+                type = USERTYPE.Owner;
             else if (string.Equals(values[3], "OwnerGuest"))
-                type = UserType.OwnerGuest;
+                type = USERTYPE.OwnerGuest;
             else if (string.Equals(values[3],"Guide"))
-                type = UserType.Guide;
+                type = USERTYPE.Guide;
             else
-                type = UserType.GuideGuest;
+                type = USERTYPE.GuideGuest;
         }
 
         public string[] ToCSV()

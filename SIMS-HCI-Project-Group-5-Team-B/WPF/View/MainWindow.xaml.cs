@@ -63,13 +63,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B
             
             user = userController.LogIn(Username, Password);
 
-            if(user.Type == UserType.Guide)//Guide is selected
+            if(user.Type == USERTYPE.Guide)//Guide is selected
             {
                 Guide guide = new Guide("Milos", "Milutinovic");
                 GuideWindow guideWindow = new GuideWindow(guide);
                 guideWindow.Show();
 
-            } else if(user.Type == UserType.GuideGuest)//Guide_Guest is selected
+            } else if(user.Type == USERTYPE.GuideGuest)//Guide_Guest is selected
             {
                 MainGuideGuestWindow mainGuideGuestWindow = new MainGuideGuestWindow();
                 mainGuideGuestWindow.Show();
@@ -78,7 +78,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
                 //tourWindow.Show();
 
             }
-            else if(user.Type == UserType.Owner)//Owner is selected
+            else if(user.Type == USERTYPE.Owner)//Owner is selected
             {
 
                 //Pozovi funkciju koju hoces za VLASNIKA
@@ -87,7 +87,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
 
 
             }
-            else if(user.Type == UserType.OwnerGuest)//Owner_Guest is selected
+            else if(user.Type == USERTYPE.OwnerGuest)//Owner_Guest is selected
             {
 
                 //Pozovi funkciju koju hoces za GOSTA 1
