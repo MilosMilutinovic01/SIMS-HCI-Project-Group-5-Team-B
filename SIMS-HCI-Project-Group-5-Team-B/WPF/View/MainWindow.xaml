@@ -11,13 +11,7 @@
         <Label Content="Password :" HorizontalAlignment="Left" Margin="256,141,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.523,0.567" Height="33" Width="95"/>
         <TextBox x:Name="UsernameTextBox" Text="{Binding Path=Username, Mode=TwoWay}" HorizontalAlignment="Left" Margin="378,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176" Height="23"/>
         <TextBox x:Name="PasswordTextBox" Text="{Binding Path=Password, Mode=TwoWay}" HorizontalAlignment="Left" Margin="378,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176" Height="23"/>
-        <ComboBox x:Name="ComboBoxType" HorizontalAlignment="Left" Margin="378,186,0,0" VerticalAlignment="Top" Width="176" Height="28">
-            <ComboBoxItem x:Name="Guide">Guide</ComboBoxItem>
-            <ComboBoxItem x:Name="Guide_Guest">Guide Guest</ComboBoxItem>
-            <ComboBoxItem x:Name="Owner">Owner</ComboBoxItem>
-            <ComboBoxItem x:Name="Owner_Guest">Owner Guest</ComboBoxItem>
-        </ComboBox>
-        <Label Content="Type :" HorizontalAlignment="Left" Margin="256,186,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.523,0.567" Height="34" Width="60"/>
+        
 
         <Button Content="Login" HorizontalAlignment="Left" Margin="506,224,0,0" VerticalAlignment="Top" Height="26" Width="48" Click="Login_Click"/>
 

@@ -85,25 +85,25 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             window.Close();
         }
 
-        private ReservationLevel GetReservationLevel(string selectedItem)
+        private RENOVATIONLEVEL GetReservationLevel(string selectedItem)
         {
             if (selectedItem.Contains("Level1"))
             {
-                return ReservationLevel.Level1;
+                return RENOVATIONLEVEL.Level1;
             }
             if (selectedItem.Contains("Level2"))
             {
-                return ReservationLevel.Level2;
+                return RENOVATIONLEVEL.Level2;
             }
             if (selectedItem.Contains("Level3"))
             {
-                return ReservationLevel.Level3;
+                return RENOVATIONLEVEL.Level3;
             }
             if (selectedItem.Contains("Level4"))
             {
-                return ReservationLevel.Level4;
+                return RENOVATIONLEVEL.Level4;
             }
-            return ReservationLevel.Level5;
+            return RENOVATIONLEVEL.Level5;
         }
     }
 }
