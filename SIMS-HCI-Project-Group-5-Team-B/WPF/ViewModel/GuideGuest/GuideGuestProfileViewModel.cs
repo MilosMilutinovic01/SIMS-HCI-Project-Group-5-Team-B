@@ -63,7 +63,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
             tourRequestService = new TourRequestService();
 
             Vouchers = new ObservableCollection<Voucher>(new VoucherService().GetAll());
-            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetFor(0));
+            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetFor((new UserService()).getLogged().Id));
 
             EditRegularTourRequestCommand = new RelayCommand(EditRegularTourRequest_Execute, CanEditRegularTourRequest);
             AddNewRegularTourRequestCommand = new RelayCommand(AddNewRegularTourRequest_Execute);
