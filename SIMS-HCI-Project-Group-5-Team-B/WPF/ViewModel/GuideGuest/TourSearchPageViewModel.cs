@@ -173,7 +173,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         private void TourClicked_Execute(object obj)
         {
             ClickedTour = (obj as GuideGuestTourDTO);
-            //selectedTour = (obj as GuideGuestTourDTO).Tour;
         }
     }
 }

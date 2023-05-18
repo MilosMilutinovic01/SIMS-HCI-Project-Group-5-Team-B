@@ -4,26 +4,34 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
+             xmlns:model="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Domain.Models"
              mc:Ignorable="d"
              x:Name="root"
              d:DesignHeight="450" d:DesignWidth="1050" Background="White">
+
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type model:KeyPoint}">
+            
+        </DataTemplate>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <TextBlock Text="{Binding TourDTO.Tour.Name, ElementName=root}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
                    FontSize="40" FontWeight="DemiBold"/>
 
-        <Image Grid.Row="1" Grid.Column="0"/>
+        <Image Grid.Row="1" Grid.Column="0" Source="{Binding TourDTO.FirstImage, ElementName=root}"/>
 
         <!-- Tour description -->
         <Border Grid.Row="1" Grid.Column="1"
@@ -62,17 +70,17 @@
         </Border>
 
         <!-- Tour description -->
-        <TextBlock Text="Description" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" FontSize="15"/>
+        <TextBlock Text="{Binding TourDTO.Tour.Description, ElementName=root}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" FontSize="15"/>
 
         <!-- Booking -->
         <Border BorderBrush="Black" BorderThickness="1"
                 Grid.Row="2" Grid.Column="2">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="0.8*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.8*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -82,13 +90,14 @@
                 <TextBlock Text="Number of people attending" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"/>
                 <TextBlock Text="Vouchers" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"/>
 
-                <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"/>
+                <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Width="152"/>
                 <ComboBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Width="Auto"/>
 
                 <TextBlock Text="Pick a date" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
 
                 <DatePicker Grid.Row="3" Grid.Column="0"/>
-                <Button Grid.Row="3" Grid.Column="1"/>
+                <Button Grid.Row="3" Grid.Column="1" Content="Book tour"
+                        Width="80" Height="35" FontSize="15" Padding="2"/>
             </Grid>
         </Border>
 
