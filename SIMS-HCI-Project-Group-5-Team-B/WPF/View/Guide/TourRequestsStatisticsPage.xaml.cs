@@ -1,5 +1,4 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,16 +16,13 @@ using System.Windows.Shapes;
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
 {
     /// <summary>
-    /// Interaction logic for TourRequestPage.xaml
+    /// Interaction logic for TourRequestsStatisticsPage.xaml
     /// </summary>
-    public partial class TourRequestPage : Page
+    public partial class TourRequestsStatisticsPage : Page
     {
-        public TourRequestViewModel tourRequestViewModel { get; set; }
-        public TourRequestPage(Frame frame)
+        public TourRequestsStatisticsPage()
         {
             InitializeComponent();
-            tourRequestViewModel = new TourRequestViewModel(frame);
-            this.DataContext = this.tourRequestViewModel;
         }
     }
 }

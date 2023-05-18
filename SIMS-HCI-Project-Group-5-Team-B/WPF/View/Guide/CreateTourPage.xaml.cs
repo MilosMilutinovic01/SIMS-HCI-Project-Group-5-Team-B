@@ -39,11 +39,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         private LocationController locationController;
         private KeyPointsController keyPointsController;
         private AppointmentService appointmentService;
+        private TourRequestService tourRequestService;
         public Tour Tour { get; set; }
         public Location Location { get; set; }
         public KeyPoint KeyPoint { get; set; }
         public Appointment Appointment { get; set; }
         public DateTime DateTime { get; set; }
+        public string SelectedLanguage { get; set; }
+        public int MaxGuests { get; set; }
+        public string Description { get; set; }
 
         public List<KeyPoint> keyPoints;
         public List<Appointment> appointments;
@@ -51,6 +55,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         public List<string> locations { get; set; }
         public List<string> states { get; set; }
         public List<string> cities;
+        public string flag;
+        public string State { get; set; }
+        public string City { get; set; }
+        public TourRequest TourRequest;
+        public string ImageUrlsString;
         public CreateTourPage()
         {
             InitializeComponent();
@@ -59,7 +68,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             locationController = new LocationController();
             this.tourService = new TourController(locationController);
             keyPointsController = new KeyPointsController();
-            this.appointmentService = appointmentService;
+            this.appointmentService = new AppointmentService();
 
             Tour = new Tour();
             Location = new Location();
@@ -73,47 +82,106 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             states = locationController.GetStates();
         }
 
+        public CreateTourPage(string flag, TourRequest tourRequest)
+        {
+            InitializeComponent();
+            this.DataContext = this;
+
+            locationController = new LocationController();
+            this.tourService = new TourController(locationController);
+            keyPointsController = new KeyPointsController();
+            this.appointmentService = new AppointmentService();
+            this.tourRequestService = new TourRequestService();
+
+            Tour = new Tour();
+            Location = new Location();
+            KeyPoint = new KeyPoint();
+            Appointment = new Appointment();
+
+            keyPoints = new List<KeyPoint>();
+            appointments = new List<Appointment>();
+            starts = new List<DateTime>();
+            locations = locationController.GetAllAsStrings();
+            states = locationController.GetStates();
+
+            ComboBoxCities.IsEnabled = false;
+            ComboBoxStates.IsEnabled = false;
+            LanguageTextBox.IsEnabled = false;
+            slider.IsEnabled = false;
+            sliderTextBox.IsEnabled = false;
+            DescriptionTextBox.IsEnabled = false;
+            StartDatePicker.IsEnabled = false;
+            AddStartButton.IsEnabled = false;
+
+            Location.State = tourRequest.Location.State;
+            State = tourRequest.Location.City;
+            ComboBoxStates.SelectedValue = tourRequest.Location.State;
+            cities = locationController.GetCityByState(tourRequest.Location.State);
+            ComboBoxCities.ItemsSource = cities;
+            ComboBoxCities.SelectedValue = tourRequest.Location.City;
+            Location.City = tourRequest.Location.City;
+            City = tourRequest.Location.City;
+            SelectedLanguage = tourRequest.Language;
+            Tour.Language = tourRequest.Language;
+            DateTime = tourRequest.SelectedDate;
+            StartDatePicker.Value = tourRequest.SelectedDate;
+            MaxGuests = tourRequest.MaxGuests;
+            Tour.MaxGuests = tourRequest.MaxGuests;
+            this.flag = flag;
+            this.TourRequest = tourRequest;
+            this.Description = tourRequest.Description;
+            Tour.Description = tourRequest.Description;
+        }
+
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
         {
-            bool isValid = Tour.IsValid && KeyPoint.IsValid;
-            if (keyPoints.Count() < 2)
+            try
             {
-                MessageBox.Show("Must enter two or more keypoints!");
-                return;
-            }
-            if (starts.Count() == 0)
-            {
-                MessageBox.Show("Must enter at least one tour start!");
-                return;
-            }
-            if (!isValid)
-            {
-                MessageBox.Show("Tour can't be created because some fields are not valid");
-                return;
-            }
+                bool isValid = Tour.IsValid && KeyPoint.IsValid;
+                if (keyPoints.Count() < 2)
+                {
+                    MessageBox.Show("Must enter two or more keypoints!");
+                    return;
+                }
+                if (starts.Count() == 0)
+                {
+                    MessageBox.Show("Must enter at least one tour start!");
+                    return;
+                }
+                if (!isValid)
+                {
+                    MessageBox.Show("Tour can't be created because some fields are not valid");
+                    return;
+                }
 
-            Location existingLocation = locationController.GetLocation(Location);
+                Location existingLocation = locationController.GetLocation(Location);
 
-            if (existingLocation != null)
-            {
-                Tour.LocationId = existingLocation.Id;
-            }
-            else
-            {
-                Tour.LocationId = locationController.makeId();
-                locationController.Save(Location);
-            }
-            foreach (DateTime start in starts)
-            {
+                if (existingLocation != null)
+                {
+                    Tour.LocationId = existingLocation.Id;
+                }
+                else
+                {
+                    Tour.LocationId = locationController.makeId();
+                    locationController.Save(Location);
+                }
                 keyPointsController.SaveAll(keyPoints);
+                Tour.ImageUrls = ImageUrlsString;
+                Tour.KeyPoints.AddRange(keyPoints);
+                tourService.Save(Tour);
+                foreach (DateTime start in starts)
+                {
+                    appointments.Add(new Appointment(Tour.Id, -1, start, Tour.MaxGuests));
+                }
+                appointmentService.SaveAll(appointments);
+                if (flag.Equals("request"))
+                    tourRequestService.AcceptRequest(TourRequest);
+                MessageBox.Show("Tour created successfully!");
             }
-            Tour.KeyPoints.AddRange(keyPoints);
-            tourService.Save(Tour);
-            foreach (DateTime start in starts)
+            catch(Exception ex)
             {
-                appointments.Add(new Appointment(Tour.Id, -1, start, Tour.MaxGuests));
+                MessageBox.Show(ex.Message);
             }
-            appointmentService.SaveAll(appointments);
         }
         private void AddKeyPointsButton_Click(object sender, RoutedEventArgs e)
         {
@@ -148,12 +216,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png|All files (*.*)|*.*";
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            string filename = "";
+            string imageName = "";
             if (openFileDialog.ShowDialog() == true)
             {
-                string filename = openFileDialog.FileName;
-                string imageName = System.IO.Path.GetFileName(filename);
+                filename = openFileDialog.FileName;
+                imageName = System.IO.Path.GetFileName(filename);
                 ImagesListBox.Items.Add(imageName);
             }
+            ImageUrlsString += imageName;
         }
     }
 }

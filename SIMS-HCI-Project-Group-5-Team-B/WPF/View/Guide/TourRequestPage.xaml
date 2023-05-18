@@ -52,18 +52,25 @@
             </ComboBox>
             <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">City:</TextBlock>
             <ComboBox Grid.Row="1" Grid.Column="2" Text="{Binding Path=City}" ItemsSource="{Binding Cities}" VerticalAlignment="Center">
+            </ComboBox>
+            <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Language:</TextBlock>
+            <ComboBox Grid.Row="2" Grid.Column="2" SelectedValue="{Binding Language}" ItemsSource="{Binding Languages}" VerticalAlignment="Center">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding FilterRequestsCommand}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
-            <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Language:</TextBlock>
-            <ComboBox Grid.Row="2" Grid.Column="2" SelectedValue="{Binding Language}" ItemsSource="{Binding Languages}" VerticalAlignment="Center"></ComboBox>
             <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Max guests:</TextBlock>
             <DockPanel Grid.Row="3" Grid.Column="2" VerticalAlignment="Center">
                 <TextBox Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged,Converter={cvt:IntegerToStringConverter}}"></TextBox>
-                <Slider x:Name="slider" Maximum="20" Value="{Binding Path=MaxGuests}"></Slider>
+                <Slider x:Name="slider" Maximum="20" Value="{Binding Path=MaxGuests}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="ValueChanged">
+                            <i:InvokeCommandAction Command="{Binding FilterRequestsCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Slider>
             </DockPanel>
             <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Start date:</TextBlock>
             <DatePicker Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" SelectedDate="{Binding StartDate}"/>
@@ -75,6 +82,9 @@
             <DataGrid x:Name="TourRequestsDataGrid" Height="170" Margin="0,5,0,0" ItemsSource="{Binding Path=TourRequests, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedTourRequest}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged" >
+                        <i:InvokeCommandAction Command="{Binding EnableAcceptCommand}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding ChangeDateCommand}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
@@ -100,7 +110,13 @@
                 <ColumnDefinition Width="4*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Select date:</TextBlock>
-            <DatePicker Grid.Row="0" Grid.Column="2" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <DatePicker Grid.Row="0" Grid.Column="2" DisplayDateStart="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}" DisplayDateEnd="{Binding EndDate,UpdateSourceTrigger=PropertyChanged}" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectedDateChanged" >
+                        <i:InvokeCommandAction Command="{Binding EnableAcceptCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DatePicker>
             <!--<Button Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding RejectCommand}">Reject</Button>-->
         </Grid>
         <Grid Grid.Row="5" Grid.Column="1" Grid.RowSpan="2">
@@ -113,7 +129,8 @@
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="0.5*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding AcceptCommand}">Accept</Button>
+            <Button Grid.Column="0" Grid.Row="1" Content="Accept" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="{Binding EnabledAccept, UpdateSourceTrigger=PropertyChanged}" Command="{Binding AcceptCommand}">
+            </Button>
         </Grid>
     </Grid>
 </Page>
