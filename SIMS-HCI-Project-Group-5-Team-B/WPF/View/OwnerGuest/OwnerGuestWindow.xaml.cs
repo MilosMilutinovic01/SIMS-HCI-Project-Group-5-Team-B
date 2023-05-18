@@ -49,7 +49,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             locationController = new LocationController();
             ownerService = new OwnerService();
             accommodationService = new AccommodationService(locationController, ownerService);
-            reservationService = new ReservationService(accommodationService);
+            reservationService = new ReservationService();
             ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(reservationService);
             superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, accommodationService);
             ownerGuestService = new OwnerGuestService();

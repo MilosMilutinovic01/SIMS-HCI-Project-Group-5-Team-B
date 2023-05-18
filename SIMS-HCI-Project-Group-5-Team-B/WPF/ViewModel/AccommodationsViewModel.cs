@@ -1,6 +1,8 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
 using SIMS_HCI_Project_Group_5_Team_B.View;
 using System;
@@ -24,7 +26,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private OwnerService ownerService;
         private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
         private SuperOwnerService superOwnerService;
-        private RenovationService renovationService;
+        private IRenovationService renovationService;
         public ObservableCollection<Accommodation> Accomodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public string SearchName { get; set; } = "";
@@ -67,10 +69,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             locationController = new LocationController();
             ownerService = new OwnerService();
-            renovationService = new RenovationService();
+            renovationService = ServiceInjector.CreateInstance<IRenovationService>();    
             renovationService.MarkRenovatiosThatTookPlaceInTheLastYear();
             this.accommodationService = new AccommodationService(locationController, ownerService);
-            this.reservationService = new ReservationService(this.accommodationService);
+            this.reservationService = new ReservationService();
             //Accomodations = new ObservableCollection<Accommodation>(accommodationController.GetAll());
             ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(this.reservationService);
             superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, this.accommodationService);

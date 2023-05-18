@@ -11,6 +11,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
     {
         public int Id { get; set; }
 
+        private int guideId;
+        public int GuideId
+        {
+            get { return guideId; }
+            set { guideId = value; }
+        }
+
         private int guideGuestId;
         public int GuideGuestId
         {
@@ -34,8 +41,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         }
 
 
-        public Voucher(int guideGuestId, DateTime received)
+        public Voucher(int guideId, int guideGuestId, DateTime received)
         {
+            this.guideId = guideId;
             this.guideGuestId = guideGuestId;
             this.received = received;
             this.Used = false;
@@ -48,6 +56,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             string[] csvValues =
             {
                 Id.ToString(),
+                guideId.ToString(),
                 guideGuestId.ToString(),
                 received.ToString(),
                 used.ToString(),
@@ -57,9 +66,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            guideGuestId = int.Parse(values[1]);
-            received = DateTime.Parse(values[2]);
-            used = Boolean.Parse(values[3]);
+            guideId = int.Parse(values[1]);
+            guideGuestId = int.Parse(values[2]);
+            received = DateTime.Parse(values[3]);
+            used = Boolean.Parse(values[4]);
         }
     }
 }

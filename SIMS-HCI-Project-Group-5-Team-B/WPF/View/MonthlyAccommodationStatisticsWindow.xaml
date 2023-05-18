@@ -7,7 +7,7 @@
         xmlns:converters="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Converters"
         xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
         mc:Ignorable="d"
-        Title="{ns:Loc MonthlyAccommodationStatisticsWindow}" Height="600" Width="600">
+        Title="{ns:Loc MonthlyAccommodationStatisticsWindow}" Height="600" Width="600" Style="{DynamicResource WindowStyle}" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converters:MonthNameConverter x:Key="MonthNameConverter"></converters:MonthNameConverter>
     </Window.Resources>
@@ -21,32 +21,32 @@
             <RowDefinition Height="1.5*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Content="{ns:Loc StarMonthExplanation}"></Label>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Content="{ns:Loc StarMonthExplanation}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
         <WrapPanel Grid.Column="0" Grid.Row="1">
-            <Border Height="120" Width="240" Margin="40 20 0 0" BorderBrush="Black"  BorderThickness="3">
-                <StackPanel>
-                    <TextBlock HorizontalAlignment="Center" FontSize="15" Text="{ns:Loc NumberOfReservations}"></TextBlock>
-                    <TextBlock Height="80"  Text="{Binding Path=SelectedYearlyAccommodationStatistics.NumberReservations, Mode=OneWay}" FontSize="60" VerticalAlignment="Center" TextAlignment="Center"></TextBlock>
+            <Border Height="120" Width="240" Margin="40 20 0 0" Style="{DynamicResource BorderStyle}">
+                <StackPanel Style="{DynamicResource StatisticsStackPanelStyle}">
+                    <TextBlock HorizontalAlignment="Center" FontSize="15" Text="{ns:Loc NumberOfReservations}" Style="{DynamicResource TextBlockStyle}"></TextBlock>
+                    <TextBlock Height="80"  Text="{Binding Path=SelectedYearlyAccommodationStatistics.NumberReservations, Mode=OneWay}" FontSize="60" VerticalAlignment="Center" TextAlignment="Center" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 </StackPanel>
             </Border>
-            <Border Height="120" Width="240" Margin="40 20 0 0" BorderBrush="Black"  BorderThickness="3" >
-                <StackPanel>
-                    <TextBlock HorizontalAlignment="Center" FontSize="15"  VerticalAlignment="Center" Text="{ns:Loc CancelledReservations}" ></TextBlock>
-                    <TextBlock Height="80"  FontSize="60"  TextAlignment="Center" Text="{Binding Path=SelectedYearlyAccommodationStatistics.NumberOfCancelledReservations, Mode=OneWay}"></TextBlock>
+            <Border Height="120" Width="240" Margin="40 20 0 0" Style="{DynamicResource BorderStyle}" >
+                <StackPanel Style="{DynamicResource StatisticsStackPanelStyle}">
+                    <TextBlock HorizontalAlignment="Center" FontSize="15"  VerticalAlignment="Center" Text="{ns:Loc CancelledReservations}" Style="{DynamicResource TextBlockStyle}"></TextBlock>
+                    <TextBlock Height="80"  FontSize="60"  TextAlignment="Center" Text="{Binding Path=SelectedYearlyAccommodationStatistics.NumberOfCancelledReservations, Mode=OneWay}" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 </StackPanel>
             </Border>
         </WrapPanel>
         <WrapPanel Grid.Column="0" Grid.Row="2">
-            <Border Height="120" Width="240" Margin="40 20 0 0" BorderBrush="Black"  BorderThickness="3">
-                <StackPanel>
-                    <TextBlock HorizontalAlignment="Center" FontSize="15" Text="{ns:Loc RecommendedRenovation}"></TextBlock>
-                    <TextBlock Height="80" Text="{Binding Path=SelectedYearlyAccommodationStatistics.NumberRenovationRequests, Mode=OneWay}" FontSize="60" VerticalAlignment="Center" TextAlignment="Center"></TextBlock>
+            <Border Height="120" Width="240" Margin="40 20 0 0" Style="{DynamicResource BorderStyle}">
+                <StackPanel Style="{DynamicResource StatisticsStackPanelStyle}">
+                    <TextBlock HorizontalAlignment="Center" FontSize="15" Text="{ns:Loc RecommendedRenovation}" Style="{DynamicResource TextBlockStyle}"></TextBlock>
+                    <TextBlock Height="80" Text="{Binding Path=SelectedYearlyAccommodationStatistics.NumberRenovationRequests, Mode=OneWay}" FontSize="60" VerticalAlignment="Center" TextAlignment="Center" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 </StackPanel>
             </Border>
-            <Border Height="120" Width="240" Margin="40 20 0 0" BorderBrush="Black"  BorderThickness="3" >
-                <StackPanel>
-                    <TextBlock HorizontalAlignment="Center" FontSize="15"  VerticalAlignment="Center"  Text="{ns:Loc RescheduledReservations}" ></TextBlock>
-                    <TextBlock Height="80"  FontSize="60" TextAlignment="Center"  Text="{Binding Path=SelectedYearlyAccommodationStatistics.NumberOfChangedReservationDates, Mode=OneWay}" ></TextBlock>
+            <Border Height="120" Width="240" Margin="40 20 0 0" Style="{DynamicResource BorderStyle}" >
+                <StackPanel Style="{DynamicResource StatisticsStackPanelStyle}">
+                    <TextBlock HorizontalAlignment="Center" FontSize="15"  VerticalAlignment="Center"  Text="{ns:Loc RescheduledReservations}" Style="{DynamicResource TextBlockStyle}"></TextBlock>
+                    <TextBlock Height="80"  FontSize="60" TextAlignment="Center"  Text="{Binding Path=SelectedYearlyAccommodationStatistics.NumberOfChangedReservationDates, Mode=OneWay}" Style="{DynamicResource TextBlockStyle}" ></TextBlock>
                 </StackPanel>
             </Border>
         </WrapPanel>
@@ -73,6 +73,6 @@
                 <DataGridTextColumn Header="{ns:Loc ForRenovation}" Width="2*" Binding="{Binding NumberRenovationRequests}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="60" Margin="500,171,0,0" Content="{ns:Loc Cancel}" Command="{Binding CancelCommand}"></Button>
+        <Button Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="60" Margin="500,171,0,0" Content="{ns:Loc Cancel}" Command="{Binding CancelCommand}" Style="{DynamicResource ButtonInWindowStyle}"></Button>
     </Grid>
 </Window>

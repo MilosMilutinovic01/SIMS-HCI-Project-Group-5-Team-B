@@ -10,19 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.Pages
+namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
 {
     /// <summary>
-    /// Interaction logic for TourInformationPage.xaml
+    /// Interaction logic for FullReviewWindow.xaml
     /// </summary>
-    public partial class TourInformationPage : Page
+    public partial class FullReviewWindow : Window
     {
-        public TourInformationPage()
+        public string GuestName { get; set; }
+        public FullReviewWindow(string GuestName)
         {
             InitializeComponent();
+            this.DataContext = this;
+            this.GuestName = GuestName;
         }
     }
 }

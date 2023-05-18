@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls.TourInformationUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
+             xmlns:model="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Domain.Models"
+             mc:Ignorable="d"
+             x:Name="root"
+             d:DesignHeight="450" d:DesignWidth="1050" Background="White">
+
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type model:KeyPoint}">
+            
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="{Binding TourDTO.Tour.Name, ElementName=root}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
+                   FontSize="40" FontWeight="DemiBold"/>
+
+        <Image Grid.Row="1" Grid.Column="0" Source="{Binding TourDTO.FirstImage, ElementName=root}"/>
+
+        <!-- Tour description -->
+        <Border Grid.Row="1" Grid.Column="1"
+            BorderBrush="Black" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="{Binding TourDTO.Tour.Location, ElementName=root}" Grid.Row="0" FontSize="20"/>
+                <TextBlock Text="{Binding TourDTO.Tour.Language, ElementName=root}" Grid.Row="1" FontSize="20"/>
+                <TextBlock Text="{Binding TourDTO.Tour.MaxGuests, ElementName=root}" Grid.Row="2" FontSize="20"/>
+                <TextBlock Text="{Binding TourDTO.Tour.Duration, ElementName=root}" Grid.Row="3" FontSize="20"/>
+            </Grid>
+        </Border>
+
+        <!-- Tour keypoints -->
+        <Border Grid.Row="1" Grid.Column="2"
+            BorderBrush="Black" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Tour keypoints:" Grid.Row="0" FontSize="20"/>
+                <ListBox Grid.Row="1">
+                    <DataTemplate>
+                        <TextBlock Text="Keypoint"/>
+                    </DataTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
+
+        <!-- Tour description -->
+        <TextBlock Text="{Binding TourDTO.Tour.Description, ElementName=root}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" FontSize="15"/>
+
+        <!-- Booking -->
+        <Border BorderBrush="Black" BorderThickness="1"
+                Grid.Row="2" Grid.Column="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.8*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.8*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Number of people attending" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"/>
+                <TextBlock Text="Vouchers" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"/>
+
+                <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Width="152"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Width="Auto"/>
+
+                <TextBlock Text="Pick a date" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                <DatePicker Grid.Row="3" Grid.Column="0"/>
+                <Button Grid.Row="3" Grid.Column="1" Content="Book tour"
+                        Width="80" Height="35" FontSize="15" Padding="2"/>
+            </Grid>
+        </Border>
+
+        <!-- Graphs -->
+    </Grid>
+</UserControl>
