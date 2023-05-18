@@ -11,29 +11,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     /// </summary>
     public partial class StatisticsPage : Page
     {
-        private YearlyAccommodationStatisticsViewModel yearlyAccommodationStatisticsViewModel;
-        public AccommodationService accommodationService;
-        public MonthlyAccommodationStatisticsService monthlyAccommodationStatisticsService;
-        public Owner owner;
-        private int SelectedAccommmodationId;
+        
+      
         public StatisticsPage(YearlyAccommodationStatisticsService yearlyAccommodationStatisticsService, AccommodationService accommodationService, Owner owner, MonthlyAccommodationStatisticsService monthlyAccommodationStatisticsService)
         {
             InitializeComponent();
-            yearlyAccommodationStatisticsViewModel = new YearlyAccommodationStatisticsViewModel(yearlyAccommodationStatisticsService);
-            DataContext = yearlyAccommodationStatisticsViewModel;
-            this.accommodationService = accommodationService;
-            this.monthlyAccommodationStatisticsService = monthlyAccommodationStatisticsService;
-            this.owner = owner;
-            ShowAccommodations(owner);
+            this.DataContext = new YearlyAccommodationStatisticsViewModel(yearlyAccommodationStatisticsService, accommodationService, owner, monthlyAccommodationStatisticsService);
+            //ShowAccommodations(owner);
         }
 
-        private void Show_Statistics_Button_Click(object sender, RoutedEventArgs e)
+        /*private void Show_Statistics_Button_Click(object sender, RoutedEventArgs e)
         {
             yearlyAccommodationStatisticsViewModel.GetYearlyAccommodationStatistics(SelectedAccommmodationId);
             yearlyAccommodationStatisticsViewModel.MarkBusiest(yearlyAccommodationStatisticsViewModel.YearlyStatistics);
         }
-
-        public void ShowAccommodations(Owner owner)
+        */
+        /*public void ShowAccommodations(Owner owner)
         {
             foreach (Accommodation accommodation in accommodationService.GetAll())
             {
@@ -64,12 +57,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
                 }
             }
 
-        }
+        }*/
 
-        private void Monthly_Statistics_Button_Click(object sender, RoutedEventArgs e)
-        {
-            MonthlyAccommodationStatisticsWindow monthlyAccommodationStatisticsWindow = new MonthlyAccommodationStatisticsWindow(yearlyAccommodationStatisticsViewModel.SelectedYearlyAccommodationStatistics, monthlyAccommodationStatisticsService, SelectedAccommmodationId);
-            monthlyAccommodationStatisticsWindow.Show();
-        }
     }
 }

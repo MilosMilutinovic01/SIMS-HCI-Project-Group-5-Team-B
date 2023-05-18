@@ -156,6 +156,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return matchingAccommodationNames;
         }
 
+        public int GetIdByName(string name, Owner owner)
+        {
+            foreach(Accommodation accommodation in GetAll())
+            {
+                if(accommodation.Name == name && accommodation.OwnerId == owner.Id)
+                {
+                    return accommodation.Id;
+                }
+            }
+            return -1;
+        }
 
     }
 }

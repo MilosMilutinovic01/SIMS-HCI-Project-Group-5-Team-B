@@ -44,6 +44,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return tourRepository.NextId();
         }
 
+        public Tour getById(int id)
+        {
+            return GetAll().Find(tour => tour.Id == id);
+        }
+      
         public List<Tour> Search(Location location, string language, int duration, int numberOfPeople)
         {
             return tourRepository.GetAll().FindAll(t => (location.State == string.Empty || t.Location.State == location.State) &&

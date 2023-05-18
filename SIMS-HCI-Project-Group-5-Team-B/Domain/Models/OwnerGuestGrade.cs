@@ -9,7 +9,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Serializer;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
-    public class OwnerGuestGrade : ISerializable, INotifyPropertyChanged
+    public class OwnerGuestGrade : ISerializable, INotifyPropertyChanged, IDataErrorInfo
     {
         public int Id { get; set; }
 
@@ -98,6 +98,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
+        public string Error => null;
         public OwnerGuestGrade()
         {
             Reservation = new Reservation();
@@ -157,12 +158,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                     if (StateOfInventory < 1 || StateOfInventory > 5)
                         return "Value is not in range";
                 }
+                
                 return null;
             }
         }
 
 
-        private readonly string[] _validatedProperties = { "Cleanliness", "RulesCompliance", "StateOfInventory" };
+        private readonly string[] _validatedProperties = { "Cleanliness", "RulesCompliance", "StateOfInventory", "ComplaintsFromOtherGuests", "IsPaymentCompletedOnTime" };
 
         public bool IsValid
         {

@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest"
         mc:Ignorable="d"
-        Title="NotificationsWindow" Height="540" Width="900"
-      Background="White">
+        Title="NotificationsWindow" Height="540" Width="920"
+      Background="#c8a2c8">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="6*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Notifications" FontSize="25" FontWeight="Bold" Margin="10"></TextBlock>
-        <ListBox Grid.Row="1" ItemsSource="{Binding Path=Notifications}">
+        <ListBox Grid.Row="1" ItemsSource="{Binding Path=Notifications}" Background="LightGray">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">

@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -23,33 +24,23 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     /// </summary>
     public partial class RenovationPage : Page
     {
-        private RenovationViewModel renovationViewModel;
-        private RenovationService renovationService;
-        private ReservationService reservationService;
-        private AccommodationService accommodationService;
-        private Owner owner;
-        public RenovationGridView SelectedRenovationGridView { get; set; }
-        public RenovationPage(RenovationService renovationService, ReservationService reservationService, Owner owner, AccommodationService accommodationService)
+
+        //public RenovationGridView SelectedRenovationGridView { get; set; }
+        public RenovationPage(IRenovationService renovationService, ReservationService reservationService, Owner owner, AccommodationService accommodationService)
         {
             InitializeComponent();
-            this.renovationService = renovationService;
-            this.reservationService = reservationService;
-            this.accommodationService = accommodationService;
-            this.owner = owner;
-            renovationViewModel = new RenovationViewModel(renovationService, reservationService, owner.Id, SelectedRenovationGridView);
-            DataContext = renovationViewModel;
+            
+            //renovationViewModel = new RenovationViewModel(renovationService, reservationService, owner.Id/*, SelectedRenovationGridView*/);
+            this.DataContext = new RenovationViewModel(renovationService, reservationService, owner,accommodationService/*, SelectedRenovationGridView*/);
         }
 
-        private void Schedule_Button_Click(object sender, RoutedEventArgs e)
+        /*private void Schedule_Button_Click(object sender, RoutedEventArgs e)
         {
-            ScheduleRenovationForm scheduleRenovationForm = new ScheduleRenovationForm(renovationService, accommodationService, reservationService, owner, renovationViewModel.FutureRenovations);
+            ScheduleRenovationForm scheduleRenovationForm = new ScheduleRenovationForm(renovationViewModel,accommodationService,owner);
             scheduleRenovationForm.Show();
-        }
+        }*/
 
-        private void CallOf_Button_Click(object sender, RoutedEventArgs e)
-        {
-            CallOffRenovationWindow callOffRenovationWindow = new CallOffRenovationWindow(renovationViewModel.SelectedRenovationGridView, renovationViewModel.FutureRenovations, renovationService, reservationService, owner.Id);
-            callOffRenovationWindow.Show();
-        }
+
+       
     }
 }

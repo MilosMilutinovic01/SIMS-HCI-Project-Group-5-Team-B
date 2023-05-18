@@ -6,9 +6,9 @@
       xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
       xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
       mc:Ignorable="d" 
-      d:DesignHeight="350" d:DesignWidth="670"
+      d:DesignHeight="420" d:DesignWidth="840"
       Title="GradingPage">
-    <Border BorderBrush="Black" BorderThickness="1">
+    <Border Style="{DynamicResource BorderStyle}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -19,14 +19,14 @@
             </Grid.RowDefinitions>
             <Grid Grid.Column="0" Grid.Row="0">
 
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,1,0,0" Height="26" Content="{ns:Loc GradeLabel}"></Label>
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,28,0,0" Height="27" Content="{ns:Loc DetailsLabel}" ></Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,7,0,0" Height="26" Content="{ns:Loc GradeLabel}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,36,0,0" Height="27" Content="{ns:Loc DetailsLabel}"  Style="{DynamicResource ExplanationLabelStyle}" ></Label>
             </Grid>
             <Grid Grid.Column="0" Grid.Row="1">
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,16,0,0" Content="{ns:Loc ReservationForGrading}"></Label>
-                <DataGrid Width="620" Height="100" ItemsSource="{Binding Path=ReservationsForGrading, UpdateSourceTrigger=PropertyChanged}"
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,10,0,0" Content="{ns:Loc ReservationForGrading}" Style="{DynamicResource LabelStyle}"></Label>
+                <DataGrid  ItemsSource="{Binding Path=ReservationsForGrading, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding Path=SelectedReservation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
-                      AutoGenerateColumns="False" IsReadOnly="True" Margin="22,31,22,137">
+                      AutoGenerateColumns="False" IsReadOnly="True"  Margin="22,40,22,190">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{ns:Loc Name}" Binding="{Binding OwnerGuest.Name}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="{ns:Loc Surname}" Binding="{Binding OwnerGuest.Surname}" Width="*"></DataGridTextColumn>
@@ -35,15 +35,15 @@
                         <DataGridTemplateColumn x:Name="ButtonColumnGrade">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="gradeButton" Click="Grade_Button_Click" Content="{ns:Loc Grade}"></Button>
+                                    <Button x:Name="gradeButton" Command="{Binding DataContext.GuestGradingWindowCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Content="{ns:Loc Grade}" Style="{DynamicResource ButtonInDataGridStyle}"></Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,143,0,0" Content="{ns:Loc GradesGivenByGuests}"></Label>
-                <DataGrid Width="620" Height="100" HorizontalAlignment="Center" ItemsSource="{Binding Path=OwnerAccommodationGradesForShowing, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedOwnerAccommodationGrade, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
-                      AutoGenerateColumns="False" IsReadOnly="True"  Margin="0,158,0,10">
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,163,0,0" Content="{ns:Loc GradesGivenByGuests}" Style="{DynamicResource LabelStyle}"></Label>
+                <DataGrid HorizontalAlignment="Center" ItemsSource="{Binding Path=OwnerAccommodationGradesForShowing, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedOwnerAccommodationGrade, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+                      AutoGenerateColumns="False" IsReadOnly="True"  Margin="22,190,22,40">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{ns:Loc Name}" Binding="{Binding Reservation.OwnerGuest.Name}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="{ns:Loc Surname}" Binding="{Binding Reservation.OwnerGuest.Surname}" Width="*"></DataGridTextColumn>
@@ -52,7 +52,7 @@
                         <DataGridTemplateColumn x:Name="ButtonColumnDetails">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="detailsButton" Click="Details_Button_Click" Content="{ns:Loc Details}"></Button>
+                                    <Button x:Name="detailsButton" Command="{Binding DataContext.OwnerAccommodationGradeDetailsWindowCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Content="{ns:Loc Details}" Style="{DynamicResource ButtonInDataGridStyle}"></Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

@@ -1,0 +1,36 @@
+﻿<Page x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide.UpcomingToursPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        mc:Ignorable="d"
+        Title="TourCancelWindow" Height="700" Background="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1">
+            <TextBlock FontSize="16" Margin="5">Upcoming tours:</TextBlock>
+            <DataGrid x:Name="AvailableAppointmentDataGrid" ItemsSource="{Binding Path=AvailableAppointments}" SelectedItem="{Binding Path=SelectedAppointment}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Tour.Name}" />
+                    <DataGridTextColumn Header="Start" Width="*" Binding="{Binding Start}" />
+                    <DataGridTextColumn Header="State" Width="*" Binding="{Binding Tour.Location.State}" />
+                    <DataGridTextColumn Header="City" Width="*" Binding="{Binding Tour.Location.City}" />
+                    <DataGridTemplateColumn Header="Cancel" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding DataContext.CancelTourCommand, 
+                                  RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" HorizontalAlignment="Center">Cancel</Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Page>

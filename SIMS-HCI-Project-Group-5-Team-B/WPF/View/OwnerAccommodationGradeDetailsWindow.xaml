@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
         mc:Ignorable="d"
-        Title="{ns:Loc OwnerAccommodationGradeDetailsWindow}" Height="600" Width="600">
+        Title="{ns:Loc OwnerAccommodationGradeDetailsWindow}" Height="600" Width="600" Style="{DynamicResource WindowStyle}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -18,7 +18,7 @@
 
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Grid.Column="0" Margin="100,0,50,0" HorizontalAlignment="Left" Width="450">
-            
+
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -36,39 +36,39 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Name}" ></Label>
-            <Label Grid.Row="1" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Surname}" ></Label>
-            <Label Grid.Row="2" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Accommodation}" ></Label>
-            <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Cleanliness}" ></Label>
-            <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc OwnerCorrectness}" ></Label>
-            <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc StateOfInventory}" ></Label>
-            <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Quietness}" ></Label>
-            <Label Grid.Row="7" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Privacy}" ></Label>
-            <Label Grid.Row="8" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc AdditionalComment}" ></Label>
+            <Label Grid.Row="0" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Name}" Style="{DynamicResource LabelStyle}" ></Label>
+            <Label Grid.Row="1" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Surname}" Style="{DynamicResource LabelStyle}" ></Label>
+            <Label Grid.Row="2" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Accommodation}" Style="{DynamicResource LabelStyle}" ></Label>
+            <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Cleanliness}" Style="{DynamicResource LabelStyle}"></Label>
+            <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc OwnerCorrectness}" Style="{DynamicResource LabelStyle}"></Label>
+            <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc StateOfInventory}" Style="{DynamicResource LabelStyle}"></Label>
+            <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Quietness}" Style="{DynamicResource LabelStyle}"></Label>
+            <Label Grid.Row="7" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Privacy}" Style="{DynamicResource LabelStyle}"></Label>
+            <Label Grid.Row="8" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc AdditionalComment}" Style="{DynamicResource LabelStyle}"></Label>
 
 
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.OwnerGuest.Name}" Height="30">
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.OwnerGuest.Name}" Height="30" Style="{DynamicResource TextBlockStyle}">
             </TextBlock>
-            <TextBlock   Grid.Row="1" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.OwnerGuest.Surname}" Height="30">
+            <TextBlock   Grid.Row="1" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.OwnerGuest.Surname}" Height="30" Style="{DynamicResource TextBlockStyle}">
             </TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.Accommodation.Name}" Height="30">
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.Accommodation.Name}" Height="30" Style="{DynamicResource TextBlockStyle}">
             </TextBlock>
-            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Cleanliness}" Height="30">
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Cleanliness}" Height="30" Style="{DynamicResource TextBlockStyle}">
             </TextBlock>
-            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.OwnerCorrectness}" Height="30">
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.OwnerCorrectness}" Height="30" Style="{DynamicResource TextBlockStyle}">
             </TextBlock>
-            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.StateOfInventory}" Height="30">
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.StateOfInventory}" Height="30" Style="{DynamicResource TextBlockStyle}">
             </TextBlock>
-            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Quietness}" Height="30">
+            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Quietness}" Height="30" Style="{DynamicResource TextBlockStyle}">
             </TextBlock>
-            <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Privacy}" Height="30">
+            <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Privacy}" Height="30" Style="{DynamicResource TextBlockStyle}">
             </TextBlock>
-            <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.AdditionalComment}" Height="30">
+            <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.AdditionalComment}" Height="30" Style="{DynamicResource TextBlockStyle}">
             </TextBlock>
-            
-           
+
+
         </Grid>
-        <ListBox Grid.Column="0" Grid.Row="1" Name="imageListBox" d:ItemsSource="{d:SampleData ItemCount=5}" >
+        <ListBox Grid.Column="0" Grid.Row="1" Name="imageListBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="100,0" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
@@ -77,6 +77,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Grid.Column="0" Grid.Row="2" Height="20" Width="50" Content="{ns:Loc Cancel}" Click="Cancel_Button_Click" HorizontalAlignment="Right" Margin="0,0,50,0"></Button>
+        <Button Grid.Column="0" Grid.Row="2" Content="{ns:Loc Cancel}" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="440,15,100,17" Style="{DynamicResource ButtonInWindowStyle}"></Button>
     </Grid>
 </Window>

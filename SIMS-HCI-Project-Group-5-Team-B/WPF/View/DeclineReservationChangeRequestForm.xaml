@@ -6,26 +6,26 @@
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
         xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
         mc:Ignorable="d"
-        Title="{ns:Loc DeclineReservationChangeRequestForm}" Height="200" Width="300" WindowStartupLocation="CenterScreen">
+        Title="{ns:Loc DeclineReservationChangeRequestForm}" Height="200" Width="300" WindowStartupLocation="CenterScreen" Style="{DynamicResource WindowStyle}" >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.Column="0">
-            <Label HorizontalAlignment="Center" FontSize="20" Content="{ns:Loc DecliningRequest}"></Label>
+            <Label HorizontalAlignment="Center" FontSize="18" Content="{ns:Loc DecliningRequest}" Style="{DynamicResource LabelStyle}"/>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="0">
-            <Label HorizontalAlignment="Center" VerticalAlignment="Top" Content="{ns:Loc OptionalExplanation}"></Label>
-            <TextBox Height="30" Width="100" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,24,0,0"  Text="{Binding SelectedReservationChangeRequest.DenialComment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+            <Label HorizontalAlignment="Center" VerticalAlignment="Top" Content="{ns:Loc OptionalExplanation}" Style="{DynamicResource LabelStyle}"></Label>
+            <TextBox Height="70" Width="248" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,28,0,0"  Text="{Binding SelectedReservationChangeRequest.DenialComment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="0">
-            <Button Height="20" Width="80"  Content="{ns:Loc Confirm}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Confirm_Button_Click" Margin="25,5,0,0"  ></Button>
-            <Button Height="20" Width="80" Content="{ns:Loc Cancel}" HorizontalAlignment="Right"  VerticalAlignment="Top" Click="Cancel_Button_Click" Margin="0,5,25,0"  ></Button>
+            <Button Height="20" Width="80"  Content="{ns:Loc Confirm}" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding DecliningRequestCommand}" Margin="25,0,0,0" Style="{DynamicResource ButtonInWindowStyle}" ></Button>
+            <Button Height="20" Width="80" Content="{ns:Loc Cancel}" HorizontalAlignment="Left"  VerticalAlignment="Center" Command="{Binding CloseCommand}" Margin="195,0,0,0" Style="{DynamicResource ButtonInWindowStyle}" ></Button>
         </Grid>
     </Grid>
 </Window>

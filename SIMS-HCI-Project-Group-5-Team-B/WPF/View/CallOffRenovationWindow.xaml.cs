@@ -15,6 +15,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System.Collections.ObjectModel;
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
 {
@@ -23,29 +24,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     /// </summary>
     public partial class CallOffRenovationWindow : Window
     {
-
-        private readonly RenovationViewModel renovationViewModel;
-        public ObservableCollection<RenovationGridView> FutureRenovations { get; set; }
-        public RenovationGridView SelectedRenovationGridView { get; set; }
-        public CallOffRenovationWindow(RenovationGridView SelectedRenovationGridView,ObservableCollection<RenovationGridView> FutureRenovations, RenovationService renovationService, ReservationService reservationService, int ownerId)
+        public CallOffRenovationWindow(IRenovationService renovationService,ReservationService reservationService,Owner owner,RenovationGridView SelectedRenovationGridView, ObservableCollection<RenovationGridView> FutureRenovations, AccommodationService accommodationService)
         {
             InitializeComponent();
-            this.SelectedRenovationGridView = SelectedRenovationGridView;
-            renovationViewModel = new RenovationViewModel(renovationService, reservationService, ownerId,SelectedRenovationGridView);
-            this.FutureRenovations = FutureRenovations;
+            RenovationViewModel renovationViewModel = new RenovationViewModel(renovationService, reservationService, owner,accommodationService);
+            this.DataContext = renovationViewModel;
+            renovationViewModel.SelectedRenovationGridView = SelectedRenovationGridView;
+            renovationViewModel.FutureRenovations = FutureRenovations;
             
-        }
-
-        private void Confirm_Button_Click(object sender, RoutedEventArgs e)
-        {
-            renovationViewModel.CallOff(SelectedRenovationGridView);
-            FutureRenovations.Remove(SelectedRenovationGridView);
-            Close();
-        }
-
-        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
     }
 }

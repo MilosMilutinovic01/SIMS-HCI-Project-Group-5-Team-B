@@ -23,32 +23,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     /// </summary>
     public partial class RequestsForChangingReservationPage : Page
     {
-        private HandleReservationChangeRequestViewModel handleReservationChangeRequestViewModel;
-        private ReservationChangeRequestService reservationChangeRequestService;
-        private ReservationService reservationService;
-        private Owner owner;
-        
+       
         public RequestsForChangingReservationPage(ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService, Owner LogedInOwner)
         {
             InitializeComponent();
-            this.reservationChangeRequestService = reservationChangeRequestService;
-            this.reservationService = reservationService;
-            this.owner = LogedInOwner;
-            handleReservationChangeRequestViewModel = new HandleReservationChangeRequestViewModel(reservationChangeRequestService, reservationService, LogedInOwner/*, SelectedReservationChangeRequest*/);
-            this.DataContext = handleReservationChangeRequestViewModel;
+            this.DataContext = new HandleReservationChangeRequestViewModel(reservationChangeRequestService, reservationService, LogedInOwner);
         }
 
-        private void Accept_Button_Click(object sender, RoutedEventArgs e)
-        {
-            AcceptReservationChangeRequestWindow acceptReservationChangeRequestWindow = new AcceptReservationChangeRequestWindow(handleReservationChangeRequestViewModel);
-            acceptReservationChangeRequestWindow.Show();
-        }
-
-
-        private void Decline_Button_Click(object sender, RoutedEventArgs e)
-        {
-            DeclineReservationChangeRequestForm declineReservationChangeRequestForm = new DeclineReservationChangeRequestForm(handleReservationChangeRequestViewModel);
-            declineReservationChangeRequestForm.Show();
-        }
     }
 }

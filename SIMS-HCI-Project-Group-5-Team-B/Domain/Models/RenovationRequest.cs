@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
-    public enum ReservationLevel {Level1=0, Level2, Level3, Level4, Level5 };
+    public enum RENOVATIONLEVEL {Level1=0, Level2, Level3, Level4, Level5 };
     public class RenovationRequest: ISerializable, INotifyPropertyChanged, IDataErrorInfo
     {
         public int Id { get; set; }
@@ -29,8 +29,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             } 
         
         }
-        private ReservationLevel level;
-        public ReservationLevel Level 
+        private RENOVATIONLEVEL level;
+        public RENOVATIONLEVEL Level 
         { 
             get {  return level; } 
             set 
@@ -49,7 +49,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 
         
 
-        public RenovationRequest(string comment, ReservationLevel level, Reservation reservation) 
+        public RenovationRequest(string comment, RENOVATIONLEVEL level, Reservation reservation) 
         {
             this.Comment = comment;
             this.Level = level;
@@ -91,23 +91,23 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             reservationId = int.Parse(values[3]);
             if (values[2].Equals("Level1"))
             {
-                Level = ReservationLevel.Level1;
+                Level = RENOVATIONLEVEL.Level1;
             }
             else if (values[2].Equals("Level2"))
             {
-                Level = ReservationLevel.Level2;
+                Level = RENOVATIONLEVEL.Level2;
             }
             else if (values[2].Equals("Level3"))
             {
-                Level = ReservationLevel.Level3;
+                Level = RENOVATIONLEVEL.Level3;
             }
             else if (values[2].Equals("Level4"))
             {
-                Level = ReservationLevel.Level4;
+                Level = RENOVATIONLEVEL.Level4;
             }
             else
             {
-                Level = ReservationLevel.Level5;
+                Level = RENOVATIONLEVEL.Level5;
             }
         }
 

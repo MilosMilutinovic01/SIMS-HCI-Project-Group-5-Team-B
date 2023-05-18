@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces;
 
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 {
-    public class RenovationService
+    public class RenovationService: IRenovationService
     {
         private IRenovationRepository renovationRepository;
         private IAccommodationRepository accommodationRepository;
@@ -119,6 +120,30 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
                 }
             }
             return renovationGridViews;
+
+        }
+
+        public bool IsAccomodationNotInRenovation(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate)
+        {
+            List<Renovation> accomodationRenovations = renovationRepository.GetRenovationForAccommodation(selectedAccommodation.Id);
+
+            foreach (Renovation renovation in accomodationRenovations)
+            {
+                bool isInRange = startDate >= renovation.StartDate && startDate <= renovation.EndDate ||
+                                 endDate >= renovation.StartDate && endDate <= renovation.EndDate;
+
+                bool isOutOfRange = startDate <= renovation.StartDate && endDate >= renovation.EndDate;
+
+                if (isInRange)
+                {
+                    return false;
+                }
+                else if (isOutOfRange)
+                {
+                    return false;
+                }
+            }
+            return true;
 
         }
     }

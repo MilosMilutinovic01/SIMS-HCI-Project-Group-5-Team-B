@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
         mc:Ignorable="d"
-        Title="ReservationChangeRequestForm" Height="300" Width="427">
+        Title="ReservationChangeRequestForm" Height="300" Width="427" WindowStartupLocation="CenterScreen"
+        Background="#c8a2c8">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -53,9 +54,9 @@
 
             <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="center">Start</Label>
             <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="center">End</Label>
-            <DatePicker Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" 
+            <DatePicker Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Background="LightGray"
                          SelectedDate="{Binding Path=NewReservationRequest.Start,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True }" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15"></DatePicker>
-            <DatePicker Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"
+            <DatePicker Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Background="LightGray"
                          SelectedDate="{Binding Path=NewReservationRequest.End,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15"></DatePicker>
         </Grid>
         <WrapPanel Grid.Row="2" FlowDirection="LeftToRight">

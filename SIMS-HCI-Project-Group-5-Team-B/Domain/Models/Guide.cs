@@ -10,6 +10,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
     public class Guide: User, ISerializable
     {
         public int Id { get; set; }
+
         private string name;
         public string Name
         {
@@ -34,6 +35,33 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 }
             }
         }
+
+        private bool isSuperGuide;
+        public bool IsSuperGuide
+        {
+            get { return isSuperGuide; }
+            set 
+            {
+                if (value != isSuperGuide)
+                {
+                    isSuperGuide = value;
+                }
+            }
+        }
+
+        private double gradeAverage;
+        public double GradeAverage
+        {
+            get { return gradeAverage; }
+            set
+            {
+                if (value != gradeAverage)
+                {
+                    gradeAverage = value;
+                }
+            }
+        }
+
         public Guide()
         {
             Id = 0;
@@ -49,10 +77,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            Username = values[1];
-            Password = values[2];
-            name = values[3];
-            surname = values[4];
+            Name = values[1];
+            Surname = values[2];
+            IsSuperGuide = Convert.ToBoolean(values[3]);
+            GradeAverage = Convert.ToDouble(values[4]);
         }
 
         public string[] ToCSV()
@@ -60,10 +88,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             string[] csvValues =
             {
                 Id.ToString(),
-                Username,
-                Password,
-                name,
-                surname
+                Name,
+                Surname,
+                IsSuperGuide.ToString(),
+                GradeAverage.ToString()
             };
             return csvValues;
         }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
         mc:Ignorable="d"
-        Title="{ns:Loc AccommodationWindow}" Height="600" Width="600">
+        Title="{ns:Loc AccommodationWindow}" Height="600" Width="600" Style="{DynamicResource WindowStyle}" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -39,14 +39,14 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Name}" ></Label>
-            <Label Grid.Row="1" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Type}" ></Label>
-            <Label Grid.Row="2" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc State}"></Label>
-            <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc City}"/>
-            <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc NoticePeriod}" ></Label>
-            <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc MinReservationDays}" ></Label>
-            <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc MaxGuests}" ></Label>
-            <Label Grid.Row="7" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc PictureURLs}" ></Label>
+            <Label Grid.Row="0" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Name}" Style="{DynamicResource LabelStyle}" ></Label>
+            <Label Grid.Row="1" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc Type}" Style="{DynamicResource LabelStyle}"></Label>
+            <Label Grid.Row="2" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc State}" Style="{DynamicResource LabelStyle}"></Label>
+            <Label Grid.Row="3" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc City}" Style="{DynamicResource LabelStyle}"/>
+            <Label Grid.Row="4" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc NoticePeriod}" Style="{DynamicResource LabelStyle}"></Label>
+            <Label Grid.Row="5" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc MinReservationDays}" Style="{DynamicResource LabelStyle}"></Label>
+            <Label Grid.Row="6" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc MaxGuests}" Style="{DynamicResource LabelStyle}"></Label>
+            <Label Grid.Row="7" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc PictureURLs}" Style="{DynamicResource LabelStyle}" ></Label>
 
             <TextBox Grid.Row="0" Grid.Column="1"
                      Text="{Binding Path=Accommodation.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
@@ -54,7 +54,7 @@
                      Height="30">
             </TextBox>
             <ComboBox Name="Type_ComboBox" Grid.Row="1" Grid.Column="1" 
-                     SelectionChanged="TypeChanged_ComboBox"
+                     SelectionChanged="TypeChanged_ComboBox" Text="{Binding Path=Type, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Height="30">
                 <ComboBoxItem Content="Apartment"></ComboBoxItem>
                 <ComboBoxItem Content="House"></ComboBoxItem>
@@ -94,7 +94,7 @@
                      Height="30">
             </TextBox>
         </Grid>
-        <Button Content="{ns:Loc Create}" HorizontalAlignment="Left" Margin="395,0,0,0" Height="20" VerticalAlignment="Center" Grid.Row="1" Width="50" Click="Create_Accommodation_Click" />
-        <Button Content="{ns:Loc Cancel}" HorizontalAlignment="Left" Margin="493,0,0,0" Height="20" VerticalAlignment="Center" Grid.Row="1" Width="50" Click="Cancel_Click" />
+        <Button Content="{ns:Loc Create}" HorizontalAlignment="Left" Margin="395,0,0,0" Height="20" VerticalAlignment="Center" Grid.Row="1" Width="50" Click="Create_Accommodation_Click" Style="{DynamicResource ButtonInWindowStyle}"/>
+        <Button Content="{ns:Loc Cancel}" HorizontalAlignment="Left" Margin="493,0,0,0" Height="20" VerticalAlignment="Center" Grid.Row="1" Width="50" Click="Cancel_Click" Style="{DynamicResource ButtonInWindowStyle}" />
     </Grid>
 </Window>

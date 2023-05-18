@@ -25,7 +25,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// <summary>
     /// Interaction logic for AccommodationForm.xaml
     /// </summary>
-    public partial class AccommodationForm : Window,IDataErrorInfo, INotifyPropertyChanged
+    public partial class AccommodationForm : Window/*,IDataErrorInfo*//*, INotifyPropertyChanged*/
     {
 
         private AccommodationService accommodationService;
@@ -89,7 +89,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             }
             else
             {
-                MessageBox.Show("Accommodation can't be created, because fileds are not valid");
+                if (Properties.Settings.Default.currentLanguage == "en-US")
+                {
+                    MessageBox.Show("Accommodation can't be created, because fileds are not valid");
+                }
+                else
+                {
+                    MessageBox.Show("Smestaj ne moze biti kreiran, jer polja nisu validna");
+                }
+               
             }
         }
 
@@ -101,60 +109,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             if(newType == "Apartment")
             {
                 Accommodation.Type = "Apartment";
+                //Accommodation.Type = TYPE.Apartment;
             }
             else if(newType == "House")
             {
                 Accommodation.Type = "House";
+                //Accommodation.Type = TYPE.House;
             }
             else if(newType == "Cottage")
             {
                 Accommodation.Type = "Cottage";
+                //Accommodation.Type = TYPE.Cottage;
             }
 
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        Regex locationRegex = new Regex("[A-Z].{0,20},[A-Z].{0,20}");
-        public string Error => null;
-
-        public string this[string columnName]
-        {
-            get
-            {
-                if (columnName == "Location.City")
-                {
-                    if (string.IsNullOrEmpty(Location.City))
-                        return "Filed must be filled";
-                }
-                else if(columnName == "Location.State")
-                {
-                    if (string.IsNullOrEmpty(Location.State))
-                        return "Filed must be filled";
-                }
-                return null;
-            }
-
-        }
-        private readonly string[] _validatedProperties = { "Location.City" , "Location.State"};
-        public bool IsValid
-        {
-            get
-            {
-                foreach (var property in _validatedProperties)
-                {
-                    if (this[property] != null)
-                        return false;
-                }
-
-                return true;
-            }
-        }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
