@@ -53,5 +53,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             return locationRepository.GetAll().Where(location => location.State.Equals(state)).Select(location => location.City).Distinct().ToList();
         }
+
+        public Location GetByStateAndCity(string state, string city)
+        {
+            return locationRepository.GetAll().Find(l => l.State == state && l.City == city);
+        }
     }
 }

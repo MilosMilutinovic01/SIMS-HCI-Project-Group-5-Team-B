@@ -36,5 +36,33 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             return tourRequestRepository.GetAll().FindAll(req => req.GuideGuestId == guideGuestId);
         }
+
+        public List<TourRequest> FilterRequests(string state, string city, string language, int maxGuests, DateTime start, DateTime end)
+        {
+            List<TourRequest> all = tourRequestRepository.GetAll();
+            return all.FindAll(request =>
+                (request.Location.State == state && state != default) ||
+                (request.Location.City == city && city != default) ||
+                (request.Language.Equals(language) && language != default) ||
+                (request.MaxGuests <= maxGuests && maxGuests != default) ||
+                (request.DateRangeStart.Date >= start.Date && start != default) &&
+                (request.DateRangeEnd.Date <= end.Date && end != default));
+        }
+
+        public List<string> GetLanguagesFromRequests()
+        {
+            return tourRequestRepository.GetAll().Select(r => r.Language).Distinct().ToList();
+        }
+
+        //public void RejectRequest(TourRequest tourRequest)
+        //{
+        //    tourRequest.Status = TourRequestStatuses.REJECT;
+        //}
+
+        public void AcceptRequest(TourRequest tourRequest)
+        {
+            tourRequest.Status = TourRequestStatuses.ACCEPTED.ToString();
+            tourRequestRepository.Update(tourRequest);
+        }
     }
 }
