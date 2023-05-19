@@ -48,6 +48,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         public string SelectedLanguage { get; set; }
         public int MaxGuests { get; set; }
         public string Description { get; set; }
+        public string SelectedImage { get; set; }
 
         public List<KeyPoint> keyPoints;
         public List<Appointment> appointments;
@@ -214,7 +215,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         private void AddImageButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png|All files (*.*)|*.*";
+            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg;*.gif)|*.png;*.jpeg;*.jpg;*.gif|All files (*.*)|*.*";
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
             string filename = "";
             string imageName = "";
@@ -222,9 +223,42 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             {
                 filename = openFileDialog.FileName;
                 imageName = System.IO.Path.GetFileName(filename);
+                foreach(var item in ImagesListBox.Items)
+                {
+                    if (item.Equals(imageName))
+                    {
+                        MessageBox.Show("Image already added!");
+                        return;
+                    }
+                }
                 ImagesListBox.Items.Add(imageName);
+                string destinationPath = System.IO.Path.Combine("../../../Resources/TourImages/", imageName);
+                if (!File.Exists(destinationPath))
+                    File.Copy(filename, destinationPath);
             }
             ImageUrlsString += imageName;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            PreviewImageWindow previewImageWindow = new PreviewImageWindow("../../../Resources/TourImages/" + SelectedImage);
+            previewImageWindow.Show();
+        }
+
+        private void ImagesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PreviewButton.IsEnabled = true;
+            RemoveButton.IsEnabled = true;
+            if(ImagesListBox.Items.IsEmpty)
+            {
+                PreviewButton.IsEnabled = false;
+                RemoveButton.IsEnabled = false;
+            }
+        }
+
+        private void RemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+            ImagesListBox.Items.Remove(SelectedImage);
         }
     }
 }

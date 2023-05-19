@@ -134,4 +134,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\TourImages\" />
+  </ItemGroup>
+
 </Project>

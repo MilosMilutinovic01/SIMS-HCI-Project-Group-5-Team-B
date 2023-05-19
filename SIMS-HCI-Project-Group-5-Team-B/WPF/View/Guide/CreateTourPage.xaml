@@ -130,7 +130,9 @@
             <Button Grid.Column="1" Width="30" Height="30" VerticalAlignment="Top" Style="{StaticResource {x:Type Button}}" Click="AddImageButton_Click" Margin="0,0,0,0" Background="White" BorderBrush="White" Padding="0,0,0,0">
                 <Image Source="/Resources/Images/addImageIcon.png"/>
             </Button>
-            <ListBox x:Name="ImagesListBox" Grid.Column="0" VerticalAlignment="Top" Height="45"/>
+            <Button x:Name="PreviewButton" Content="Preview" Grid.Column="1" VerticalAlignment="Center" Click="Button_Click" IsEnabled="false"></Button>
+            <Button x:Name="RemoveButton" Content="Remove" Grid.Column="1" VerticalAlignment="Bottom" Click="RemoveButton_Click" IsEnabled="false"></Button>
+            <ListBox x:Name="ImagesListBox" Grid.Column="0" SelectedValue="{Binding SelectedImage}" SelectionChanged="ImagesListBox_SelectionChanged"/>
         </Grid>
         <TextBox x:Name="DescriptionTextBox" Grid.Row="8" Grid.Column="2" VerticalAlignment="Top" TextWrapping="Wrap" Height="45" Text="{Binding Path=Description, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
