@@ -29,6 +29,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 }
             }
         }
+        private bool enabledDate;
+        public bool EnabledDate
+        {
+            get { return enabledDate; }
+            set
+            {
+                if (enabledDate != value)
+                {
+                    enabledDate = value;
+                    OnPropertyChanged(nameof(EnabledDate));
+                }
+            }
+        }
         public Location Location { get; set; }
         public List<string> States { get; set; }
         public string State { get; set; }
@@ -67,6 +80,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 }
             }
         }
+        private DateTime displayStartDate;
+        public DateTime DisplayStartDate
+        {
+            get { return displayStartDate; }
+            set
+            {
+                if (displayStartDate != value)
+                {
+                    displayStartDate = value;
+                    OnPropertyChanged(nameof(DisplayStartDate));
+                }
+            }
+        }
         private DateTime endDate;
         public DateTime EndDate
         {
@@ -80,8 +106,33 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 }
             }
         }
+        private DateTime displayEndDate;
+        public DateTime DisplayEndDate
+        {
+            get { return displayEndDate; }
+            set
+            {
+                if (displayEndDate != value)
+                {
+                    displayEndDate = value;
+                    OnPropertyChanged(nameof(DisplayEndDate));
+                }
+            }
+        }
         public ObservableCollection<TourRequest> TourRequests { get; set; }
-        public TourRequest SelectedTourRequest { get; set; }
+        private TourRequest selectedTourRequest;
+        public TourRequest SelectedTourRequest
+        {
+            get { return selectedTourRequest; }
+            set
+            {
+                if(selectedTourRequest != value)
+                {
+                    selectedTourRequest = value;
+                    OnPropertyChanged(nameof(SelectedTourRequest));
+                }
+            }
+        }
         private DateTime selectedDate;
         public DateTime SelectedDate
         {
@@ -97,6 +148,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         }
         public RelayCommand FilterRequestsCommand { get; set; }
         public RelayCommand EnableAcceptCommand { get; set; }
+        public RelayCommand EnableDateCommand { get; set; }
         public RelayCommand LoadCitiesCommand { get; set; }
         public RelayCommand AcceptCommand { get; set; }
         public RelayCommand ChangeDateCommand { get; set; }
@@ -116,9 +168,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             List<TourRequest> filtered = tourRequestService.FilterRequests(State, City, Language, MaxGuests, StartDate, EndDate);
             TourRequests.Clear();
-            foreach(var item in filtered)
+            foreach(var request in filtered)
             {
-                TourRequests.Add(item);
+                TourRequests.Add(request);
             }
         }
 
@@ -128,6 +180,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 EnabledAccept = true;
             else
                 EnabledAccept = false;
+        }
+
+        private void Execute_EnableDateCommand()
+        {
+            if (SelectedTourRequest != null)
+                EnabledDate = true;
+            else
+                EnabledDate = false;
         }
 
         private void Execute_LoadCitiesCommand()
@@ -156,9 +216,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         private void Execute_ChangeDateCommand()
         {
-            StartDate = SelectedTourRequest.DateRangeStart;
-            EndDate = SelectedTourRequest.DateRangeEnd;
-            SelectedDate = StartDate;
+            DisplayStartDate = SelectedTourRequest.DateRangeStart;
+            DisplayEndDate = SelectedTourRequest.DateRangeEnd;
+            SelectedDate = DisplayStartDate;
         }
         #endregion
 
@@ -181,6 +241,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.LoadCitiesCommand = new RelayCommand(Execute_LoadCitiesCommand, CanExecute_Command);
             this.AcceptCommand = new RelayCommand(Execute_AcceptCommand, CanExecute_Command);
             this.ChangeDateCommand = new RelayCommand(Execute_ChangeDateCommand, CanExecute_Command);
+            this.EnableDateCommand = new RelayCommand(Execute_EnableDateCommand, CanExecute_Command);
+
             List<TourRequest> filtered = tourRequestService.FilterRequests(State, City, Language, MaxGuests, StartDate, EndDate);
             TourRequests.Clear();
             foreach (var item in filtered)

@@ -19,10 +19,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
     /// <summary>
     /// Interaction logic for TourRequestPage.xaml
     /// </summary>
-    public partial class TourRequestPage : Page
+    public partial class TourRequestAcceptPage : Page
     {
         public TourRequestViewModel tourRequestViewModel { get; set; }
-        public TourRequestPage(Frame frame)
+        public TourRequestAcceptPage(Frame frame)
         {
             InitializeComponent();
             tourRequestViewModel = new TourRequestViewModel(frame);

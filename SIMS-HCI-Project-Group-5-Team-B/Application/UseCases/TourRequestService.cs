@@ -39,16 +39,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public List<TourRequest> FilterRequests(string state, string city, string language, int maxGuests, DateTime start, DateTime end)
         {
-            List<TourRequest> all = tourRequestRepository.GetAll();
-            List<TourRequest> filtered = new List<TourRequest>();
-            //filtered.AddRange(all.FindAll(request => request.Location.State.Equals(state)));
-            //filtered.AddRange(all.FindAll(request => request.Location.City.Equals(city)));
-            //filtered.AddRange(all.FindAll(request => request.MaxGuests == maxGuests));
-            //filtered.AddRange(all.FindAll(request => request.DateRangeStart >= start && start != default));
-            //filtered.AddRange(all.FindAll(request => request.DateRangeEnd <= end));
-            //filtered.RemoveAll(all.FindAll(request => !request.Location.State.Equals(state)));
-            //return filtered.DistinctBy(f => f.Id).ToList();
-            return all.FindAll(request =>
+            List<TourRequest> allRequests = tourRequestRepository.GetAll();
+            return allRequests.FindAll(request =>
                 (request.Location.State.Equals(state) || state == default) &&
                 (request.Location.City.Equals(city) || city == default) &&
                 (request.Language.Equals(language) || language == default) &&
@@ -61,11 +53,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             return tourRequestRepository.GetAll().Select(r => r.Language).Distinct().ToList();
         }
-
-        //public void RejectRequest(TourRequest tourRequest)
-        //{
-        //    tourRequest.Status = TourRequestStatuses.REJECT;
-        //}
 
         public void AcceptRequest(TourRequest tourRequest)
         {

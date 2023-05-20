@@ -30,7 +30,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
         public string Username { get; set; }
         public string Password { get; set; }
         private UserController userController;
-        //public KeyPointsController keyPointsController;
+        //public KeyPointsController keyPointsService;
         //public LocationController locationController;
         //public TourController tourController;
         public MainWindow()
@@ -40,7 +40,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
             ComboBoxType.SelectedIndex = 0;
 
             userController = new UserController();
-            //keyPointsController = new KeyPointsController();
+            //keyPointsService = new KeyPointsController();
             //locationController = new LocationController();
             //locationController.ChangeCsvFile("../../../Resources/Data/Locations.csv");
             //tourController = new TourController(locationController);

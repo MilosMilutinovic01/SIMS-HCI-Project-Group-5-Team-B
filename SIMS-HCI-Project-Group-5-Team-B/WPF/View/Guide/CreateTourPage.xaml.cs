@@ -36,8 +36,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         //    this.DataContext = createTourViewModel;
         //}
         private TourController tourService;
-        private LocationController locationController;
-        private KeyPointsController keyPointsController;
+        private LocationController locationService;
+        private KeyPointsController keyPointsService;
         private AppointmentService appointmentService;
         private TourRequestService tourRequestService;
         public Tour Tour { get; set; }
@@ -66,9 +66,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             InitializeComponent();
             this.DataContext = this;
 
-            locationController = new LocationController();
-            this.tourService = new TourController(locationController);
-            keyPointsController = new KeyPointsController();
+            locationService = new LocationController();
+            this.tourService = new TourController(locationService);
+            keyPointsService = new KeyPointsController();
             this.appointmentService = new AppointmentService();
 
             Tour = new Tour();
@@ -79,8 +79,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             keyPoints = new List<KeyPoint>();
             appointments = new List<Appointment>();
             starts = new List<DateTime>();
-            locations = locationController.GetAllAsStrings();
-            states = locationController.GetStates();
+            locations = locationService.GetAllAsStrings();
+            states = locationService.GetStates();
         }
 
         public CreateTourPage(string flag, TourRequest tourRequest)
@@ -88,9 +88,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             InitializeComponent();
             this.DataContext = this;
 
-            locationController = new LocationController();
-            this.tourService = new TourController(locationController);
-            keyPointsController = new KeyPointsController();
+            locationService = new LocationController();
+            this.tourService = new TourController(locationService);
+            keyPointsService = new KeyPointsController();
             this.appointmentService = new AppointmentService();
             this.tourRequestService = new TourRequestService();
 
@@ -102,8 +102,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             keyPoints = new List<KeyPoint>();
             appointments = new List<Appointment>();
             starts = new List<DateTime>();
-            locations = locationController.GetAllAsStrings();
-            states = locationController.GetStates();
+            locations = locationService.GetAllAsStrings();
+            states = locationService.GetStates();
 
             ComboBoxCities.IsEnabled = false;
             ComboBoxStates.IsEnabled = false;
@@ -117,7 +117,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             Location.State = tourRequest.Location.State;
             State = tourRequest.Location.City;
             ComboBoxStates.SelectedValue = tourRequest.Location.State;
-            cities = locationController.GetCityByState(tourRequest.Location.State);
+            cities = locationService.GetCityByState(tourRequest.Location.State);
             ComboBoxCities.ItemsSource = cities;
             ComboBoxCities.SelectedValue = tourRequest.Location.City;
             Location.City = tourRequest.Location.City;
@@ -132,6 +132,51 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             this.TourRequest = tourRequest;
             this.Description = tourRequest.Description;
             Tour.Description = tourRequest.Description;
+            appointments.Add(new Appointment(Tour.Id, -1, TourRequest.SelectedDate, Tour.MaxGuests));
+        }
+
+        public CreateTourPage(string language, int locationId)
+        {
+            InitializeComponent();
+            this.DataContext = this;
+
+            locationService = new LocationController();
+            this.tourService = new TourController(locationService);
+            keyPointsService = new KeyPointsController();
+            this.appointmentService = new AppointmentService();
+            this.tourRequestService = new TourRequestService();
+
+            Tour = new Tour();
+            Location = new Location();
+            KeyPoint = new KeyPoint();
+            Appointment = new Appointment();
+
+            keyPoints = new List<KeyPoint>();
+            appointments = new List<Appointment>();
+            starts = new List<DateTime>();
+            locations = locationService.GetAllAsStrings();
+            states = locationService.GetStates();
+
+            if(language == default)
+            {
+                ComboBoxCities.IsEnabled = false;
+                ComboBoxStates.IsEnabled = false;
+            }
+            else
+                LanguageTextBox.IsEnabled = false;
+            
+            if(locationId != -1)
+            {
+                Location = locationService.getById(locationId);
+                ComboBoxStates.SelectedValue = Location.State;
+                
+                ComboBoxCities.ItemsSource = cities;
+                ComboBoxCities.SelectedValue = Location.City;
+                City = Location.City;
+            }
+
+            SelectedLanguage = language;
+            Tour.Language = language;
         }
 
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
@@ -155,7 +200,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
                     return;
                 }
 
-                Location existingLocation = locationController.GetLocation(Location);
+                Location existingLocation = locationService.GetLocation(Location);
 
                 if (existingLocation != null)
                 {
@@ -163,16 +208,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
                 }
                 else
                 {
-                    Tour.LocationId = locationController.makeId();
-                    locationController.Save(Location);
+                    Tour.LocationId = locationService.makeId();
+                    locationService.Save(Location);
                 }
-                keyPointsController.SaveAll(keyPoints);
+                keyPointsService.SaveAll(keyPoints);
                 Tour.ImageUrls = ImageUrlsString;
                 Tour.KeyPoints.AddRange(keyPoints);
                 tourService.Save(Tour);
                 foreach (DateTime start in starts)
                 {
-                    appointments.Add(new Appointment(Tour.Id, -1, start, Tour.MaxGuests));
+                    appointments.Add(new Appointment(Tour.Id, -1, start, Tour.MaxGuests));  //here need to go guideId where is -1
                 }
                 appointmentService.SaveAll(appointments);
                 if (flag.Equals("request"))
@@ -208,7 +253,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            cities = locationController.GetCityByState(ComboBoxStates.SelectedItem.ToString());
+            cities = locationService.GetCityByState(ComboBoxStates.SelectedItem.ToString());
             ComboBoxCities.ItemsSource = cities;
         }
 

@@ -68,7 +68,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Controller
 
         public Location GetLocation(Location location)
         {
-            return GetAll().Find(l => l.City == location.City && l.State == location.State);
+            return locationRepository.GetAll().Find(l => l.City == location.City && l.State == location.State);
         }
 
         public List<string> GetCityByState(string state)

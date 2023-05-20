@@ -1,4 +1,4 @@
-﻿<Page x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide.TourRequestPage"
+﻿<Page x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide.TourRequestAcceptPage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,7 +9,7 @@
         xmlns:cvt="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Converters"
         mc:Ignorable="d" 
         d:DesignHeight="700" d:DesignWidth="400"
-        Title="TourRequestPage" Background="White">
+        Title="TourRequestAcceptPage" Background="White">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -42,7 +42,7 @@
             <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">State:</TextBlock>
             <ComboBox Grid.Row="0" Grid.Column="2" SelectedValue="{Binding Path=State}" ItemsSource="{Binding States}" VerticalAlignment="Center">
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged" >
+                    <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding LoadCitiesCommand}"/>
                     </i:EventTrigger>
                     <i:EventTrigger EventName="SelectionChanged">
@@ -73,16 +73,28 @@
                 </Slider>
             </DockPanel>
             <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Start date:</TextBlock>
-            <DatePicker Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" SelectedDate="{Binding StartDate}"/>
+            <DatePicker Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" SelectedDate="{Binding StartDate}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectedDateChanged">
+                        <i:InvokeCommandAction Command="{Binding FilterRequestsCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DatePicker>
             <TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">End date:</TextBlock>
-            <DatePicker Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" SelectedDate="{Binding EndDate}"/>
+            <DatePicker Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" SelectedDate="{Binding EndDate}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectedDateChanged">
+                        <i:InvokeCommandAction Command="{Binding FilterRequestsCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DatePicker>
         </Grid>
         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <!--<Button HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,5" Command="{Binding FilterRequestsCommand,UpdateSourceTrigger=PropertyChanged}">Search</Button>-->
             <DataGrid x:Name="TourRequestsDataGrid" Height="170" Margin="0,5,0,0" ItemsSource="{Binding Path=TourRequests, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedTourRequest}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged" >
-                        <i:InvokeCommandAction Command="{Binding EnableAcceptCommand}"/>
+                        <i:InvokeCommandAction Command="{Binding EnableDateCommand}"/>
                     </i:EventTrigger>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding ChangeDateCommand}"/>
@@ -110,7 +122,7 @@
                 <ColumnDefinition Width="4*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Select date:</TextBlock>
-            <DatePicker Grid.Row="0" Grid.Column="2" DisplayDateStart="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}" DisplayDateEnd="{Binding EndDate,UpdateSourceTrigger=PropertyChanged}" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <DatePicker Grid.Row="0" Grid.Column="2" DisplayDateStart="{Binding DisplayStartDate, UpdateSourceTrigger=PropertyChanged}" DisplayDateEnd="{Binding DisplayEndDate,UpdateSourceTrigger=PropertyChanged}" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding EnabledDate, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedDateChanged" >
                         <i:InvokeCommandAction Command="{Binding EnableAcceptCommand}"/>
