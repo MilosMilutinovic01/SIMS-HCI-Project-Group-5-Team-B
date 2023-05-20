@@ -21,6 +21,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Notifications;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.View;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -29,37 +30,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class OwnerGuestWindow : Window
     {
-        private AccommodationService accommodationService;
-        private LocationController locationController;
-        private ReservationService reservationService;
-        private OwnerService ownerService;
-        private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
-        private SuperOwnerService superOwnerService;
-        private OwnerGuestService ownerGuestService;
-        private OwnerGuest activeOwnerGuest;
-        private ReservationChangeRequestService reservationChangeRequestService;
-        private SuperOwnerGuestTitleService superOwnerGuestTitleService;
+
         private string username;
+        private OwnerGuestWindowViewModel ownerGuestWindowViewModel;
         
 
         public OwnerGuestWindow(string username)
         {
-            InitializeComponent();
+            InitializeComponent();       
             this.username = username;
-            locationController = new LocationController();
-            ownerService = new OwnerService();
-            accommodationService = new AccommodationService(locationController, ownerService);
-            reservationService = new ReservationService();
-            ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(reservationService);
-            superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, accommodationService);
-            ownerGuestService = new OwnerGuestService();
-            reservationChangeRequestService = new ReservationChangeRequestService();
-            superOwnerGuestTitleService = new SuperOwnerGuestTitleService();
-            activeOwnerGuest =  ownerGuestService.GetByUsername(username);
-
-            
-            //check for updates for superOwnerGuestTitle
-            superOwnerGuestTitleService.BecomeSuperOwnerGuest();
+            ownerGuestWindowViewModel = new OwnerGuestWindowViewModel(username,frame);
             this.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Del(ShowNotification));
         }
 
@@ -68,19 +48,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void ShowAccomodation_Button_Click(object sender, RoutedEventArgs e)
         {
 
-            frame.Content= new AccommodationsPage(activeOwnerGuest.Id);
+            ownerGuestWindowViewModel.ShowAccommodation();
         }
 
         private void Reservations_Button_Click(object sender, RoutedEventArgs e)
         {
             
-            frame.Content = new ReservationsPage(reservationService, ownerAccommodationGradeService, superOwnerService, ownerService, activeOwnerGuest.Id, reservationChangeRequestService);
+            ownerGuestWindowViewModel.ShowReservations();
         }
 
         private void Notifications_Button_Click(object sender, RoutedEventArgs e)
         {
-            frame.Content = new NotificationsPage(activeOwnerGuest.Id);
-            //notificationsWindow.Show();
+           ownerGuestWindowViewModel.ShowNotifications();
+            
         }
 
         private void ShowNotification()
@@ -96,8 +76,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void Grades_Button_Click(object sender, RoutedEventArgs e)
         {
-            frame.Content = new GradesPage(activeOwnerGuest.Id);
-           // gradesWindow.Show();
+            ownerGuestWindowViewModel.ShowGrades();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
