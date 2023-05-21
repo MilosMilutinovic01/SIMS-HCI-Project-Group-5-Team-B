@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces
 {
-    public interface ICommentInterface
+    public interface ICommentService
     {
         public void Save(Comment newComment);
         public List<Comment> GetAll();
