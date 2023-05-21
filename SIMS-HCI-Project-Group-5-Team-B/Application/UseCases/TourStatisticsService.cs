@@ -19,7 +19,5 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             tourAttendanceRepository = new Repository<TourAttendance>();
             this.appointmentService = appointmentService;
         }
-
-
     }
 }
