@@ -30,6 +30,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.Injector
         { typeof(IAppointmentRepository), new AppointmentCSVRepository() },
         { typeof(ITourRequestRepository), new TourRequestCSVRepository() },
         { typeof(INotificationRepository), new NotificationCSVRepository() },
+        { typeof(ICommentRepository), new CommentCSVRepository() },
+        { typeof(IForumRepository), new ForumCSVRepository() },
         // Add more implementations here
     };
         public static void LoadData()
