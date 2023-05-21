@@ -19,6 +19,7 @@ using System.IO;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 
 namespace SIMS_HCI_Project_Group_5_Team_B
 {
@@ -37,7 +38,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B
         {
             InitializeComponent();
             this.DataContext = this;
-            ComboBoxType.SelectedIndex = 0;
 
             userController = new UserController();
             //keyPointsService = new KeyPointsController();
@@ -63,13 +63,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B
             
             user = userController.LogIn(Username, Password);
 
-            if(ComboBoxType.SelectedIndex == 0)//Guide is selected
+            if(user.Type == USERTYPE.Guide)//Guide is selected
             {
                 Guide guide = new Guide("Milos", "Milutinovic");
                 GuideWindow guideWindow = new GuideWindow(guide);
                 guideWindow.Show();
 
-            } else if(ComboBoxType.SelectedIndex == 1)//Guide_Guest is selected
+            } else if(user.Type == USERTYPE.GuideGuest)//Guide_Guest is selected
             {
                 MainGuideGuestWindow mainGuideGuestWindow = new MainGuideGuestWindow();
                 mainGuideGuestWindow.Show();
@@ -78,7 +78,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
                 //tourWindow.Show();
 
             }
-            else if(ComboBoxType.SelectedIndex == 2)//Owner is selected
+            else if(user.Type == USERTYPE.Owner)//Owner is selected
             {
 
                 //Pozovi funkciju koju hoces za VLASNIKA
@@ -87,10 +87,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B
 
 
             }
-            else if(ComboBoxType.SelectedIndex == 3)//Owner_Guest is selected
+            else if(user.Type == USERTYPE.OwnerGuest)//Owner_Guest is selected
             {
 
                 //Pozovi funkciju koju hoces za GOSTA 1
+               // OwnerGuestService ownerGuestService = new OwnerGuestService();
+                //OwnerGuestService.LoggedInOwnerGuest = ownerGuestService.GetByUsername(Username);
                OwnerGuestWindow ownerGuestWindow = new OwnerGuestWindow(Username);
                 ownerGuestWindow.Show();
             }

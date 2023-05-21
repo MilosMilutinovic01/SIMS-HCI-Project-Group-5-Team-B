@@ -1,4 +1,5 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
+using SIMS_HCI_Project_Group_5_Team_B.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Notifications
         public void Delete(Notification notification)
         {
             notificationRepository.Delete(notification);
+        }
+
+        public List<GuideGuestNotificationDTO> GetForGuideGuest(int recieverId)
+        {
+            List<GuideGuestNotificationDTO> Notifications = new List<GuideGuestNotificationDTO>();
+            foreach(var notification in GetFor(recieverId))
+            {
+                Notifications.Add(new GuideGuestNotificationDTO(notification, notification.Message.ToLower().Contains("join") ? NotificationType.TOUR_ATTENDANCE_ACCEPTION : NotificationType.NEW_TOUR));
+            }
+            return Notifications;
         }
     }
 }

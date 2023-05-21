@@ -15,16 +15,6 @@
 
     </Page.DataContext>
 
-    <!--<Style TargetType="{x:Type forms:RegularTourRequestForm}">
-        <Setter Property="Visibility">
-            <Setter.Value>
-                <ControlTemplate>
-                    <
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>-->
-    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
@@ -106,7 +96,8 @@
                         <Button x:Name="AddNewRegularTourRequestButton" Content="Add new" Command="{Binding AddNewRegularTourRequestCommand}"/>
                     </WrapPanel>
 
-                    <DataGrid Grid.Row="1" ItemsSource="{Binding TourRequests}" SelectedItem="{Binding SelectedTourRequest, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGrid Grid.Row="1" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                              ItemsSource="{Binding TourRequests}" SelectedItem="{Binding SelectedTourRequest, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
 
                 <!-- Special tour requests -->
