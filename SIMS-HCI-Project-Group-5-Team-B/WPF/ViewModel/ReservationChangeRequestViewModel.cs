@@ -37,7 +37,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.selectedReservationView = selectedReservationView;
             NewReservationRequest = new ReservationChangeRequest(selectedReservationView.Reservation);
             this.ReservaitionChangeRequests = ReservaitionChangeRequests;
-            this.renovationService = Injector.CreateInstance<IRenovationService>();
+            this.renovationService = ServiceInjector.CreateInstance<IRenovationService>();
 
             SetHeader();
             this.window = window;

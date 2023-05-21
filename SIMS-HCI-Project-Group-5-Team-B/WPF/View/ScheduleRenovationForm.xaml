@@ -54,7 +54,7 @@
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
         </xctk:IntegerUpDown>
         <Button Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="25" Width="60" Margin="390,0,0,0" Content="{ns:Loc Search}" Command="{Binding SearchAvailableDatesCommand}" Style="{DynamicResource ButtonInWindowStyle}" ></Button>
-        <DataGrid Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Height="70" Margin="52,0,40,0" ItemsSource="{Binding Path=RenovationRecommendations, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Height="70" Margin="52,0,40,0" ItemsSource="{Binding Path=RenovationProposalDates, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedDate, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" 
                       AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>

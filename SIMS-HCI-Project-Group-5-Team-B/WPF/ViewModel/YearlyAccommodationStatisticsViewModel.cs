@@ -61,7 +61,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             accommodationId = accommodationService.GetIdByName(SelectedAccommodationName, owner);
             YearlyStatistics.Clear();
-            foreach (YearlyAccommodationStatistics yearlyAccommodationStatistics in yearlyAccommodationStatisticsService.GetYearlyAccommodationStatistics(accommodationId))
+            foreach (YearlyAccommodationStatistics yearlyAccommodationStatistics in yearlyAccommodationStatisticsService.GetYearlyStatistics(accommodationId))
             {
                 YearlyStatistics.Add(yearlyAccommodationStatistics);
             }

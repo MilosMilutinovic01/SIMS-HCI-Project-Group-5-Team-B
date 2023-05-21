@@ -27,39 +27,35 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public List<MonthlyAccommodationStatistics> GetMonthlyStatistics(int accommodationId, int year)
         {
-            List<Reservation> reservations = reservationRepository.GetAll();
-            List<RenovationRequest> renovationRequests = renovationRequestRepository.GetAll();
-            List<ReservationChangeRequest> reservationChangeRequests = reservationChangeRequestRepository.GetAll();
-
-            List<Reservation> undeletedReservations = reservations.Where(r => r.Accommodation.Id == accommodationId && r.IsDeleted == false && (r.StartDate.Year == year || r.EndDate.Year == year)).ToList();
-            List<Reservation> deletedReservations = reservations.Where(r => r.Accommodation.Id == accommodationId && r.IsDeleted == true && r.StartDate.Year == year).ToList();
-            renovationRequests = renovationRequests.Where(r => r.Reservation.AccommodationId == accommodationId && r.Reservation.StartDate.Year == year).ToList();
-            reservationChangeRequests = reservationChangeRequests.Where(r => r.Reservation.Accommodation.Id == accommodationId && r.RequestStatus == REQUESTSTATUS.Confirmed && r.Start.Year == year).ToList(); //&& r.Reservation.StartDate.Year == year
+            List<Reservation> undeletedReservations = reservationRepository.GetAll().Where(r => r.Accommodation.Id == accommodationId && r.IsDeleted == false && (r.StartDate.Year == year || r.EndDate.Year == year)).ToList();
+            List<Reservation> deletedReservations = reservationRepository.GetAll().Where(r => r.Accommodation.Id == accommodationId && r.IsDeleted == true && r.StartDate.Year == year).ToList();
+            List<RenovationRequest> renovationRequests = renovationRequestRepository.GetAll().Where(r => r.Reservation.AccommodationId == accommodationId && r.Reservation.StartDate.Year == year).ToList();
+            List<ReservationChangeRequest> reservationChangeRequests = reservationChangeRequestRepository.GetAll().Where(r => r.Reservation.Accommodation.Id == accommodationId && r.RequestStatus == REQUESTSTATUS.Confirmed && r.Start.Year == year).ToList(); //&& r.Reservation.StartDate.Year == year
 
             List<MonthlyAccommodationStatistics> monthlyAccommodationsStatistics = new List<MonthlyAccommodationStatistics>();
             for (int month = 1; month <= 12; month++)
             {
-                MonthlyAccommodationStatistics monthlyAccommodationStatistics = new MonthlyAccommodationStatistics();
-                monthlyAccommodationStatistics.Year = year;
-
-                monthlyAccommodationStatistics.Month = month;
-
-                monthlyAccommodationStatistics.NumberReservations = undeletedReservations.Count(r => r.StartDate.Month == month);
-
-                monthlyAccommodationStatistics.NumberOfCancelledReservations = deletedReservations.Count(r => r.StartDate.Month == month);
-
-                monthlyAccommodationStatistics.NumberOfChangedReservationDates = reservationChangeRequests.Count(r => r.Start.Month == month);
-
-                monthlyAccommodationStatistics.NumberRenovationRequests = renovationRequests.Count(r => r.Reservation.StartDate.Month == month);
-
-                monthlyAccommodationsStatistics.Add(monthlyAccommodationStatistics);
-                DateTime firstDay = new DateTime(year, month, 1);
-                DateTime lastDay = new DateTime(year, month, DateTime.DaysInMonth(year, month));
-                monthlyAccommodationStatistics.Busyness = GetNumberOfReservedDaysInMonth(undeletedReservations, year, month) / ((lastDay - firstDay).TotalDays + 1);
-                monthlyAccommodationStatistics.IsBusiest = false;
+                monthlyAccommodationsStatistics.Add(GetMonthlyAccommodationStatistics(undeletedReservations,deletedReservations,reservationChangeRequests,renovationRequests,year,month));
             }
 
             return monthlyAccommodationsStatistics;
+        }
+
+        public MonthlyAccommodationStatistics GetMonthlyAccommodationStatistics(List<Reservation> undeletedReservations, List<Reservation> deletedReservations, List<ReservationChangeRequest> reservationChangeRequests, List<RenovationRequest> renovationRequests,int year, int month)
+        {
+            MonthlyAccommodationStatistics monthlyAccommodationStatistics = new MonthlyAccommodationStatistics();
+            monthlyAccommodationStatistics.Year = year;
+            monthlyAccommodationStatistics.Month = month;
+            monthlyAccommodationStatistics.NumberOfReservations = undeletedReservations.Count(r => r.StartDate.Month == month && r.StartDate.Year == year);
+            monthlyAccommodationStatistics.NumberOfCancelledReservations = deletedReservations.Count(r => r.StartDate.Month == month && r.StartDate.Year == year);
+            monthlyAccommodationStatistics.NumberOfChangedReservationDates = reservationChangeRequests.Count(r => r.Start.Month == month && r.Start.Year == year);
+            monthlyAccommodationStatistics.NumberOfRenovationRequests = renovationRequests.Count(r => r.Reservation.StartDate.Month == month && r.Reservation.StartDate.Year == year);
+            DateTime firstDay = new DateTime(year, month, 1);
+            DateTime lastDay = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+            monthlyAccommodationStatistics.Busyness = GetNumberOfReservedDaysInMonth(undeletedReservations, year, month) / ((lastDay - firstDay).TotalDays + 1);
+            monthlyAccommodationStatistics.IsBusiest = false;
+
+            return monthlyAccommodationStatistics;
         }
 
 
