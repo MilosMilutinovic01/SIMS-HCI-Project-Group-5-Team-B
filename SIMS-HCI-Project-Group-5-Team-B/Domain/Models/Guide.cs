@@ -49,15 +49,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
-        private double gradeAverage;
-        public double GradeAverage
+        private double averageGrade;
+        public double AverageGrade
         {
-            get { return gradeAverage; }
+            get { return averageGrade; }
             set
             {
-                if (value != gradeAverage)
+                if (value != averageGrade)
                 {
-                    gradeAverage = value;
+                    averageGrade = value;
                 }
             }
         }
@@ -80,7 +80,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             Name = values[1];
             Surname = values[2];
             IsSuperGuide = Convert.ToBoolean(values[3]);
-            GradeAverage = Convert.ToDouble(values[4]);
+            AverageGrade = Convert.ToDouble(values[4]);
         }
 
         public string[] ToCSV()
@@ -91,7 +91,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 Name,
                 Surname,
                 IsSuperGuide.ToString(),
-                GradeAverage.ToString()
+                AverageGrade.ToString()
             };
             return csvValues;
         }

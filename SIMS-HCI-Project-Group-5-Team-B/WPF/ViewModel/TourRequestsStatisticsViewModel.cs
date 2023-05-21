@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.DTO;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide;
 using System;
@@ -8,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
@@ -116,12 +118,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             if(Type.Equals("Language"))
             {
                 Language = tourRequestsStatisticsService.GetMostUsedLanguage();
+                if(Language == null)
+                {
+                    MessageBox.Show("There is no tours last year!");
+                    return;
+                }
                 Page createTour = new CreateTourPage(Language, -1);
                 this.frame.NavigationService.Navigate(createTour);
             }
             else
             {
                 Location = locationService.getById(tourRequestsStatisticsService.GetMostUsedLocationId());
+                if(Location == null)
+                {
+                    MessageBox.Show("There is no tours last year!");
+                    return;
+                }
                 Page createTour = new CreateTourPage(null, Location.Id);
                 this.frame.NavigationService.Navigate(createTour);
             }

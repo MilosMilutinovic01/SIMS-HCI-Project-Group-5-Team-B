@@ -1,5 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
-using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
+using SIMS_HCI_Project_Group_5_Team_B.DTO;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
