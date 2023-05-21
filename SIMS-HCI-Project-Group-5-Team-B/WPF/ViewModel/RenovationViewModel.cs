@@ -16,8 +16,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public ObservableCollection<Renovation> PastRenovations { get; set; }
         public RenovationGridView SelectedRenovationGridView { get; set; }
         public Renovation NewRenovation { get; set; }
-        public ObservableCollection<RenovationRecommendation> RenovationRecommendations { get; set; }
-        public RenovationRecommendation SelectedDate { get; set; }
+        public ObservableCollection<RenovationProposalDates> RenovationProposalDates { get; set; }
+        public RenovationProposalDates SelectedDate { get; set; }
         public string SelectedAccommodationName { get; set; }
         public List<string> AccommodationNames { get; set; }
         private IRenovationService renovationService;
@@ -39,8 +39,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.Owner = owner;
             AccommodationNames = new List<string>();
             NewRenovation = new Renovation();
-            RenovationRecommendations = new ObservableCollection<RenovationRecommendation>();
-            SelectedDate = new RenovationRecommendation(DateTime.MinValue, DateTime.MinValue);
+            RenovationProposalDates = new ObservableCollection<RenovationProposalDates>();
+            SelectedDate = new RenovationProposalDates(DateTime.MinValue, DateTime.MinValue);
             NewRenovation.StartDate = DateTime.Today;
             NewRenovation.EndDate = DateTime.Today;
             FutureRenovations = new ObservableCollection<RenovationGridView>(renovationService.GetFutureRenovationsView(owner.Id));
@@ -170,13 +170,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             {
                 NewRenovation.AccommodationId = accommodationService.GetIdByName(SelectedAccommodationName, Owner);
                 NewRenovation.Accommodation = accommodationService.GetById(NewRenovation.AccommodationId);
-                RenovationRecommendations.Clear();
-                List<RenovationRecommendation> list = reservationService.GetRenovationRecommendationsInTimeSpan(NewRenovation.Accommodation, NewRenovation.StartDate, NewRenovation.EndDate, NewRenovation.RenovationDays);
+                RenovationProposalDates.Clear();
+                List<RenovationProposalDates> list = reservationService.GetRenovationProposalDatesInTimeSpan(NewRenovation.Accommodation, NewRenovation.StartDate, NewRenovation.EndDate, NewRenovation.RenovationDays);
                 if (list != null)
                 {
-                    foreach (RenovationRecommendation item in list)
+                    foreach (RenovationProposalDates item in list)
                     {
-                        RenovationRecommendations.Add(item);
+                        RenovationProposalDates.Add(item);
                     }
                 }
             }

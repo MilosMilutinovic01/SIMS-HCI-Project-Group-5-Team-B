@@ -11,7 +11,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 {
     public enum TourRequestStatuses { WAITING, EXPIRED, ACCEPTED }
 
-
     public class TourRequest : INotifyPropertyChanged, IDataErrorInfo
     {
         public int Id { get; set; }
@@ -121,6 +120,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 if (dateRangeEnd != value)
                 {
                     dateRangeEnd = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private DateTime selectedDate;
+        public DateTime SelectedDate
+        {
+            get => selectedDate;
+            set
+            {
+                if (selectedDate != value)
+                {
+                    selectedDate = value;
                     OnPropertyChanged();
                 }
             }

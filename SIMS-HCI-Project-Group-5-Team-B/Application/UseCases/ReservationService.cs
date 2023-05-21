@@ -247,9 +247,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         }
 
 
-        public List<RenovationRecommendation> GetRenovationRecommendationsInTimeSpan(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int renovationDays)
+        public List<RenovationProposalDates> GetRenovationProposalDatesInTimeSpan(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int renovationDays)
         {
-            List<RenovationRecommendation> renovationRecommendations = new List<RenovationRecommendation>();
+            List<RenovationProposalDates> renovationProposalDates = new List<RenovationProposalDates>();
             DateTime start = startDate;
             DateTime end = startDate;
             while (start.AddDays(renovationDays - 1) <= endDate)
@@ -257,12 +257,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
                 end = start.AddDays(renovationDays - 1);
                 if (IsAccomodationAvailable(selectedAccommodation, start, end) && renovationService.IsAccomodationNotInRenovation(selectedAccommodation,start,end))
                 {
-                    renovationRecommendations.Add(new RenovationRecommendation(start, end));
+                    renovationProposalDates.Add(new RenovationProposalDates(start, end));
                 }
                 start = start.AddDays(1);
             }
 
-            return renovationRecommendations;
+            return renovationProposalDates;
         }
 
 

@@ -95,7 +95,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             List<Renovation> pastRenovations = new List<Renovation>();
             foreach (Renovation renovation in GetUndeleted())
             {
-                if (renovation.Accommodation.OwnerId == ownerId && renovation.StartDate < DateTime.Today)
+                //proslo rednoviranje je renoviranje koje se skorz zavrsilo
+                if (renovation.Accommodation.OwnerId == ownerId && renovation.EndDate < DateTime.Today)
                 {
                     pastRenovations.Add(renovation);
                 }
@@ -109,7 +110,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             List<RenovationGridView> renovationGridViews = new List<RenovationGridView>();
             foreach (Renovation renovation in GetUndeleted())
             {
-                if (renovation.Accommodation.OwnerId == ownerId && renovation.StartDate >= DateTime.Today)
+                //renoviranje je mozda zapoceto ali se nije zavrsilo pa ga svrstavamo u buduca(trenutna) renoviranja
+                if (renovation.Accommodation.OwnerId == ownerId && renovation.EndDate >= DateTime.Today)
                 {
                     bool isCancelable = true;
                     if (!IsRenovationDeletable(renovation))

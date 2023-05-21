@@ -84,6 +84,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             newTourRequest.MaxGuests = int.Parse(values[5]);
             newTourRequest.DateRangeStart = Convert.ToDateTime(values[6], CultureInfo.GetCultureInfo("en-US"));
             newTourRequest.DateRangeEnd = Convert.ToDateTime(values[7], CultureInfo.GetCultureInfo("en-US"));
+            newTourRequest.SelectedDate = Convert.ToDateTime(values[9], CultureInfo.GetCultureInfo("en-US"));
             if (values[8].ToUpper() == "ACCEPTED")
             {
                 newTourRequest.Status = TourRequestStatuses.ACCEPTED;
@@ -96,7 +97,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             {
                 newTourRequest.Status = TourRequestStatuses.EXPIRED;
             }
-
+            newTourRequest.SelectedDate = Convert.ToDateTime(values[9], CultureInfo.GetCultureInfo("en-US"));
             return newTourRequest;
         }
 
@@ -113,6 +114,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
                 obj.DateRangeStart.ToString(CultureInfo.GetCultureInfo("en-US")),
                 obj.DateRangeEnd.ToString(CultureInfo.GetCultureInfo("en-US")),
                 obj.Status.ToString(),
+                obj.SelectedDate.ToString(CultureInfo.GetCultureInfo("en-US")),
             };
             return csvValues;
         }
