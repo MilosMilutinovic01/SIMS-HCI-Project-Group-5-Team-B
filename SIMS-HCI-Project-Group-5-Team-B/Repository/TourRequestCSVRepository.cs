@@ -85,6 +85,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             newTourRequest.DateRangeStart = Convert.ToDateTime(values[6], CultureInfo.GetCultureInfo("en-US"));
             newTourRequest.DateRangeEnd = Convert.ToDateTime(values[7], CultureInfo.GetCultureInfo("en-US"));
             newTourRequest.Status = values[8];
+            newTourRequest.SelectedDate = Convert.ToDateTime(values[9], CultureInfo.GetCultureInfo("en-US"));
 
             return newTourRequest;
         }
@@ -102,6 +103,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
                 obj.DateRangeStart.ToString(CultureInfo.GetCultureInfo("en-US")),
                 obj.DateRangeEnd.ToString(CultureInfo.GetCultureInfo("en-US")),
                 obj.Status,
+                obj.SelectedDate.ToString(CultureInfo.GetCultureInfo("en-US")),
             };
             return csvValues;
         }

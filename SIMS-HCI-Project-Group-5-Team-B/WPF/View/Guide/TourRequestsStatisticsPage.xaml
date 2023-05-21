@@ -1,0 +1,95 @@
+﻿<Page x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide.TourRequestsStatisticsPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide"
+        xmlns:cvt="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Converters"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        mc:Ignorable="d" 
+        d:DesignHeight="700" d:DesignWidth="400"
+        Title="TourRequestsStatisticsPage" Background="White">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">State:</TextBlock>
+            <ComboBox Grid.Row="0" Grid.Column="2" SelectedValue="{Binding Path=State}" ItemsSource="{Binding States}" VerticalAlignment="Center">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged" >
+                        <i:InvokeCommandAction Command="{Binding RefreshStatisticsCommand}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="SelectionChanged" >
+                        <i:InvokeCommandAction Command="{Binding LoadCitiesCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">City:</TextBlock>
+            <ComboBox Grid.Row="1" Grid.Column="2" Text="{Binding Path=City}" ItemsSource="{Binding Cities}" VerticalAlignment="Center">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged" >
+                        <i:InvokeCommandAction Command="{Binding RefreshStatisticsCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Language:</TextBlock>
+            <ComboBox Grid.Row="2" Grid.Column="2" SelectedValue="{Binding Language}" ItemsSource="{Binding Languages}" VerticalAlignment="Center">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged" >
+                        <i:InvokeCommandAction Command="{Binding RefreshStatisticsCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>  
+            </ComboBox>
+            <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Dsiplay by:</TextBlock>
+            <ComboBox Grid.Row="3" Grid.Column="2" SelectedValue="{Binding DisplayType}" ItemsSource="{Binding DisplayTypes}" VerticalAlignment="Center">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged" >
+                        <i:InvokeCommandAction Command="{Binding ChangeVisibilityCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+        </Grid>
+        <DataGrid Grid.Row="2" Grid.RowSpan="2" Visibility="{Binding YearDataGridVisibility, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="2" Height="170" ItemsSource="{Binding Path=RequestsByYears}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Number of requests" Width="*" Binding="{Binding NumberOfRequests}" />
+                <DataGridTextColumn Header="Year" Width="*" Binding="{Binding Year}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Grid.Row="2" Grid.RowSpan="2" Visibility="{Binding MonthDataGridVisibility, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="2" Height="170" ItemsSource="{Binding Path=RequestsByMonths}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Number of requests" Width="*" Binding="{Binding NumberOfRequests}" />
+                <DataGridTextColumn Header="Month" Width="*" Binding="{Binding Month}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center">Create tour by:</TextBlock>
+            <ComboBox VerticalAlignment="Center" Width="150" SelectedValue="{Binding Type}" ItemsSource="{Binding TypesForCreating}"/>
+        </StackPanel>
+        <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding CreateByStatisticsCommand}">Create</Button>
+    </Grid>
+</Page>
