@@ -49,10 +49,10 @@
                         </DataGridTemplateColumn>
                         <DataGridTextColumn Header="{ns:Loc Busyness}" Width="*"  Binding="{Binding Busyness}"></DataGridTextColumn>
                         <DataGridTextColumn Header="{ns:Loc Year}" Width="*"  Binding="{Binding Year}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="{ns:Loc NumberOfReservations}"  Width="3*" Binding="{Binding NumberReservations}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{ns:Loc NumberOfReservations}"  Width="3*" Binding="{Binding NumberOfReservations}"></DataGridTextColumn>
                         <DataGridTextColumn Header="{ns:Loc Cancelled}"  Width="*" Binding="{Binding NumberOfCancelledReservations}"></DataGridTextColumn>
                         <DataGridTextColumn Header="{ns:Loc Rescheduled}" Width="*" Binding="{Binding NumberOfChangedReservationDates}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="{ns:Loc ForRenovation}"  Width="1.5*" Binding="{Binding NumberRenovationRequests}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{ns:Loc ForRenovation}"  Width="1.5*" Binding="{Binding NumberOfRenovationRequests}"></DataGridTextColumn>
                         <DataGridTemplateColumn x:Name="ButtonMonthlyStatistics" Header="{ns:Loc MonthlyDetails}" Width="1.5*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

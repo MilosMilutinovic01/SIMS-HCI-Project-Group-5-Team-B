@@ -45,15 +45,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
 
         public List<Renovation> GetRenovationForAccommodation(int accommodationId)
         {
-            List<Renovation> renovations = new List<Renovation>();
+            List<Renovation> accommodationRenovations = new List<Renovation>();
             foreach (Renovation renovation in GetUndeleted())
             {
                 if (renovation.AccommodationId == accommodationId)
                 {
-                    renovations.Add(renovation);
+                    accommodationRenovations.Add(renovation);
                 }
             }
-            return renovations;
+            return accommodationRenovations;
         }
 
         public List<Renovation> GetUndeleted()

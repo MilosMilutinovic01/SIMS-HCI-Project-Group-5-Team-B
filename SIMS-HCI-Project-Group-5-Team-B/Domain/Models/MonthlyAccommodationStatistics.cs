@@ -41,7 +41,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 
         private int numberOfReservations;
 
-        public int NumberReservations
+        public int NumberOfReservations
         {
             get { return numberOfReservations; }
             set
@@ -50,7 +50,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 {
                     numberOfReservations = value;
                     OnPropertyChanged();
-                    NotifyPropertyChanged(nameof(NumberReservations));
+                    NotifyPropertyChanged(nameof(NumberOfReservations));
                 }
             }
         }
@@ -88,7 +88,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         }
 
         private int numberOfRenovationRequests;
-        public int NumberRenovationRequests
+        public int NumberOfRenovationRequests
         {
             get { return numberOfRenovationRequests; }
             set
@@ -97,7 +97,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 {
                     numberOfRenovationRequests = value;
                     OnPropertyChanged();
-                    NotifyPropertyChanged(nameof(NumberRenovationRequests));
+                    NotifyPropertyChanged(nameof(NumberOfRenovationRequests));
                 }
             }
         }
@@ -141,9 +141,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
-
-
-
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
