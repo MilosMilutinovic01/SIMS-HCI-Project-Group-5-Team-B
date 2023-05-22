@@ -243,7 +243,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             States = locationService.GetStates();
             Cities = new ObservableCollection<string>();
             Languages = tourRequestService.GetLanguagesFromRequests();
-            foreach (var item in tourRequestService.GetAll())
+            foreach (var item in tourRequestService.GetAllWaiting())
             {
                 TourRequests.Add(item);
             }
