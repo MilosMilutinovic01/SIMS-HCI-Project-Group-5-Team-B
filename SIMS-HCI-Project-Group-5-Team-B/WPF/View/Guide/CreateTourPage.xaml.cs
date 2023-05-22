@@ -36,6 +36,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         //    this.DataContext = createTourViewModel;
         //}
         private TourController tourService;
+        private LocationService locationService1;
         private LocationController locationService;
         private KeyPointsController keyPointsService;
         private AppointmentService appointmentService;
@@ -124,7 +125,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             City = tourRequest.Location.City;
             SelectedLanguage = tourRequest.Language;
             Tour.Language = tourRequest.Language;
+            StartsListBox.Items.Add(DateTime.ToString());
             DateTime = tourRequest.SelectedDate;
+            starts.Clear();
+            starts.Add(DateTime);
             StartDatePicker.Value = tourRequest.SelectedDate;
             MaxGuests = tourRequest.MaxGuests;
             Tour.MaxGuests = tourRequest.MaxGuests;
@@ -132,7 +136,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             this.TourRequest = tourRequest;
             this.Description = tourRequest.Description;
             Tour.Description = tourRequest.Description;
-            appointments.Add(new Appointment(Tour.Id, -1, TourRequest.SelectedDate, Tour.MaxGuests));
+            //appointments.Add(new Appointment(Tour.Id, 8, tourRequest.SelectedDate, Tour.MaxGuests));
         }
 
         public CreateTourPage(string language, int locationId)
@@ -141,6 +145,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             this.DataContext = this;
 
             locationService = new LocationController();
+            locationService1 = new LocationService();
             this.tourService = new TourController(locationService);
             keyPointsService = new KeyPointsController();
             this.appointmentService = new AppointmentService();
@@ -174,9 +179,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
                 ComboBoxCities.SelectedValue = Location.City;
                 City = Location.City;
             }
-
-            SelectedLanguage = language;
+                
             Tour.Language = language;
+            Tour.Location = locationService1.getById(locationId);
+            flag = "";
         }
 
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
@@ -217,7 +223,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
                 tourService.Save(Tour);
                 foreach (DateTime start in starts)
                 {
-                    appointments.Add(new Appointment(Tour.Id, -1, start, Tour.MaxGuests));  //here need to go guideId where is -1
+                    appointments.Add(new Appointment(Tour.Id, 8, start, Tour.MaxGuests));
                 }
                 appointmentService.SaveAll(appointments);
                 if (flag.Equals("request"))

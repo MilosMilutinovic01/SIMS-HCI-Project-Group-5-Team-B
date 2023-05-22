@@ -20,7 +20,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public List<string> GetAllYears()
         {
-            List<DateTime> allDates = tourRequestRepository.GetAll().Select(r => r.SelectedDate).ToList();
+            List<DateTime> allDates = tourRequestRepository.GetAll().Select(r => r.DateRangeStart).ToList();
             List<string> years = new List<string>();
             foreach(var item in allDates) 
             {
@@ -33,11 +33,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             List<MonthStatistic> monthStatistics = new List<MonthStatistic>();
 
-            var monthGroups = tourRequestRepository.GetAll().Where(request => (request.SelectedDate.Year.ToString() == year) &&
+            var monthGroups = tourRequestRepository.GetAll().Where(request => (request.DateRangeStart.Year.ToString() == year) &&
                                                                     (request.Location.State.Equals(state) || state == default) &&
                                                                     (request.Location.City.Equals(city) || city == default) &&
                                                                     (request.Language.Equals(language) || language == default))
-                .GroupBy(request => request.SelectedDate.Month).Select(group => new { Month = group.Key, NumberOfRows = group.Count() });
+                .GroupBy(request => request.DateRangeStart.Month).Select(group => new { Month = group.Key, NumberOfRows = group.Count() });
 
             foreach (var monthGroup in monthGroups)
             {
@@ -55,7 +55,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             var yearGroups = tourRequestRepository.GetAll().Where(request => (request.Location.State.Equals(state) || state == default) &&
                                                                     (request.Location.City.Equals(city) || city == default) &&
                                                                     (request.Language.Equals(language) || language == default))
-                .GroupBy(request => request.SelectedDate.Year)
+                .GroupBy(request => request.DateRangeStart.Year)
                 .Select(group => new { Year = group.Key, NumberOfRows = group.Count() });
 
             foreach (var yearGroup in yearGroups)
