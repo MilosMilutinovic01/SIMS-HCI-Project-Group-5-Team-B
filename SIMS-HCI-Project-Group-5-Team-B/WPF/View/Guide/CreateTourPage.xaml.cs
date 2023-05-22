@@ -35,7 +35,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         //    createTourViewModel = new CreateTourViewModel();
         //    this.DataContext = createTourViewModel;
         //}
-        private TourController tourService;
+        private TourService tourService;
         private LocationService locationService1;
         private LocationController locationService;
         private KeyPointsController keyPointsService;
@@ -68,7 +68,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             this.DataContext = this;
 
             locationService = new LocationController();
-            this.tourService = new TourController(locationService);
+            this.tourService = new TourService();// new TourController(locationService);
             keyPointsService = new KeyPointsController();
             this.appointmentService = new AppointmentService();
 
@@ -90,7 +90,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             this.DataContext = this;
 
             locationService = new LocationController();
-            this.tourService = new TourController(locationService);
+            this.tourService = new TourService();// new TourController(locationService);
             keyPointsService = new KeyPointsController();
             this.appointmentService = new AppointmentService();
             this.tourRequestService = new TourRequestService();
@@ -146,7 +146,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
 
             locationService = new LocationController();
             locationService1 = new LocationService();
-            this.tourService = new TourController(locationService);
+            this.tourService = new TourService();// new TourController(locationService);
             keyPointsService = new KeyPointsController();
             this.appointmentService = new AppointmentService();
             this.tourRequestService = new TourRequestService();
@@ -228,13 +228,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
                 appointmentService.SaveAll(appointments);
                 if (flag.Equals("request"))
                     tourRequestService.AcceptRequest(TourRequest, Tour.Id);
-                if (!ComboBoxCities.IsEnabled)
+                else
                 {
-                    tourRequestService.TourCreatedFromLocatinoStatistics(Tour.Id);
-                }
-                else if(!LanguageTextBox.IsEnabled)
-                {
-                    tourRequestService.TourCreatedFromLanguageStatistics(Tour.Id);
+                    if (!ComboBoxCities.IsEnabled)
+                    {
+                        tourRequestService.TourCreatedFromLocatinoStatistics(Tour.Id);
+                    }
+                    else if(!LanguageTextBox.IsEnabled)
+                    {
+                        tourRequestService.TourCreatedFromLanguageStatistics(Tour.Id);
+                    }
                 }
                 MessageBox.Show("Tour created successfully!");
             }
