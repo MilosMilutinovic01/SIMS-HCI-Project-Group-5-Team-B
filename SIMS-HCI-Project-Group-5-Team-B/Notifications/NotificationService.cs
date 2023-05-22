@@ -36,5 +36,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Notifications
             }
             return Notifications;
         }
+
+        public void SendNewTourNotification(int guideGuestId, string message, int tourId)
+        {
+            notificationRepository.Save(new Notification(0, receiverId: guideGuestId, message, false, additionalInfo: tourId));
+        }
     }
 }

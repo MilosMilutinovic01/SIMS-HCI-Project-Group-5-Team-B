@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
+using SIMS_HCI_Project_Group_5_Team_B.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,10 +55,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return tourRequestRepository.GetAll().Select(r => r.Language).Distinct().ToList();
         }
 
-        public void AcceptRequest(TourRequest tourRequest)
+        public void AcceptRequest(TourRequest tourRequest, int tourId)
         {
-            tourRequest.Status = TourRequestStatuses.ACCEPTED.ToString();
+            tourRequest.Status = TourRequestStatuses.ACCEPTED;
+            tourRequest.AcceptedTourId = tourId;
             tourRequestRepository.Update(tourRequest);
+            NotificationService notificationService = new NotificationService();
+            notificationService.SendNewTourNotification(tourRequest.GuideGuestId, "Guide accepted your tour request", tourId);
         }
 
         public bool IsValid(TourRequest tourRequest,DateTime date)

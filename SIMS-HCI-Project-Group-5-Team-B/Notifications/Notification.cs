@@ -54,6 +54,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Notifications
             }
         }
 
+        private int additionalInfo;
+        public int AdditionalInfo
+        {
+            get { return additionalInfo; }
+            set
+            {
+                if(additionalInfo != value)
+                {
+                    additionalInfo = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private bool isRead;
         public bool IsRead
         {
@@ -73,12 +87,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Notifications
 
         }
 
-        public Notification(int id, int receiverId, string message, bool isRead)
+        public Notification(int id, int receiverId, string message, bool isRead, int additionalInfo = -1)
         {
             Id = id;
             ReceiverId = receiverId;
             Message = message;
             IsRead = isRead;
+            AdditionalInfo = additionalInfo;
         }
 
         public void FromCSV(string[] values)
@@ -87,11 +102,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Notifications
             ReceiverId = int.Parse(values[1]);
             Message = values[2];
             IsRead = Boolean.Parse(values[3]);
+            AdditionalInfo = int.Parse(values[4]);
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), ReceiverId.ToString(), Message, IsRead.ToString()};
+            string[] csvValues = { Id.ToString(), ReceiverId.ToString(), Message, IsRead.ToString(), AdditionalInfo.ToString()};
             return csvValues;
         }
 
