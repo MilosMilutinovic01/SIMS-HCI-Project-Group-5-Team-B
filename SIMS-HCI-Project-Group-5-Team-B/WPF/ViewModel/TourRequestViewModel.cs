@@ -155,7 +155,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public TourRequestService tourRequestService;
         public LocationService locationService;
+        public AppointmentService appointmentService;
+        public UserService userService;
         public Frame frame;
+        public User logged;
         #endregion
 
         #region actions
@@ -201,6 +204,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         private void Execute_AcceptCommand()
         {
+            bool isAvailable = appointmentService.IsAvailable(logged.Id, SelectedDate);
+            if (!isAvailable)
+            {
+                MessageBox.Show("You must select other date because you have tour at that time!");
+                return;
+            }
             bool result = MessageBox.Show("Are you sure you want to accept selected request?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
             if (!result)
                 return;
@@ -227,6 +236,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             locationService = new LocationService();
             tourRequestService = new TourRequestService();
+            appointmentService = new AppointmentService();
+            userService = new UserService();
             TourRequests = new ObservableCollection<TourRequest>();
             SelectedTourRequest = new TourRequest();
             States = locationService.GetStates();
@@ -251,6 +262,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
             EnabledAccept = false;
             this.frame = frame;
+            logged = userService.getLogged();
         }
         #endregion
     }

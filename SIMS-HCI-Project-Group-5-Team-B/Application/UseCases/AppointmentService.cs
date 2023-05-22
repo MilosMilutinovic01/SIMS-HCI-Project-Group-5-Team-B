@@ -109,6 +109,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             return appointmentRepository.GetAll().Where(a => (a.Start - DateTime.Now).TotalHours >= 48 && a.Cancelled == false && a.GuideId == userId).ToList();
         }
+        public bool IsAvailable(int userId, DateTime date)
+        {
+            List<Appointment> all = appointmentRepository.GetAll().FindAll(a => a.Start.Year == date.Year && a.Start.Month == date.Month && a.Start.Day == date.Day && a.GuideId == userId).ToList();
+            if(all.Count == 0) 
+                return true;
+            return false;
+        }
         public List<Appointment> GetFinishedToursByYear(int year, int userId) 
         {
             List<Appointment> appointments = new List<Appointment>();
