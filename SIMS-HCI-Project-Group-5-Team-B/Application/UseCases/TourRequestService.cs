@@ -32,6 +32,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return tourRequestRepository.GetAll();
         }
 
+        public List<TourRequest> GetAllWaiting()
+        {
+            return tourRequestRepository.GetAll().FindAll(request => request.Status == TourRequestStatuses.WAITING);
+        }
+
         public List<TourRequest> GetFor(int guideGuestId)
         {
             return tourRequestRepository.GetAll().FindAll(req => req.GuideGuestId == guideGuestId);
@@ -46,7 +51,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
                 (request.Language.Equals(language) || language == default) &&
                 (request.MaxGuests <= maxGuests ) &&
                 (request.DateRangeStart.Date >= start.Date || start == default) &&
-                (request.DateRangeEnd.Date <= end.Date || end == default));
+                (request.DateRangeEnd.Date <= end.Date || end == default) &&
+                (request.Status == TourRequestStatuses.WAITING));
         }
 
         public List<string> GetLanguagesFromRequests()
