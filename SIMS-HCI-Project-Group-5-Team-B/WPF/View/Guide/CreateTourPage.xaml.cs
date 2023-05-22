@@ -222,6 +222,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
                 appointmentService.SaveAll(appointments);
                 if (flag.Equals("request"))
                     tourRequestService.AcceptRequest(TourRequest, Tour.Id);
+                if (!ComboBoxCities.IsEnabled)
+                {
+                    tourRequestService.TourCreatedFromLocatinoStatistics(Tour.Id);
+                }
+                else if(!LanguageTextBox.IsEnabled)
+                {
+                    tourRequestService.TourCreatedFromLanguageStatistics(Tour.Id);
+                }
                 MessageBox.Show("Tour created successfully!");
             }
             catch(Exception ex)

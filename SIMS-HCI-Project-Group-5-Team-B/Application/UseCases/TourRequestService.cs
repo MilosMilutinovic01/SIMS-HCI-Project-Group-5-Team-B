@@ -61,12 +61,42 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             tourRequest.AcceptedTourId = tourId;
             tourRequestRepository.Update(tourRequest);
             NotificationService notificationService = new NotificationService();
-            notificationService.SendNewTourNotification(tourRequest.GuideGuestId, "Guide accepted your tour request", tourId);
+            notificationService.SendWithAdditionalInfo(tourRequest.GuideGuestId, "Guide accepted your tour request", tourId);
         }
 
         public bool IsValid(TourRequest tourRequest,DateTime date)
         {
             return tourRequest.DateRangeStart <= date && tourRequest.DateRangeEnd >= date;
+        }
+
+        public void TourCreatedFromLocatinoStatistics(int tourId)
+        {
+            Tour createdTour = new TourService().getById(tourId);
+
+            NotificationService notificationService = new NotificationService();
+
+            foreach(var tourRequest in tourRequestRepository.GetAll())
+            {
+                if(tourRequest.Location == createdTour.Location)
+                {
+                    notificationService.SendWithAdditionalInfo(tourRequest.GuideGuestId, "Guide created tour similar to your request", tourId);
+                }
+            }
+        }
+
+        public void TourCreatedFromLanguageStatistics(int tourId)
+        {
+            Tour createdTour = new TourService().getById(tourId);
+
+            NotificationService notificationService = new NotificationService();
+
+            foreach(var tourRequest in tourRequestRepository.GetAll())
+            {
+                if(tourRequest.Language == createdTour.Language)
+                {
+                    notificationService.SendWithAdditionalInfo(tourRequest.GuideGuestId, "Guide created tour similar to your request", tourId);
+                }
+            }
         }
     }
 }
