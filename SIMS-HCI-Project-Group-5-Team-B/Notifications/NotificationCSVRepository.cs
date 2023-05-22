@@ -68,13 +68,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Notifications
             newNotification.ReceiverId = int.Parse(values[1]);
             newNotification.Message = values[2];
             newNotification.IsRead = Boolean.Parse(values[3]);
+            newNotification.AdditionalInfo = int.Parse(values[4]);
 
             return newNotification;
         }
 
         protected override string[] ToCSV(Notification obj)
         {
-            string[] csvValues = { obj.Id.ToString(), obj.ReceiverId.ToString(), obj.Message, obj.IsRead.ToString() };
+            string[] csvValues = { obj.Id.ToString(), obj.ReceiverId.ToString(), obj.Message, obj.IsRead.ToString(), obj.AdditionalInfo.ToString() };
             return csvValues;
         }
     }

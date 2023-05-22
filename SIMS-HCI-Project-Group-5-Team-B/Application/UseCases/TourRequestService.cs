@@ -1,5 +1,6 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
+using SIMS_HCI_Project_Group_5_Team_B.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,15 +61,48 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return tourRequestRepository.GetAll().Select(r => r.Language).Distinct().ToList();
         }
 
-        public void AcceptRequest(TourRequest tourRequest)
+        public void AcceptRequest(TourRequest tourRequest, int tourId)
         {
             tourRequest.Status = TourRequestStatuses.ACCEPTED;
+            tourRequest.AcceptedTourId = tourId;
             tourRequestRepository.Update(tourRequest);
+            NotificationService notificationService = new NotificationService();
+            notificationService.SendWithAdditionalInfo(tourRequest.GuideGuestId, "Guide accepted your tour request", tourId);
         }
 
         public bool IsValid(TourRequest tourRequest,DateTime date)
         {
             return tourRequest.DateRangeStart <= date && tourRequest.DateRangeEnd >= date;
+        }
+
+        public void TourCreatedFromLocatinoStatistics(int tourId)
+        {
+            Tour createdTour = new TourService().getById(tourId);
+
+            NotificationService notificationService = new NotificationService();
+
+            foreach(var tourRequest in tourRequestRepository.GetAll())
+            {
+                if(tourRequest.Location == createdTour.Location)
+                {
+                    notificationService.SendWithAdditionalInfo(tourRequest.GuideGuestId, "Guide created tour similar to your request", tourId);
+                }
+            }
+        }
+
+        public void TourCreatedFromLanguageStatistics(int tourId)
+        {
+            Tour createdTour = new TourService().getById(tourId);
+
+            NotificationService notificationService = new NotificationService();
+
+            foreach(var tourRequest in tourRequestRepository.GetAll())
+            {
+                if(tourRequest.Language == createdTour.Language)
+                {
+                    notificationService.SendWithAdditionalInfo(tourRequest.GuideGuestId, "Guide created tour similar to your request", tourId);
+                }
+            }
         }
     }
 }
