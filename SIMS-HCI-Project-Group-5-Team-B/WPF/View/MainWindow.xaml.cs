@@ -62,6 +62,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
             }
             
             user = userController.LogIn(Username, Password);
+            (new UserService()).LogIn(Username, Password);
 
             if(user.Type == USERTYPE.Guide)//Guide is selected
             {

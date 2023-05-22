@@ -61,7 +61,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             }
         }
         //call when initializing? and when creating reservations
-        public void BecomeSuperOwnerGuest()
+        public void CheckForNewTitles()
         {
             //function to give superOwnerGuestTitle when needed
             foreach(OwnerGuest ownerGuest in ownerGuestRepository.GetAll())
@@ -92,11 +92,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         public void UpdatePoints(int ownerGuestId)
         {
                 //if our guest is superGuest, Apply discount when reserving
-                SuperOwnerGuestTitle superOwnerGuestTitle = superOwnerGuestTitleRepository.GetActiveByOwnerGuestId(ownerGuestId);
-                if(superOwnerGuestTitle != null)
+                SuperOwnerGuestTitle activeOwnerGuestTitle = superOwnerGuestTitleRepository.GetActiveByOwnerGuestId(ownerGuestId);
+                if(activeOwnerGuestTitle != null)
                 {
-                    superOwnerGuestTitle.AvailablePoints = DecreasePoints(superOwnerGuestTitle.AvailablePoints);
-                    superOwnerGuestTitleRepository.Update(superOwnerGuestTitle);
+                    activeOwnerGuestTitle.AvailablePoints = DecreasePoints(activeOwnerGuestTitle.AvailablePoints);
+                    superOwnerGuestTitleRepository.Update(activeOwnerGuestTitle);
                 }
             
         }
