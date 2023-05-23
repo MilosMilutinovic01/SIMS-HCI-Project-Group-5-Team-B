@@ -40,7 +40,7 @@
 
             <MenuItem Header="Reservations F4 " Click="Reservations_Button_Click"></MenuItem>
             <MenuItem Header="Grades F5 " Click="Grades_Button_Click"></MenuItem>
-            <MenuItem Header="Forum F6 " ></MenuItem>
+            <MenuItem Header="Forum F6 " Click="Forums_Click"></MenuItem>
             <MenuItem Header="Notifications F7 " Click="Notifications_Button_Click"></MenuItem>
         </Menu>
         <Frame Name="frame" NavigationUIVisibility="Hidden" Grid.Row="1" Width="920"></Frame>

@@ -34,7 +34,7 @@
             <RowDefinition Height="8*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="Reservations" FontSize="25"></TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Reservations" FontSize="25" FontWeight="DemiBold"></TextBlock>
         <TextBlock Grid.Row="1" Grid.Column="1" Text="Reservation Requests" FontSize="20"></TextBlock>
         <DataGrid Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="1" x:Name="ReservationsRequestsGrid" ItemsSource="{Binding Path=ReservaitionChangeRequests, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedReservationView, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"

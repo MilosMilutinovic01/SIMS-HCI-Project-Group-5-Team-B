@@ -26,14 +26,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             Comments = new List<Comment>();        
         }
 
-        public Forum(int locationId, int ownerGuestId, Comment firstComment)
+        public Forum(int locationId, int ownerGuestId)
         {
             this.LocationId = locationId;
             this.OwnerGuestId = ownerGuestId;
-            Comments = new List<Comment>
-            {
-                firstComment
-            };
+            Comments = new List<Comment>();
             ForumStatus = FORUMSTATUS.Active;
         }
     }
