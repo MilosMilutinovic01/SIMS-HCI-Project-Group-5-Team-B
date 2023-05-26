@@ -22,6 +22,7 @@
     <None Remove="Resources\Images\LetterRImage.png" />
     <None Remove="Resources\Images\locationIcon.png" />
     <None Remove="Resources\Images\myToursIcon.png" />
+    <None Remove="Resources\Images\OwnerGuestUser.png" />
     <None Remove="Resources\Images\OwnerMedalImage.png" />
     <None Remove="Resources\Images\OwnerProfile.png" />
     <None Remove="Resources\Images\plusIcon.png" />
@@ -50,6 +51,7 @@
     <Resource Include="Resources\Images\leftArrow.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\OwnerGuestUser.png" />
     <Resource Include="Resources\Images\statisticsIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

@@ -94,8 +94,8 @@
             </WrapPanel>
         </Grid>
         <DockPanel Grid.Column="1" Grid.Row="0">
-            <WrapPanel DockPanel.Dock="Top" Height="50" VerticalAlignment="Top" FlowDirection="LeftToRight">
-                <TextBlock Text="Accommodation" Margin="10 10 0 10" FontSize="24"></TextBlock>
+            <WrapPanel DockPanel.Dock="Top" Height="50" VerticalAlignment="Top"  FlowDirection="LeftToRight">
+                <TextBlock Text="Accommodation" Margin="10 10 0 10" FontSize="24" FontWeight="DemiBold"></TextBlock>
             </WrapPanel>
             
             <DataGrid Width="auto" ItemsSource="{Binding Path=Accomodations, UpdateSourceTrigger=PropertyChanged}" Margin="10 10 20 25"
