@@ -140,35 +140,34 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         }
 
         private TourRequestStatuses status;
-        public string Status
+        public TourRequestStatuses Status
         {
-            get
-            {
-                if (status == TourRequestStatuses.WAITING) return "WAITING";
-                else if (status == TourRequestStatuses.EXPIRED) return "EXPIRED";
-                else return "ACCEPTED";
-            }
+            get => status;
             set
             {
-                if(value == "WAITING" && status != TourRequestStatuses.WAITING)
+                if(status != value)
                 {
-                    status = TourRequestStatuses.WAITING;
-                    OnPropertyChanged();
-                }
-                else if (value == "EXPIRED" && status != TourRequestStatuses.EXPIRED)
-                {
-                    status = TourRequestStatuses.EXPIRED;
-                    OnPropertyChanged();
-                }
-                else if (value == "ACCEPTED" && status != TourRequestStatuses.ACCEPTED)
-                {
-                    status = TourRequestStatuses.ACCEPTED;
+                    status = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public TourRequest(int guideGuestId, int locationId, string description, string language, int maxGuests, DateTime dateRangeStart, DateTime dateRangeEnd, string status)
+        private int acceptedTourId;
+        public int AcceptedTourId
+        {
+            get => acceptedTourId;
+            set
+            {
+                if(acceptedTourId != value)
+                {
+                    acceptedTourId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public TourRequest(int guideGuestId, int locationId, string description, string language, int maxGuests, DateTime dateRangeStart, DateTime dateRangeEnd, TourRequestStatuses status)
         {
             GuideGuestId = guideGuestId;
             LocationId = locationId;
@@ -178,6 +177,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             DateRangeStart = dateRangeStart;
             DateRangeEnd = dateRangeEnd;
             Status = status;
+            AcceptedTourId = -1;
         }
 
         public TourRequest() { }
@@ -245,11 +245,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 return true;
             }
         }
-
-
-
-
-
 
 
         public event PropertyChangedEventHandler PropertyChanged;
