@@ -103,8 +103,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         }
 
         private void Forums_Click(object sender, RoutedEventArgs e)
-        {
-           ownerGuestWindowViewModel.ShowForums();
+        {         
+            ownerGuestWindowViewModel.ShowForums();
         }
     }
 }

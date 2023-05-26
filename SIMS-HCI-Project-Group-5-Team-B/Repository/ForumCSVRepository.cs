@@ -3,6 +3,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Repository
 {
@@ -35,6 +36,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
         {
             newForum.Id = NextId();
             _data.Add(newForum);
+            WriteCSV(_data);
+        }
+        public void Update(Forum forum)
+        {
+            Forum? current = _data.Find(d => d.Id == forum.Id);
+            if (current == null)
+            {
+                Save(forum);
+                return;
+            }
+            int index = _data.IndexOf(current);
+            _data.Remove(current);
+            _data.Insert(index, forum);
             WriteCSV(_data);
         }
 

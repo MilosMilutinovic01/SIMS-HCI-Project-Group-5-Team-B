@@ -1,4 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +12,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest
 {
     /// <summary>
-    /// Interaction logic for ForumsPage.xaml
+    /// Interaction logic for ForumsWIndow.xaml
     /// </summary>
-    public partial class ForumsPage : Page
+    public partial class ForumsWIndow : Window
     {
-        public ForumsPage(int ownerGuestId)
+        public ForumsWIndow(Forum forumId, int ownerGuestId)
         {
             InitializeComponent();
-            this.DataContext = new ForumNavigationViewModel(ownerGuestId);
+            this.DataContext = new ForumsViewModel(forumId, ownerGuestId);
         }
     }
 }

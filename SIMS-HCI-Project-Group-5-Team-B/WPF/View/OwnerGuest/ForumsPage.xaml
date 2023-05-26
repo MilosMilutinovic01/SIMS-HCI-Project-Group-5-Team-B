@@ -51,8 +51,8 @@
                 </Button.Content>
             </Button>
 
-            <Label Grid.Row="1" Grid.Column="0" Content="State" Height="30" FontSize="15"></Label>
-            <Label Grid.Row="2" Grid.Column="0" Content="City" Height="30" FontSize="15"></Label>
+            <Label Grid.Row="1" Grid.Column="0" Content="State" Height="30" FontSize="15" Grid.ColumnSpan="2" Margin="0,15,205,31"></Label>
+            <Label Grid.Row="2" Grid.Column="0" Content="City" Height="30" FontSize="15" Grid.ColumnSpan="2" Margin="0,14,205,31"></Label>
 
             <ComboBox Grid.Row="1" Grid.Column="1"  x:Name="ComboBoxStates" Height="30" Text="{Binding Path=State, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" ItemsSource="{Binding States}" 
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"  Margin="0,3,0,18"></ComboBox>

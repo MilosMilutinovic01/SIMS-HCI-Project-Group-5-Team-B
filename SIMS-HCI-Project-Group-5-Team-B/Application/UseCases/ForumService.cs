@@ -64,6 +64,30 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return GetAll().Any(foru => foru.LocationId == locationId && foru.ForumStatus == FORUMSTATUS.Active);
         }
 
+        public List<Comment> GetForumsComments(int forumId)
+        {
+            return forumRepository.GetById(forumId).Comments;
+        }
+
+        public Forum GetByLocation(int locationId)
+        {
+            return GetAll().Find(forum => forum.LocationId == locationId);
+        }
+
+        public void CloseForum(int forumId, int ownerGuestId)
+        {
+
+            Forum forum = GetById(forumId);
+            if(forum.OwnerGuestId == ownerGuestId)
+            {
+                forum.ForumStatus = FORUMSTATUS.Closed;
+                forumRepository.Update(forum);
+            }
+ 
+        }
+
+        
+
         
     }
 }
