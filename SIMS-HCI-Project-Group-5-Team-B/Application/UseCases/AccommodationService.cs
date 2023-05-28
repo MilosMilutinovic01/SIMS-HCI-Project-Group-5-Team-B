@@ -168,5 +168,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return -1;
         }
 
+        public bool DoesOwnerHaveAccommodationOnLocation(Owner owner,Location location)
+        {
+            foreach(Accommodation accommodation in GetAll()) //idemo kroz smestaje ako naidjemo na prvi smestaj zeljenog vlasnika na zeljenoj lokaciji onda je true
+            {
+                if(accommodation.Owner.Id == owner.Id && accommodation.Location.State == location.State && accommodation.Location.City == location.City)
+                {
+                    return true;
+                }
+            }
+            return false;//u suprotnom false
+        }
+
     }
 }

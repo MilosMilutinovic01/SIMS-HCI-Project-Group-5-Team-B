@@ -3,6 +3,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces;
+using SIMS_HCI_Project_Group_5_Team_B.Notifications;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest;
 using System;
@@ -26,7 +27,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private LocationController locationController;
         private UserController userController;
         private OwnerGuestService ownerGuestService;
-
+        private AccommodationService accommodationService;
+        private OwnerService ownerService;
+        private NotificationController notificationController;
         public string City { get; set; }
         private string state;
 
@@ -62,7 +65,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             locationController = new LocationController();
             ownerGuestService = new OwnerGuestService();
             userController = new UserController();
-
+            ownerService = new OwnerService();
+            accommodationService = new AccommodationService(locationController,ownerService);
+            notificationController = new NotificationController();
             States = locationController.GetStates();
 
             //commands
@@ -174,12 +179,30 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 }
                 else
                 {
-                    Forum forum = new Forum(FindLocationId(), ownerGuestId);
+                    Forum forum = new Forum(FindLocationId(), ownerGuestId,false);
                     forumService.Save(forum);
                     OwnerGuest ownerGuest = ownerGuestService.GetById(ownerGuestId);
                     User user = userController.GetByUsername(ownerGuest.Username);
                     Comment comment = new Comment(user.Id, forum.Id, Content);
+                    comment.IsFromOwnerWithAccommodationOnLocation = false;
+                    if (forumService.WasGuestOnLocation(ownerGuest, forum.Location))
+                    {
+                        comment.WasNotOnLocation = false;
+                    }
+                    else
+                    {
+                        comment.WasNotOnLocation = true;
+                    }
+
                     commentService.Save(comment);
+                    forum.IsVeryUseful = forumService.IsForumVeryUseful(forum);
+                    forumService.Update(forum);
+
+                    foreach (Notification notification in CreateOwnerNotification())
+                    {
+                        notificationController.Send(notification);
+                    }
+
                     MessageBox.Show("New forum created!");
                     OnClose();
                 }
@@ -190,6 +213,32 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
             
         }
+
+        
+        private List<Notification> CreateOwnerNotification()
+        { 
+            List<Notification> notifications= new List<Notification>(); 
+            foreach(Owner owner in ownerService.GetAll())
+            {
+                Location location = locationController.getById(FindLocationId());
+                if (accommodationService.DoesOwnerHaveAccommodationOnLocation(owner, location))
+                {
+                    Notification notification = new Notification();
+                    notification.IsRead = false;
+                    notification.Message = GetNotificationMessage();
+                    notification.ReceiverId = userController.GetByUsername(owner.Username).Id;
+                    notifications.Add(notification);
+                }
+            }
+            return notifications;
+        }
+
+        private string GetNotificationMessage()
+        {
+            StringBuilder sb = new StringBuilder($"New forum is opened on location :{City},{State} by {ownerGuestService.GetById(ownerGuestId).Name} {ownerGuestService.GetById(ownerGuestId).Surname} ");
+            return sb.ToString();
+        }
+
 
     }
 }

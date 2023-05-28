@@ -143,7 +143,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void Owner_Forum_Click(object sender, RoutedEventArgs e)
         {
-            frame.Content = new OwnerForumPage();
+            frame.Content = new OwnerForumPage(LogedInOwner,accommodationService);
         }
 
         private void Owner_Profile_Click(object sender, RoutedEventArgs e)
