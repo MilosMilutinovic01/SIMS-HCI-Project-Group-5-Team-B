@@ -19,19 +19,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 
         public List<Comment> Comments { get; set; }
 
-        
+        public bool IsVeryUseful { get; set; }
 
         public Forum()
         {
             Comments = new List<Comment>();        
         }
 
-        public Forum(int locationId, int ownerGuestId)
+        public Forum(int locationId, int ownerGuestId, bool veryUseful)
         {
             this.LocationId = locationId;
             this.OwnerGuestId = ownerGuestId;
             Comments = new List<Comment>();
             ForumStatus = FORUMSTATUS.Active;
+            this.IsVeryUseful = veryUseful;
         }
     }
 }

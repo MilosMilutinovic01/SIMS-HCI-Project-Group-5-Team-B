@@ -15,7 +15,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         public User User { get; set; }
         public int ForumId { get; set; }
         public string Content { get; set; }
-
+        public bool IsFromOwnerWithAccommodationOnLocation { get; set; }
+        public bool WasNotOnLocation { get; set; }
         public string Error => null;
 
         public string this[string columnName]

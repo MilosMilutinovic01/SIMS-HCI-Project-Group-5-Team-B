@@ -10,6 +10,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
     {
         public CommentCSVRepository() : base() { }
 
+        public void Update(Comment comment)
+        {
+            Comment? current = _data.Find(d => d.Id == comment.Id);
+            if (current == null)
+            {
+                Save(comment);
+                return;
+            }
+            int index = _data.IndexOf(current);
+            _data.Remove(current);
+            _data.Insert(index, comment);
+            WriteCSV(_data);
+        }
         public List<Comment> GetAll()
         {
             return _data;
@@ -47,7 +60,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             comment.UserId = int.Parse(values[1]);
             comment.ForumId = int.Parse(values[2]);
             comment.Content = values[3];
-
+            comment.IsFromOwnerWithAccommodationOnLocation = bool.Parse(values[4]);
+            comment.WasNotOnLocation = bool.Parse(values[5]);
 
             return comment;
         }
@@ -59,7 +73,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
                 obj.Id.ToString(),
                 obj.UserId.ToString(),
                 obj.ForumId.ToString(),
-                obj.Content
+                obj.Content,
+                obj.IsFromOwnerWithAccommodationOnLocation.ToString(),
+                obj.WasNotOnLocation.ToString()
             };
             return csvValues;
         }

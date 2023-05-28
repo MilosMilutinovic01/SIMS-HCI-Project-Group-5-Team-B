@@ -23,6 +23,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             GetUserReference();
         }
 
+        public void Update(Comment comment)
+        {
+            _commentRepository.Update(comment);
+            GetUserReference();
+        }
 
         public List<Comment> GetAll()
         {

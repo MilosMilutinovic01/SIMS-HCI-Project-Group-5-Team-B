@@ -63,7 +63,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
                 forum.ForumStatus = FORUMSTATUS.Active;
             else
                 forum.ForumStatus = FORUMSTATUS.Closed;
-            
+            forum.IsVeryUseful = bool.Parse(values[4]);
 
             return forum;
         }
@@ -75,7 +75,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
                 obj.Id.ToString(),
                 obj.LocationId.ToString(),
                 obj.OwnerGuestId.ToString(),
-                obj.ForumStatus.ToString()
+                obj.ForumStatus.ToString(),
+                obj.IsVeryUseful.ToString()
             };
             return csvValues;
         }
