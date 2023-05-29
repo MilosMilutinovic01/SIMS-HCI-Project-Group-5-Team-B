@@ -193,7 +193,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                     {
                         comment.WasNotOnLocation = true;
                     }
-
+                    comment.CanReport = false; //dok se ne utvrdi drugacije, odmah je false jer razliciti vlasnici mogu razlitite stvari da reportuju
+                    //zavisi da li vlasnik ima smestaj na lokaciji forma i da li je forum ugasen
+                    comment.NumberOfReports = 0;
+                    //comment.IsAlreadyReported = false;
+                    comment.OwnersWhoReportedCommentString = "-1";
                     commentService.Save(comment);
                     forum.IsVeryUseful = forumService.IsForumVeryUseful(forum);
                     forumService.Update(forum);
