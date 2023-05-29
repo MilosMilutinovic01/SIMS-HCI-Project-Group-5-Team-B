@@ -28,16 +28,26 @@
         </Grid.RowDefinitions>
         <Label Content="{ns:Loc CommentStarExplanation}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Style="{DynamicResource ExplanationLabelStyle}"/>
         <Label Content="{ns:Loc Comments}" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource LabelStyle}" Margin="20,97,0,0" Grid.RowSpan="2"/>
-        <ListBox Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Height="200" Width="560" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,28,0,0" ItemsSource="{Binding Comments, Mode=OneWay}" >
+        <ListBox Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Height="200" Width="560" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,28,0,0" ItemsSource="{Binding Comments, Mode=OneWay}" SelectedItem="{Binding SelectedComment,Mode=TwoWay}" >
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="IsSelected" Value="False" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="IsSelected" Value="True" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate >
                 <DataTemplate>
                     <Border BorderThickness="2" BorderBrush="Black">
                         <Grid Height="70" Width="525">
                             <TextBlock Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding User.Username}" Margin="10,5,0,0"/>
-                            <Button Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Report" Margin="0,5,10,0" IsEnabled="{Binding WasNotOnLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Report" Margin="0,5,10,0" IsEnabled="{Binding CanReport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding DataContext.ReportCommentCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}"/>
                             <TextBlock  Height="20" HorizontalAlignment="Left" Text="{Binding Content}" Margin="10,50,0,0"/>
                             <TextBlock Height="20" HorizontalAlignment="Right" Text="Broj prijava: " VerticalAlignment="Bottom" Margin="0,0,30,0"/>
-                            <TextBlock Height="20" HorizontalAlignment="Right" Text="Broj" VerticalAlignment="Bottom" Margin="0,0,10,0"></TextBlock>
+                            <TextBlock Height="20" HorizontalAlignment="Right" Text="{Binding NumberOfReports, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="0,0,10,0"></TextBlock>
                             <Image x:Name="StarImage" Height="20" Width="20" HorizontalAlignment="Left" VerticalAlignment="Center" Source="/Resources/Images/StarImage.png" Margin="65,0,0,45">
                                 <Image.Style>
                                     <Style TargetType="{x:Type Image}">

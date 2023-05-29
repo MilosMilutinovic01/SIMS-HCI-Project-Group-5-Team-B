@@ -62,6 +62,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             comment.Content = values[3];
             comment.IsFromOwnerWithAccommodationOnLocation = bool.Parse(values[4]);
             comment.WasNotOnLocation = bool.Parse(values[5]);
+            comment.CanReport = bool.Parse(values[6]);
+            comment.NumberOfReports = int.Parse(values[7]);
+            comment.OwnersWhoReportedCommentString = values[8];
+
+            if (comment.OwnersWhoReportedCommentString != null)
+            {
+                string[] reports = comment.OwnersWhoReportedCommentString.Split(",");
+                int[] ints = Array.ConvertAll(reports, s => int.Parse(s));
+
+                foreach (int id in ints)
+                {
+                    comment.ownersWhoReportedComment.Add(id);
+                }
+            }
 
             return comment;
         }
@@ -75,7 +89,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
                 obj.ForumId.ToString(),
                 obj.Content,
                 obj.IsFromOwnerWithAccommodationOnLocation.ToString(),
-                obj.WasNotOnLocation.ToString()
+                obj.WasNotOnLocation.ToString(),
+                obj.CanReport.ToString(),
+                obj.NumberOfReports.ToString(),
+                obj.OwnersWhoReportedCommentString
             };
             return csvValues;
         }
