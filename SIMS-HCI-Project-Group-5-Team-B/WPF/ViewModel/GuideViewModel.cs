@@ -26,6 +26,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public TourGradeService tourGradeService;
         public Frame frame;
         public Guide guide;
+        public bool IsOpen { get; set; }
         public string SuperGuide { get; set; }
         private bool checker;
         public bool Checker
@@ -151,6 +152,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.frame = frame;
             this.guide = guide;
             this.frame.Content = new HomePage(this.guide, this.frame);
+            this.IsOpen = !Properties.Settings.Default.FirstTimeLogged;
         }
         #endregion
     }

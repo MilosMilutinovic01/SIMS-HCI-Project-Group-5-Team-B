@@ -37,6 +37,16 @@
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="0.3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <Button Background="White" BorderBrush="White" HorizontalAlignment="Right" VerticalAlignment="Top" Width="20" Height="20" Panel.ZIndex="1" Grid.Row="0" Grid.Column="2" Margin="0,5,0,0" Click="Button_Click_1">
+            <Image Source="/Resources/Images/helpIcon.png"></Image>
+        </Button>
+        <TextBox x:Name="HelpTextBox"
+         IsReadOnly="True"
+         IsReadOnlyCaretVisible="False"
+         Background="#F0F0F0"
+         BorderThickness="1"
+         TextWrapping="Wrap"
+         BorderBrush="LightGray" Grid.Row="1" Grid.Column="2" Grid.RowSpan="5" Panel.ZIndex="10" Visibility="Hidden"/>
         <Label HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="22,0,0,0">Tour name:</Label>
         <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="22,0,0,0">Location:</Label>
         <Label Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="22,0,0,0">Language:</Label>

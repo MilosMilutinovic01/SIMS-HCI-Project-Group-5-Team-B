@@ -173,80 +173,99 @@
         </Style>-->
 
     </Window.Resources>
-    <DockPanel>
-        <Menu DockPanel.Dock="Left" Style="{StaticResource MenuStyle}">
-            <MenuItem Style="{StaticResource BaseMenuItem}" Name="OpenMenuItem" Command="{Binding OpenMenuCommand}">
-                <MenuItem.Icon>
-                    <Image Source="/Resources/Images/hamburgerIcon.png" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="Create tour" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToCreateTourPageCommand}">
-                <MenuItem.Icon>
-                    <Image Source="/Resources/Images/plusIcon.png" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="Tour tracking" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTrackingTourPageCommand}">
-                <MenuItem.Icon>
-                    <Image Source="/Resources/Images/locationIcon.png" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="Upcoming tours" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToUpcomingToursPageCommand}">
-                <MenuItem.Icon>
-                    <Image Source="/Resources/Images/upcomingIcon.png" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="My tours" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToMyToursPageCommand}">
-                <MenuItem.Icon>
-                    <Image Source="/Resources/Images/myToursIcon.png" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="Reviews" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToReviewsPageCommand}">
-                <MenuItem.Icon>
-                    <Image Source="/Resources/Images/reviewsIcon.png" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="Tour requests" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourRequestsPageCommand}">
-                <MenuItem.Icon>
-                    <Image Source="/Resources/Images/requestIcon.png" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="Tour requests with statistics" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourRequestsWithStatisticsPageCommand}">
-                <MenuItem.Icon>
-                    <Image Source="/Resources/Images/statisticsIcon.png" />
-                </MenuItem.Icon>
-            </MenuItem>
-        </Menu>
-        <!--<Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-        </Grid>-->
-        <Grid DockPanel.Dock="Bottom" Height="30">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Grid.Row="0" Background="White" BorderThickness="0" Margin="5" Command="{Binding GoBackCommand}">
-                <Image Source="/Resources/Images/leftArrow.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
-            </Button>
-            <Button Grid.Column="1" Grid.Row="0" Background="White" BorderThickness="0" Margin="5" Command="{Binding NavigateToMyToursPageCommand}">
-                <Image Source="/Resources/Images/homeIcon.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
-            </Button>
-            <Button Grid.Column="2" Grid.Row="0" Background="White" BorderThickness="0" Margin="5" Command="{Binding NavigateToReviewsPageCommand}">
-                <Image Source="/Resources/Images/bellIcon.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
-            </Button>
-        </Grid>
-        <!--<ScrollViewer>-->
-            <Frame x:Name="frame" NavigationUIVisibility="Hidden"/>
-        <!--</ScrollViewer>-->
-    </DockPanel>
+    <Grid>
+        <AdornerDecorator>
+            <Popup AllowsTransparency="True" IsOpen="{Binding IsOpen}" Placement="Center">
+                <Grid Background="#C0C0C0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="1" Grid.Column="1">Test</Label>
+                </Grid>
+            </Popup>
+        </AdornerDecorator>
+        <DockPanel>
+            <Menu DockPanel.Dock="Left" Style="{StaticResource MenuStyle}">
+                <MenuItem Style="{StaticResource BaseMenuItem}" Name="OpenMenuItem" Command="{Binding OpenMenuCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/hamburgerIcon.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Create tour" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToCreateTourPageCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/plusIcon.png" />
+                    </MenuItem.Icon> 
+                </MenuItem>
+                <MenuItem Header="Tour tracking" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTrackingTourPageCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/locationIcon.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Upcoming tours" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToUpcomingToursPageCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/upcomingIcon.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="My tours" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToMyToursPageCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/myToursIcon.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Reviews" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToReviewsPageCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/reviewsIcon.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Tour requests" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourRequestsPageCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/requestIcon.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Tour requests with statistics" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourRequestsWithStatisticsPageCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/statisticsIcon.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </Menu>
+            <!--<Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+            </Grid>-->
+            <Grid DockPanel.Dock="Bottom" Height="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Grid.Row="0" Background="White" BorderThickness="0" Margin="5" Command="{Binding GoBackCommand}">
+                    <Image Source="/Resources/Images/leftArrow.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
+                </Button>
+                <Button Grid.Column="1" Grid.Row="0" Background="White" BorderThickness="0" Margin="5" Command="{Binding NavigateToMyToursPageCommand}">
+                    <Image Source="/Resources/Images/homeIcon.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
+                </Button>
+                <Button Grid.Column="2" Grid.Row="0" Background="White" BorderThickness="0" Margin="5" Command="{Binding NavigateToReviewsPageCommand}">
+                    <Image Source="/Resources/Images/bellIcon.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
+                </Button>
+            </Grid>
+            <!--<ScrollViewer>-->
+                <Frame x:Name="frame" NavigationUIVisibility="Hidden"/>
+            <!--</ScrollViewer>-->
+        </DockPanel>
+    </Grid>
     <!--<DockPanel>
         <DockPanel DockPanel.Dock="top" Height="30">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">

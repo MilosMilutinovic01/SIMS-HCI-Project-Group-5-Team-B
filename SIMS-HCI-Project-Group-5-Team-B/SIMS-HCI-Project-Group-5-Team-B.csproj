@@ -16,6 +16,7 @@
     <None Remove="Resources\Images\GuideGuestNotificationBell.png" />
     <None Remove="Resources\Images\GuideGuestUser.png" />
     <None Remove="Resources\Images\hamburgerIcon.png" />
+    <None Remove="Resources\Images\helpIcon.png" />
     <None Remove="Resources\Images\homeIcon.png" />
     <None Remove="Resources\Images\home_icon.jpg" />
     <None Remove="Resources\Images\leftArrow.png" />
@@ -39,6 +40,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\bellIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\helpIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\homeIcon.png">

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         mc:Ignorable="d"
-        Title="TourCancelWindow" Height="700" Background="White">
+        Title="TourCancelWindow" Height="700" Width="430" Background="White">
 
     <Grid>
         <Grid.RowDefinitions>
