@@ -26,7 +26,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public TourGradeService tourGradeService;
         public Frame frame;
         public Guide guide;
-        public bool IsOpen { get; set; }
         public string SuperGuide { get; set; }
         private bool checker;
         public bool Checker
@@ -36,6 +35,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             {
                 checker = value;
                 OnPropertyChanged();
+            }
+        }
+        private bool isMenuOpened;
+        public bool IsMenuOpened
+        {
+            get { return isMenuOpened; }
+            set
+            {
+                isMenuOpened = value;
+                OnPropertyChanged(nameof(IsMenuOpened));
             }
         }
         public NavigationService NavService { get; set; }
@@ -54,13 +63,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public RelayCommand NavigateToTourRequestsWithStatisticsPageCommand { get; set; }
 
-        public RelayCommandWithParams OpenMenuCommand { get; set; }
+        public RelayCommandMenu OpenMenuCommand { get; set; }
 
         public RelayCommand GoBackCommand { get; set; }
+        public RelayCommand FinishWizardCommand { get; set; }
         #endregion
 
         #region actions
         private bool CanExecute_NavigateCommand()
+        {
+            return true;
+        }
+
+        private bool CanExecute_NavigateCommand1(object obj)
         {
             return true;
         }
@@ -146,13 +161,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.NavigateToReviewsPageCommand = new RelayCommand(Execute_NavigateToReviewsPageCommand, CanExecute_NavigateCommand);
             this.NavigateToTourRequestsPageCommand = new RelayCommand(Execute_NavigateToTourRequestsPageCommand, CanExecute_NavigateCommand);
             this.NavigateToTourRequestsWithStatisticsPageCommand = new RelayCommand(Execute_NavigateToTourRequestsWithStatisticsPageCommand, CanExecute_NavigateCommand);
-            this.OpenMenuCommand = new RelayCommandWithParams(execute => this.Checker = !this.Checker);
+            this.OpenMenuCommand = new RelayCommandMenu(execute => this.IsMenuOpened = !this.IsMenuOpened, CanExecute_NavigateCommand1);
             this.GoBackCommand = new RelayCommand(Execute_GoBackCommand, CanExecute_NavigateCommand);
             this.Checker = false;
             this.frame = frame;
             this.guide = guide;
             this.frame.Content = new HomePage(this.guide, this.frame);
-            this.IsOpen = !Properties.Settings.Default.FirstTimeLogged;
+            this.IsMenuOpened = false;
         }
         #endregion
     }

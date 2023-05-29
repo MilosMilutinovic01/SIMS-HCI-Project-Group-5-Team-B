@@ -7,49 +7,43 @@
         mc:Ignorable="d"
         Title="Guide" Height="750" Width="430" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <Style TargetType="Menu" x:Key="MenuStyle">
+        <Style x:Key="ExtendMenuStyle" TargetType="Menu">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Menu}">
-                        <Border BorderThickness="1">
+                        <Border BorderThickness="0">
                             <Border.BorderBrush>
-                                <LinearGradientBrush StartPoint="0,0"
-                                 EndPoint="0,1">
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                     <LinearGradientBrush.GradientStops>
                                         <GradientStopCollection>
-                                            <GradientStop Color="#FF888888"
-                                                Offset="0.0" />
-                                            <GradientStop Color="#FF888888"
-                                                Offset="1.0" />
+                                            <GradientStop Offset="0.0" Color="#FF888888" />
+                                            <GradientStop Offset="0.5" Color="#FF888888" />
+                                            <GradientStop Offset="1.0" Color="#FF888888" />
                                         </GradientStopCollection>
                                     </LinearGradientBrush.GradientStops>
                                 </LinearGradientBrush>
-
                             </Border.BorderBrush>
+
                             <Border.Background>
-                                <LinearGradientBrush EndPoint="0.5,1"
-                                 StartPoint="0.5,0">
-                                    <GradientStop Color="#FF888888"
-                                        Offset="0" />
-                                    <GradientStop Color="#FF888888"
-                                        Offset="1" />
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Offset="0" Color="#FF888888" />
+                                    <GradientStop Offset="1" Color="#FF888888" />
                                 </LinearGradientBrush>
                             </Border.Background>
-                            <StackPanel ClipToBounds="True"
-                                Orientation="Vertical"
-                                IsItemsHost="True" />
+
+                            <StackPanel
+                                ClipToBounds="True"
+                                IsItemsHost="True"
+                                Orientation="Vertical" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
 
-        <Style TargetType="MenuItem" x:Key="BaseMenuItem">
+        <Style x:Key="BaseMenuItem" TargetType="MenuItem">
             <Setter Property="FontSize" Value="25" />
-            <Setter Property="Width" Value="33" />
-            <Setter Property="Margin" Value="3"></Setter>
-            <Setter Property="BorderBrush" Value="Black"></Setter>
-            <Setter Property="BorderThickness" Value="2"></Setter>
+            <Setter Property="Width" Value="0" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="MenuItem">
@@ -60,225 +54,132 @@
                             </Grid.ColumnDefinitions>
                             <Border x:Name="MenuItemBorder" Grid.ColumnSpan="2">
                                 <Border.BorderBrush>
-                                    <LinearGradientBrush StartPoint="0,0"
-                                 EndPoint="0,1">
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <LinearGradientBrush.GradientStops>
                                             <GradientStopCollection>
-                                                <GradientStop Color="#FF888888"
-                                                Offset="0.0" />
-                                                <GradientStop Color="#FF888888"
-                                                Offset="1.0" />
+                                                <GradientStop Offset="0.0" Color="#FF888888" />
+                                                <GradientStop Offset="1.0" Color="#FF888888" />
                                             </GradientStopCollection>
                                         </LinearGradientBrush.GradientStops>
                                     </LinearGradientBrush>
 
                                 </Border.BorderBrush>
                                 <Border.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1"
-                                 StartPoint="0.5,0">
-                                        <GradientStop Color="#FF888888"
-                                        Offset="0" />
-                                        <GradientStop Color="#FF888888"
-                                        Offset="1" />
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop Offset="0" Color="#FF888888" />
+                                        <GradientStop Offset="1" Color="#FF888888" />
                                     </LinearGradientBrush>
                                 </Border.Background>
-                                <StackPanel ClipToBounds="True"
-                                    Orientation="Horizontal"
-                                    IsItemsHost="True" />
                             </Border>
-                            <ContentPresenter x:Name="IconPresenter"  ContentSource="Icon"/>
-                            <ContentPresenter ContentSource="Header"
-                                          Margin="7, 1, 7, 1" Grid.Column="1" />
+                            <ContentPresenter
+                                x:Name="IconPresenter"
+                                Grid.Column="0"
+                                ContentSource="Icon" />
+                            <ContentPresenter
+                                Grid.Column="1"
+                                Margin="7,1,7,1"
+                                ContentSource="Header" />
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="MenuItemBorder" Property="Background" Value="CadetBlue" />
+                                <Setter Property="Cursor" Value="Hand" />
                             </Trigger>
-                            <DataTrigger Binding="{Binding Path=Checker}" Value="True">
+
+                            <DataTrigger Binding="{Binding Path=IsMenuOpened}" Value="True">
                                 <DataTrigger.EnterActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation Duration="0:0:1" Storyboard.TargetProperty="Width" From="0" To="350" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetProperty="Width"
+                                                From="0"
+                                                To="150"
+                                                Duration="0:0:0.3" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetProperty="Width"
+                                                From="150"
+                                                To="0"
+                                                Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
                             </DataTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-
-        <!--<Style TargetType="MenuItem" x:Key="StartMenuItem">
-            <Setter Property="FontSize" Value="25" />
-            <Setter Property="Width" Value="35" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="MenuItem">
-                        <Grid x:Name="MenuItemGrid">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Border x:Name="MenuItemBorder" Grid.ColumnSpan="2">
-                                <Border.BorderBrush>
-                                    <LinearGradientBrush StartPoint="0,0"
-                                 EndPoint="0,1">
-                                        <LinearGradientBrush.GradientStops>
-                                            <GradientStopCollection>
-                                                <GradientStop Color="#FF888888"
-                                                Offset="0.0" />
-                                                <GradientStop Color="#FF888888"
-                                                Offset="1.0" />
-                                            </GradientStopCollection>
-                                        </LinearGradientBrush.GradientStops>
-                                    </LinearGradientBrush>
-
-                                </Border.BorderBrush>
-                                <Border.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1"
-                                 StartPoint="0.5,0">
-                                        <GradientStop Color="#FF888888"
-                                        Offset="0" />
-                                        <GradientStop Color="#FF888888"
-                                        Offset="1" />
-                                    </LinearGradientBrush>
-                                </Border.Background>
-                                <StackPanel ClipToBounds="True"
-                                    Orientation="Horizontal"
-                                    IsItemsHost="True" />
-                            </Border>
-                            <ContentPresenter x:Name="IconPresenter"  ContentSource="Icon"/>
-                            <ContentPresenter ContentSource="Header"
-                                          Margin="7, 1, 7, 1" Grid.Column="1" />
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="MenuItemBorder" Property="Background" Value="CadetBlue" />
-                            </Trigger>
-                            <DataTrigger Binding="{Binding Path=Checker}" Value="True">
-                                <DataTrigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Duration="0:0:1" Storyboard.TargetProperty="Width" From="33" To="200" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.EnterActions>
-                            </DataTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>-->
-
     </Window.Resources>
-    <Grid>
-        <AdornerDecorator>
-            <Popup AllowsTransparency="True" IsOpen="{Binding IsOpen}" Placement="Center">
-                <Grid Background="#C0C0C0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="1" Grid.Column="1">Test</Label>
-                </Grid>
-            </Popup>
-        </AdornerDecorator>
-        <DockPanel>
-            <Menu DockPanel.Dock="Left" Style="{StaticResource MenuStyle}">
-                <MenuItem Style="{StaticResource BaseMenuItem}" Name="OpenMenuItem" Command="{Binding OpenMenuCommand}">
+    
+    <DockPanel>
+        <Button DockPanel.Dock="Top" Command="{Binding OpenMenuCommand}">Test</Button>
+        <Menu DockPanel.Dock="Left" Style="{StaticResource ExtendMenuStyle}">
+            <!--<MenuItem Style="{StaticResource BaseMenuItem}" Name="OpenMenuItem" Command="{Binding OpenMenuCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Resources/Images/hamburgerIcon.png" />
                     </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Create tour" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToCreateTourPageCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Images/plusIcon.png" />
-                    </MenuItem.Icon> 
-                </MenuItem>
-                <MenuItem Header="Tour tracking" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTrackingTourPageCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Images/locationIcon.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Upcoming tours" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToUpcomingToursPageCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Images/upcomingIcon.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="My tours" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToMyToursPageCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Images/myToursIcon.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Reviews" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToReviewsPageCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Images/reviewsIcon.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Tour requests" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourRequestsPageCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Images/requestIcon.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Tour requests with statistics" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourRequestsWithStatisticsPageCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Images/statisticsIcon.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-            </Menu>
-            <!--<Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-            </Grid>-->
-            <Grid DockPanel.Dock="Bottom" Height="30">
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Grid.Row="0" Background="White" BorderThickness="0" Margin="5" Command="{Binding GoBackCommand}">
-                    <Image Source="/Resources/Images/leftArrow.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
-                </Button>
-                <Button Grid.Column="1" Grid.Row="0" Background="White" BorderThickness="0" Margin="5" Command="{Binding NavigateToMyToursPageCommand}">
-                    <Image Source="/Resources/Images/homeIcon.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
-                </Button>
-                <Button Grid.Column="2" Grid.Row="0" Background="White" BorderThickness="0" Margin="5" Command="{Binding NavigateToReviewsPageCommand}">
-                    <Image Source="/Resources/Images/bellIcon.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
-                </Button>
-            </Grid>
-            <!--<ScrollViewer>-->
-                <Frame x:Name="frame" NavigationUIVisibility="Hidden"/>
-            <!--</ScrollViewer>-->
-        </DockPanel>
-    </Grid>
-    <!--<DockPanel>
-        <DockPanel DockPanel.Dock="top" Height="30">
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                <Button>
-                    <Image Source="/Resources/Images/hamburgerIcon.png" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                </Button>
-                <Label Content="Home" Margin="15,0,0,0" />
-            </StackPanel>
-            <Button DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Image Source="/Resources/Images/threeDots.png" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </MenuItem>-->
+            <MenuItem Header="Create tour" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToCreateTourPageCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/plusIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Tour tracking" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTrackingTourPageCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/locationIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Upcoming tours" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToUpcomingToursPageCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/upcomingIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="My tours" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToMyToursPageCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/myToursIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Reviews" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToReviewsPageCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/reviewsIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Tour requests" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourRequestsPageCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/requestIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Tour requests with statistics" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourRequestsWithStatisticsPageCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/statisticsIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </Menu>
+        <Grid DockPanel.Dock="Bottom" Height="30">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Grid.Row="0" Background="White" BorderThickness="0" Margin="5" Command="{Binding GoBackCommand}">
+                <Image Source="/Resources/Images/leftArrow.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
             </Button>
-        </DockPanel>
-        
-        
-    </DockPanel>-->
+            <Button Grid.Column="1" Grid.Row="0" Background="White" BorderThickness="0" Margin="5" Command="{Binding NavigateToMyToursPageCommand}">
+                <Image Source="/Resources/Images/homeIcon.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
+            </Button>
+            <Button Grid.Column="2" Grid.Row="0" Background="White" BorderThickness="0" Margin="5" Command="{Binding NavigateToReviewsPageCommand}">
+                <Image Source="/Resources/Images/bellIcon.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
+            </Button>
+        </Grid>
+        <Frame x:Name="frame" NavigationUIVisibility="Hidden"/>
+    </DockPanel>
 </Window>
