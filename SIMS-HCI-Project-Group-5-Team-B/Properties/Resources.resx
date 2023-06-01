@@ -162,6 +162,9 @@
   <data name="Busyness" xml:space="preserve">
     <value>Busyness</value>
   </data>
+  <data name="CallingOffRenovation" xml:space="preserve">
+    <value>Calling off renovation</value>
+  </data>
   <data name="CallOff" xml:space="preserve">
     <value>Call Off</value>
   </data>
@@ -212,6 +215,9 @@
   </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Dark theme:</value>
   </data>
   <data name="Decline" xml:space="preserve">
     <value>Decline</value>
@@ -362,6 +368,9 @@
   </data>
   <data name="Report" xml:space="preserve">
     <value>Report</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Reports:</value>
   </data>
   <data name="RequestsForChangingReservation" xml:space="preserve">
     <value>Requests for changing reservation</value>

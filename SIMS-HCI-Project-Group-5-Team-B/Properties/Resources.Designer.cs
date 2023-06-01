@@ -196,6 +196,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calling off renovation.
+        /// </summary>
+        public static string CallingOffRenovation {
+            get {
+                return ResourceManager.GetString("CallingOffRenovation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Call Off.
         /// </summary>
         public static string CallOff {
@@ -345,6 +354,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         public static string Create {
             get {
                 return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark theme:.
+        /// </summary>
+        public static string DarkTheme {
+            get {
+                return ResourceManager.GetString("DarkTheme", resourceCulture);
             }
         }
         
@@ -795,6 +813,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         public static string Report {
             get {
                 return ResourceManager.GetString("Report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reports:.
+        /// </summary>
+        public static string Reports {
+            get {
+                return ResourceManager.GetString("Reports", resourceCulture);
             }
         }
         

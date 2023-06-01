@@ -17,9 +17,9 @@
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Content="{ns:Loc AddOnPopularLocationLabel}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
-        <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0" Content="{ns:Loc DeleteOnUnpopularLocationLabel}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
-        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Content="{ns:Loc ProposalOfPopularLocations}" Style="{DynamicResource LabelStyle}"></Label>
+        <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0" Content="{ns:Loc AddOnPopularLocationLabel}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
+        <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,40,0,0" Content="{ns:Loc DeleteOnUnpopularLocationLabel}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="{ns:Loc ProposalOfPopularLocations}" Style="{DynamicResource LabelStyle}" Margin="0,80,0,0" Grid.RowSpan="2"/>
         <DataGrid Grid.Row="1" Height="120" HorizontalAlignment="Center" VerticalAlignment="Top" Width="480" 
                       AutoGenerateColumns="False" IsReadOnly="True" Margin="0,26,0,0">
             <DataGrid.Columns>
@@ -36,7 +36,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Content="{ns:Loc ProposalOfUnpopularLocations}" Style="{DynamicResource LabelStyle}"></Label>
+        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,158,0,0" Content="{ns:Loc ProposalOfUnpopularLocations}" Style="{DynamicResource LabelStyle}" Grid.RowSpan="2"></Label>
         <DataGrid Grid.Row="2" Height="120" HorizontalAlignment="Center" VerticalAlignment="Top" Width="480" Margin="0,26,0,0"  
                       AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
@@ -52,9 +52,9 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
+
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Height="25" Width="60" Margin="430,26,0,0" Content="{ns:Loc Cancel}" Style="{DynamicResource ButtonInWindowStyle}" Click="Cancel_Button_Click"></Button>
+        <Button Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Height="20" Content="{ns:Loc Cancel}" Style="{DynamicResource ButtonInWindowStyle}" Click="Cancel_Button_Click" Margin="445,0,0,0"></Button>
     </Grid>
 </Window>
