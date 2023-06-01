@@ -28,7 +28,7 @@
         </Grid.RowDefinitions>
         <Label Content="{ns:Loc CommentStarExplanation}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Style="{DynamicResource ExplanationLabelStyle}"/>
         <Label Content="{ns:Loc Comments}" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource LabelStyle}" Margin="20,97,0,0" Grid.RowSpan="2"/>
-        <ListBox Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Height="200" Width="560" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,28,0,0" ItemsSource="{Binding Comments, Mode=OneWay}" SelectedItem="{Binding SelectedComment,Mode=TwoWay}" >
+        <ListBox Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Height="200" Width="560" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,28,0,0" ItemsSource="{Binding Comments, Mode=OneWay}" SelectedItem="{Binding SelectedComment,Mode=TwoWay}" Style="{DynamicResource ListBoxStyle}" >
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="IsSelected" Value="False" />
@@ -41,13 +41,13 @@
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate >
                 <DataTemplate>
-                    <Border BorderThickness="2" BorderBrush="Black">
-                        <Grid Height="70" Width="525">
-                            <TextBlock Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding User.Username}" Margin="10,5,0,0"/>
-                            <Button Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Report" Margin="0,5,10,0" IsEnabled="{Binding CanReport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding DataContext.ReportCommentCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}"/>
-                            <TextBlock  Height="20" HorizontalAlignment="Left" Text="{Binding Content}" Margin="10,50,0,0"/>
-                            <TextBlock Height="20" HorizontalAlignment="Right" Text="Broj prijava: " VerticalAlignment="Bottom" Margin="0,0,30,0"/>
-                            <TextBlock Height="20" HorizontalAlignment="Right" Text="{Binding NumberOfReports, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="0,0,10,0"></TextBlock>
+                    <Border Style="{DynamicResource BorderCommentStyle}">
+                        <Grid Height="70" Width="525" Style="{DynamicResource GridForComments}">
+                            <TextBlock Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding User.Username}" FontWeight="Bold" Margin="10,5,0,0" Style="{DynamicResource TextBlockCommentStyle}"/>
+                            <Button Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{ns:Loc Report}" Style="{DynamicResource ButtonInDataGridStyle}" Margin="0,5,10,0" IsEnabled="{Binding CanReport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding DataContext.ReportCommentCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}"/>
+                            <TextBlock  Height="20" HorizontalAlignment="Left" Text="{Binding Content}" Style="{DynamicResource TextBlockCommentStyle}" Margin="10,50,0,0"/>
+                            <TextBlock Height="20" HorizontalAlignment="Right" Text="{ns:Loc Reports}" Style="{DynamicResource TextBlockCommentStyle}" VerticalAlignment="Bottom" Margin="0,0,30,0"/>
+                            <TextBlock Height="20" HorizontalAlignment="Right" Style="{DynamicResource TextBlockCommentStyle}" Text="{Binding NumberOfReports, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="0,0,10,0"></TextBlock>
                             <Image x:Name="StarImage" Height="20" Width="20" HorizontalAlignment="Left" VerticalAlignment="Center" Source="/Resources/Images/StarImage.png" Margin="65,0,0,45">
                                 <Image.Style>
                                     <Style TargetType="{x:Type Image}">
@@ -65,7 +65,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Add comment" Margin="20,240,0,0"></Label>
+        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Content="{ns:Loc AddComment}" Margin="20,240,0,0" Style="{DynamicResource LabelStyle}"></Label>
         <TextBox Grid.Row="1" HorizontalAlignment="Center" Width="560" Height="100" Margin="0,260,0,10" Text="{Binding Path=Content, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" IsEnabled="{Binding CanAddComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <Button Content="{ns:Loc Cancel}" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="70" Margin="500,0,0,0" Style="{DynamicResource ButtonInWindowStyle}" Command="{Binding CloseCommand}"></Button>

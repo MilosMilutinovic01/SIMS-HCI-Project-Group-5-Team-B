@@ -162,6 +162,9 @@
   <data name="Busyness" xml:space="preserve">
     <value>Zauzetost</value>
   </data>
+  <data name="CallingOffRenovation" xml:space="preserve">
+    <value>Otkazivanje renoviranja</value>
+  </data>
   <data name="CallOff" xml:space="preserve">
     <value>Otkazi</value>
   </data>
@@ -212,6 +215,9 @@
   </data>
   <data name="Create" xml:space="preserve">
     <value>Napravi</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Tamna tema:</value>
   </data>
   <data name="Decline" xml:space="preserve">
     <value>Odbij</value>
@@ -365,6 +371,9 @@
   </data>
   <data name="Report" xml:space="preserve">
     <value>Izvestaj</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Prijave:</value>
   </data>
   <data name="RequestsForChangingReservation" xml:space="preserve">
     <value>Zahtevi za pomeranje rezervacije</value>
