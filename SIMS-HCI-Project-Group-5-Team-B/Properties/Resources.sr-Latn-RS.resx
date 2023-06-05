@@ -135,6 +135,9 @@
   <data name="Accommodation" xml:space="preserve">
     <value>Smestaj</value>
   </data>
+  <data name="AccommodationFormWithPopularLocation" xml:space="preserve">
+    <value>Forma za registraciju smestaja na popularnoj lokaciji</value>
+  </data>
   <data name="AccommodationLocationSuggestionsWindow" xml:space="preserve">
     <value>Prozor Predloga Lokacija Za Smestaj</value>
   </data>

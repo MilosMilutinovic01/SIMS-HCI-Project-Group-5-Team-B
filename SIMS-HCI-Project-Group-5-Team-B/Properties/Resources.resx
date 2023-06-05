@@ -135,6 +135,9 @@
   <data name="Accommodation" xml:space="preserve">
     <value>Accommodation</value>
   </data>
+  <data name="AccommodationFormWithPopularLocation" xml:space="preserve">
+    <value>Accommodation Form With Popular Location</value>
+  </data>
   <data name="AccommodationLocationSuggestionsWindow" xml:space="preserve">
     <value>Accommodation Location Suggestions Window</value>
   </data>

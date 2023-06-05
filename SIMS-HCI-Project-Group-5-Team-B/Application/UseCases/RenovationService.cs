@@ -59,7 +59,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public void MarkRenovatiosThatTookPlaceInTheLastYear()
         {
-            foreach (Accommodation accommodation in accommodationRepository.GetAll())
+            foreach (Accommodation accommodation in accommodationRepository.GetUndeleted())
             {
                 bool renovatedInLastYear = false;
                 foreach (Renovation renovation in renovationRepository.GetRenovationForAccommodation(accommodation.Id))
