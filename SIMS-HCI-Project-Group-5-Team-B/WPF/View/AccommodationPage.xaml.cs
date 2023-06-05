@@ -28,6 +28,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
         private AccommodationService accommodationService;
         private LocationController locationController;
         private OwnerService ownerService;
+        private YearlyAccommodationStatisticsService yearlyAccommodationStatisticsService;
         public ObservableCollection<Accommodation> AccomodationsOfLogedInOwner { get; set; }
         public Owner LogedInOwner { get; set; }
        
@@ -37,6 +38,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
             DataContext = this;
             locationController = new LocationController();
             ownerService = new OwnerService();
+            yearlyAccommodationStatisticsService = new YearlyAccommodationStatisticsService();
             this.accommodationService = new AccommodationService(locationController, ownerService);
             AccomodationsOfLogedInOwner = new ObservableCollection<Accommodation>(accommodationService.GetAccommodationsOfLogedInOwner(ownerId));
             this.LogedInOwner = ownerService.getById(ownerId);
@@ -51,7 +53,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
 
         private void Suggestions_Button_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationLocationSuggestionsWindow accommodationLocationSuggestionsWindow = new AccommodationLocationSuggestionsWindow();
+            AccommodationLocationSuggestionsWindow accommodationLocationSuggestionsWindow = new AccommodationLocationSuggestionsWindow(accommodationService,yearlyAccommodationStatisticsService,LogedInOwner,AccomodationsOfLogedInOwner);
             accommodationLocationSuggestionsWindow.Show();
         }
     }

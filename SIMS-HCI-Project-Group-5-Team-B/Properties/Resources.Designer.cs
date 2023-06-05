@@ -115,6 +115,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accommodation Form With Popular Location.
+        /// </summary>
+        public static string AccommodationFormWithPopularLocation {
+            get {
+                return ResourceManager.GetString("AccommodationFormWithPopularLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accommodation Location Suggestions Window.
         /// </summary>
         public static string AccommodationLocationSuggestionsWindow {
