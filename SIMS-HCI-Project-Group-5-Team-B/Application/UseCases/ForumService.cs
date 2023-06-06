@@ -140,7 +140,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         public bool IsForumVeryUseful(Forum forum)
         {
             //Testing values, change later!
-            if(NumberOfOwnerComments(forum) >= 2 && NumberOfValidGuestComments(forum) >= 2)
+            if(NumberOfOwnerComments(forum) >= 10 && NumberOfValidGuestComments(forum) >= 20)
             {
                 return true;
             }
