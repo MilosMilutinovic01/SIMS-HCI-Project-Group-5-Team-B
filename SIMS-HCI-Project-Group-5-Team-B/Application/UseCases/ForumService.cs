@@ -3,6 +3,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
@@ -67,7 +68,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public bool Exists(int locationId)
         {
-            //CHECK FOR NOT ACTIVE FORUMS!!!!!!
             return GetAll().Any(foru => foru.LocationId == locationId && foru.ForumStatus == FORUMSTATUS.Active);
         }
 
@@ -122,6 +122,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public int NumberOfValidGuestComments(Forum forum)
         {
+            //Added for GUEST1 - So that new comment can be in system when checking for this number!
+            GetReferences();
             int numberOfValidGuestComments = 0;
             foreach(Comment comment in forum.Comments)
             {
@@ -137,11 +139,26 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public bool IsForumVeryUseful(Forum forum)
         {
+            //Testing values, change later!
             if(NumberOfOwnerComments(forum) >= 2 && NumberOfValidGuestComments(forum) >= 2)
             {
                 return true;
             }
             return false;
+        }
+        public void CommentsUpdate(Forum forum)
+        {
+
+            foreach (Comment comment in forum.Comments)
+            {
+                OwnerGuest ownerGuest = ownerGuestRepository.GetByUsername(comment.User.Username);
+                if (ownerGuest != null) 
+                { 
+                
+                    comment.WasNotOnLocation = !WasGuestOnLocation(ownerGuest, forum.Location);
+
+                }
+            }
         }
     }
 }

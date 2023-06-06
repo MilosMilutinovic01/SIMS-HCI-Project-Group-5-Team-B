@@ -56,6 +56,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
 
             CanAddComment = (accommodationService.DoesOwnerHaveAccommodationOnLocation(owner, SelectedForum.Location) && ForumOpened);
+            //*************************DODATO ZBOG GOSTA1**************************//
+            forumService.CommentsUpdate(SelectedForum);
             WasNotOnLocationUpdate(Comments);
             CloseCommand = new RelayCommand(CloseExecute, CloseCanExecute);
             AddCommentCommand = new RelayCommand(AddCommentExecute, AddCommentCanExecute);
