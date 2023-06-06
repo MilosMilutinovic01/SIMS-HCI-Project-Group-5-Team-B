@@ -1,6 +1,7 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest;
 using System;
@@ -18,9 +19,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private ForumService ForumService { get; set; }
 
         public ObservableCollection<Comment> Comments { get; set; }
-        private Forum forum;
+        public  Forum forum { get; set; }
 
-        public string ForumLocation { get; set; }
+        private string forumLocation;
+
+        public string ForumLocation
+        { 
+            get { return forumLocation; }
+            set
+            {
+                if(value != forumLocation)
+                {
+                    forumLocation = value;
+                    NotifyPropertyChanged(nameof(ForumLocation));
+                }
+            }
+        }
         private string forumStatus;
         public string ForumStatus 
         {
@@ -35,9 +49,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 }
             }
         
-        }  
+        }
+        
         public RelayCommand CloseCommand { get; set; }
         public RelayCommand CloseForumCommand { get; set; }
+        public RelayCommand CommentCommand { get; set; }
+
         private UserController userController;
         private int ownerGuestId;
 
@@ -55,13 +72,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.forum = forum; 
             ForumService = new ForumService();
             Comments = new ObservableCollection<Comment>(ForumService.GetForumsComments(forum.Id));
+
             ForumLocation = forum.Location.ToString();
             ForumStatus = "STATUS: " + forum.ForumStatus.ToString();
             CloseCommand = new RelayCommand(OnClose);
             userController = new UserController();
             this.ownerGuestId = ownerGuestId;
+            ForumService.CommentsUpdate(forum);
 
             CloseForumCommand = new RelayCommand(OnCloseForum, CloseForum_CanExecute);
+            CommentCommand = new RelayCommand(OnComment);
 
         }
 
@@ -77,6 +97,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             ForumStatus = "STATUS: " + forum.ForumStatus.ToString();
         }
 
+
         public bool CloseForum_CanExecute()
         {
             if(forum.ForumStatus == FORUMSTATUS.Closed || forum.OwnerGuestId != ownerGuestId)
@@ -85,5 +106,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
             return true;
         }
+
+        public void OnComment()
+        {
+            NewCommentWindow window = new NewCommentWindow(ownerGuestId, ForumService, forum, Comments); 
+            window.Show();
+            
+        }
+
+        
+
+
     }
 }
