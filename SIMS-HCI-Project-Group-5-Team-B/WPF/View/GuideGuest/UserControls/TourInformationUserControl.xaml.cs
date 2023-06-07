@@ -1,4 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.DTO;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls
                 new PropertyMetadata(null));
 
 
-
         public ICommand BookTourCommand
         {
             get { return (ICommand)GetValue(BookTourCommandProperty); }
@@ -40,6 +40,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls
             DependencyProperty.Register("BookTourCommand", typeof(ICommand), typeof(TourInformationUserControl),
                 new PropertyMetadata(null));
 
+
+        public List<Voucher> Vouchers
+        {
+            get { return (List<Voucher>)GetValue(VouchersProperty); }
+            set { SetValue(VouchersProperty, value); }
+        }
+
+        public static readonly DependencyProperty VouchersProperty =
+            DependencyProperty.Register("Vouchers", typeof(List<Voucher>), typeof(TourInformationUserControl),
+                new PropertyMetadata(null));
+
+
+        public List<Appointment> Appointments
+        {
+            get { return (List<Appointment>)GetValue(AppointmentsProperty); }
+            set { SetValue(AppointmentsProperty, value); }
+        }
+
+        public static readonly DependencyProperty AppointmentsProperty =
+            DependencyProperty.Register("Appointments", typeof(List<Appointment>), typeof(TourInformationUserControl),
+                new PropertyMetadata(null));
 
 
         public TourInformationUserControl()

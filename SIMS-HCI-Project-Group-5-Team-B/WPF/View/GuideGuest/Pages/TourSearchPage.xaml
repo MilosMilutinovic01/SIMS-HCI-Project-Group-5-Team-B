@@ -163,7 +163,7 @@
 
         <Popup x:Name="TourInformationPopup" AllowsTransparency="True" StaysOpen="False"
                Placement="Center" Width="1050" Height="525">
-            <components:TourInformationUserControl
+            <components:TourInformationUserControl x:Name="TourInformationName"
                 TourDTO="{Binding ClickedTour}" BookTourCommand="{Binding}"/>
         </Popup>
     </Grid>

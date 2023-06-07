@@ -90,6 +90,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         }
 
 
+        #region RegularTourRequestForm variables
         private TourRequest backupTourRequest;
         private TourRequest selectedTourRequest;
         public TourRequest SelectedTourRequest
@@ -100,6 +101,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
                 if (selectedTourRequest != value)
                 {
                     selectedTourRequest = value;
+                    if(value != null)
+                    {
+                        RegularTourSelectedState = selectedTourRequest.Location.State;
+                        RegularTourSelectedCity = selectedTourRequest.Location.City;
+                    }
+                    else
+                    {
+                        RegularTourSelectedState = string.Empty;
+                        RegularTourSelectedCity = string.Empty;
+                    }
                     OnPropertyChanged();
                 }
             }
@@ -122,21 +133,60 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         public ICommand AddNewRegularTourRequestCommand { get; }
         public ICommand SaveRegularTourRequestCommand { get; }
         public ICommand CancelRegularTourRequestCommand { get; }
+        #endregion
 
+
+        #region Location variables for regular and special tour requests
+        public ObservableCollection<string> States { get; set; }
+        public ObservableCollection<string> RegularTourCities { get; set; }
+        private string regularTourSelectedState = string.Empty;
+        public string RegularTourSelectedState
+        {
+            get => regularTourSelectedState;
+            set
+            {
+                regularTourSelectedState = value;
+                RegularTourCities.Clear();
+                foreach (var city in locationService.GetCityByState(regularTourSelectedState))
+                {
+                    RegularTourCities.Add(city);
+                }
+                OnPropertyChanged();
+            }
+        }
+        private string regularTourSelectedCity = string.Empty;
+        public string RegularTourSelectedCity
+        {
+            get => regularTourSelectedCity;
+            set
+            {
+                if (regularTourSelectedCity != value)
+                {
+                    regularTourSelectedCity = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        #endregion
 
         private TourRequestService tourRequestService;
         private TourRequestStatisticsService tourRequestStatisticsService;
         private UserService userService;
+        private LocationService locationService;
         public GuideGuestProfileViewModel()
         {
             tourRequestService = new TourRequestService();
             tourRequestStatisticsService = new TourRequestStatisticsService();
             userService = new UserService();
+            locationService = new LocationService();
 
             Vouchers = new ObservableCollection<Voucher>(new VoucherService().GetAll());
             TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetFor((new UserService()).getLogged().Id));
             LoadYearsWithTourRequests();
 
+
+            States = new ObservableCollection<string>(locationService.GetStates());
+            RegularTourCities = new ObservableCollection<string>();
 
 
             EditRegularTourRequestCommand = new RelayCommand(EditRegularTourRequest_Execute, CanEditRegularTourRequest);
@@ -254,12 +304,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         }
         private void AddNewRegularTourRequest_Execute()
         {
-            SelectedTourRequest = null;
+            backupTourRequest = null;
+            SelectedTourRequest = new TourRequest();
+            SelectedTourRequest.AcceptedTourId = -1;
+            SelectedTourRequest.SpecialTourId = -1;
             ShowRegularTourRequestForm = true;
         }
         private void CancelRegularTourRequest_Execute()
         {
-            if(backupTourRequest != null && SelectedTourRequest != null)
+            if(backupTourRequest != null)
             {
                 SelectedTourRequest.LocationId = backupTourRequest.LocationId ;
                 SelectedTourRequest.Location.City = backupTourRequest.Location.City;
@@ -271,10 +324,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
                 SelectedTourRequest.DateRangeEnd = backupTourRequest.DateRangeEnd ;
             }
             ShowRegularTourRequestForm = false;
+            backupTourRequest = null;
         }
         private void SaveRegularTourRequest_Execute()
         {
-            tourRequestService.Update(SelectedTourRequest);
+            SelectedTourRequest.LocationId = locationService.GetLocation(RegularTourSelectedState, RegularTourSelectedCity).Id;
+            SelectedTourRequest.Location.State = RegularTourSelectedState;
+            SelectedTourRequest.Location.City = RegularTourSelectedCity;
+            if(backupTourRequest == null)
+            {
+                tourRequestService.Save(SelectedTourRequest);
+                TourRequests.Add(SelectedTourRequest);
+            }
+            else
+            {
+                tourRequestService.Update(SelectedTourRequest);
+            }
             ShowRegularTourRequestForm = false;
         }
     }

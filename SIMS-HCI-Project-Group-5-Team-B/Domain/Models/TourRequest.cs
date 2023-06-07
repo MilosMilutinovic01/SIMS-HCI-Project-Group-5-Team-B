@@ -51,6 +51,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 {
                     locationId = value;
                     OnPropertyChanged();
+                    OnPropertyChanged("Location");
                 }
             }
         }
@@ -194,7 +195,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             AcceptedTourId = -1;
         }
 
-        public TourRequest() { }
+        public TourRequest()
+        {
+            this.Location = new Location();
+        }
 
 
 

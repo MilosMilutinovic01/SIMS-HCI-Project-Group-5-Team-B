@@ -1,4 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.DTO;
 using SIMS_HCI_Project_Group_5_Team_B.Notifications;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
@@ -27,12 +28,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
 
         public ObservableCollection<GuideGuestNotificationDTO> Notifications { get; set; }
         private NotificationService notificationService;
+        private TourService tourService;
 
         private NavigationService frameNavigationService;
         public MainGuideGuestWindowViewModel(NavigationService frameNavigationService)
         {
             this.frameNavigationService = frameNavigationService;
 
+            tourService = new TourService();
             notificationService = new NotificationService();
             Notifications = new ObservableCollection<GuideGuestNotificationDTO>(notificationService.GetForGuideGuest(0));
 
@@ -73,12 +76,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         private void VisitTourNotification_Execute(object obj)
         {
             var notificationDTO = obj as GuideGuestNotificationDTO;
-            throw new NotImplementedException();
+            tourSearchPage.TourInformationPopup.IsOpen = true;
+            var tourToShow = tourService.getById(notificationDTO.Notification.AdditionalInfo);
+            tourSearchPage.TourInformationName.TourDTO = new GuideGuestTourDTO(tourToShow, tourToShow.ImageUrls.Split(',')[0]);
+            frameNavigationService.Content = tourSearchPage;
         }
         private void CloseNotification_Execute(object obj)
         {
             var notificationDTO = obj as GuideGuestNotificationDTO;
-            throw new NotImplementedException();
+            notificationService.Delete(notificationDTO.Notification);
+            Notifications.Remove(notificationDTO);
         }
     }
 }

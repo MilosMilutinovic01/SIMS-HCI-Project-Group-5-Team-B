@@ -12,7 +12,6 @@
       Title="GuideGuestProfilePage" Background="White">
     <Page.DataContext>
         <viewModel:GuideGuestProfileViewModel/>
-
     </Page.DataContext>
 
     <Grid>
@@ -174,9 +173,7 @@
         <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="400" Width="300">
                 <forms:RegularTourRequestForm x:Name="RegularTourRequestForm"
-                                              TourRequest="{Binding SelectedTourRequest}"
-                                              SaveCommand="{Binding SaveRegularTourRequestCommand}"
-                                              CancelCommand="{Binding CancelRegularTourRequestCommand}">
+                                              DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GuideGuestProfilePage}}}">
                     <forms:RegularTourRequestForm.Style>
                         <Style TargetType="{x:Type forms:RegularTourRequestForm}">
                             <Setter Property="Visibility" Value="Collapsed"/>

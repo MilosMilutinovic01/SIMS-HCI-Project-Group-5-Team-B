@@ -23,38 +23,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls
     /// </summary>
     public partial class RegularTourRequestForm : UserControl
     {
-        public TourRequest TourRequest
-        {
-            get { return (TourRequest)GetValue(TourRequestProperty); }
-            set { SetValue(TourRequestProperty, value); }
-        }
-
-        public static readonly DependencyProperty TourRequestProperty =
-            DependencyProperty.Register("TourRequest", typeof(TourRequest), typeof(RegularTourRequestForm),
-                new PropertyMetadata(null));
-
-        public ICommand SaveCommand
-        {
-            get { return (ICommand)GetValue(SaveCommandProperty); }
-            set { SetValue(SaveCommandProperty, value); }
-        }
-
-        public static readonly DependencyProperty SaveCommandProperty =
-            DependencyProperty.Register("SaveCommand", typeof(ICommand), typeof(RegularTourRequestForm),
-                new PropertyMetadata(null));
-
-        public ICommand CancelCommand
-        {
-            get { return (ICommand)GetValue(CancelCommandProperty); }
-            set { SetValue(CancelCommandProperty, value); }
-        }
-
-        public static readonly DependencyProperty CancelCommandProperty =
-            DependencyProperty.Register("CancelCommand", typeof(ICommand), typeof(RegularTourRequestForm),
-                new PropertyMetadata(null));
-
-
-
         public RegularTourRequestForm()
         {
             InitializeComponent();
