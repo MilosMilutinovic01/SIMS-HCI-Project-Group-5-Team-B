@@ -6,6 +6,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,7 +32,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.Injector
         { typeof(ITourRequestRepository), new TourRequestCSVRepository() },
         { typeof(INotificationRepository), new NotificationCSVRepository() },
         { typeof(IUserRepository), new UserCSVRepository() },
-        { typeof(ISpecialTourRequestsRepository), new SpecialTourRequestCSVRepository() }
+        { typeof(ISpecialTourRequestsRepository), new SpecialTourRequestCSVRepository() },
+        { typeof(IGuideGuestRepository), new GuideGuestCSVRepository() },
         // Add more implementations here
     };
         public static void LoadData()

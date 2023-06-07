@@ -52,7 +52,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             WriteCSV(_data);
         }
 
-        List<GuideGuest> GetAll()
+        public List<GuideGuest> GetAll()
         {
             return _data;
         }
@@ -80,11 +80,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             };
 
             return csvValues;
-        }
-
-        List<GuideGuest> IGuideGuestRepository.GetAll()
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -169,19 +169,24 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         }
         #endregion
 
+        public SIMS_HCI_Project_Group_5_Team_B.Domain.Models.GuideGuest LoggedGuideGuest { get; set; }
+        
+        
         private TourRequestService tourRequestService;
         private TourRequestStatisticsService tourRequestStatisticsService;
-        private UserService userService;
+        private GuideGuestService guideGuestService;
         private LocationService locationService;
         public GuideGuestProfileViewModel()
         {
             tourRequestService = new TourRequestService();
             tourRequestStatisticsService = new TourRequestStatisticsService();
-            userService = new UserService();
+            guideGuestService = new GuideGuestService();
             locationService = new LocationService();
 
-            Vouchers = new ObservableCollection<Voucher>(new VoucherService().GetAll());
-            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetFor((new UserService()).getLogged().Id));
+            LoggedGuideGuest = guideGuestService.getLoggedGuideGuest();
+
+            Vouchers = new ObservableCollection<Voucher>(new VoucherService().GetAllFor(LoggedGuideGuest.Id));
+            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetFor(LoggedGuideGuest.Id));
             LoadYearsWithTourRequests();
 
 
@@ -199,7 +204,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         private void LoadYearsWithTourRequests()
         {
             YearsWithTourRequests = new ObservableCollection<string>();
-            foreach(var year in tourRequestStatisticsService.GetYearsWithRequests(userService.getLogged().Id))
+            foreach(var year in tourRequestStatisticsService.GetYearsWithRequests(LoggedGuideGuest.Id))
             {
                 YearsWithTourRequests.Add(year.ToString());
             }
@@ -208,18 +213,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         private void UpdateChartData()
         {
             if (SelectedYear == null) return;
-            User loggedUser = userService.getLogged();
             List<TourRequestLanguageStatistics> languageStatistics;
             List<TourRequestLocationStatistics> locationStatistics;
             if(SelectedYear != "Show all years")
             {
-                languageStatistics = tourRequestStatisticsService.CalculateLanguageStatistics(loggedUser.Id, int.Parse(SelectedYear));
-                locationStatistics = tourRequestStatisticsService.CalculateLocationStatistics(loggedUser.Id, int.Parse(SelectedYear));
+                languageStatistics = tourRequestStatisticsService.CalculateLanguageStatistics(LoggedGuideGuest.Id, int.Parse(SelectedYear));
+                locationStatistics = tourRequestStatisticsService.CalculateLocationStatistics(LoggedGuideGuest.Id, int.Parse(SelectedYear));
             }
             else
             {
-                languageStatistics = tourRequestStatisticsService.CalculateLanguageStatistics(loggedUser.Id);
-                locationStatistics = tourRequestStatisticsService.CalculateLocationStatistics(loggedUser.Id);
+                languageStatistics = tourRequestStatisticsService.CalculateLanguageStatistics(LoggedGuideGuest.Id);
+                locationStatistics = tourRequestStatisticsService.CalculateLocationStatistics(LoggedGuideGuest.Id);
             }
 
             if (LanguageLabels == null)
