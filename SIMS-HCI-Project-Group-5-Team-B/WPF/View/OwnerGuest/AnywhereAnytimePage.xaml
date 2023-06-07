@@ -22,6 +22,11 @@
         <converters:DateConverter x:Key="DateConverter"></converters:DateConverter>
     </Page.Resources>
 
+    <Page.InputBindings>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding SearchCommand}"/>
+        <KeyBinding Gesture="Ctrl+D" Command="{Binding DetailsCommand}"/>
+    </Page.InputBindings>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -100,9 +105,9 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Accommodation.Name}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Location" Binding="{Binding Accommodation.Location}" Width="2*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Location" Binding="{Binding Accommodation.Location}" Width="1.7*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Start" Binding="{Binding Start, Converter={StaticResource DateConverter}}" Width="0.75*"></DataGridTextColumn>
-                <DataGridTextColumn Header="End" Binding="{Binding End, Converter={StaticResource DateConverter}}" Width="0.5*">
+                <DataGridTextColumn Header="End" Binding="{Binding End, Converter={StaticResource DateConverter}}" Width="0.75*">
                     
                 </DataGridTextColumn>
                 

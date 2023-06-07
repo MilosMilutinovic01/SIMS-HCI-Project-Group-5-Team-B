@@ -100,6 +100,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 Forums_Click(sender, e);
             }
+            if (e.Key == Key.F3)
+            {
+                AnywhereAnytime_Click(sender, e);
+            }
         }
 
         private void Forums_Click(object sender, RoutedEventArgs e)
