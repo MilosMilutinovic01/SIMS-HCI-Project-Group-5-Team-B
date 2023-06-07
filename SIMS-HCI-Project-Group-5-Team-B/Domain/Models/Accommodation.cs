@@ -162,7 +162,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         }
 
 
-        public List<string> pictureURLs;
+        public List<string> pictureURLs { get; set; }
 
         private string pictureURLsString;
 
@@ -421,6 +421,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public bool IsGuestsDaysAppropriate(int guestNo, int days)
+        {
+            return MinReservationDays <= days && MaxGuests >= guestNo;
         }
 
     }
