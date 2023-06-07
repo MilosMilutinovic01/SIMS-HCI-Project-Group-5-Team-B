@@ -1,7 +1,9 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using SIMS_HCI_Project_Group_5_Team_B.DTO;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,20 +14,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest
 {
     /// <summary>
-    /// Interaction logic for AnywhereAnytimePage.xaml
+    /// Interaction logic for AccommodationAADetails.xaml
     /// </summary>
-    public partial class AnywhereAnytimePage : Page
+    public partial class AccommodationAADetails : Window
     {
-        public AnywhereAnytimePage(AccommodationService accommodationService, ReservationService reservationService, int ownerGuestId)
+        public AccommodationAADetails(AnywhereAnytimeReservation SelectedReservation, ReservationService reservationService, int ownerGuestId, int guestNo, int resDays,ObservableCollection<AnywhereAnytimeReservation> suggestions)
         {
             InitializeComponent();
-            this.DataContext = new AnywhereAnytimeViewModel(accommodationService, reservationService,ownerGuestId);
+            this.DataContext = new AccommodationAADetailsViewModel(SelectedReservation,reservationService,ownerGuestId, guestNo, resDays,suggestions);
         }
     }
 }

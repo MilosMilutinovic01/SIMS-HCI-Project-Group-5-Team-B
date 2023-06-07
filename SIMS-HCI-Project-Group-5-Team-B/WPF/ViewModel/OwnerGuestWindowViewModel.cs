@@ -78,7 +78,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public void ShowAnywhereAnytime()
         {
-            frame.Content = new AnywhereAnytimePage(accommodationService, reservationService);
+            frame.Content = new AnywhereAnytimePage(accommodationService, reservationService, activeOwnerGuest.Id);
         }
     }
 }

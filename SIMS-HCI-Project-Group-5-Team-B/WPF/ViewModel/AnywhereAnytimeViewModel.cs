@@ -1,6 +1,7 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.DTO;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -24,12 +25,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         }
 
         private ObservableCollection<AnywhereAnytimeReservation> aaSuggestions;
-        public ObservableCollection<AnywhereAnytimeReservation> AASuggestions 
-        { 
+        public ObservableCollection<AnywhereAnytimeReservation> AASuggestions
+        {
             get { return aaSuggestions; }
             set
             {
-                if(aaSuggestions != value)
+                if (aaSuggestions != value)
                 {
                     aaSuggestions = value;
                     NotifyPropertyChanged(nameof(AASuggestions));
@@ -99,6 +100,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public RelayCommand DaysIncreaseCommand { get; }
         public RelayCommand DaysDecreaseCommand { get; }
         public RelayCommand SearchCommand { get; }
+        public RelayCommand DetailsCommand {get;}
 
         public string Error => null;
 
@@ -128,6 +130,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                     {
                         return null;
                     }
+                    else if(Start < DateTime.Today)
+                    {
+                        return "Start can not be in the past.";
+                    }
                 }
 
                 if (columnName == "End")
@@ -146,9 +152,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
         }
 
+        private int ownerGuestId;
+        
 
-
-        public AnywhereAnytimeViewModel(AccommodationService accommodationService, ReservationService reservationService)
+        public AnywhereAnytimeViewModel(AccommodationService accommodationService, ReservationService reservationService, int ownerGuestId)
         {
             this.accommodationService = accommodationService;
             this.reservationService = reservationService;
@@ -158,7 +165,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             GuestDecreaseCommand = new RelayCommand(GuestNumberDecrease_Executed);
             DaysIncreaseCommand = new RelayCommand(ReservationDaysIncrease_Execute);
             DaysDecreaseCommand = new RelayCommand(ReservationDaysDecrease_Execute);
+            this.ownerGuestId = ownerGuestId;
             SearchCommand = new RelayCommand(OnSearch);
+            DetailsCommand = new RelayCommand(OnDetails);
+            
         }
 
 
@@ -203,6 +213,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 MessageBox.Show("You must fill required fields.");
             }
             
+        }
+
+        public void OnDetails()
+        {
+            if(SelectedReservation != null)
+            {
+                AccommodationAADetails window = new AccommodationAADetails(SelectedReservation, reservationService, ownerGuestId, GuestNo, Days,AASuggestions);
+                window.Show();
+            }
+            else
+            {
+                MessageBox.Show("You must select the reservation!");
+            }
         }
 
         private readonly string[] _validatedProperties = { "Days", "GuestNo", "Start", "End" };
