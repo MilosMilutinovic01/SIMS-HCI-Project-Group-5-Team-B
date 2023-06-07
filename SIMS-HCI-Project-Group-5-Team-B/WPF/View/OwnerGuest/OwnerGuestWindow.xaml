@@ -36,7 +36,7 @@
 
             <MenuItem Header="Account F1 "></MenuItem>
             <MenuItem Header="Accommodations F2 " Click="ShowAccomodation_Button_Click"></MenuItem>
-            <MenuItem Header="Anywhere/Anytime F3 "></MenuItem>
+            <MenuItem Header="Anywhere/Anytime F3" Click="AnywhereAnytime_Click"></MenuItem>
 
             <MenuItem Header="Reservations F4 " Click="Reservations_Button_Click"></MenuItem>
             <MenuItem Header="Grades F5 " Click="Grades_Button_Click"></MenuItem>

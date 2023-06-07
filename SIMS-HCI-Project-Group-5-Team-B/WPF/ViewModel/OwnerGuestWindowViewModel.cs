@@ -75,5 +75,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             frame.Content = new ForumsPage(activeOwnerGuest.Id);
         }
+
+        public void ShowAnywhereAnytime()
+        {
+            frame.Content = new AnywhereAnytimePage(accommodationService, reservationService);
+        }
     }
 }

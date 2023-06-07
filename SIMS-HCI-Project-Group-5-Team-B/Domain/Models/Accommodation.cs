@@ -423,5 +423,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public bool IsGuestsDaysAppropriate(int guestNo, int days)
+        {
+            return MinReservationDays <= days && MaxGuests >= guestNo;
+        }
+
     }
 }

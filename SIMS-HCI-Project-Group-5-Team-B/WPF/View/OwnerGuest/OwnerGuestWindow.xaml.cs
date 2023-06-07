@@ -106,5 +106,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {         
             ownerGuestWindowViewModel.ShowForums();
         }
+
+        private void AnywhereAnytime_Click(object sender, RoutedEventArgs e)
+        {
+            ownerGuestWindowViewModel.ShowAnywhereAnytime();
+        }
     }
 }
