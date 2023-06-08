@@ -61,17 +61,42 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 }
             }
         }
+        private bool resigned;
+        public bool Resigned
+        {
+            get { return resigned; }
+            set
+            {
+                if (value != resigned)
+                {
+                    resigned = value;
+                }
+            }
+        }
+        private string username;
+        public string Username
+        {
+            get { return username; }
+            set
+            {
+                if (value != username)
+                {
+                    username = value;
+                }
+            }
+        }
 
         public Guide()
         {
-            Id = 0;
-            Name = "Milos";
-            Surname = "Milutinovic";
         }
-        public Guide(string name, string surname)
+        public Guide(string username, string name, string surname)
         {
+            Username = username;
             Name = name;
             Surname = surname;
+            IsSuperGuide = false;
+            AverageGrade = 0;
+            Resigned = false;
         }
 
         public void FromCSV(string[] values)
@@ -81,6 +106,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             Surname = values[2];
             IsSuperGuide = Convert.ToBoolean(values[3]);
             AverageGrade = Convert.ToDouble(values[4]);
+            Resigned = Convert.ToBoolean(values[5]);
+            Username = values[6];
         }
 
         public string[] ToCSV()
@@ -91,7 +118,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 Name,
                 Surname,
                 IsSuperGuide.ToString(),
-                AverageGrade.ToString()
+                AverageGrade.ToString(),
+                Resigned.ToString(),
+                Username.ToString()
             };
             return csvValues;
         }

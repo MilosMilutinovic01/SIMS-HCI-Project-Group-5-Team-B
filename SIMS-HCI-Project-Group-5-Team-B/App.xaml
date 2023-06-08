@@ -51,13 +51,13 @@
             </Style>
             
             <!--Style for guide's grid-->
-            <Style x:Key="DataGridCellStyle" TargetType="{x:Type DataGridCell}">
+            <Style x:Key="GuideDataGridCellStyle" TargetType="{x:Type DataGridCell}">
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="Width" Value="auto"></Setter>
             </Style>
 
-            <Style x:Key="DataGridColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+            <Style x:Key="GuideDataGridColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
                 <Setter Property="Background" Value="#F0F0F0"/>
                 <Setter Property="BorderBrush" Value="#CCCCCC"/>
                 <Setter Property="BorderThickness" Value="1"/>
@@ -67,7 +67,7 @@
                 <Setter Property="Width" Value="auto"/>
             </Style>
 
-            <Style TargetType="{x:Type DataGrid}">
+            <Style x:Key="GuideDataGridStyle" TargetType="{x:Type DataGrid}">
                 <Setter Property="AlternatingRowBackground" Value="#F8F8F8"/>
                 <Setter Property="AutoGenerateColumns" Value="False"/>
                 <Setter Property="Background" Value="White"/>
@@ -88,7 +88,6 @@
                 <Setter Property="Margin" Value="15,0,15,0"/>
                 <Setter Property="ColumnWidth" Value="auto"/>
             </Style>
-            
         </ResourceDictionary>
     </Application.Resources>
 </Application>
