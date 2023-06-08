@@ -9,13 +9,17 @@
       Height="540" Width="920"
       Background="#c8a2c8"
       Title="AccountPage">
+    <Page.InputBindings>
+        <KeyBinding Gesture="Ctrl+M" Command="{Binding ModifyCommand}"></KeyBinding>
+        <KeyBinding Gesture="Ctrl+D" Command="{Binding CancelReservationCommand}"></KeyBinding>
+    </Page.InputBindings>
     <Page.Resources>
         <converters:DateConverter x:Key="DateConverter"></converters:DateConverter>
     </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.9*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid  Grid.Column="0">
@@ -32,10 +36,10 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="1.2*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="6" BorderThickness="3" BorderBrush="Black" />
@@ -46,11 +50,20 @@
                 <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Email</Label>
                 <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Phone Number</Label>
 
-                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Height="30" Margin="10 0" Text="{Binding Path=ActiveOwnerGuest.Username}" FontSize="13"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Height="30" Margin="10 0" Text="{Binding Path=ActiveOwnerGuest.Name}" FontSize="13"/>
-                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Height="30" Margin="10 0" Text="{Binding Path=ActiveOwnerGuest.Surname}" FontSize="13"/>
-                <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Height="30" Margin="10 0" Text="{Binding Path=ActiveOwnerGuest.Email}" FontSize="13"/>
-                <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Height="30" Margin="10 0" Text="{Binding Path=ActiveOwnerGuest.Number}" FontSize="13"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10 0" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Username}" FontSize="13"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10 0" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Name}" FontSize="13"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10 0" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Surname}" FontSize="13"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10 0" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Email}" FontSize="13"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10 0" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Number}" FontSize="13"/>
+
+                <WrapPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" FlowDirection="RightToLeft">
+                    <Button Grid.Row="7" Grid.Column="0" Height="34" Width="66" Margin="10 0 0 2"  Command="{Binding ResetCommand}">
+                        <Button.Content>
+                            <TextBlock  TextWrapping="Wrap" Text="Start Demo  Ctrl + T" TextAlignment="Center"></TextBlock>
+                        </Button.Content>
+                    </Button>
+                    
+                </WrapPanel>
             </Grid>
 
             <Grid Grid.Row="1">
@@ -61,7 +74,7 @@
                 <Border Grid.Column="0" Grid.Row="0" BorderBrush="black" BorderThickness="3" Background="LightGray" Margin="20 10 10 10">
                     <StackPanel>
                         <TextBlock Height="55" Text="{Binding Path=LastYearReservations, Mode=OneWay}" FontSize="30" TextAlignment="Center"></TextBlock>
-                        <TextBlock HorizontalAlignment="Center" FontSize="15"  VerticalAlignment="Center" TextWrapping="Wrap" Text="Reservations in           last year" />
+                        <TextBlock HorizontalAlignment="Center" FontSize="15"  VerticalAlignment="Center" TextWrapping="Wrap"  Text="Reservations in        Last Year" />
                     </StackPanel>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="0" BorderBrush="black" BorderThickness="3" Background="LightGray" Margin="10 10 20 10">
@@ -71,7 +84,7 @@
                     </StackPanel>
                 </Border>
             </Grid>
-            <Label Height="40" Width="40" Content="✨" FontSize="20"  Margin="110,4,157,89" Grid.Row="1">
+            <Label Height="40" Width="40" Content="✨" FontSize="20"  Margin="99,4,147,89" Grid.Row="1">
                 <Label.Style>
                     <Style  TargetType="{x:Type Label}">
                         <Setter Property="Visibility" Value="Hidden" />
@@ -122,7 +135,7 @@
             </Grid.RowDefinitions>
 
             <!--Data Grid FOr  Reservations -->
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="My Reservations" FontSize="20" Margin="0 10"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="My Reservations" FontSize="20" Margin="0 10 0 0"></TextBlock>
             <DataGrid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 0 10 0" x:Name="ReservationsGrid" ItemsSource="{Binding Path=ReservationViews, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedReservationView, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                       AutoGenerateColumns="False" IsReadOnly="True">
@@ -169,7 +182,7 @@
 
 
             <!--Data Grid FOr Pending Requests -->
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="Pending Requests" FontSize="20" Margin="0 10"></TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="Pending Requests" FontSize="20" Margin="0 10 0 0"></TextBlock>
             <DataGrid Margin="0 0 10 10" Grid.Row="3" Grid.Column="1" x:Name="ReservationsRequestsGrid" ItemsSource="{Binding Path=PendingChangeRequests, UpdateSourceTrigger=PropertyChanged}"
                          SelectionMode="Single"
                       AutoGenerateColumns="False" IsReadOnly="True" >
@@ -189,6 +202,11 @@
                 </DataGrid.Columns>
 
             </DataGrid>
+            <Button  HorizontalAlignment="Left" Height="35" Width="100" Margin="523,7,0,0" VerticalAlignment="Top">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Text="Generate Report  Ctrl + E" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
         </Grid>
     </Grid>
 </Page>
