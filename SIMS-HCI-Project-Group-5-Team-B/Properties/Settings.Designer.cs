@@ -50,7 +50,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-
         public bool darkThemeOn {
             get {
                 return ((bool)(this["darkThemeOn"]));
@@ -59,6 +58,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
                 this["darkThemeOn"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Tooltips {
             get {
                 return ((bool)(this["Tooltips"]));
