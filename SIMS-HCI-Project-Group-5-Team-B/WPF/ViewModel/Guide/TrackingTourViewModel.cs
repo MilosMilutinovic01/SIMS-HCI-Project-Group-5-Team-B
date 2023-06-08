@@ -22,6 +22,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private NotificationController notificationController;
         private TourAttendanceService tourAttendanceService;
         private TemporaryTourAttendanceController tourAttendanceController;
+        private UserService userService;
 
         public ObservableCollection<Appointment> AvailableAppointments { get; set; }
         public ObservableCollection<KeyPoint> KeyPoints { get; set; }
@@ -44,6 +45,54 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 }
             }
         }
+        private bool isEnabledEndButton;
+        public bool IsEnabledEndButton
+        {
+            get
+            {
+                return isEnabledEndButton;
+            }
+            set
+            {
+                if (isEnabledEndButton != value)
+                {
+                    isEnabledEndButton = value;
+                    OnPropertyChanged(nameof(IsEnabledEndButton));
+                }
+            }
+        }
+        private bool isEnabledStartButton;
+        public bool IsEnabledStartButton
+        {
+            get
+            {
+                return isEnabledStartButton;
+            }
+            set
+            {
+                if (isEnabledStartButton != value)
+                {
+                    isEnabledStartButton = value;
+                    OnPropertyChanged(nameof(IsEnabledStartButton));
+                }
+            }
+        }
+        private bool isHitTestVisibleDataGrid;
+        public bool IsHitTestVisibleDataGrid
+        {
+            get
+            {
+                return isHitTestVisibleDataGrid;
+            }
+            set
+            {
+                if (isHitTestVisibleDataGrid != value)
+                {
+                    isHitTestVisibleDataGrid = value;
+                    OnPropertyChanged(nameof(IsHitTestVisibleDataGrid));
+                }
+            }
+        }      
         public KeyPoint SelectedKeyPoint { get; set; }
         public SIMS_HCI_Project_Group_5_Team_B.Domain.Models.GuideGuest SelectedGuest { get; set; }
         public RelayCommand StartTourCommand { get; set; }
@@ -85,7 +134,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         private void Execute_EndTourCommand()
         {
-            bool result = MessageBox.Show("Are you sure you want to end?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+            bool result = false;
+            if (SelectedAppointment.Started == true)
+                result = MessageBox.Show("Are you sure you want to end?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+            else
+                MessageBox.Show("You must start appointment first!");
             if (result)
             {
                 SelectedAppointment.Ended = true;
@@ -150,6 +203,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.appointmentService = new AppointmentService();
             notificationController = new NotificationController();
             tourAttendanceController = new TemporaryTourAttendanceController();
+            userService = new UserService();
 
             AvailableAppointments = new ObservableCollection<Appointment>(appointmentService.GetAllAvaillable(8));
             KeyPoints = new ObservableCollection<KeyPoint>();
@@ -159,7 +213,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.EndTourCommand = new RelayCommand(Execute_EndTourCommand, CanExecute_NavigateCommand);
             this.CheckKeyPointCommand = new RelayCommand(Execute_CheckKeyPointCommand, CanExecute_NavigateCommand);
 
-            CheckStarted();
+            //SelectedAppointment = appointmentService.StartedAppointment(userService.getLogged().Id);
+            //if(SelectedAppointment != null)
+            //{
+            //    IsEnabledStartButton = false;
+            //    IsEnabledEndButton = true;
+            //    IsHitTestVisibleDataGrid = false;
+            //}
+            //else
+            //{
+            IsEnabledStartButton = true;
+            IsEnabledEndButton = true;
+            IsHitTestVisibleDataGrid = true;
+            //}
         }
 
         private void CheckStarted()

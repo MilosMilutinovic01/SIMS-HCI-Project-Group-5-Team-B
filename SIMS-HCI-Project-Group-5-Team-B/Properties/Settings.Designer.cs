@@ -50,12 +50,24 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool FirstTimeLogged {
+        public bool Tooltips {
             get {
-                return ((bool)(this["FirstTimeLogged"]));
+                return ((bool)(this["Tooltips"]));
             }
             set {
-                this["FirstTimeLogged"] = value;
+                this["Tooltips"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Help {
+            get {
+                return ((bool)(this["Help"]));
+            }
+            set {
+                this["Help"] = value;
             }
         }
     }

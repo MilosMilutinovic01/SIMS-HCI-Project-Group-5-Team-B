@@ -16,7 +16,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Win32;
 using System.IO;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
@@ -136,7 +135,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             this.TourRequest = tourRequest;
             this.Description = tourRequest.Description;
             Tour.Description = tourRequest.Description;
-            //appointments.Add(new Appointment(Tour.Id, 8, tourRequest.SelectedDate, Tour.MaxGuests));
         }
 
         public CreateTourPage(string language, int locationId)

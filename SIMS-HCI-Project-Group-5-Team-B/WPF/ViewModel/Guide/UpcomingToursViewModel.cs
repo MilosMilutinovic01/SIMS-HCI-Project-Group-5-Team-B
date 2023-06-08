@@ -20,7 +20,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public TourAttendanceService tourAttendanceService;
         public ObservableCollection<Appointment> AvailableAppointments { get; }
         public Appointment SelectedAppointment { get; set; }
-        public RelayCommand CancelTourCommand { get; set; }
+        public RelayCommandWithParams CancelTourCommand { get; set; }
 
         public int userId;
         #endregion
@@ -59,7 +59,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.appointmentService = new AppointmentService();
             voucherService = new VoucherService();
 
-            //this.CancelTourCommand = new RelayCommand();
+            this.CancelTourCommand = new RelayCommandWithParams(Execute_CancelTourCommand, CanExecute_Command);
             AvailableAppointments = new ObservableCollection<Appointment>();
 
             RefreshAppointments();

@@ -1,6 +1,7 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.DTO;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
@@ -24,6 +25,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public bool result;
         private TourGradeService tourGradeService;
         private TourAttendanceService tourAttendanceService;
+        private AppointmentService appointmentService;
         public ObservableCollection<Card> Cards
         {
             get { return cards; }
@@ -44,6 +46,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
             this.tourAttendanceService = new TourAttendanceService();
             this.tourGradeService = new TourGradeService();
+            this.appointmentService = new AppointmentService();
 
             Cards = new ObservableCollection<Card>();
 
@@ -55,7 +58,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 string username = userController.getById(tg.GuideGuestId).Username;
                 int keyPointArrivedId = tourAttendanceService.GetById(tg.TourAttendanceId).KeyPointGuestArrivedId;
                 string keyPointName = keyPointsController.GetById(keyPointArrivedId).Name;
-                Cards.Add(new Card(username, keyPointName, tg.GuideGeneralKnowledge, tg.GuideLanguageKnowledge, tg.TourFun, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", false, false));
+                string tourName = appointmentService.getById(tourAttendanceService.GetById(tourGradeService.getById(tg.Id).TourAttendanceId).AppointmentId).Tour.Name;
+                Cards.Add(new Card(username, keyPointName, tg.GuideGeneralKnowledge, tg.GuideLanguageKnowledge, tg.TourFun, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", false, false, tourName));
             }
 
             ReportCommand = new RelayCommandWithParams(Report);
@@ -72,9 +76,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         private void More(object parameter)
         {
-            result = MessageBox.Show("Display more?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
-            //FullReviewWindow fullReviewWindow = new FullReviewWindow(Cards.GuestName);
-            //fullReviewWindow.Show();
+            //result = MessageBox.Show("Display more?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+            if (parameter is Card selectedCard)
+            {
+                FullReviewWindow fullReviewWindow = new FullReviewWindow(selectedCard);
+                fullReviewWindow.Show();
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -8,7 +8,10 @@
     <Setting Name="currentLanguage" Type="System.String" Scope="User">
       <Value Profile="(Default)">en-US</Value>
     </Setting>
-    <Setting Name="FirstTimeLogged" Type="System.Boolean" Scope="User">
+    <Setting Name="Tooltips" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Help" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

@@ -1,7 +1,9 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
+using SIMS_HCI_Project_Group_5_Team_B.View;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide;
 using System;
 using System.Collections.Generic;
@@ -14,20 +16,17 @@ using System.Windows.Navigation;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 {
-    public class GuideViewModel : ViewModel
+    public class HomePageViewModel : ViewModel
     {
         #region fields
         public string Username { get; set; }
 
-        public GuideService guideService;
-        public TourService tourService;
-        public AppointmentService appointmentService;
-        public TourAttendanceService tourAttendanceService;
-        public TourGradeService tourGradeService;
+        public string SuperGuide { get; set; }
+
+        private UserService userService;
+        private bool checker;
         public Frame frame;
         public Guide guide;
-        public string SuperGuide { get; set; }
-        private bool checker;
         public bool Checker
         {
             get { return checker; }
@@ -37,17 +36,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 OnPropertyChanged();
             }
         }
-        private bool isMenuOpened;
-        public bool IsMenuOpened
+        public bool IsVisibleWizard
         {
-            get { return isMenuOpened; }
+            get
+            {
+                return Properties.Settings.Default.Help;
+            }
             set
             {
-                isMenuOpened = value;
-                OnPropertyChanged(nameof(IsMenuOpened));
+                Properties.Settings.Default.Help = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged(nameof(IsVisibleWizard));
             }
         }
-        public NavigationService NavService { get; set; }
 
         public RelayCommand NavigateToCreateTourPageCommand { get; set; }
 
@@ -61,29 +62,46 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public RelayCommand NavigateToTourRequestsPageCommand { get; set; }
 
-        public RelayCommand NavigateToTourRequestsWithStatisticsPageCommand { get; set; }
+        public RelayCommand NavigateToTourRequestsWithStatisticsPageommand { get; set; }
 
-        public RelayCommandMenu OpenMenuCommand { get; set; }
+        public RelayCommand OpenMenuCommand { get; set; }
 
-        public RelayCommand GoBackCommand { get; set; }
-        public RelayCommand FinishWizardCommand { get; set; }
+        public RelayCommand SignOutCommand { get; set; }
+
+        public RelayCommand ResignCommand { get; set; }
         #endregion
 
         #region actions
+
         private bool CanExecute_NavigateCommand()
         {
             return true;
         }
 
-        private bool CanExecute_NavigateCommand1(object obj)
+        private void Execute_SignOutCommand()
         {
-            return true;
+            bool result = MessageBox.Show("Are you sure you want to sign out?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+            if(result)
+            {
+                Window window = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+                if (window != null)
+                {
+                    window.Close();
+                }
+            }
         }
 
-        private void Execute_GoBackCommand()
+        private void Execute_ResignCommand()
         {
-            if(this.frame.NavigationService.CanGoBack)
-                this.frame.NavigationService.GoBack();
+            bool result = MessageBox.Show("Are you sure you want to resign?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+            if (result)
+            {
+                Window window = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+                if (window != null)
+                {
+                    window.Close();
+                }
+            }
         }
 
         private void Execute_NavigateToCreateTourPageCommand()
@@ -122,37 +140,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             //this.NavService.Navigate(
             //    new Uri("WPF/View/Guide/TourRequestsPage.xaml", UriKind.Relative));
-            Page tourRequest = new TourRequestAcceptPage(this.frame);
-            this.frame.NavigationService.Navigate(tourRequest);
+            Page reviews = new ReviewsPage();
+            this.frame.NavigationService.Navigate(reviews);
         }
 
         private void Execute_NavigateToTourRequestsWithStatisticsPageCommand()
         {
             //this.NavService.Navigate(
             //    new Uri("WPF/View/Guide/TourRequestsWithStatisticsPage.xaml", UriKind.Relative));
-            Page tourRequestsStatistics = new TourRequestsStatisticsPage(this.frame);
-            this.frame.NavigationService.Navigate(tourRequestsStatistics);
+            Page reviews = new ReviewsPage();
+            this.frame.NavigationService.Navigate(reviews);
         }
         #endregion
 
         #region constructors
-        public GuideViewModel(Guide guide, NavigationService navService, Frame frame) 
+        public HomePageViewModel(Guide guide, Frame frame)
         {
-            KeyPointCSVRepository keyPointCSVRepository = new KeyPointCSVRepository();
-            LocationCSVRepository locationCSVRepository = new LocationCSVRepository();
-            TourCSVRepository tourCSVRepository = new TourCSVRepository();
-            TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
-            TourGradeCSVRepository tourGradeCSVRepository = new TourGradeCSVRepository();
-            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository();
+            PageName = "Home pageeeeee";
+            HelpMessage = "home page help message";
 
-            guideService = new GuideService();
-            tourService = new TourService(tourCSVRepository);
-            tourAttendanceService = new TourAttendanceService();
-            tourGradeService = new TourGradeService();
-            appointmentService = new AppointmentService();
-
-            this.NavService = navService;
-            Username = "Username: " + guideService.getById(1).Username;
+            userService = new UserService();
+            Username = "Username: " + userService.getLogged().Username;
             SuperGuide = "Super-guide: no";
             this.NavigateToCreateTourPageCommand = new RelayCommand(Execute_NavigateToCreateTourPageCommand, CanExecute_NavigateCommand);
             this.NavigateToTrackingTourPageCommand = new RelayCommand(Execute_NavigateToTrackingTourPageCommand, CanExecute_NavigateCommand);
@@ -160,14 +168,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.NavigateToMyToursPageCommand = new RelayCommand(Execute_NavigateToMyToursPageCommand, CanExecute_NavigateCommand);
             this.NavigateToReviewsPageCommand = new RelayCommand(Execute_NavigateToReviewsPageCommand, CanExecute_NavigateCommand);
             this.NavigateToTourRequestsPageCommand = new RelayCommand(Execute_NavigateToTourRequestsPageCommand, CanExecute_NavigateCommand);
-            this.NavigateToTourRequestsWithStatisticsPageCommand = new RelayCommand(Execute_NavigateToTourRequestsWithStatisticsPageCommand, CanExecute_NavigateCommand);
-            this.OpenMenuCommand = new RelayCommandMenu(execute => this.IsMenuOpened = !this.IsMenuOpened, CanExecute_NavigateCommand1);
-            this.GoBackCommand = new RelayCommand(Execute_GoBackCommand, CanExecute_NavigateCommand);
+            this.NavigateToTourRequestsWithStatisticsPageommand = new RelayCommand(Execute_NavigateToTourRequestsWithStatisticsPageCommand, CanExecute_NavigateCommand);
+            //this.OpenMenuCommand = new RelayCommand(execute => this.Checker = !this.Checker, CanExecute_NavigateCommand);
+            this.SignOutCommand = new RelayCommand(Execute_SignOutCommand, CanExecute_NavigateCommand);
+            this.ResignCommand = new RelayCommand(Execute_ResignCommand, CanExecute_NavigateCommand);
             this.Checker = false;
             this.frame = frame;
             this.guide = guide;
-            this.frame.Content = new HomePage(this.guide, this.frame);
-            this.IsMenuOpened = false;
         }
         #endregion
     }
