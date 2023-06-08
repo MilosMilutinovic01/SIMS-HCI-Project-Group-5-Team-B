@@ -189,6 +189,9 @@
   <data name="CancelledReservations" xml:space="preserve">
     <value>Cancelled reservations</value>
   </data>
+  <data name="ChangeLanguage" xml:space="preserve">
+    <value>Change language:</value>
+  </data>
   <data name="City" xml:space="preserve">
     <value>City</value>
   </data>
@@ -257,6 +260,9 @@
   </data>
   <data name="Forum" xml:space="preserve">
     <value>Forum</value>
+  </data>
+  <data name="ForumLocationLabel" xml:space="preserve">
+    <value>Forum for location:</value>
   </data>
   <data name="ForumWindow" xml:space="preserve">
     <value>Forum Window</value>
@@ -443,6 +449,9 @@
   </data>
   <data name="Statistics" xml:space="preserve">
     <value>Statistics</value>
+  </data>
+  <data name="StatisticsLabel" xml:space="preserve">
+    <value>Stacistics for:</value>
   </data>
   <data name="String1" xml:space="preserve">
     <value />

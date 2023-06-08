@@ -16,12 +16,14 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1.5*"></RowDefinition>
             <RowDefinition Height="1.5*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Content="{ns:Loc StarMonthExplanation}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,20,0,0" FontSize="20" Grid.Row="0" FontWeight="Bold" Content="{ns:Loc StatisticsLabel}" Style="{DynamicResource LabelStyle}"></Label>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"  Grid.Row="0" Content="{Binding SelectedAccommodation.Name, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Style="{DynamicResource LabelStyle}" Margin="176,20,0,0"/>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,72,0,0" Content="{ns:Loc StarMonthExplanation}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
         <WrapPanel Grid.Column="0" Grid.Row="1">
             <Border Height="120" Width="240" Margin="40 20 0 0" Style="{DynamicResource BorderStyle}">
                 <StackPanel Style="{DynamicResource StatisticsStackPanelStyle}">
@@ -50,7 +52,8 @@
                 </StackPanel>
             </Border>
         </WrapPanel>
-        <DataGrid  ItemsSource="{Binding Path=MonthlyAccommodationsStatistics, UpdateSourceTrigger=PropertyChanged}"  AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="3" Height="150" Width="520" Margin="43,11,37,51">
+        <Label Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Content="{ns:Loc MonthlyStatistics}" Style="{DynamicResource LabelStyle}" Margin="40,0,0,0"></Label>
+        <DataGrid  ItemsSource="{Binding Path=MonthlyAccommodationsStatistics, UpdateSourceTrigger=PropertyChanged}"  AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="3" Width="520" Margin="43,27,37,41">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
@@ -73,6 +76,6 @@
                 <DataGridTextColumn Header="{ns:Loc ForRenovation}" Width="2*" Binding="{Binding NumberOfRenovationRequests}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="60" Margin="500,171,0,0" Content="{ns:Loc Cancel}" Command="{Binding CancelCommand}" Style="{DynamicResource ButtonInWindowStyle}"></Button>
+        <Button Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="20" Width="60"  Content="{ns:Loc Cancel}" Command="{Binding CancelCommand}" Style="{DynamicResource ButtonInWindowStyle}" Margin="0,0,37,11"></Button>
     </Grid>
 </Window>

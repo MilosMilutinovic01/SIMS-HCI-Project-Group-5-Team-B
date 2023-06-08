@@ -23,7 +23,7 @@
                 <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,28,0,0" Content="{ns:Loc StarYearExplanation}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
             </Grid>
             <Grid Grid.Column="0" Grid.Row="1">
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,70,0,0" Content="{ns:Loc YearlyStatistics}" Style="{DynamicResource LabelStyle}"></Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,70,0,0" FontWeight="Bold" Content="{ns:Loc YearlyStatistics}" Style="{DynamicResource LabelStyle}"></Label>
                 <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,23,0,0" Content="{ns:Loc Accommodation}" Style="{DynamicResource LabelStyle}"></Label>
                 <ComboBox Name="Accommodation_ComboBox" ItemsSource="{Binding AccommodationNames}" SelectedItem="{Binding SelectedAccommodationName}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="80" Margin="154,24,0,0">
 

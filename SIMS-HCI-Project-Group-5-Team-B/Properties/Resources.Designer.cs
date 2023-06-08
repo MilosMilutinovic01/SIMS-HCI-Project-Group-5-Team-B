@@ -277,6 +277,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change language:.
+        /// </summary>
+        public static string ChangeLanguage {
+            get {
+                return ResourceManager.GetString("ChangeLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
         public static string City {
@@ -480,6 +489,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         public static string Forum {
             get {
                 return ResourceManager.GetString("Forum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forum for location:.
+        /// </summary>
+        public static string ForumLocationLabel {
+            get {
+                return ResourceManager.GetString("ForumLocationLabel", resourceCulture);
             }
         }
         
@@ -1038,6 +1056,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         public static string Statistics {
             get {
                 return ResourceManager.GetString("Statistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stacistics for:.
+        /// </summary>
+        public static string StatisticsLabel {
+            get {
+                return ResourceManager.GetString("StatisticsLabel", resourceCulture);
             }
         }
         

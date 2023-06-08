@@ -25,22 +25,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     public partial class RenovationPage : Page
     {
 
-        //public RenovationGridView SelectedRenovationGridView { get; set; }
         public RenovationPage(IRenovationService renovationService, ReservationService reservationService, Owner owner, AccommodationService accommodationService)
         {
             InitializeComponent();
-            
-            //renovationViewModel = new RenovationViewModel(renovationService, reservationService, owner.Id/*, SelectedRenovationGridView*/);
-            this.DataContext = new RenovationViewModel(renovationService, reservationService, owner,accommodationService/*, SelectedRenovationGridView*/);
+            this.DataContext = new RenovationViewModel(renovationService, reservationService, owner,accommodationService);
         }
 
-        /*private void Schedule_Button_Click(object sender, RoutedEventArgs e)
-        {
-            ScheduleRenovationForm scheduleRenovationForm = new ScheduleRenovationForm(renovationViewModel,accommodationService,owner);
-            scheduleRenovationForm.Show();
-        }*/
-
-
-       
     }
 }

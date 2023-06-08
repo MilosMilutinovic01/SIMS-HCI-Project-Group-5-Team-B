@@ -19,6 +19,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using System.Collections.ObjectModel;
+using SIMS_HCI_Project_Group_5_Team_B.Utilities;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -44,7 +45,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public List<string> states { get; set; }
         public List<string> cities;
 
-   
+        public RelayCommand CreateAccommodationCommand { get; }
+        public RelayCommand CancelCommand { get; }
 
         public AccommodationForm(ObservableCollection<Accommodation> AccomodationsOfLogedInOwner, Owner owner)
         {
@@ -59,12 +61,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             states = locationController.GetStates();
             this.AccomodationsOfLogedInOwner = AccomodationsOfLogedInOwner;
             this.owner = owner;
-   
+            CreateAccommodationCommand = new RelayCommand(CreateAccommodationExecute, CanExecute);
+            CancelCommand = new RelayCommand(CancelExecute, CanExecute);
         }
 
-        
+        public bool CanExecute()
+        {
+            return true;
+        }
 
-        private void Create_Accommodation_Click(object sender, RoutedEventArgs e)
+        private void CreateAccommodationExecute()
         {
             if (Accommodation.IsValid)
             {
@@ -131,7 +137,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             ComboBoxCities.ItemsSource = cities;
         }
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
+        private void CancelExecute()
         {
             Close();
         }
