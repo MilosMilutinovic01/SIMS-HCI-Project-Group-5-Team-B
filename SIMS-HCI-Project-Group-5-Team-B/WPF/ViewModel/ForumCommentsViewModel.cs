@@ -35,11 +35,25 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public bool CanAddComment { get; set; }
         public Comment SelectedComment { get; set; }
         public ObservableCollection<Forum> Forums { get; set; }
+        private string forumLocation;
+        public string ForumLocation
+        {
+            get { return forumLocation; }
+            set
+            {
+                if (value != forumLocation)
+                {
+                    forumLocation = value;
+                    NotifyPropertyChanged(nameof(ForumLocation));
+                }
+            }
+        }
         public ForumCommentsViewModel(Forum SelectedForum, ForumService forumService,Owner owner,AccommodationService accommodationService,ObservableCollection<Forum> Forums)
         {
             this.SelectedForum = SelectedForum;
             this.Owner = owner;
             this.Forums = Forums;
+            ForumLocation = SelectedForum.Location.ToString();
             userController = new UserController();
             ownerGuestService = new OwnerGuestService();
             commentService = ServiceInjector.CreateInstance<ICommentService>();

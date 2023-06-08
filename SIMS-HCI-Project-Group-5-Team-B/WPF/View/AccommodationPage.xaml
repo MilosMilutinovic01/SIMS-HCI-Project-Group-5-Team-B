@@ -23,8 +23,8 @@
             </Grid>
             <Grid Grid.Column="0" Grid.Row="1">
                 <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,10,0,0" Content="{ns:Loc YourAccommodations}"  Style="{DynamicResource ExplanationLabelStyle}" ></Label>
-                <Button Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Create_Accommodation_Click" Margin="0,13,22,0" Content="{ns:Loc Add}" Style="{DynamicResource ButtonStyle}"></Button>
-                <Button  Width="170" Height="20" Margin="549,13,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Suggestions_Button_Click" Content="{ns:Loc SuggestionsForNewLocation}" Style="{DynamicResource ButtonStyle}"></Button>
+                <Button Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding CreateAccommodationCommand}" Margin="0,13,22,0" Content="{ns:Loc Add}" Style="{DynamicResource ButtonStyle}"></Button>
+                <Button  Width="170" Height="20" Margin="549,13,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding SuggestionsCommand}" Content="{ns:Loc SuggestionsForNewLocation}" Style="{DynamicResource ButtonStyle}"></Button>
                 <DataGrid  ItemsSource="{Binding Path=AccomodationsOfLogedInOwner, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodation}"
                                  AutoGenerateColumns="False" IsReadOnly="True" Margin="22,40" >
                     <DataGrid.Columns>
@@ -38,7 +38,7 @@
                         <DataGridTemplateColumn x:Name="ButtonColumnReport">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="reportButton" Content="{ns:Loc Generate}" Style="{DynamicResource ButtonInDataGridStyle}" Click="Generate_Report_Click"></Button>
+                                    <Button x:Name="reportButton" Content="{ns:Loc Generate}" Style="{DynamicResource ButtonInDataGridStyle}" Command="{Binding DataContext.GenerateReportCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"></Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

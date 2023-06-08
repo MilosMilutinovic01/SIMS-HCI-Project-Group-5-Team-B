@@ -22,7 +22,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing { get; set; }
         public RelayCommand CancelCommand { get; }
         public RelayCommand GradeCommand { get; }
-
+        public string Heading { get; set; }
         public string SelectedIsPaymentCompletedOnTime { get; set; }
         public string SelectedComplatintsFromGuests { get; set; }
         public List<string> BoolAnswers { get; set; }
@@ -38,10 +38,25 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             CancelCommand = new RelayCommand(Cancel_Execute, CanExecute);
             GradeCommand = new RelayCommand(GradeGuest_Execute, CanExecute);
             BoolAnswers = new List<string>();
+            FormHeading();
             SetBoolAnswers();
 
         }
 
+        private void FormHeading()
+        {
+            if (Properties.Settings.Default.currentLanguage == "en-US")
+            {
+                Heading = SelectedReservation.Accommodation.Name + " Grading\n"
+                      + "Guest: " + SelectedReservation.OwnerGuest.Name + " " + SelectedReservation.OwnerGuest.Surname + "";
+            }
+            else
+            {
+                Heading = SelectedReservation.Accommodation.Name + " Ocenjivanje\n"
+                     + "Gost: " + SelectedReservation.OwnerGuest.Name + " " + SelectedReservation.OwnerGuest.Name + "";
+            }
+
+        }
         private void SetOwnerGuestGradeParameters()
         {
             NewOwnerGuestGrade = new OwnerGuestGrade();

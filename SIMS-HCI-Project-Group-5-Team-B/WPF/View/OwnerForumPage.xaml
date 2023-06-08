@@ -40,7 +40,6 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="{ns:Loc Name}" Width="*" ></DataGridTextColumn>
                         <DataGridTextColumn Header="{ns:Loc City}" Binding="{Binding Location.City}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="{ns:Loc State}" Binding="{Binding Location.State}" Width="*"></DataGridTextColumn>
                         <DataGridTemplateColumn x:Name="ButtonShowForum" Header="{ns:Loc Show}" Width="*">
