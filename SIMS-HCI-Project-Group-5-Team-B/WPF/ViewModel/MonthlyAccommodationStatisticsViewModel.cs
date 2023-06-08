@@ -15,13 +15,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
     {
         public ObservableCollection<MonthlyAccommodationStatistics> MonthlyAccommodationsStatistics { get; set; }
         private MonthlyAccommodationStatisticsService monthlyAccommodationStatisticsService;
+        private AccommodationService accommodationService;
         public RelayCommand CancelCommand { get; }
         public YearlyAccommodationStatistics SelectedYearlyAccommodationStatistics { get; set; }
-        public MonthlyAccommodationStatisticsViewModel(MonthlyAccommodationStatisticsService monthlyAccommodationStatisticsService,YearlyAccommodationStatistics SelectedYearlyAccommodationStatistics, int SelectedAccommmodationId)
+        public Accommodation SelectedAccommodation { get; set; }
+        public MonthlyAccommodationStatisticsViewModel(MonthlyAccommodationStatisticsService monthlyAccommodationStatisticsService,YearlyAccommodationStatistics SelectedYearlyAccommodationStatistics, int SelectedAccommmodationId, AccommodationService accommodationService)
         {
             this.monthlyAccommodationStatisticsService = monthlyAccommodationStatisticsService;
+            this.accommodationService = accommodationService;
             this.SelectedYearlyAccommodationStatistics = SelectedYearlyAccommodationStatistics;
             MonthlyAccommodationsStatistics = new ObservableCollection<MonthlyAccommodationStatistics>();
+            SelectedAccommodation = accommodationService.GetById(SelectedAccommmodationId);
             GetMonthlyStatistics(SelectedAccommmodationId, SelectedYearlyAccommodationStatistics.Year);
             MarkBusiest();
             CancelCommand = new RelayCommand(Cancel_Execute, CanExecute);

@@ -53,5 +53,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             return accommodationRepository.GetAll();
         }
 
+        public List<Accommodation> GetUndeleted()
+        {
+            List<Accommodation> undeletedAccommodations = new List<Accommodation>();
+            foreach (Accommodation accommodation in accommodationRepository.GetAll())
+            {
+                if (!accommodation.IsClosed)
+                    undeletedAccommodations.Add(accommodation);
+            }
+            return undeletedAccommodations;
+        }
+
     }
 }

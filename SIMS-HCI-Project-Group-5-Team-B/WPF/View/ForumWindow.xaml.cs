@@ -1,5 +1,9 @@
-﻿using System;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +23,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     /// </summary>
     public partial class ForumWindow : Window
     {
-        public ForumWindow()
+        public ForumWindow(Forum SelectedForum, ForumService forumService, Owner owner,AccommodationService accommodationService,ObservableCollection<Forum> Forums)
         {
             InitializeComponent();
+            this.DataContext = new ForumCommentsViewModel(SelectedForum,forumService,owner,accommodationService,Forums);
         }
     }
 }

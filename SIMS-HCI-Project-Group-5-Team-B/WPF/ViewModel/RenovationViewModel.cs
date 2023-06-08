@@ -87,7 +87,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public void GetAccommodationNames(int ownerId)
         {
-            foreach (Accommodation accommodation in accommodationService.GetAll())
+            foreach (Accommodation accommodation in accommodationService.GetUndeleted())
             {
                 if (accommodation.Owner.Id == ownerId)
                 {
