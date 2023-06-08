@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         
         Keyboard.KeyDown="Window_KeyDown" WindowStartupLocation="CenterScreen"
-        Title="OwnerGuestWindow" Height="620" Width="920">
+        Title="OwnerGuestWindow" Height="620" Width="930">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -34,7 +34,7 @@
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
 
-            <MenuItem Header="Account F1 "></MenuItem>
+            <MenuItem Header="Account F1 " Click="Account_Click"></MenuItem>
             <MenuItem Header="Accommodations F2 " Click="ShowAccomodation_Button_Click"></MenuItem>
             <MenuItem Header="Anywhere/Anytime F3" Click="AnywhereAnytime_Click"></MenuItem>
 

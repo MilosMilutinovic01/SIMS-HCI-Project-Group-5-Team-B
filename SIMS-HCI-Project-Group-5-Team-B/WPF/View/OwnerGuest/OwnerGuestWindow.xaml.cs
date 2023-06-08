@@ -104,6 +104,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 AnywhereAnytime_Click(sender, e);
             }
+            if (e.Key == Key.F1)
+            {
+                Account_Click(sender, e);
+            }
         }
 
         private void Forums_Click(object sender, RoutedEventArgs e)
@@ -114,6 +118,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void AnywhereAnytime_Click(object sender, RoutedEventArgs e)
         {
             ownerGuestWindowViewModel.ShowAnywhereAnytime();
+        }
+
+        private void Account_Click(object sender, RoutedEventArgs e)
+        {
+            ownerGuestWindowViewModel.ShowAccount();
         }
     }
 }
