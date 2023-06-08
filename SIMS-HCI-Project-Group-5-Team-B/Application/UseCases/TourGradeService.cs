@@ -35,5 +35,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             return tourGradeRepository.GetAll();
         }
+
+        public TourGrade getById(int id)
+        {
+            return GetAll().Find(tg => tg.Id == id);
+        }
     }
 }

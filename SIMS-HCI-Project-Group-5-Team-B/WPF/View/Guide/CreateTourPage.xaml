@@ -37,18 +37,25 @@
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="0.3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="22,0,0,0">Tour name:</Label>
-        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="22,0,0,0">Location:</Label>
-        <Label Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="22,0,0,0">Language:</Label>
-        <Label Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="22,0,0,0">Maximum guests:</Label>
-        <Grid Grid.Row="3" Grid.ColumnSpan="2" Margin="22,66,0,0" Grid.RowSpan="2">
+        <TextBox x:Name="HelpTextBox"
+         IsReadOnly="True"
+         IsReadOnlyCaretVisible="False"
+         Background="#F0F0F0"
+         BorderThickness="1"
+         TextWrapping="Wrap"
+         BorderBrush="LightGray" Grid.Row="1" Grid.Column="2" Grid.RowSpan="5" Panel.ZIndex="10" Visibility="Hidden"/>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1">Tour name:</Label>
+        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1">Location:</Label>
+        <Label Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1">Language:</Label>
+        <Label Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1">Maximum guests:</Label>
+        <Grid Grid.Row="4" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">Key points:</Label>
         </Grid>
-        <Grid Grid.Row="5" Grid.ColumnSpan="2" Margin="22,0,0,66" Grid.RowSpan="2">
+        <Grid Grid.Row="5" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -56,12 +63,7 @@
             <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">Start:</Label>
         </Grid>
         <Label Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="22,0,0,0">Duration:</Label>
-        <Grid Grid.Row="7" Grid.ColumnSpan="2" Margin="22,0,0,66" Grid.RowSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Label HorizontalAlignment="Left" VerticalAlignment="Top">Images:</Label>
-        </Grid>
+        <Label Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">Images:</Label>
         <Label Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="22,0,0,0">Description:</Label>
         <TextBox Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
@@ -82,10 +84,6 @@
             <TextBox x:Name="sliderTextBox" Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged,Converter={cvt:IntegerToStringConverter}}"></TextBox>
             <Slider x:Name="slider" Maximum="20" Value="{Binding Path=MaxGuests}"></Slider>
         </DockPanel>
-        <!--TextBox Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.MaxGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"/>-->
-        <!--<TextBox Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.MaxGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,0,0,0"/>-->
         <Grid Grid.Row="4" Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
@@ -127,7 +125,7 @@
                 <ColumnDefinition Width="6*"></ColumnDefinition>
                 <ColumnDefinition Width="1.3*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Width="30" Height="30" VerticalAlignment="Top" Style="{StaticResource {x:Type Button}}" Click="AddImageButton_Click" Margin="0,0,0,0" Background="White" BorderBrush="White" Padding="0,0,0,0">
+            <Button Grid.Column="1" Width="30" Height="30" VerticalAlignment="Top" Style="{StaticResource {x:Type Button}}" Click="AddImageButton_Click" Background="White" BorderBrush="White">
                 <Image Source="/Resources/Images/addImageIcon.png"/>
             </Button>
             <Button x:Name="PreviewButton" Content="Preview" Grid.Column="1" VerticalAlignment="Center" Click="Button_Click" IsEnabled="false"></Button>

@@ -10,6 +10,28 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 {
     public class ViewModel : INotifyPropertyChanged
     {
+        private string _pageName;
+        public string PageName
+        {
+            get { return _pageName; }
+            set
+            {
+                _pageName = value;
+                OnPropertyChanged(nameof(PageName));
+            }
+        }
+
+        private string _helpMessage;
+        public string HelpMessage
+        {
+            get { return _helpMessage; }
+            set
+            {
+                _helpMessage = value;
+                OnPropertyChanged(nameof(HelpMessage));
+            }
+        }
+
         [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 
