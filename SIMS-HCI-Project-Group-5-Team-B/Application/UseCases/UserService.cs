@@ -30,6 +30,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return false;
         }
 
+        public void DeleteUser(User user)
+        {
+            userRepository.Delete(user);
+        }
+
+        public User GetById(int id)
+        {
+            return userRepository.GetAll().Find(u => u.Id == id);
+        }
+
         public User getLogged()
         {
             return loggedUser;

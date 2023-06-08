@@ -20,11 +20,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         #region fields
         public string Username { get; set; }
 
-        public GuideService guideService;
-        public TourService tourService;
-        public AppointmentService appointmentService;
-        public TourAttendanceService tourAttendanceService;
-        public TourGradeService tourGradeService;
         public Frame frame;
         public Guide guide;
         public string SuperGuide { get; set; }
@@ -174,22 +169,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         #region constructors
         public GuideViewModel(Guide guide, NavigationService navService, Frame frame) 
         {
-            KeyPointCSVRepository keyPointCSVRepository = new KeyPointCSVRepository();
-            LocationCSVRepository locationCSVRepository = new LocationCSVRepository();
-            TourCSVRepository tourCSVRepository = new TourCSVRepository();
-            TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
-            TourGradeCSVRepository tourGradeCSVRepository = new TourGradeCSVRepository();
-            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository();
-
-            guideService = new GuideService();
-            tourService = new TourService(tourCSVRepository);
-            tourAttendanceService = new TourAttendanceService();
-            tourGradeService = new TourGradeService();
-            appointmentService = new AppointmentService();
-
             this.NavService = navService;
-            Username = "Username: " + guideService.getById(1).Username;
-            SuperGuide = "Super-guide: no";
             this.NavigateToCreateTourPageCommand = new RelayCommand(Execute_NavigateToCreateTourPageCommand, CanExecute_NavigateCommand);
             this.NavigateToTrackingTourPageCommand = new RelayCommand(Execute_NavigateToTrackingTourPageCommand, CanExecute_NavigateCommand);
             this.NavigateToUpcomingToursPageCommand = new RelayCommand(Execute_NavigateToUpcomingToursPageCommand, CanExecute_NavigateCommand);

@@ -31,6 +31,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
         public string Username { get; set; }
         public string Password { get; set; }
         private UserController userController;
+        private GuideService guideService;
         //public KeyPointsController keyPointsService;
         //public LocationController locationController;
         //public TourController tourController;
@@ -40,6 +41,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
             this.DataContext = this;
 
             userController = new UserController();
+            guideService = new GuideService();
             //keyPointsService = new KeyPointsController();
             //locationController = new LocationController();
             //locationController.ChangeCsvFile("../../../Resources/Data/Locations.csv");
@@ -66,7 +68,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B
 
             if(user.Type == USERTYPE.Guide)//Guide is selected
             {
-                Guide guide = new Guide("Milos", "Milutinovic");
+                Guide guide = guideService.getById(user.Id);
                 GuideWindow guideWindow = new GuideWindow(guide);
                 guideWindow.Show();
 
