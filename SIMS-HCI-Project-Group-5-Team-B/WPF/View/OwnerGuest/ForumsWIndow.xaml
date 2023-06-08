@@ -12,6 +12,7 @@
     <Window.InputBindings>
         <KeyBinding Gesture="Ctrl+D" Command="{Binding CloseForumCommand}"/>
         <KeyBinding Gesture="esc" Command="{Binding CloseCommand}"/>
+        <KeyBinding Gesture="Ctrl+N" Command="{Binding CommentCommand}"/>
     </Window.InputBindings>
     
     <Grid>
@@ -44,7 +45,7 @@
                 </TextBlock>
                 <TextBlock Height="30" Margin="20 2" Text="{Binding ForumStatus, UpdateSourceTrigger=PropertyChanged}" FontSize="20" FontWeight="DemiBold"></TextBlock>
             </StackPanel>
-            <Button Grid.Column="1" Height="37" Width="80"  VerticalAlignment="Bottom" Margin="10 10" Command="{Binding CloseForumCommand}">
+            <Button Grid.Column="1" Height="37" Width="80"  VerticalAlignment="Bottom" Margin="10 10" Command="{Binding CloseForumCommand}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="80"    Text="Close Forum    Ctrl+D" TextAlignment="Center"></TextBlock>
                 </Button.Content>
@@ -94,12 +95,12 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <WrapPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" FlowDirection="RightToLeft">
-            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66" Command="{Binding CloseCommand}">
+            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66" Command="{Binding CloseCommand}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="66"   Text="Cancel          esc" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
-            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="80"  Command="{Binding CommentCommand}">
+            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="80"  Command="{Binding CommentCommand}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="80"    Text="Comment    Ctrl+N" TextAlignment="Center"></TextBlock>
                 </Button.Content>

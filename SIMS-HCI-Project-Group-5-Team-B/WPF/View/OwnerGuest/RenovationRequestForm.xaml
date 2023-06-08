@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest"
         mc:Ignorable="d"
-        Title="RenovationRequestForm" Height="350" Width="480" WindowStartupLocation="CenterScreen"
+        Title="Renovation Request" Height="350" Width="480" WindowStartupLocation="CenterScreen"
         Background="#c8a2c8">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
@@ -30,20 +30,20 @@
             <ColumnDefinition Width="0.5*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"></RowDefinition>
-            <RowDefinition Height="4*"></RowDefinition>
-            <RowDefinition Height="3*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="54*"></RowDefinition>
+            <RowDefinition Height="117*"></RowDefinition>
+            <RowDefinition Height="82*"></RowDefinition>
+            <RowDefinition Height="65*"></RowDefinition>
+            <RowDefinition Height="16*"></RowDefinition>
         </Grid.RowDefinitions>
-
-        <Label Grid.Row="1" Height="30" FontSize="15" Grid.ColumnSpan="2" Margin="34,16,0,87">Comment</Label>
-        <Label Grid.Row="2" Height="30" FontSize="15" Grid.ColumnSpan="2" Margin="34,17,0,54">Level</Label>
-        <TextBox Grid.Row="1" Grid.Column="2" Margin="0 0 0 15" Text="{Binding Path=NewRenovationRequest.Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True }" TextWrapping="Wrap"
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Text="Renovation Request" FontWeight="DemiBold" FontSize="20" Margin="34,10,34,0" />
+        <Label Grid.Row="1" FontSize="15" Grid.ColumnSpan="2" Margin="34,6,0,70" >Comment</Label>
+        <Label Grid.Row="2" FontSize="15" Margin="34,27,0,25" Grid.ColumnSpan="2" >Level</Label>
+        <TextBox Grid.Column="1" Margin="137,54,34,4" Text="{Binding Path=NewRenovationRequest.Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True }" TextWrapping="Wrap"
   AcceptsReturn="True"
   Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
-  VerticalScrollBarVisibility="Visible"></TextBox>
-        <ComboBox x:Name="comboBox" Grid.Row="2" Grid.Column="1" Height="30" Grid.ColumnSpan="3" Margin="137,17,34,54" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
+  VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
+        <ComboBox x:Name="comboBox" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="5,27,34,25" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" RenderTransformOrigin="0.497,0.635" >
             <ComboBoxItem Tag="0" IsSelected="True" >Level1 - Minor Renovations Needed</ComboBoxItem>
             <ComboBoxItem Tag="1">Level2 - It Would Be Nice To Renovate</ComboBoxItem>
             <ComboBoxItem Tag="2">Level3 - Renovation Necessary</ComboBoxItem>
@@ -51,13 +51,13 @@
             <ComboBoxItem Tag="4">Level5 - Accommodation Unrentable, Renovation Is Urgent</ComboBoxItem>
         </ComboBox>
 
-        <WrapPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft">
-            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66" Command="{Binding CloseCommand}">
+        <WrapPanel Grid.Row="2" Grid.ColumnSpan="4" FlowDirection="RightToLeft" Margin="34,82,34,0" Grid.RowSpan="2">
+            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66" Command="{Binding CloseCommand}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="66"   Text="Cancel          esc" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
-            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66"  Command="{Binding SendCommand}">
+            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66"  Command="{Binding SendCommand}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="50"    Text="Send      Ctrl+S" TextAlignment="Center"></TextBlock>
                 </Button.Content>

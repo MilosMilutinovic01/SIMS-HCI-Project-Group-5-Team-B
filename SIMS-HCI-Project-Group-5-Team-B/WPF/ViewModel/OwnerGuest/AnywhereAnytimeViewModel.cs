@@ -210,7 +210,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
             else
             {
-                MessageBox.Show("You must fill required fields.");
+                MessageBox.Show("You must fill required fields.", "Search", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
         }
@@ -224,7 +224,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
             else
             {
-                MessageBox.Show("You must select the reservation!");
+                MessageBox.Show("You must select the reservation!","Accommodation Details", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

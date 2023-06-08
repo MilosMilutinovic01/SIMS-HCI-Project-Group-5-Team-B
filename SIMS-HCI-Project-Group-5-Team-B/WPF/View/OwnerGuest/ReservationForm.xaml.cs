@@ -17,7 +17,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public ReservationForm(ReservationService reservationService, Accommodation SelectedAccomodation,int ownerGuestId)
         {
             InitializeComponent();
-            this.DataContext = new ReservationFormViewModel(reservationService,SelectedAccomodation,ownerGuestId,this,guestNumberTextBox,reservationDaysTextBox);
+            this.DataContext = new ReservationFormViewModel(reservationService,SelectedAccomodation,ownerGuestId);
 
         }
 

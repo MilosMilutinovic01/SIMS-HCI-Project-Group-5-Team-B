@@ -24,13 +24,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private ReservationService reservationService;
         private SingleReservationViewModel selectedReservationView;
         private ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests;
-        private ReservationChangeRequestForm window;
         public RelayCommand SendCommand { get;}   
         public RelayCommand CloseCommand { get;}
         public event PropertyChangedEventHandler? PropertyChanged;
         private IRenovationService renovationService;
 
-        public ReservationChangeRequestViewModel(ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests,SingleReservationViewModel selectedReservationView, ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService, ReservationChangeRequestForm window)
+        public ReservationChangeRequestViewModel(ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests,SingleReservationViewModel selectedReservationView, ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService)
         {
             this.reservationChangeRequestService = reservationChangeRequestService;
             this.reservationService = reservationService;
@@ -40,7 +39,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.renovationService = ServiceInjector.CreateInstance<IRenovationService>();
 
             SetHeader();
-            this.window = window;
+
 
             //commands
             SendCommand = new RelayCommand(CreateReservationChangeRequest, CanExecute);
@@ -61,7 +60,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public void Close()
         {
-            window.Close();
+            App.Current.Windows.OfType<ReservationChangeRequestForm>().FirstOrDefault().Close();
         }
         public void CreateReservationChangeRequest()
         {
@@ -82,12 +81,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 selectedReservationView.IsCancelable = false;
                 selectedReservationView.IsModifiable = false;
                 ReservaitionChangeRequests.Add(NewReservationRequest);
-                MessageBox.Show("Request sent!");
+                MessageBox.Show("Request sent!","Reservation Change Request", MessageBoxButton.OK, MessageBoxImage.Information);
                 Close();
             }
             else
             {
-                MessageBox.Show("Request can not be formed\nBecause data is not valid!");
+                MessageBox.Show("Request can not be formed\nBecause data is not valid!", "Reservation Change Request", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

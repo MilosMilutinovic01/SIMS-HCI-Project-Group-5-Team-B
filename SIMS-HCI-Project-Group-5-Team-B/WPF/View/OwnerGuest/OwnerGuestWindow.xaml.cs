@@ -41,6 +41,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             this.username = username;
             ownerGuestWindowViewModel = new OwnerGuestWindowViewModel(username,frame);
             this.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Del(ShowNotification));
+            ownerGuestWindowViewModel.ShowAccount();
         }
 
         private delegate void Del();

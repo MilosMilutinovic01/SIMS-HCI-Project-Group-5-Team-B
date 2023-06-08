@@ -39,11 +39,15 @@
             <RowDefinition Height="0.2*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="1" Margin="0 10 0 0 " Grid.ColumnSpan="2">
-            <TextBlock FontSize="24" Margin="0 0 0 3" Text="{Binding Path=Header, Mode=OneWay}"></TextBlock>
-            <TextBlock   FontSize="13" Text="{Binding Path=Location, Mode=OneWay}"></TextBlock>
+            <TextBlock FontSize="24" Margin="0 0 0 3" Text="{Binding Path=Header, Mode=OneWay}" FontWeight="DemiBold"></TextBlock>
+            <TextBlock   FontSize="15" Text="{Binding Path=Location, Mode=OneWay}" FontWeight="DemiBold"></TextBlock>
         </StackPanel>
 
-        <Button Grid.Column="2" Grid.ColumnSpan="2" Height="30" Width="70" Margin="0 25 25 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"> Start Demo</Button>
+        <Button Grid.Column="2" Grid.ColumnSpan="2" Height="37" Width="70" Margin="0,0,0,5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#a2a2c8">
+            <Button.Content>
+                <TextBlock  TextWrapping="Wrap" Width="60"    Text="Start Demo      Ctrl + T" TextAlignment="Center"></TextBlock>
+            </Button.Content>
+        </Button>
         <Grid Grid.Row="1" Grid.Column="1" Margin="0 0 45 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -56,9 +60,9 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Content="Start Date" FontSize="15" HorizontalAlignment="Left" Margin="0,10,0,10" Width="76"/>
-            <Label Grid.Row="1" Grid.Column="0" Content="End Date" FontSize="15" HorizontalAlignment="Left" Margin="0,11,0,10" Width="70"/>
-            <Label Grid.Row="2" Grid.Column="0" Content="Reservation Days" FontSize="15" HorizontalAlignment="Left" Margin="0,10,0,10" Width="122"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="Start Date" FontSize="13" HorizontalAlignment="Left" Margin="0,10,0,10" Width="76"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="End Date" FontSize="13" HorizontalAlignment="Left" Margin="0,11,0,10" Width="70"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Reservation Days" FontSize="13" HorizontalAlignment="Left" Margin="0,10,0,10" Width="122"/>
             <DatePicker Grid.Row="0" Background="LightGray" Grid.Column="1" SelectedDate="{Binding Path=NewReservation.StartDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15,15,14,15" HorizontalAlignment="Right"></DatePicker>
             <DatePicker Grid.Row="1" Background="LightGray" Grid.Column="1" SelectedDate="{Binding Path=NewReservation.EndDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
@@ -70,14 +74,14 @@
                 <Button Content="+" Width="15" Command="{Binding DaysIncreaseCommand}"></Button>
             </WrapPanel>
 
-            <Button Grid.Row="3" Grid.Column="1" Height="37" Width="66" Command="{Binding SearchCommand}" HorizontalAlignment="Right" Margin="0 0 14 0">
+            <Button Grid.Row="3" Background="#a2a2c8" Grid.Column="1" Height="37" Width="66" Command="{Binding SearchCommand}" HorizontalAlignment="Right" Margin="0 0 14 0">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="60"    Text="Search      Ctrl + S" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
         </Grid>
-        <WrapPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Margin="0">
-            <Button  Margin="0 5 0 0" Command="{Binding CloseCommand}" Height="37" Width="66">
+        <WrapPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Margin="0" >
+            <Button  Margin="0 5 0 0" Command="{Binding CloseCommand}" Height="37" Width="66" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="60"    Text="Cancel      esc" TextAlignment="Center"></TextBlock>
                 </Button.Content>
@@ -98,7 +102,7 @@
                 <DataGridTemplateColumn Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Margin="3" Command="{Binding DataContext.ReserveCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                            <Button Margin="3" Background="#a2a2c8" Command="{Binding DataContext.ReserveCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                 <Button.Content>
                                     <TextBlock  TextWrapping="Wrap" Width="60"    Text="Reserve      Ctrl + R" TextAlignment="Center"></TextBlock>
                                 </Button.Content>
@@ -112,7 +116,7 @@
 
 
         <Border Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" Height="1" Width="500" Margin="0 177 0 0"  Background="Black" />
-        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="64" Margin="62,0,45,0" VerticalAlignment="Center">
+        <Grid Grid.Row="2" Grid.Column="1" Height="64" Margin="0,0,45,0" VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>

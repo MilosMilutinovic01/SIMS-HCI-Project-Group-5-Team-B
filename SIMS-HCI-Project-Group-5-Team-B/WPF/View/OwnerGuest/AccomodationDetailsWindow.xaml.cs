@@ -28,7 +28,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public AccomodationDetailsWindow(Accommodation SelectedAccomodation, ReservationService reservationService, int ownerGuestId)
         {
             InitializeComponent();
-            DataContext = new AccommodatioDetailsViewModel(SelectedAccomodation, reservationService, ownerGuestId, this, imageListBox);
+            DataContext = new AccommodatioDetailsViewModel(SelectedAccomodation, reservationService, ownerGuestId);
      
 
         }

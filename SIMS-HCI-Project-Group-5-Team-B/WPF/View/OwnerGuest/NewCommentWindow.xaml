@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest"
         mc:Ignorable="d"
         Title="New Comment" Height="250" Width="300"
-        Background="#c8a2c8">
+        Background="#c8a2c8" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -35,12 +35,12 @@
         <Label Content="Comment" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
         <TextBox Grid.Row="1" Grid.Column="1" Margin="10"  Text="{Binding Path=Content, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" TextWrapping="Wrap" Background="LightGray"/>
         <WrapPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" FlowDirection="RightToLeft">
-            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66" Command="{Binding CloseCommand}">
+            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66" Command="{Binding CloseCommand}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="66"   Text="Cancel          esc" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
-            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66"  Command="{Binding PostCommand}">
+            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66"  Command="{Binding PostCommand}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="50"    Text="Post    Ctrl+S" TextAlignment="Center"></TextBlock>
                 </Button.Content>

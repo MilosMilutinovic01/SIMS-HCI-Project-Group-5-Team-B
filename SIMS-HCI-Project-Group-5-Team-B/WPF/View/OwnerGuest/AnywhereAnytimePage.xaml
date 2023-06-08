@@ -41,7 +41,7 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" FontSize="24" FontWeight="DemiBold" Text="Anywhere/Anytime" Margin="20 20 0 0"/>
         <WrapPanel Grid.Row="0" Grid.Column ="1" FlowDirection="RightToLeft" Margin="20,24,20,0">
-            <Button Height="37" Width="66" Command="{Binding DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+            <Button Height="37" Width="66" Command="{Binding DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Text="Start Demo Ctrl+S+D" TextAlignment="Center"></TextBlock>
                 </Button.Content>
@@ -86,7 +86,7 @@
             <DatePicker Grid.Row="2" Background="LightGray" Grid.Column="1" SelectedDate="{Binding Path=End,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="18,19,0,11" HorizontalAlignment="Left"></DatePicker>
 
-            <Button Grid.Row="4" Grid.Column="1" Height="37" Width="66" Command="{Binding SearchCommand}" HorizontalAlignment="Right" Margin="0 0 14 0">
+            <Button Grid.Row="4" Grid.Column="1" Height="37" Width="66" Command="{Binding SearchCommand}" HorizontalAlignment="Right" Margin="0 0 14 0" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="60"    Text="Search      Ctrl + S" TextAlignment="Center"></TextBlock>
                 </Button.Content>
@@ -114,7 +114,7 @@
                 <DataGridTemplateColumn Width="0.5*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Margin="3" Command="{Binding DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                            <Button Margin="3" Command="{Binding DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Background="#a2a2c8">
                                 <Button.Content>
                                     <TextBlock  TextWrapping="Wrap" Text="Details          Ctrl + D" TextAlignment="Center"></TextBlock>
                                 </Button.Content>

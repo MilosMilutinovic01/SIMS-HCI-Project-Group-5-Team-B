@@ -35,7 +35,7 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="1" Text="Reservations" FontSize="25" FontWeight="DemiBold"></TextBlock>
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="Reservation Requests" FontSize="20"></TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Reservation Requests" FontSize="20" FontWeight="DemiBold"></TextBlock>
         <DataGrid Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="1" x:Name="ReservationsRequestsGrid" ItemsSource="{Binding Path=ReservaitionChangeRequests, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedReservationView, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                       AutoGenerateColumns="False" IsReadOnly="True" >
@@ -49,13 +49,20 @@
                 <DataGridTextColumn Header="Location" Binding="{Binding Reservation.Accommodation.Location}" Width="2*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Start" Binding="{Binding Start, Converter={StaticResource DateConverter}}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="End" Binding="{Binding End, Converter={StaticResource DateConverter}}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Guests No" Binding="{Binding Reservation.GuestsNumber}" Width="0.7*"></DataGridTextColumn>
+                <DataGridTextColumn  Binding="{Binding Reservation.GuestsNumber}" Width="0.7*">
+                    <DataGridTextColumn.Header>
+
+                        <TextBlock  Text="Guests   
+                                           No" Margin="0" TextWrapping="Wrap"/>
+
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Status" Binding="{Binding RequestStatus}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Comment" Binding="{Binding DenialComment}" Width="1.5*"></DataGridTextColumn>
             </DataGrid.Columns>
 
         </DataGrid>
-        <TextBlock Grid.Row="3" Grid.Column="1" Text="My Reservations" FontSize="20"></TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="My Reservations" FontSize="20" FontWeight="DemiBold"></TextBlock>
         <DataGrid Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="ReservationsGrid" ItemsSource="{Binding Path=ReservationViews, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedReservationView, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                       AutoGenerateColumns="False" IsReadOnly="True">
@@ -81,18 +88,18 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <WrapPanel FlowDirection="RightToLeft">
-                                <Button Width="50"  Margin="5" x:Name="gradeButton" Command="{Binding DataContext.GradeCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" IsEnabled="{Binding IsForGrading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Button Width="50"  Background="#a2a2c8"  Margin="5" x:Name="gradeButton" Command="{Binding DataContext.GradeCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" IsEnabled="{Binding IsForGrading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                     <Button.Content>
                                         <TextBlock Height="30" FontSize="10" TextWrapping="Wrap" Text="Grade     Ctrl+G"></TextBlock>
                                         
                                     </Button.Content>
                                 </Button>
-                                <Button Width="50" Command="{Binding DataContext.ModifyCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Margin="5" IsEnabled="{Binding IsModifiable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Button Width="50" Background="#a2a2c8" Command="{Binding DataContext.ModifyCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Margin="5" IsEnabled="{Binding IsModifiable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                     <Button.Content>
                                         <TextBlock Height="30" FontSize="10" TextWrapping="Wrap" Text="Modify   Ctrl+M"></TextBlock>
                                     </Button.Content>
                                 </Button>
-                                <Button Width="50" Command="{Binding DataContext.CancelReservationCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Margin="5" IsEnabled="{Binding IsCancelable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Button Width="50" Background="#a2a2c8" Command="{Binding DataContext.CancelReservationCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Margin="5" IsEnabled="{Binding IsCancelable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                     <Button.Content>
                                         <TextBlock Height="30" FontSize="10" TextWrapping="Wrap" Text="Cancel     Ctrl+D"></TextBlock>
                                     </Button.Content>

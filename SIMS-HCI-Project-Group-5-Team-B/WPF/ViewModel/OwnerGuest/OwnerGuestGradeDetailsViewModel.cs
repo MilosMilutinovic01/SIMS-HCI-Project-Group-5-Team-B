@@ -16,14 +16,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public string Start { get; set; }
         public string End { get; set; }
         public RelayCommand CloseCommand { get;}
-        protected GradeDetailsWindow window;
-        public OwnerGuestGradeDetailsViewModel(OwnerGuestGradesDTO SelectedGrade, GradeDetailsWindow window) 
+        
+        public OwnerGuestGradeDetailsViewModel(OwnerGuestGradesDTO SelectedGrade) 
         {
             this.SelectedGrade = SelectedGrade;
             GuestName = SelectedGrade.Grade.Reservation.OwnerGuest.Name + " " + SelectedGrade.Grade.Reservation.OwnerGuest.Surname;
             Start = SelectedGrade.Grade.Reservation.StartDate.ToShortDateString();
             End = SelectedGrade.Grade.Reservation.EndDate.ToShortDateString();
-            this.window = window;
 
             //commands
             CloseCommand = new RelayCommand(Cancel_Execute,CanExecute);
@@ -37,7 +36,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public void Cancel_Execute()
         {
-            window.Close();
+            App.Current.Windows.OfType<GradeDetailsWindow>().FirstOrDefault()?.Close();
         }
     }
 }

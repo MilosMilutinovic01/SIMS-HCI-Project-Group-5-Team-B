@@ -134,7 +134,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
             else
             {
-                MessageBox.Show("Search can not be preformed beacause data is not valid!");
+                MessageBox.Show("Search can not be preformed beacause data is not valid!","Search", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

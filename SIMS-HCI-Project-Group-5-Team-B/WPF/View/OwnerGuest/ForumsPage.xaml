@@ -30,7 +30,7 @@
             <RowDefinition Height="3*"></RowDefinition>
             <RowDefinition Height="0.7*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Forum Navigation"  FontSize="24" FontWeight="DemiBold" Margin="20 5 0 0"></TextBlock>
+        <TextBlock Grid.Row="0" Text="Forum Navigation"  FontSize="24" FontWeight="DemiBold" Margin="20 10 0 0"></TextBlock>
 
         <Grid Grid.Row="1" Margin="20 10">
             <Grid.RowDefinitions>
@@ -45,9 +45,9 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Grid.Row="0" Height="37" Width="100" HorizontalAlignment="Left" Command="{Binding NewForumCommand}">
+            <Button Grid.Column="0" Grid.Row="0" Height="37" Width="100" HorizontalAlignment="Left" Command="{Binding NewForumCommand}" Background="#a2a2c8">
                 <Button.Content>
-                    <TextBlock  TextWrapping="Wrap" Width="90"    Text="New Forum      F8" TextAlignment="Center"></TextBlock>
+                    <TextBlock  TextWrapping="Wrap" Width="90"    Text="New Forum      F8" TextAlignment="Center" ></TextBlock>
                 </Button.Content>
             </Button>
 
@@ -60,7 +60,7 @@
             <ComboBox Grid.Row="2" Grid.Column="1"  x:Name="ComboBoxCities" Height="30" Text="{Binding Path=City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" ItemsSource="{Binding Cities}" 
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"  Margin="0,3,0,18"></ComboBox>
 
-            <Button Grid.Column="1" Grid.Row="3" Height="37" Width="60" HorizontalAlignment="Right" Command="{Binding GoCommand}">
+            <Button Grid.Column="1" Grid.Row="3" Height="37" Width="60" HorizontalAlignment="Right" Command="{Binding GoCommand}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="57"    Text="Go             Ctrl+G" TextAlignment="Center"></TextBlock>
                 </Button.Content>
