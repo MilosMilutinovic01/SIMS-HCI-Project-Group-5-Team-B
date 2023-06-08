@@ -135,6 +135,9 @@
   <data name="Accommodation" xml:space="preserve">
     <value>Smestaj</value>
   </data>
+  <data name="AccommodationFormWithPopularLocation" xml:space="preserve">
+    <value>Forma za registraciju smestaja na popularnoj lokaciji</value>
+  </data>
   <data name="AccommodationLocationSuggestionsWindow" xml:space="preserve">
     <value>Prozor Predloga Lokacija Za Smestaj</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="Busyness" xml:space="preserve">
     <value>Zauzetost</value>
+  </data>
+  <data name="CallingOffRenovation" xml:space="preserve">
+    <value>Otkazivanje renoviranja</value>
   </data>
   <data name="CallOff" xml:space="preserve">
     <value>Otkazi</value>
@@ -213,6 +219,9 @@
   <data name="Create" xml:space="preserve">
     <value>Napravi</value>
   </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Tamna tema:</value>
+  </data>
   <data name="Decline" xml:space="preserve">
     <value>Odbij</value>
   </data>
@@ -255,8 +264,14 @@
   <data name="FutureRenovations" xml:space="preserve">
     <value>Buduca renoviranja</value>
   </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Generisi</value>
+  </data>
   <data name="GenerateLabel" xml:space="preserve">
-    <value>Kliknite 'Generisi' dugme da generisete izvestaj o rezervacijama za smestaj 📝</value>
+    <value>Kliknite 'Generisi' dugme da generisete izveštaj o svim rezervacijama za određeni smeštaj u određenom vremenskom periodu📝</value>
+  </data>
+  <data name="GenerateReportLabel" xml:space="preserve">
+    <value>Izvetaj o rezervacijama u zeljenom vremenskom periodu za</value>
   </data>
   <data name="Grade" xml:space="preserve">
     <value>Oceni</value>
@@ -365,6 +380,9 @@
   </data>
   <data name="Report" xml:space="preserve">
     <value>Izvestaj</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Prijave:</value>
   </data>
   <data name="RequestsForChangingReservation" xml:space="preserve">
     <value>Zahtevi za pomeranje rezervacije</value>

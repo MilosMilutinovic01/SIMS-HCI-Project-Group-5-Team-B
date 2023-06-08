@@ -162,7 +162,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         }
 
 
-        public List<string> pictureURLs;
+        public List<string> pictureURLs { get; set; }
 
         private string pictureURLsString;
 
@@ -194,11 +194,26 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
+        private bool isClosed;
+        public bool IsClosed
+        {
+            get { return isClosed; }
+            set
+            {
+                if (value != isClosed)
+                {
+                    isClosed = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public Accommodation()
         {
             noticePeriod = 1;
             isRenovatedInTheLastYear = false;
             pictureURLs = new List<string>();
+            isClosed = false;
         }
 
         public Accommodation(string name, TYPE type, int maxGuests, int minReservationDays, int noticePeriod, int locationId)
@@ -244,6 +259,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 noticePeriod.ToString(),
                 PictureURLsString,
                 isRenovatedInTheLastYear.ToString(),
+                isClosed.ToString()
 
 
             };
@@ -284,6 +300,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
 
             isRenovatedInTheLastYear = bool.Parse(values[9]);
+            isClosed = bool.Parse(values[10]);
 
 
         }
@@ -404,6 +421,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public bool IsGuestsDaysAppropriate(int guestNo, int days)
+        {
+            return MinReservationDays <= days && MaxGuests >= guestNo;
         }
 
     }

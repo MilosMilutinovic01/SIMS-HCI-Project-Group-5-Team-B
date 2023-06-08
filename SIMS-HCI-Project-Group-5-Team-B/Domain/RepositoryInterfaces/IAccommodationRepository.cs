@@ -16,5 +16,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces
         public void Update(Accommodation accommodation);
         public List<Accommodation> FindBy(string[] propertyNames, string[] values);
         public void SaveAll(List<Accommodation> accommodations);
+
+        public List<Accommodation> GetUndeleted();
+
     }
 }

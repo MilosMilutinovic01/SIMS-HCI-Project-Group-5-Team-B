@@ -12,7 +12,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="6*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Notifications" FontSize="25" FontWeight="Bold" Margin="10"></TextBlock>
+        <TextBlock Grid.Row="0" Text="Notifications" FontSize="25" FontWeight="DemiBold" Margin="10"></TextBlock>
         <ListBox Grid.Row="1" ItemsSource="{Binding Path=Notifications}" Background="LightGray">
             <ListBox.ItemTemplate>
                 <DataTemplate>

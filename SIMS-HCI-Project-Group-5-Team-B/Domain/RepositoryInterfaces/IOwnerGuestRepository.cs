@@ -11,5 +11,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces
     {
         public List<OwnerGuest> GetAll();
         public OwnerGuest GetById(int id);
+        public OwnerGuest GetByUsername(string username);
     }
 }
