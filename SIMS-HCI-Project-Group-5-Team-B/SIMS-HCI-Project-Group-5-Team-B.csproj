@@ -16,6 +16,7 @@
     <None Remove="Resources\Images\GuideGuestNotificationBell.png" />
     <None Remove="Resources\Images\GuideGuestUser.png" />
     <None Remove="Resources\Images\hamburgerIcon.png" />
+    <None Remove="Resources\Images\helpIcon.png" />
     <None Remove="Resources\Images\homeIcon.png" />
     <None Remove="Resources\Images\home_icon.jpg" />
     <None Remove="Resources\Images\leftArrow.png" />
@@ -42,6 +43,9 @@
     <Resource Include="Resources\Images\bellIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\helpIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\homeIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -58,6 +62,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DynamicPDF" Version="8.0.0" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
     <PackageReference Include="PdfiumViewer" Version="2.13.0" />
     <PackageReference Include="PdfSharp" Version="1.50.5147" />

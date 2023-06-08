@@ -81,5 +81,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return ownersReservationChangeRequests;
 
         }
+
+        public List<ReservationChangeRequest> GetPendingRequests(int ownerGuestId)
+        {
+            return GetAll().FindAll(chreq => chreq.RequestStatus == REQUESTSTATUS.Pending && chreq.Reservation.OwnerGuestId == ownerGuestId);
+        }
     }
 }

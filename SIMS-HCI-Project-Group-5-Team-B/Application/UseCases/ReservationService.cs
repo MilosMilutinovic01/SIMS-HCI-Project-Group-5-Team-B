@@ -327,6 +327,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return randomized.ToList();
         }
 
+        public int GetReservationsNumberInLastYear(int ownerGuestId)
+        {
+            return reservationRepository.GetOwnerGuestsReservationInLastYear(ownerGuestId).Count();
+        }
+
 
         public List<Reservation> GetAccommodationReservationsInTimeSpan(Accommodation accommodation, DateTime startDate,DateTime endDate)
         {
