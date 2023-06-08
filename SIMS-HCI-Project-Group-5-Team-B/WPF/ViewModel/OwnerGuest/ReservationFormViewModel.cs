@@ -125,7 +125,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
             else
             {
-                MessageBox.Show("Search can not be preformed because data is not valid!");
+                MessageBox.Show("Search can not be preformed because data is not valid!", "Reservation", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -144,12 +144,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 reservationService.Save(NewReservation);
 
                 superOwnerGuestTitleService.UpdatePoints(ownerGuestId);
-                MessageBox.Show("Reservation was successful");
+                MessageBox.Show("Reservation was successful","Reservation", MessageBoxButton.OK, MessageBoxImage.Information);
                 App.Current.Windows.OfType<ReservationForm>().FirstOrDefault()?.Close();
             }
             else
             {
-                MessageBox.Show("Reservation can not be made because the data is not valid!");
+                MessageBox.Show("Reservation can not be made because the data is not valid!", "Reservation", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }

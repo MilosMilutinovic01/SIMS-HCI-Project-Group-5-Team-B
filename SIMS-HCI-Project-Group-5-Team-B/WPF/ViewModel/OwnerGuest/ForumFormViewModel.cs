@@ -175,7 +175,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             {
                 if(forumService.Exists(FindLocationId()))
                 {
-                    MessageBox.Show("Forum for that location already exists!");
+                    MessageBox.Show("Forum for that location already exists!", "Forum", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
@@ -207,13 +207,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                         notificationController.Send(notification);
                     }
 
-                    MessageBox.Show("New forum created!");
+                    MessageBox.Show("New forum created!", "Forum", MessageBoxButton.OK, MessageBoxImage.Information);
                     OnClose();
                 }
             }
             else
             {
-                MessageBox.Show("Some fields are not filled");
+                MessageBox.Show("Some fields are not filled", "Forum", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
         }

@@ -120,13 +120,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 forumService.Update(forum);
                 //Updating observable list
                 Comments.Add(comment);
-                MessageBox.Show("COmment successfully posted!");
+                MessageBox.Show("Comment successfully posted!", "Comment", MessageBoxButton.OK, MessageBoxImage.Information);
                 OnClose();
 
             }
             else
             {
-                MessageBox.Show("Comment can not be empty!");
+                MessageBox.Show("Comment can not be empty!", "Comment", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         public bool PostExecute()

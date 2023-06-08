@@ -64,7 +64,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             
             reservationService.Save(NewReservation);
             suggestions.Remove(SelectedReservation);
-            MessageBox.Show("Reservation successfully made!");
+            MessageBox.Show("Reservation successfully made!","Reservation",MessageBoxButton.OK,MessageBoxImage.Information);
             Cancel_Execute();
         }
 

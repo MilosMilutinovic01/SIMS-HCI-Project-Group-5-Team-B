@@ -81,12 +81,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 selectedReservationView.IsCancelable = false;
                 selectedReservationView.IsModifiable = false;
                 ReservaitionChangeRequests.Add(NewReservationRequest);
-                MessageBox.Show("Request sent!");
+                MessageBox.Show("Request sent!","Reservation Change Request", MessageBoxButton.OK, MessageBoxImage.Information);
                 Close();
             }
             else
             {
-                MessageBox.Show("Request can not be formed\nBecause data is not valid!");
+                MessageBox.Show("Request can not be formed\nBecause data is not valid!", "Reservation Change Request", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

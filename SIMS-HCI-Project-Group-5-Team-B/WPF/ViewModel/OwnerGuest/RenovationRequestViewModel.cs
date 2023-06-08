@@ -64,12 +64,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             if(NewRenovationRequest.IsValid)
             {
                 renovationRequestService.Save(NewRenovationRequest);
-                MessageBox.Show("Renovation request sent!");
+                MessageBox.Show("Renovation request sent!","Renovation request",MessageBoxButton.OK,MessageBoxImage.Information);
                 App.Current.Windows.OfType<RenovationRequestForm>().FirstOrDefault()?.Close();
             }
             else
             {
-                MessageBox.Show("Renovation request can not be sent brcause data is not valid");
+                MessageBox.Show("Renovation request can not be sent brcause data is not valid", "Renovation request", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

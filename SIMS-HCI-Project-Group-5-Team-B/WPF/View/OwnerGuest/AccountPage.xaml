@@ -196,7 +196,14 @@
                     <DataGridTextColumn Header="Location" Binding="{Binding Reservation.Accommodation.Location}" Width="2*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Start" Binding="{Binding Start, Converter={StaticResource DateConverter}}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="End" Binding="{Binding End, Converter={StaticResource DateConverter}}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Guests No" Binding="{Binding Reservation.GuestsNumber}" Width="0.7*"></DataGridTextColumn>
+                    <DataGridTextColumn  Binding="{Binding Reservation.GuestsNumber}" Width="0.7*">
+                        <DataGridTextColumn.Header>
+
+                            <TextBlock  Text="Guests   
+                                           No" Margin="0" TextWrapping="Wrap"/>
+
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
                     
                     
                 </DataGrid.Columns>

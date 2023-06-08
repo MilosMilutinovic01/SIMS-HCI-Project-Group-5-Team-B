@@ -86,13 +86,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                     OwnerAccommodationGrade.Reservation.Accommodation.Owner.IsSuperOwner = false;
                 }
                 ownerService.Update(OwnerAccommodationGrade.Reservation.Accommodation.Owner);
-                MessageBox.Show("Grading was successful!");
+                MessageBox.Show("Grading was successful!", "Grading", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 App.Current.Windows.OfType<GradingOwnerAccommodation>().FirstOrDefault().Close();
             }
             else
             {
-                MessageBox.Show("Data is not valid!");
+                MessageBox.Show("Data is not valid!", "Grading", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
