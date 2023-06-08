@@ -27,13 +27,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         private SuperOwnerService superOwnerService;
         private OwnerService ownerService;
-        protected GradingOwnerAccommodation window;
+        
 
         public RelayCommand CloseCommand { get; }
         public RelayCommand SendRequestCommand { get; }
         public RelayCommand GradeCommand { get; }
 
-        public GradingOwnerAccommodationViewModel(OwnerAccommodationGradeSevice ownerAccommodationGradeService, ReservationService reservationService, SingleReservationViewModel reservationView, SuperOwnerService superOwnerService, OwnerService ownerService, GradingOwnerAccommodation window)
+        public GradingOwnerAccommodationViewModel(OwnerAccommodationGradeSevice ownerAccommodationGradeService, ReservationService reservationService, SingleReservationViewModel reservationView, SuperOwnerService superOwnerService, OwnerService ownerService)
         {
             
             OwnerAccommodationGrade = new OwnerAccommodationGrade(1, 1, 1, 1, 1);
@@ -46,7 +46,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             renovationRequestService = new RenovationRequestService();
             Heading = string.Empty;
             FormHeading();
-            this.window = window;
 
             //commands
             CloseCommand = new RelayCommand(Cancel_Exexute, CanExecute);
@@ -63,7 +62,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public void Cancel_Exexute()
         {
-            window.Close();
+            App.Current.Windows.OfType<GradingOwnerAccommodation>().FirstOrDefault().Close();
         }
 
         public void Grade_Execute()
@@ -89,7 +88,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 ownerService.Update(OwnerAccommodationGrade.Reservation.Accommodation.Owner);
                 MessageBox.Show("Grading was successful!");
 
-                window.Close();
+                App.Current.Windows.OfType<GradingOwnerAccommodation>().FirstOrDefault().Close();
             }
             else
             {

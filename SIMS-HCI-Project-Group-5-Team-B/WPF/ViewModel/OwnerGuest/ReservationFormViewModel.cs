@@ -35,16 +35,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public RelayCommand DaysDecreaseCommand { get; }
         public RelayCommand SearchCommand { get; }
 
-        public TextBox reservationDaysTextBox;
-        public TextBox guestNumberTextBox;
+        
 
-        public ReservationForm window;
-
-        public ReservationFormViewModel(ReservationService reservationService, Accommodation SelectedAccomodation, int ownerGuestId, ReservationForm window, TextBox guestNumberTextBox, TextBox reservationDaysTextBox)
+        public ReservationFormViewModel(ReservationService reservationService, Accommodation SelectedAccomodation, int ownerGuestId)
         {
-            this.window = window;
-            this.reservationDaysTextBox = reservationDaysTextBox;
-            this.guestNumberTextBox = guestNumberTextBox;
+            
 
             this.reservationService = reservationService;
             superOwnerGuestTitleService = new SuperOwnerGuestTitleService();
@@ -54,8 +49,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             SetReservationParameters();
             StartDate = DateTime.Today;
             EndDate = DateTime.Today;
-            reservationDaysTextBox.Text = SelectedAccomodation.MinReservationDays.ToString();
-            guestNumberTextBox.Text = "1";
+            NewReservation.ReservationDays = SelectedAccomodation.MinReservationDays;
+            NewReservation.GuestsNumber = 1;
             ReservationRecommendations = new ObservableCollection<ReservationRecommendation>();
             SelectedDate = new ReservationRecommendation(DateTime.MinValue, DateTime.MinValue);
             SetHeaders();
@@ -67,7 +62,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             DaysIncreaseCommand = new RelayCommand(ReservationDaysIncrease_Execute, CanExecute);
             DaysDecreaseCommand = new RelayCommand(ReservationDaysDecrease_Execute, CanExecute);
             SearchCommand = new RelayCommand(Search_Executed, CanExecute);
-            this.guestNumberTextBox = guestNumberTextBox;
+           
         }
 
         public bool CanExecute()
@@ -77,21 +72,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public void ReservationDaysIncrease_Execute()
         {
-            int currentValue = Int32.Parse(reservationDaysTextBox.Text);
+            int currentValue = NewReservation.ReservationDays;
 
             currentValue++;
-            reservationDaysTextBox.Text = currentValue.ToString();
+            NewReservation.ReservationDays = currentValue;
 
 
         }
 
         public void ReservationDaysDecrease_Execute()
         {
-            int currentValue = Int32.Parse(reservationDaysTextBox.Text);
+            int currentValue = NewReservation.ReservationDays;
             if (currentValue > SelectedAccomodation.MinReservationDays)
             {
                 currentValue--;
-                reservationDaysTextBox.Text = currentValue.ToString();
+                NewReservation.ReservationDays = currentValue;
             }
         }
 
@@ -108,7 +103,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public void Cancel_Executed()
         {
-            window.Close();
+            App.Current.Windows.OfType<ReservationForm>().FirstOrDefault()?.Close();
         }
 
         public void Search_Executed()
@@ -150,7 +145,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
                 superOwnerGuestTitleService.UpdatePoints(ownerGuestId);
                 MessageBox.Show("Reservation was successful");
-                window.Close();
+                App.Current.Windows.OfType<ReservationForm>().FirstOrDefault()?.Close();
             }
             else
             {
@@ -162,22 +157,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public void GuestNumberDecrease_Executed()
         {
 
-            int currentValue = Int32.Parse(guestNumberTextBox.Text);
+            int currentValue = NewReservation.GuestsNumber;
             if (currentValue > 1)
             {
                 currentValue--;
-                guestNumberTextBox.Text = currentValue.ToString();
+                NewReservation.GuestsNumber = currentValue;
             }
 
         }
 
         public void GuestNumberIncrease_Executed()
         {
-            int currentValue = Int32.Parse(guestNumberTextBox.Text);
+            int currentValue = NewReservation.GuestsNumber;
             if (currentValue < SelectedAccomodation.MaxGuests)
             {
                 currentValue++;
-                guestNumberTextBox.Text = currentValue.ToString();
+                NewReservation.GuestsNumber = currentValue;
             }
         }
 

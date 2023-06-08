@@ -36,7 +36,7 @@
             <RowDefinition Height="8*"></RowDefinition>
             <RowDefinition Height="1.5*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Heading}" FontSize="25"></TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Heading}" FontWeight="DemiBold" FontSize="25"></TextBlock>
         <Grid Grid.Row="1" Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -87,19 +87,19 @@
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"></TextBox>
         </Grid>
         <WrapPanel Grid.Column="0" Grid.Row="2" FlowDirection="LeftToRight" Grid.ColumnSpan="4">
-            <Button  VerticalAlignment="Center" Margin="30 10"  Command="{Binding SendRequestCommand}">
+            <Button  VerticalAlignment="Center" Margin="30 10"  Command="{Binding SendRequestCommand}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="110" Height="37"  Text="Renovation Request          Ctrl + R" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
-            <Button  VerticalAlignment="Center" Margin="10 10" Width="66" Command="{Binding GradeCommand}">
+            <Button  VerticalAlignment="Center" Margin="10 10" Width="66" Command="{Binding GradeCommand}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="66" Height="37"  Text="Grade      Ctrl+G" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
-            <Button VerticalAlignment="Center" Margin="10 10" Width="66" Command="{Binding CloseCommand}" >
+            <Button VerticalAlignment="Center" Margin="10 10" Width="66"  Command="{Binding CloseCommand}" Background="#a2a2c8">
                 <Button.Content>
-                    <TextBlock  TextWrapping="Wrap" Width="66" Height="37" Text="Close       esc" TextAlignment="Center"></TextBlock>
+                    <TextBlock  TextWrapping="Wrap" Width="66"  Text="Close       esc" TextAlignment="Center" ></TextBlock>
                 </Button.Content>
             </Button>
         </WrapPanel>

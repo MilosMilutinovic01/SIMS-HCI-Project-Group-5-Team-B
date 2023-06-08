@@ -20,9 +20,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public RelayCommand ReserveCommand { get; }
         public RelayCommand CancelCommand { get; }
 
-        AccomodationDetailsWindow window;
-        private ListBox imageListBox;
-        public AccommodatioDetailsViewModel(Accommodation SelectedAccomodation, ReservationService reservationService, int ownerGuestId, AccomodationDetailsWindow window, ListBox imagesBox)
+        public List<String> images { get; set; }
+        public AccommodatioDetailsViewModel(Accommodation SelectedAccomodation, ReservationService reservationService, int ownerGuestId)
         {
             
             this.SelectedAccommodation = SelectedAccomodation;
@@ -32,21 +31,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             //commands
             ReserveCommand = new RelayCommand(Reserve_Execute, CanExecute);
             CancelCommand = new RelayCommand(Cancel_Execute, CanExecute);
-            this.window = window;
-            this.imageListBox = imagesBox;
-            ShowImages();
+
+            images = SelectedAccommodation.pictureURLs;
         }
 
 
-        private void ShowImages()
-        {
-            imageListBox.Items.Clear();
-
-            foreach (String imageSource in SelectedAccommodation.pictureURLs)
-            {
-                imageListBox.Items.Add(imageSource);
-            }
-        }
         public void Reserve_Execute()
         {
             ReservationForm reservationForm = new ReservationForm(reservationService, SelectedAccommodation, ownerGuestId);
@@ -56,7 +45,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         private void Cancel_Execute()
         {
-            window.Close();
+            App.Current.Windows.OfType<AccomodationDetailsWindow>().FirstOrDefault()?.Close();
         }
 
         public bool CanExecute()

@@ -27,7 +27,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
         public ReservationChangeRequestForm(ObservableCollection<ReservationChangeRequest> ReservaitionChangeRequests,SingleReservationViewModel selectedReservationView, ReservationChangeRequestService reservationChangeRequestService, ReservationService reservationService)
         {
             InitializeComponent();
-            this.DataContext = new ReservationChangeRequestViewModel(ReservaitionChangeRequests, selectedReservationView, reservationChangeRequestService, reservationService, this); ;
+            this.DataContext = new ReservationChangeRequestViewModel(ReservaitionChangeRequests, selectedReservationView, reservationChangeRequestService, reservationService);
         }
 
     }

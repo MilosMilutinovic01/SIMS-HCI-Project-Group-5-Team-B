@@ -22,8 +22,8 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock Text="Accommodation" FontSize="24" Margin="15 10 0 0"></TextBlock>
-            <TextBlock Text="Details" FontSize="24" Margin="15 0 0 0"></TextBlock>
+            <TextBlock Text="Accommodation" FontSize="24" Margin="15 10 0 0" FontWeight="DemiBold"></TextBlock>
+            <TextBlock Text="Details" FontSize="24" Margin="15 0 0 0" FontWeight="DemiBold"></TextBlock>
         </StackPanel>
         <Grid Grid.Row="1" Grid.Column="0" Margin="15,10,0,38" HorizontalAlignment="Left" Width="290" RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>
@@ -54,7 +54,7 @@
             <Label Grid.Row="2" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="Type" Margin="10,7,0,7" Width="37" />
             <Label Grid.Row="3" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="MaxGuests" Margin="10,8,0,0" Width="73"/>
             <TextBlock Grid.Row="4" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Text="Min Reservation
-                       Days" Margin="12,8,0,7" TextWrapping="Wrap" Width="102"/>
+                       Days" Margin="12,8,0,0" TextWrapping="Wrap" Width="102"/>
             <Label Grid.Row="5" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="NoticePeriod" Margin="10,7,0,8" Width="84"/>
             <Label Grid.Row="1" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="Location" Margin="10,7,0,8" Width="59"/>
 
@@ -67,13 +67,13 @@
             <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding SelectedAccommodation.Location}" FontSize="13" HorizontalAlignment="Right" Margin="0 12 20 8" Grid.ColumnSpan="2" TextWrapping="Wrap"/>
 
             <WrapPanel Grid.Column="0" Grid.RowSpan="2"  Grid.Row="6" Grid.ColumnSpan="2" FlowDirection="LeftToRight">
-                
-                <Button Grid.Column="0" Grid.Row=" 6"  Command="{Binding ReserveCommand}"  Height="37" Width="66" Margin="100,7,10,8">
+
+                <Button Grid.Column="0" Grid.Row=" 6"  Command="{Binding ReserveCommand}"  Height="37" Width="66" Margin="100,7,10,8" Background="#a2a2c8">
                     <Button.Content>
                         <TextBlock  TextWrapping="Wrap" Text="Reserve Ctrl + R" TextAlignment="Center"></TextBlock>
                     </Button.Content>
                 </Button>
-                <Button Grid.Column="0" Grid.Row=" 6" Command="{Binding CancelCommand}" Height="37" Width="66" Margin="22,7,10,8">
+                <Button Grid.Column="0" Grid.Row=" 6" Command="{Binding CancelCommand}" Height="37" Width="66" Margin="22,7,10,8" Background="#a2a2c8">
                     <Button.Content>
                         <TextBlock  TextWrapping="Wrap" Text="Cancel    esc" TextAlignment="Center"></TextBlock>
                     </Button.Content>
@@ -86,7 +86,7 @@
 
 
         </Grid>
-        <ListBox Grid.Column="1" Grid.RowSpan="2" Name="imageListBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0 10" Background="LightGray" >
+        <ListBox Grid.Column="1" Grid.RowSpan="2" Name="imageListBox" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding Path=images}" Margin="0 10" Background="LightGray" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">

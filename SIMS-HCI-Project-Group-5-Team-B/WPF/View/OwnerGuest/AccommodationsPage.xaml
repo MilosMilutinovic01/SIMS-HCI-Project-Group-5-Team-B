@@ -10,7 +10,7 @@
     <Page.InputBindings>
         <KeyBinding Gesture="Ctrl+R" Command="{Binding ResetCommand}"></KeyBinding>
         <KeyBinding Gesture="Ctrl+D" Command="{Binding DetailsCommand}"></KeyBinding>
-        <KeyBinding Gesture="Ctrl+F" Command="{Binding SearchCommand}"></KeyBinding>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding SearchCommand}"></KeyBinding>
     </Page.InputBindings>
     
     <Page.Resources>
@@ -50,7 +50,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Content="Search" HorizontalAlignment="Center" FontSize="20" Grid.ColumnSpan= "2"></Label>
+            <Label Grid.Row="0" Grid.Column="0" Content="Search" HorizontalAlignment="Center" FontSize="20" Grid.ColumnSpan= "2" FontWeight="DemiBold"></Label>
             <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" FontSize="13">Name</Label>
             <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" FontSize="13">State</Label>
             <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" FontSize="13">City</Label>
@@ -81,14 +81,14 @@
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,6,0,26"/>
 
             <WrapPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" FlowDirection="LeftToRight">
-                <Button Grid.Row="7" Grid.Column="0" Height="37" Width="66"  Command="{Binding ResetCommand}" Margin="50 10 20 0">
+                <Button Grid.Row="7" Grid.Column="0" Height="37" Width="66"  Command="{Binding ResetCommand}" Margin="50 10 20 0" Background="#a2a2c8">
                     <Button.Content>
                         <TextBlock  TextWrapping="Wrap" Text="Reset          Ctrl + R" TextAlignment="Center"></TextBlock>
                     </Button.Content>
                 </Button>
-                <Button Grid.Row="7" Grid.Column="1" Height="37" Width="66"  Command="{Binding SearchCommand}" Margin="0 10 0 0">
+                <Button Grid.Row="7" Grid.Column="1" Height="37" Width="66"  Command="{Binding SearchCommand}" Margin="0 10 0 0" Background="#a2a2c8">
                     <Button.Content>
-                        <TextBlock  TextWrapping="Wrap" Text="Search          Ctrl + F" TextAlignment="Center"></TextBlock>
+                        <TextBlock  TextWrapping="Wrap" Text="Search          Ctrl + S" TextAlignment="Center"></TextBlock>
                     </Button.Content>
                 </Button>
             </WrapPanel>
@@ -147,7 +147,7 @@
                     <DataGridTemplateColumn Width="0.5*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Margin="3" Command="{Binding DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                <Button Margin="3" Command="{Binding DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Background="#a2a2c8">
                                     <Button.Content>
                                         <TextBlock  TextWrapping="Wrap" Text="Details          Ctrl + D" TextAlignment="Center"></TextBlock>
                                     </Button.Content>

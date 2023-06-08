@@ -21,7 +21,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public RelayCommand SendCommand { get;}
         public RelayCommand CloseCommand { get;}
-        protected RenovationRequestForm window;
         private string selectedItem;
         private int reservationId;
 
@@ -49,12 +48,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         }
 
 
-        public RenovationRequestViewModel(int reservationId, RenovationRequestForm window)
+        public RenovationRequestViewModel(int reservationId)
         {
             this.reservationId = reservationId;
             NewRenovationRequest = new RenovationRequest(reservationId);
             renovationRequestService = new RenovationRequestService();
-            this.window = window;
            SelectedItem = "Level1 - Minor Renovations Needed";
             //commands
             SendCommand = new RelayCommand(Send_Execute,SendCanExecute);
@@ -67,7 +65,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             {
                 renovationRequestService.Save(NewRenovationRequest);
                 MessageBox.Show("Renovation request sent!");
-                window.Close();
+                App.Current.Windows.OfType<RenovationRequestForm>().FirstOrDefault()?.Close();
             }
             else
             {
@@ -82,7 +80,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public void Close_Execute()
         {
-            window.Close();
+            App.Current.Windows.OfType<RenovationRequestForm>().FirstOrDefault()?.Close();
         }
 
         private RENOVATIONLEVEL GetReservationLevel(string selectedItem)

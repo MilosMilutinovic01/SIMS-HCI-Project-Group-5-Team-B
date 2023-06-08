@@ -35,11 +35,11 @@
                 <RowDefinition></RowDefinition>
                 
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="{Binding Path=Header, Mode=OneWay}" FontSize="25"></TextBlock>
-            <TextBlock Grid.Row="1" Text="{Binding Path=LocationHeader, Mode=OneWay}" FontSize="15"></TextBlock>
+            <TextBlock Grid.Row="0" Text="{Binding Path=Header, Mode=OneWay}" FontWeight="DemiBold" FontSize="20"></TextBlock>
+            <TextBlock Grid.Row="1" Text="{Binding Path=LocationHeader, Mode=OneWay}" FontWeight="DemiBold" FontSize="15"></TextBlock>
         </Grid>
 
-        <TextBlock Grid.Row="0" Text="{Binding Path=Header, Mode=OneWay}" FontSize="25" ></TextBlock>
+        
 
         <Grid Grid.Row="1" Margin="30 0">
             <Grid.ColumnDefinitions>
@@ -61,12 +61,12 @@
         </Grid>
         <WrapPanel Grid.Row="2" FlowDirection="LeftToRight">
 
-            <Button Margin="200 10 15 10" Command="{Binding SendCommand}" Height="37" Width="66">
+            <Button Margin="200 10 15 10" Command="{Binding SendCommand}" Height="37" Width="66" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Text="Save          Ctrl + S" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
-            <Button Margin="20 10" Command="{Binding CloseCommand}" Height="37" Width="66">
+            <Button Margin="20 10" Command="{Binding CloseCommand}" Height="37" Width="66" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Text="Close          esc" TextAlignment="Center"></TextBlock>
                 </Button.Content>
