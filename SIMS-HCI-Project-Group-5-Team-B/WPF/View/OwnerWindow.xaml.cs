@@ -94,7 +94,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void NotifyOwner(object sender, RoutedEventArgs e)
         {
-            frame.Content = new AccommodationPage(LogedInOwner.Id);
+            frame.Content = new AccommodationPage(LogedInOwner.Id,reservationService);
             List<Reservation> reservationsForGrading = reservationService.GetReservationsForGrading(LogedInOwner);
             if (reservationsForGrading.Count != 0 )
             {
@@ -127,7 +127,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void Accommodation_Button_Click(object sender, RoutedEventArgs e)
         {
-            frame.Content = new AccommodationPage(LogedInOwner.Id);
+            frame.Content = new AccommodationPage(LogedInOwner.Id,reservationService);
         }
 
         private void Requests_For_Changing_Reservation_Click(object sender, RoutedEventArgs e)

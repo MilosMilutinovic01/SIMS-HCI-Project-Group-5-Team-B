@@ -502,11 +502,29 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click on the &apos;Generate&apos; button to generate reservation report for accommodation 📝.
+        ///   Looks up a localized string similar to Generate.
+        /// </summary>
+        public static string Generate {
+            get {
+                return ResourceManager.GetString("Generate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click on the &apos;Generate&apos; button to generate report on all reservations for a specific accommodation within a specific time period. 📝.
         /// </summary>
         public static string GenerateLabel {
             get {
                 return ResourceManager.GetString("GenerateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report on all reservations in wanted time period for.
+        /// </summary>
+        public static string GenerateReportLabel {
+            get {
+                return ResourceManager.GetString("GenerateReportLabel", resourceCulture);
             }
         }
         
@@ -1020,6 +1038,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         public static string Statistics {
             get {
                 return ResourceManager.GetString("Statistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

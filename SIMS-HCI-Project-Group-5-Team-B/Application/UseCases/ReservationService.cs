@@ -246,7 +246,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         }
 
-
+        
         public List<RenovationProposalDates> GetRenovationProposalDatesInTimeSpan(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int renovationDays)
         {
             List<RenovationProposalDates> renovationProposalDates = new List<RenovationProposalDates>();
@@ -265,6 +265,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return renovationProposalDates;
         }
 
+
+        public List<Reservation> GetAccommodationReservationsInTimeSpan(Accommodation accommodation, DateTime startDate,DateTime endDate)
+        {
+            List<Reservation> reservations = new List<Reservation>();
+            foreach(Reservation reservation in GetUndeleted())
+            {
+                if(reservation.StartDate >= startDate && reservation.EndDate <= endDate && reservation.Accommodation.Id == accommodation.Id)
+                {
+                    reservations.Add(reservation);
+                }
+            }
+            return reservations;
+        }
 
     }
 }
