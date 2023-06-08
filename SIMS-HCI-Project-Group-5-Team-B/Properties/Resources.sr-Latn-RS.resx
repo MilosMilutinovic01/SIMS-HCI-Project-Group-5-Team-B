@@ -264,8 +264,14 @@
   <data name="FutureRenovations" xml:space="preserve">
     <value>Buduca renoviranja</value>
   </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Generisi</value>
+  </data>
   <data name="GenerateLabel" xml:space="preserve">
-    <value>Kliknite 'Generisi' dugme da generisete izvestaj o rezervacijama za smestaj 📝</value>
+    <value>Kliknite 'Generisi' dugme da generisete izveštaj o svim rezervacijama za određeni smeštaj u određenom vremenskom periodu📝</value>
+  </data>
+  <data name="GenerateReportLabel" xml:space="preserve">
+    <value>Izvetaj o rezervacijama u zeljenom vremenskom periodu za</value>
   </data>
   <data name="Grade" xml:space="preserve">
     <value>Oceni</value>

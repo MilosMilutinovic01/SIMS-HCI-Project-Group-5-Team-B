@@ -264,8 +264,14 @@
   <data name="FutureRenovations" xml:space="preserve">
     <value>Future renovations</value>
   </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Generate</value>
+  </data>
   <data name="GenerateLabel" xml:space="preserve">
-    <value>Click on the 'Generate' button to generate reservation report for accommodation 📝</value>
+    <value>Click on the 'Generate' button to generate report on all reservations for a specific accommodation within a specific time period. 📝</value>
+  </data>
+  <data name="GenerateReportLabel" xml:space="preserve">
+    <value>Report on all reservations in wanted time period for</value>
   </data>
   <data name="Grade" xml:space="preserve">
     <value>Grade</value>
@@ -437,6 +443,9 @@
   </data>
   <data name="Statistics" xml:space="preserve">
     <value>Statistics</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
   </data>
   <data name="SuggestionsForNewLocation" xml:space="preserve">
     <value>Suggestions for new location</value>
