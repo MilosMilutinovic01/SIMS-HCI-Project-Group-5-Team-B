@@ -2,13 +2,15 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SIMS_HCI_Project_Group_5_Team_B.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="LastShownDate" Type="System.DateTime" Scope="User">
-      <Value Profile="(Default)">2023-03-14</Value>
-    </Setting>
-    <Setting Name="currentLanguage" Type="System.String" Scope="User">
-      <Value Profile="(Default)">en-US</Value>
-    </Setting>
-    <Setting Name="darkThemeOn" Type="System.Boolean" Scope="User">
+	  <Setting Name="LastShownDate" Type="System.DateTime" Scope="User">
+		  <Value Profile="(Default)">2023-03-14</Value>
+	  </Setting>
+	  <Setting Name="currentLanguage" Type="System.String" Scope="User">
+		  <Value Profile="(Default)">en-US</Value>
+	  </Setting>
+	  <Setting Name="darkThemeOn" Type="System.Boolean" Scope="User">
+		  <Value Profile="(Default)">False</Value>
+	  </Setting>
     <Setting Name="Tooltips" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>

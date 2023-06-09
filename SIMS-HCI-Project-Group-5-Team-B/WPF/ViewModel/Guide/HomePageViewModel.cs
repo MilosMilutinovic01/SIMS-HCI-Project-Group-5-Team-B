@@ -102,7 +102,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 this.guide.Resigned = true;
                 guideService.Update(this.guide);
                 userService.DeleteUser(userService.GetById(guide.Id));
-                //appointmentService.CancelAllGuideAppointments(guide.Id);
+                appointmentService.CancelAllGuideAppointments(guide.Id);
                 Window window = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
                 if (window != null)
                 {
