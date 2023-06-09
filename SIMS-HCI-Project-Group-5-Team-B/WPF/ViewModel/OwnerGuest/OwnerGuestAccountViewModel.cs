@@ -4,6 +4,7 @@ using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Notifications;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -34,6 +35,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         //commands
         public RelayCommand ModifyCommand { get; }
         public RelayCommand CancelReservationCommand { get; }
+        public RelayCommand ReportCommand { get; }
 
         public OwnerGuestAccountViewModel(OwnerGuest ActiveOwnerGuest)
         {
@@ -52,6 +54,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
             ModifyCommand = new RelayCommand(Modify_Execute, Modify_CanExecute);
             CancelReservationCommand = new RelayCommand(Cancel_Execute, Cancel_CanExecute);
+            ReportCommand = new RelayCommand(OnReport);
         }
 
         private void SetMyPoints(int ownerGuestId)
@@ -169,6 +172,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             StringBuilder sb = new StringBuilder($"{SelectedReservationView.Reservation.OwnerGuest.Name} {SelectedReservationView.Reservation.OwnerGuest.Surname} cancelled reservation in ");
             sb.Append($"{SelectedReservationView.Reservation.Accommodation.Name} From: {SelectedReservationView.Reservation.StartDate} To: {SelectedReservationView.Reservation.EndDate}");
             return sb.ToString();
+        }
+
+        public void OnReport()
+        {
+            ReportWindow window = new ReportWindow(ActiveOwnerGuest.Id);
+            window.Show();
         }
     }
 }
