@@ -41,7 +41,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
             EndDP.Text = "12/29/2023";
             await Task.Delay(2000);
             //simulacija pritiska dugmeta
-            SaveBtn.Background = Brushes.LightBlue;
+            
+            SaveBtn.Background = new SolidColorBrush(Color.FromArgb(255, 201, 222, 245));
             await Task.Delay(500);
             SaveBtn.Background = new SolidColorBrush(Color.FromRgb(162,162,200));
             await Task.Delay(500);
