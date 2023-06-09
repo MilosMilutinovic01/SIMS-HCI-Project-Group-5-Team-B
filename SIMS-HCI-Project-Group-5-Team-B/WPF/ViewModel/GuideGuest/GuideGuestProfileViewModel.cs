@@ -134,8 +134,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         public ICommand SaveRegularTourRequestCommand { get; }
         public ICommand CancelRegularTourRequestCommand { get; }
         #endregion
-
-
         #region Location variables for regular and special tour requests
         public ObservableCollection<string> States { get; set; }
         public ObservableCollection<string> RegularTourCities { get; set; }

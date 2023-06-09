@@ -24,11 +24,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
     {
         public ObservableCollection<GuideGuestTourDTO> Tours { get; set; }
 
-
+        #region Searching variables
         public ObservableCollection<string> States { get; set; }
         public ObservableCollection<string> Cities { get; set; }
-
-
         private string selectedState = string.Empty;
         public string SelectedState
         {
@@ -96,6 +94,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
                 }
             }
         }
+        #endregion
+        #region TourInformations variables
         private GuideGuestTourDTO clickedTour;
         public GuideGuestTourDTO ClickedTour
         {
@@ -109,11 +109,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
                 }
             }
         }
+        private bool showTourInformation = false;
+        public bool ShowTourInformation
+        {
+            get => showTourInformation;
+            set
+            {
+                if(showTourInformation != value)
+                {
+                    showTourInformation = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        
+        #endregion
 
 
         public ICommand SearchCommand { get; }
         public ICommand ResetCommand { get; }
         public ICommand TourClickedCommand { get; }
+        public ICommand CloseTourInformation { get; }
 
 
         private LocationService locationService;
@@ -132,6 +148,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
             SearchCommand = new RelayCommand(Search_Execute, CanSearch);
             ResetCommand = new RelayCommand(Reset_Execute);
             TourClickedCommand = new RelayCommandWithParams(TourClicked_Execute);
+            CloseTourInformation = new RelayCommand(CloseTourInformation_Execute);
         }
 
 
@@ -173,6 +190,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         private void TourClicked_Execute(object obj)
         {
             ClickedTour = (obj as GuideGuestTourDTO);
+            ShowTourInformation = true;
+        }
+        private void CloseTourInformation_Execute()
+        {
+            ShowTourInformation = false;
         }
     }
 }

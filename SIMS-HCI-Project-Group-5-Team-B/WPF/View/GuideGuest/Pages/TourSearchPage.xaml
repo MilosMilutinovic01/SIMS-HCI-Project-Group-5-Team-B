@@ -16,7 +16,7 @@
 
     <Page.Resources>
         <DataTemplate x:Name="GuideGuestTourDTOTemplate" DataType="{x:Type dto:GuideGuestTourDTO}">
-            <Button Height="130" Width="330" Background="Transparent" Margin="5" HorizontalContentAlignment="Left"
+            <Button Height="130" Width="333" Background="Transparent" Margin="5" HorizontalContentAlignment="Left"
                     Command="{Binding DataContext.TourClickedCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}">
                 <StackPanel Margin="2" Orientation="Horizontal" HorizontalAlignment="Left">
                     <Image Height="126" Width="126" Source="{Binding FirstImage}"/>
@@ -33,7 +33,7 @@
                         <TextBlock Text="{Binding Tour.MaxGuests}" Grid.Row="3"/>
                     </Grid>
                 </StackPanel>
-                <Button.Triggers>
+                <!--<Button.Triggers>
                     <EventTrigger RoutedEvent="Button.Click">
                         <BeginStoryboard>
                             <Storyboard>
@@ -43,7 +43,7 @@
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger>
-                </Button.Triggers>
+                </Button.Triggers>-->
             </Button>
         </DataTemplate>
     </Page.Resources>
@@ -122,9 +122,9 @@
                     
                     <WrapPanel Grid.Row="1" Grid.ColumnSpan="10" Grid.Column="0" HorizontalAlignment="Right" Margin="0, 8, 0, 0">
                         <Button x:Name="SearchButton" Content="Search" Command="{Binding SearchCommand}"
-                            Margin="5, 0, 10, 0" Padding="2" Width="60" FontSize="15"/>
+                            Margin="5, 0, 10, 0" Padding="2" Width="60" FontSize="15" Background="LightBlue"/>
                         <Button x:Name="ResetButton" Content="Reset" Command="{Binding ResetCommand}"
-                            Margin="0, 0, 0, 0" Padding="2" Width="60" FontSize="15"/>
+                            Margin="0, 0, 0, 0" Padding="2" Width="60" FontSize="15" Background="LightBlue"/>
                     </WrapPanel>
                 </Grid>
             </Border>
@@ -147,6 +147,7 @@
                         </ScrollViewer>
 
                         <TextBlock x:Name="NoContentToDisplay" Text="No tours!" Visibility="Collapsed"
+                                   FontSize="30"
                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
 
@@ -161,10 +162,22 @@
             </ContentPresenter.ContentTemplate>
         </ContentPresenter>
 
-        <Popup x:Name="TourInformationPopup" AllowsTransparency="True" StaysOpen="False"
-               Placement="Center" Width="1050" Height="525">
-            <components:TourInformationUserControl x:Name="TourInformationName"
-                TourDTO="{Binding ClickedTour}" BookTourCommand="{Binding}"/>
-        </Popup>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="2">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Height="Auto">
+                <components:TourInformationUserControl
+                    DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TourSearchPage}}}">
+                    <components:TourInformationUserControl.Style>
+                        <Style TargetType="{x:Type components:TourInformationUserControl}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShowTourInformation}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </components:TourInformationUserControl.Style>
+                </components:TourInformationUserControl>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>
