@@ -12,6 +12,7 @@
     <Page.InputBindings>
         <KeyBinding Gesture="Ctrl+M" Command="{Binding ModifyCommand}"></KeyBinding>
         <KeyBinding Gesture="Ctrl+D" Command="{Binding CancelReservationCommand}"></KeyBinding>
+        <KeyBinding Gesture="Ctrl+E" Command="{Binding ReportCommand}"></KeyBinding>
     </Page.InputBindings>
     <Page.Resources>
         <converters:DateConverter x:Key="DateConverter"></converters:DateConverter>
