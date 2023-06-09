@@ -12,6 +12,7 @@
     <Page.InputBindings>
         <KeyBinding Gesture="Ctrl+M" Command="{Binding ModifyCommand}"></KeyBinding>
         <KeyBinding Gesture="Ctrl+D" Command="{Binding CancelReservationCommand}"></KeyBinding>
+        <KeyBinding Gesture="Ctrl+E" Command="{Binding ReportCommand}"></KeyBinding>
     </Page.InputBindings>
     <Page.Resources>
         <converters:DateConverter x:Key="DateConverter"></converters:DateConverter>
@@ -209,7 +210,7 @@
                 </DataGrid.Columns>
 
             </DataGrid>
-            <Button  HorizontalAlignment="Left" Height="35" Width="100" Margin="523,7,0,0" VerticalAlignment="Top" Background="#a2a2c8">
+            <Button  HorizontalAlignment="Left" Height="35" Width="100" Margin="523,7,0,0" VerticalAlignment="Top" Command="{Binding ReportCommand}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Text="Generate Report  Ctrl + E" TextAlignment="Center"></TextBlock>
                 </Button.Content>
