@@ -40,7 +40,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
             await Task.Delay(2000);
             EndDP.Text = "12/29/2023";
             await Task.Delay(2000);
-            //simulacija pritiska dugmeta
+            //simulation of button press
             
             SaveBtn.Background = new SolidColorBrush(Color.FromArgb(255, 201, 222, 245));
             await Task.Delay(500);

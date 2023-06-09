@@ -30,14 +30,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            //idmeo opa
+            
             await Task.Delay(1000);
             StartDP.SelectedDate = DateTime.Today;
             await Task.Delay(1000);
             EndDP.SelectedDate = DateTime.Today.AddDays(16);
             await Task.Delay(1000);
 
-            //jendom se klikne
+            //click only once
             await Task.Delay(250);
             DaysIncBtn.Background = new SolidColorBrush(Color.FromArgb(255, 201, 222, 245));
             await Task.Delay(250);
@@ -50,7 +50,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             SearchBtn.Background = new SolidColorBrush(Color.FromRgb(162, 162, 200));
             await Task.Delay(500);
 
-            //Nakon toga prikazu se prijedlozi
+            //reccommendations
             ObservableCollection<ReservationRecommendation> lista = new ObservableCollection<ReservationRecommendation>();
             ReservationRecommendation r = new ReservationRecommendation(DateTime.Today.AddDays(1), DateTime.Today.AddDays(SelectedAccomodation.MinReservationDays +1));
             ReservationRecommendation r1 = new ReservationRecommendation(DateTime.Today.AddDays(2), DateTime.Today.AddDays(SelectedAccomodation.MinReservationDays + 2));
@@ -61,7 +61,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             reccommDG.ItemsSource = lista;
             await Task.Delay(1000);
 
-            //izmjena onog broja gostiju
+            //guest no
             guestIncBtn.Background = new SolidColorBrush(Color.FromArgb(255, 201, 222, 245));
             await Task.Delay(250);
             guestIncBtn.Background = Brushes.LightGray;
@@ -95,7 +95,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
                 await Task.Delay(500);
             }
 
-            //recimo da je neko pritisnuo
+            //after press
             MessageBoxResult result = MessageBox.Show("Reservation was successful", "Reservation", MessageBoxButton.OK, MessageBoxImage.Information);
             if (result == MessageBoxResult.OK)
             {
