@@ -21,7 +21,7 @@
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="My Grades" VerticalAlignment="Center" FontSize="30" FontWeight="DemiBold" Margin="20 0 0 0"></TextBlock>
+        <TextBlock Grid.Row="0" Text="My Grades" VerticalAlignment="Center" FontSize="24" FontWeight="DemiBold" Margin="20 0 0 0"></TextBlock>
         <DataGrid Margin="20 0 20 0" Grid.Row="1" Grid.Column="1" x:Name="ReservationsRequestsGrid" ItemsSource="{Binding Path=GradeDTOs, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedGrade, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                       AutoGenerateColumns="False" IsReadOnly="True">

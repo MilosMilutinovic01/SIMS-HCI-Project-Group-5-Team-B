@@ -80,12 +80,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 LocalizationComboBox.SelectedIndex = 1;
             }
+            if(Properties.Settings.Default.darkThemeOn == true)
+            {
+                ThemeToggleButton.IsChecked = true;
+            }
+            else
+            {
+                ThemeToggleButton.IsChecked = false;
+            }
+
 
         }
 
         private void NotifyOwner(object sender, RoutedEventArgs e)
         {
-            frame.Content = new AccommodationPage(LogedInOwner.Id);
+            frame.Content = new AccommodationPage(LogedInOwner.Id,reservationService);
             List<Reservation> reservationsForGrading = reservationService.GetReservationsForGrading(LogedInOwner);
             if (reservationsForGrading.Count != 0 )
             {
@@ -118,7 +127,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void Accommodation_Button_Click(object sender, RoutedEventArgs e)
         {
-            frame.Content = new AccommodationPage(LogedInOwner.Id);
+            frame.Content = new AccommodationPage(LogedInOwner.Id,reservationService);
         }
 
         private void Requests_For_Changing_Reservation_Click(object sender, RoutedEventArgs e)
@@ -143,7 +152,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void Owner_Forum_Click(object sender, RoutedEventArgs e)
         {
-            frame.Content = new OwnerForumPage();
+            frame.Content = new OwnerForumPage(LogedInOwner,accommodationService);
         }
 
         private void Owner_Profile_Click(object sender, RoutedEventArgs e)
@@ -181,11 +190,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void Toggle2_Checked(object sender, RoutedEventArgs e)
         {
             app.ChangeTheme(new Uri("Themes/DarkTheme.xaml", UriKind.Relative));
+            Properties.Settings.Default.darkThemeOn = true;
+            Properties.Settings.Default.Save();
         }
 
         private void Toggle2_Unchecked(object sender, RoutedEventArgs e)
         {
             app.ChangeTheme(new Uri("Themes/LightTheme.xaml", UriKind.Relative));
+            Properties.Settings.Default.darkThemeOn = false;
+            Properties.Settings.Default.Save();
         }
     }
 }

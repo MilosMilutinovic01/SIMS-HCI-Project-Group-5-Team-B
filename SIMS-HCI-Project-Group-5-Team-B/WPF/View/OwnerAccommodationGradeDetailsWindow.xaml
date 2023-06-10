@@ -47,23 +47,23 @@
             <Label Grid.Row="8" Grid.Column="0" Height="30" FontSize="15" HorizontalAlignment="Left" Content="{ns:Loc AdditionalComment}" Style="{DynamicResource LabelStyle}"></Label>
 
 
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.OwnerGuest.Name}" Height="30" Style="{DynamicResource TextBlockStyle}">
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.OwnerGuest.Name}" Height="30" Style="{DynamicResource TextBlockGradeStyle}">
             </TextBlock>
-            <TextBlock   Grid.Row="1" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.OwnerGuest.Surname}" Height="30" Style="{DynamicResource TextBlockStyle}">
+            <TextBlock   Grid.Row="1" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.OwnerGuest.Surname}" Height="30" Style="{DynamicResource TextBlockGradeStyle}">
             </TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.Accommodation.Name}" Height="30" Style="{DynamicResource TextBlockStyle}">
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Reservation.Accommodation.Name}" Height="30" Style="{DynamicResource TextBlockGradeStyle}">
             </TextBlock>
-            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Cleanliness}" Height="30" Style="{DynamicResource TextBlockStyle}">
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Cleanliness}" Height="30" Style="{DynamicResource TextBlockGradeStyle}">
             </TextBlock>
-            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.OwnerCorrectness}" Height="30" Style="{DynamicResource TextBlockStyle}">
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.OwnerCorrectness}" Height="30" Style="{DynamicResource TextBlockGradeStyle}">
             </TextBlock>
-            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.StateOfInventory}" Height="30" Style="{DynamicResource TextBlockStyle}">
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.StateOfInventory}" Height="30" Style="{DynamicResource TextBlockGradeStyle}">
             </TextBlock>
-            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Quietness}" Height="30" Style="{DynamicResource TextBlockStyle}">
+            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Quietness}" Height="30" Style="{DynamicResource TextBlockGradeStyle}">
             </TextBlock>
-            <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Privacy}" Height="30" Style="{DynamicResource TextBlockStyle}">
+            <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Privacy}" Height="30" Style="{DynamicResource TextBlockGradeStyle}">
             </TextBlock>
-            <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.AdditionalComment}" Height="30" Style="{DynamicResource TextBlockStyle}">
+            <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.AdditionalComment}" Height="30" Style="{DynamicResource TextBlockGradeStyle}">
             </TextBlock>
 
 

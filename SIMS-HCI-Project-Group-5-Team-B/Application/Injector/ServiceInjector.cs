@@ -17,6 +17,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.Injector
     {
         
         { typeof(IRenovationService), new RenovationService() },
+        { typeof(ICommentService), new CommentService() },
         // Add more implementations here
     };
 
