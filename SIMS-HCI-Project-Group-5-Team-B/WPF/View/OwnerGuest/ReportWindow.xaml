@@ -44,9 +44,9 @@
         <Label Grid.Row="3" FontSize="13" Grid.Column="0" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left" Margin=" 20 0 0 0 " Content="Generate about"/>
 
         <DatePicker Height="30" Grid.Row="1" Background="LightGray" Grid.Column="1" SelectedDate="{Binding Path=Start,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="29,19,0,20" HorizontalAlignment="Left" Width="132"></DatePicker>
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="25,19,14,20" HorizontalAlignment="Left" Width="132"></DatePicker>
         <DatePicker Height="30" Grid.Row="2" Background="LightGray" Grid.Column="1" SelectedDate="{Binding Path=End,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="29,19,0,19" HorizontalAlignment="Left" Width="132"></DatePicker>
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="25,19,14,19" HorizontalAlignment="Left" Width="132"></DatePicker>
 
         <ComboBox Grid.Row="3" Grid.Column="1" Height="30" Margin="0,15,14,15" Text="{Binding Type}">
             <ComboBoxItem>Scheduled Reservations</ComboBoxItem>

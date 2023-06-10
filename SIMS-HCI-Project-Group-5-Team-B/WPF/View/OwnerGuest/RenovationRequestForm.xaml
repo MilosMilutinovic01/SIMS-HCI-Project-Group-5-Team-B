@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest"
         mc:Ignorable="d"
-        Title="Renovation Request" Height="350" Width="480" WindowStartupLocation="CenterScreen"
+        Title="Renovation Request" Height="380" Width="480" WindowStartupLocation="CenterScreen"
         Background="#c8a2c8">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
@@ -36,7 +36,7 @@
             <RowDefinition Height="65*"></RowDefinition>
             <RowDefinition Height="16*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Text="Renovation Request" FontWeight="DemiBold" FontSize="20" Margin="34,10,34,0" />
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Text="Renovation Request" FontWeight="DemiBold" FontSize="20" Margin="38,10,34,0" />
         <Label Grid.Row="1" FontSize="15" Grid.ColumnSpan="2" Margin="34,6,0,70" >Comment</Label>
         <Label Grid.Row="2" FontSize="15" Margin="34,27,0,25" Grid.ColumnSpan="2" >Level</Label>
         <TextBox Grid.Column="1" Margin="137,54,34,4" Text="{Binding Path=NewRenovationRequest.Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True }" TextWrapping="Wrap"
@@ -52,7 +52,7 @@
         </ComboBox>
 
         <WrapPanel Grid.Row="2" Grid.ColumnSpan="4" FlowDirection="RightToLeft" Margin="34,82,34,0" Grid.RowSpan="2">
-            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66" Command="{Binding CloseCommand}" Background="#a2a2c8">
+            <Button  VerticalAlignment="Center" Margin="1 10 15 10" Height="37" Width="66" Command="{Binding CloseCommand}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="66"   Text="Cancel          esc" TextAlignment="Center"></TextBlock>
                 </Button.Content>

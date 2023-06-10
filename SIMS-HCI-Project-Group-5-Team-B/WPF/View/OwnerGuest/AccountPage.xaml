@@ -37,7 +37,6 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition Height="1.2*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -45,26 +44,19 @@
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="6" BorderThickness="3" BorderBrush="Black" />
 
-                <Image Grid.Row="0" Grid.Column="0" Source="/Resources/Images/OwnerGuestUser.png" Height="20" Width="30" HorizontalAlignment="Left" Margin="16,3,0,3"></Image>
+                <Image Grid.Row="0" Grid.Column="0" Source="/Resources/Images/GuideGuestUser.png" Height="20" Width="30" HorizontalAlignment="Left" Margin="16,3,0,3"></Image>
                 <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Name</Label>
                 <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Surname</Label>
                 <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Email</Label>
                 <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Phone Number</Label>
 
-                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10 0" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Username}" FontSize="13"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10 0" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Name}" FontSize="13"/>
-                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10 0" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Surname}" FontSize="13"/>
-                <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10 0" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Email}" FontSize="13"/>
-                <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10 0" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Number}" FontSize="13"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10  5 10 5" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Username}" FontSize="13"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10  0 10 10" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Name}" FontSize="13"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10  0 10 10" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Surname}" FontSize="13"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10  0 10 10" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Email}" FontSize="13"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10  0 10 10" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Number}" FontSize="13"/>
 
-                <WrapPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" FlowDirection="RightToLeft">
-                    <Button Grid.Row="7" Grid.Column="0" Height="34" Width="66" Margin="10 0 0 2"  Command="{Binding ResetCommand}" Background="#a2a2c8">
-                        <Button.Content>
-                            <TextBlock  TextWrapping="Wrap" Text="Start Demo  Ctrl + T" TextAlignment="Center"></TextBlock>
-                        </Button.Content>
-                    </Button>
-                    
-                </WrapPanel>
+                
             </Grid>
 
             <Grid Grid.Row="1">

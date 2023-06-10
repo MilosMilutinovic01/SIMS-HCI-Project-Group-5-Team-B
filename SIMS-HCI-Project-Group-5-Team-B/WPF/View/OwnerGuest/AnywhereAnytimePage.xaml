@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="540" d:DesignWidth="920"
       Title="Anywhere Anytime"
-      Background="#c8a2c8">
+      Background="#c8a2c8" KeyDown="Page_KeyDown">
     <Page.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -25,6 +25,7 @@
     <Page.InputBindings>
         <KeyBinding Gesture="Ctrl+S" Command="{Binding SearchCommand}"/>
         <KeyBinding Gesture="Ctrl+D" Command="{Binding DetailsCommand}"/>
+        <KeyBinding Gesture="Ctrl+X" Command="{Binding ResetCommand}"/>
     </Page.InputBindings>
 
     <Grid>
@@ -41,9 +42,9 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" FontSize="24" FontWeight="DemiBold" Text="Anywhere/Anytime" Margin="20 20 0 0"/>
         <WrapPanel Grid.Row="0" Grid.Column ="1" FlowDirection="RightToLeft" Margin="20,24,20,0">
-            <Button Height="37" Width="66" Command="{Binding DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Background="#a2a2c8">
+            <Button Height="37" Width="66" Click="Button_Click" Background="#a2a2c8">
                 <Button.Content>
-                    <TextBlock  TextWrapping="Wrap" Text="Start Demo Ctrl+S+D" TextAlignment="Center"></TextBlock>
+                    <TextBlock  TextWrapping="Wrap" Text="Start Demo Ctrl+T" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
         </WrapPanel>
@@ -70,32 +71,41 @@
 
             <WrapPanel Grid.Row="0" Grid.Column="1" FlowDirection="LeftToRight" Margin="0,21,14,9" HorizontalAlignment="Right">
                 <Button Content="-" Margin="15 0 0 0" Width="15" Command="{Binding GuestDecreaseCommand}"></Button>
-                <TextBox Name="reservationDaysTextBox" Width="30" Text="{Binding Path=GuestNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                <TextBox x:Name="guestTB" Width="30" Text="{Binding Path=GuestNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" IsReadOnly="True"></TextBox>
-                <Button Content="+" Width="15" Command="{Binding GuestIncreaseCommand}"></Button>
+                <Button x:Name="guestIncBtn" Content="+" Width="15" Command="{Binding GuestIncreaseCommand}"></Button>
             </WrapPanel>
             <WrapPanel Grid.Row="3" Grid.Column="1" FlowDirection="LeftToRight" Margin="0,21,14,9" HorizontalAlignment="Right">
                 <Button Content="-" Margin="15 0 0 0" Width="15" Command="{Binding DaysDecreaseCommand}"></Button>
-                <TextBox Width="30" Text="{Binding Path=Days, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                <TextBox Width="30" x:Name="daysTB" Text="{Binding Path=Days, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" IsReadOnly="True"></TextBox>
-                <Button Content="+" Width="15" Command="{Binding DaysIncreaseCommand}"></Button>
+                <Button x:Name="daysIncBtn" Content="+" Width="15" Command="{Binding DaysIncreaseCommand}"></Button>
             </WrapPanel>
 
-            <DatePicker Grid.Row="1" Background="LightGray" Grid.Column="1" SelectedDate="{Binding Path=Start,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+            <DatePicker Grid.Row="1" x:Name="StartDp" Background="LightGray" Grid.Column="1" SelectedDate="{Binding Path=Start,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="18,19,0,11" HorizontalAlignment="Left"></DatePicker>
-            <DatePicker Grid.Row="2" Background="LightGray" Grid.Column="1" SelectedDate="{Binding Path=End,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+            <DatePicker Grid.Row="2" x:Name="EndDP" Background="LightGray" Grid.Column="1" SelectedDate="{Binding Path=End,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="18,19,0,11" HorizontalAlignment="Left"></DatePicker>
 
-            <Button Grid.Row="4" Grid.Column="1" Height="37" Width="66" Command="{Binding SearchCommand}" HorizontalAlignment="Right" Margin="0 0 14 0" Background="#a2a2c8">
-                <Button.Content>
-                    <TextBlock  TextWrapping="Wrap" Width="60"    Text="Search      Ctrl + S" TextAlignment="Center"></TextBlock>
-                </Button.Content>
-            </Button>
+            
+
+            <WrapPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" FlowDirection="LeftToRight">
+                <Button Grid.Row="7" Grid.Column="0" Height="37" Width="66"  Command="{Binding ResetCommand}" Margin="50 10 20 0" Background="#a2a2c8">
+                    <Button.Content>
+                        <TextBlock  TextWrapping="Wrap" Text="Reset          Ctrl + X" TextAlignment="Center"></TextBlock>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="SearchBtn" Grid.Row="4" Grid.Column="1" Height="37" Width="66" Command="{Binding SearchCommand}" HorizontalAlignment="Right" Margin="0 10 14 0" Background="#a2a2c8">
+                    <Button.Content>
+                        <TextBlock  TextWrapping="Wrap" Width="60"    Text="Search      Ctrl + X" TextAlignment="Center"></TextBlock>
+                    </Button.Content>
+                </Button>
+            </WrapPanel>
 
 
         </Grid>
 
-        <DataGrid Width="auto" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Path=AASuggestions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10 20 20 25"
+        <DataGrid x:Name="searchDG" Width="auto" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Path=AASuggestions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10 20 20 25"
                   SelectedItem="{Binding Path=SelectedReservation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                       AutoGenerateColumns="False" IsReadOnly="True" >
             <DataGrid.Resources>

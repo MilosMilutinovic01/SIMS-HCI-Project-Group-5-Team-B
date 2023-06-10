@@ -50,18 +50,42 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         {
 
             ownerGuestWindowViewModel.ShowAccommodation();
+            accommodationMI.Background = new SolidColorBrush(Color.FromRgb(162, 162, 200));
+            //svi ostali da se vrate na staro
+            reservationsMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            notificationsMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            gradesMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            forumMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            aaMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            accountMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+
         }
 
         private void Reservations_Button_Click(object sender, RoutedEventArgs e)
         {
             
             ownerGuestWindowViewModel.ShowReservations();
+            reservationsMI.Background = new SolidColorBrush(Color.FromRgb(162, 162, 200));
+            //svi ostali da se vrate na staro
+            accountMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            notificationsMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            gradesMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            forumMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            aaMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            accommodationMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
         }
 
         private void Notifications_Button_Click(object sender, RoutedEventArgs e)
         {
            ownerGuestWindowViewModel.ShowNotifications();
-            
+            notificationsMI.Background = new SolidColorBrush(Color.FromRgb(162, 162, 200));
+            //svi ostali da se vrate na staro
+            accountMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            reservationsMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            gradesMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            forumMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            aaMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            accommodationMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
         }
 
         private void ShowNotification()
@@ -78,6 +102,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void Grades_Button_Click(object sender, RoutedEventArgs e)
         {
             ownerGuestWindowViewModel.ShowGrades();
+            gradesMI.Background = new SolidColorBrush(Color.FromRgb(162, 162, 200));
+            //svi ostali da se vrate na staro
+            accountMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            notificationsMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            reservationsMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            forumMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            aaMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            accommodationMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -114,16 +146,40 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void Forums_Click(object sender, RoutedEventArgs e)
         {         
             ownerGuestWindowViewModel.ShowForums();
+            forumMI.Background = new SolidColorBrush(Color.FromRgb(162, 162, 200));
+            //svi ostali da se vrate na staro
+            accountMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            notificationsMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            gradesMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            reservationsMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            aaMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            accommodationMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
         }
 
         private void AnywhereAnytime_Click(object sender, RoutedEventArgs e)
         {
             ownerGuestWindowViewModel.ShowAnywhereAnytime();
+            aaMI.Background = new SolidColorBrush(Color.FromRgb(162, 162, 200));
+            //svi ostali da se vrate na staro
+            accountMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            notificationsMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            gradesMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            forumMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            reservationsMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            accommodationMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
         }
 
         private void Account_Click(object sender, RoutedEventArgs e)
         {
             ownerGuestWindowViewModel.ShowAccount();
+            accountMI.Background = new SolidColorBrush(Color.FromRgb(162, 162, 200));
+            //svi ostali da se vrate na staro
+            reservationsMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            notificationsMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            gradesMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            forumMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            aaMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
+            accommodationMI.Background = new SolidColorBrush(Color.FromRgb(115, 126, 179));
         }
     }
 }

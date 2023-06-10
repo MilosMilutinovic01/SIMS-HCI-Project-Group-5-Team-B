@@ -9,16 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 {
-    public class AccommodationsViewModel:INotifyPropertyChanged, IDataErrorInfo
+    public class AccommodationsViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
         private AccommodationService accommodationService;
         private LocationController locationController;
@@ -29,7 +25,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private IRenovationService renovationService;
         public ObservableCollection<Accommodation> Accomodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
-        public string SearchName { get; set; } = "";
+        private string seacrhName;
+        public string SearchName
+        {
+            get { return seacrhName; }
+            set { 
+                if (seacrhName != value)
+                {
+                    seacrhName = value;
+                    NotifyPropertyChanged(nameof(SearchName));
+                }
+            }
+        }
         public string City { get; set; }
         private string state;
         public string State
@@ -50,9 +57,48 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         }
         public List<string> States { get; set; }
         public List<string> Cities { get; set; }
-        public string SearchType { get; set; } = "";
-        public string SearchGuestsNumber { get; set; } = "";
-        public string SearchDays { get; set; } = "";
+        private string searchType;
+        public string SearchType
+        {
+            get { return searchType; }
+            set
+            {
+                if (value != searchType)
+                {
+                    searchType = value;
+                    NotifyPropertyChanged(nameof(SearchType));
+                }
+
+            }
+        }
+        private string searchGuestsNumber;
+        public string SearchGuestsNumber
+        {
+            get { return searchGuestsNumber; }
+            set
+            {
+                if(value != searchGuestsNumber)
+                {
+                    searchGuestsNumber = value;
+                    NotifyPropertyChanged(nameof(SearchGuestsNumber));
+                }
+            }
+        }
+        private string searchDays;
+        public string SearchDays
+        {
+            get { return searchDays; }
+            set
+            {
+                if(value != searchDays)
+                {
+                    searchDays = value;
+                    NotifyPropertyChanged(nameof(SearchDays));
+                }
+            }
+        }
+
+
 
         public string Error => null;
 
@@ -65,11 +111,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public RelayCommand ResetCommand { get; }
         public RelayCommand SearchCommand { get; }
 
-        public AccommodationsViewModel(int ownerGuestId) 
+        public AccommodationsViewModel(int ownerGuestId)
         {
             locationController = new LocationController();
             ownerService = new OwnerService();
-            renovationService = ServiceInjector.CreateInstance<IRenovationService>();    
+            renovationService = ServiceInjector.CreateInstance<IRenovationService>();
             renovationService.MarkRenovatiosThatTookPlaceInTheLastYear();
             this.accommodationService = new AccommodationService(locationController, ownerService);
             this.reservationService = new ReservationService();
@@ -89,6 +135,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             DetailsCommand = new RelayCommand(Details_Execute, CanExecute);
             SearchCommand = new RelayCommand(Search_Execute, CanExecute);
             ResetCommand = new RelayCommand(Reset_Executed, CanExecute);
+            SearchDays = "";
+            SearchGuestsNumber = "";
+            SearchName = "";
+            SearchType = "";
+            
 
         }
 
@@ -134,7 +185,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
             else
             {
-                MessageBox.Show("Search can not be preformed beacause data is not valid!","Search", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Search can not be preformed beacause data is not valid!", "Search", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -243,6 +294,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             {
                 Accomodations.Add(accommodation);
             }
+
+            SearchName = string.Empty;
+            SearchDays = String.Empty;
+            SearchType = String.Empty;
+            SearchGuestsNumber = String.Empty;
+            City = string.Empty;
+            State = string.Empty;
         }
 
 
