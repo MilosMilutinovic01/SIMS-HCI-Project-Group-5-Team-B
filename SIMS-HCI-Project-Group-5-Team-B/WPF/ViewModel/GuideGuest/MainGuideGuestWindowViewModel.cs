@@ -79,8 +79,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
             var tourToShow = tourService.getById(notificationDTO.Notification.AdditionalInfo);
             (tourSearchPage.DataContext as TourSearchPageViewModel).ClickedTour = new GuideGuestTourDTO(tourToShow, tourToShow.ImageUrls.Split(',')[0]);
             (tourSearchPage.DataContext as TourSearchPageViewModel).ShowTourInformation = true;
-            //tourSearchPage.TourInformationPopup.IsOpen = true;
-            //tourSearchPage.TourInformationName.TourDTO = new GuideGuestTourDTO(tourToShow, tourToShow.ImageUrls.Split(',')[0]);
             frameNavigationService.Content = tourSearchPage;
         }
         private void CloseNotification_Execute(object obj)

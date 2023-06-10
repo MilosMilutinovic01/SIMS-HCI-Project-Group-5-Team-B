@@ -64,5 +64,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             }
             return result;
         }
+
+        public void Save(TourAttendance newTourAttendance)
+        {
+            tourAttendanceRepository.Save(newTourAttendance);
+        }
     }
 }
