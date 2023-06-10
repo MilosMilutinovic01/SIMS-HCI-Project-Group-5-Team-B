@@ -28,7 +28,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public RelayCommand AddCommentCommand { get; }
         public Comment NewComment { get; set; }
         public Owner Owner { get; set; }
-        public string Content { get; set; }
+        private string content;
+        public string Content {
+            get { return content; }
+            set
+            {
+                if (value != content)
+                {
+                    content = value;
+                    NotifyPropertyChanged(nameof(Content));
+                }
+            }
+        }
         public bool ForumOpened { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
         public RelayCommand ReportCommentCommand { get; }
@@ -265,7 +276,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 comment.OwnersWhoReportedCommentString = "-1";
                 commentService.Save(comment);
                 Comments.Add(comment);
+                Content = "";
                 SelectedForum.Comments.Add(comment);
+
+                //za usefullness
                 Forums.Remove(SelectedForum);
                 SelectedForum.IsVeryUseful = forumService.IsForumVeryUseful(SelectedForum);
                 Forums.Insert(SelectedForum.Id - 1, SelectedForum);

@@ -30,7 +30,9 @@
     <None Remove="Resources\Images\profile.png" />
     <None Remove="Resources\Images\requestIcon.png" />
     <None Remove="Resources\Images\reviewsIcon.png" />
+    <None Remove="Resources\Images\Star.png" />
     <None Remove="Resources\Images\StarImage.png" />
+    <None Remove="Resources\Images\StarPng.png" />
     <None Remove="Resources\Images\statisticsIcon.png" />
     <None Remove="Resources\Images\threeDots.png" />
     <None Remove="Resources\Images\upcomingIcon.png" />
@@ -56,6 +58,8 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\OwnerGuestUser.png" />
+    <Resource Include="Resources\Images\Star.png" />
+    <Resource Include="Resources\Images\StarPng.png" />
     <Resource Include="Resources\Images\statisticsIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
         <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0" Content="{ns:Loc AddOnPopularLocationLabel}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
         <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,40,0,0" Content="{ns:Loc DeleteOnUnpopularLocationLabel}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
-        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="{ns:Loc ProposalOfPopularLocations}" Style="{DynamicResource LabelStyle}" Margin="0,80,0,0" Grid.RowSpan="2"/>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"  Content="{ns:Loc ProposalOfPopularLocations}" Style="{DynamicResource LabelStyle}" Margin="0,80,0,0" Grid.RowSpan="2"/>
         <DataGrid Grid.Row="1" Height="120" HorizontalAlignment="Center" VerticalAlignment="Top" Width="480" ItemsSource="{Binding Path=PopularLocations, UpdateSourceTrigger=PropertyChanged}"
                       AutoGenerateColumns="False" IsReadOnly="True" Margin="0,26,0,0" SelectedItem="{Binding Path=SelectedLocation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single">
             <DataGrid.Columns>
@@ -34,7 +34,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,158,0,0" Content="{ns:Loc ProposalOfUnpopularLocations}" Style="{DynamicResource LabelStyle}" Grid.RowSpan="2"></Label>
+        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"  Margin="0,158,0,0" Content="{ns:Loc ProposalOfUnpopularLocations}" Style="{DynamicResource LabelStyle}" Grid.RowSpan="2"></Label>
         <DataGrid Grid.Row="2" Height="120" HorizontalAlignment="Center" VerticalAlignment="Top" Width="480" Margin="0,26,0,0" ItemsSource="{Binding Path=AccommodationsOnUnpopularLocations, UpdateSourceTrigger=PropertyChanged}"
                       AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding Path=SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" >
             <DataGrid.Columns>

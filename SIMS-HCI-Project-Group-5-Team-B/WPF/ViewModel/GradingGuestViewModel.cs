@@ -137,6 +137,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                     MessageBox.Show("Gost je uspesno ocenjen");
                     
                 }
+                Cancel_Execute();
 
             }
             else
@@ -149,6 +150,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 {
                     MessageBox.Show("Rezervacija ne moze biti ocenjena, jer polja nisu validna");
                 }
+                
             }
         }
 

@@ -23,7 +23,7 @@
                 <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,36,0,0" Height="27" Content="{ns:Loc DetailsLabel}"  Style="{DynamicResource ExplanationLabelStyle}" ></Label>
             </Grid>
             <Grid Grid.Column="0" Grid.Row="1">
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,10,0,0" Content="{ns:Loc ReservationForGrading}" Style="{DynamicResource LabelStyle}"></Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,10,0,0" FontWeight="Bold"  Content="{ns:Loc ReservationForGrading}" Style="{DynamicResource LabelStyle}"></Label>
                 <DataGrid  ItemsSource="{Binding Path=ReservationsForGrading, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding Path=SelectedReservation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                       AutoGenerateColumns="False" IsReadOnly="True"  Margin="22,40,22,190">
@@ -41,7 +41,7 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,163,0,0" Content="{ns:Loc GradesGivenByGuests}" Style="{DynamicResource LabelStyle}"></Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"  Margin="22,163,0,0" Content="{ns:Loc GradesGivenByGuests}" Style="{DynamicResource LabelStyle}"></Label>
                 <DataGrid HorizontalAlignment="Center" ItemsSource="{Binding Path=OwnerAccommodationGradesForShowing, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedOwnerAccommodationGrade, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                       AutoGenerateColumns="False" IsReadOnly="True"  Margin="22,190,22,40">
                     <DataGrid.Columns>
