@@ -18,6 +18,7 @@
                 <Setter Property="Background" Value="#007ACC"/>
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="Cursor" Value="Hand" />
                 <Setter Property="BorderBrush" Value="#007ACC"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontFamily" Value="Segoe UI"/>
@@ -47,31 +48,74 @@
                         <Setter Property="Background" Value="#005E91"/>
                         <Setter Property="BorderBrush" Value="#005E91"/>
                     </Trigger>
+                    <Trigger Property="IsEnabled" Value="false">
+                        <Setter Property="Background" Value="#5595BC"/>
+                        <Setter Property="BorderBrush" Value="#5595BC"/>
+                        <Setter Property="Foreground" Value="GhostWhite"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            
+            <Style TargetType="Button" x:Key="GuideNavButton">
+                <Setter Property="Background" Value="Black"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                                <Border.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="10"></Setter>
+                                    </Style>
+                                </Border.Resources>
+                                <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#2A2B2A"/>
+                        <Setter Property="BorderBrush" Value="#2A2B2A"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="#2A2B2A"/>
+                        <Setter Property="BorderBrush" Value="#2A2B2A"/>
+                    </Trigger>
                 </Style.Triggers>
             </Style>
             
             <!--Style for guide's grid-->
-            <Style x:Key="DataGridCellStyle" TargetType="{x:Type DataGridCell}">
+            <Style x:Key="GuideDataGridCellStyle" TargetType="{x:Type DataGridCell}">
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="Width" Value="auto"></Setter>
             </Style>
 
-            <Style x:Key="DataGridColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
-                <Setter Property="Background" Value="#F0F0F0"/>
-                <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Style x:Key="GuideDataGridColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="Background" Value="Black"/>
+                <Setter Property="BorderBrush" Value="#2A2B2A"/>
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="FontWeight" Value="Bold"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="Width" Value="auto"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
             </Style>
 
-            <Style TargetType="{x:Type DataGrid}">
-                <Setter Property="AlternatingRowBackground" Value="#F8F8F8"/>
+            <Style x:Key="GuideDataGrid" TargetType="{x:Type DataGrid}">
+                <Setter Property="AlternatingRowBackground" Value="Black"/>
                 <Setter Property="AutoGenerateColumns" Value="False"/>
-                <Setter Property="Background" Value="White"/>
-                <Setter Property="BorderBrush" Value="#CCCCCC"/>
+                <Setter Property="Background" Value="Black"/>
+                <Setter Property="BorderBrush" Value="#2A2B2A"/>
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="CanUserAddRows" Value="False"/>
                 <Setter Property="CanUserDeleteRows" Value="False"/>
@@ -80,15 +124,107 @@
                 <Setter Property="CellStyle" Value="{StaticResource  DataGridCellStyle}"/>
                 <Setter Property="ColumnHeaderStyle" Value="{StaticResource DataGridColumnHeaderStyle}"/>
                 <Setter Property="HeadersVisibility" Value="Column"/>
-                <Setter Property="RowBackground" Value="White"/>
+                <Setter Property="RowBackground" Value="Black"/>
                 <Setter Property="RowHeaderWidth" Value="0"/>
                 <Setter Property="SelectionMode" Value="Single"/>
-                <Setter Property="VerticalGridLinesBrush" Value="#CCCCCC"/>
-                <Setter Property="HorizontalGridLinesBrush" Value="#CCCCCC"/>
+                <Setter Property="VerticalGridLinesBrush" Value="#2A2B2A"/>
+                <Setter Property="HorizontalGridLinesBrush" Value="#2A2B2A"/>
                 <Setter Property="Margin" Value="15,0,15,0"/>
                 <Setter Property="ColumnWidth" Value="auto"/>
             </Style>
-            
+
+            <!--<Style x:Key="CustomMessageBoxStyle" TargetType="MessageBox">
+                <Setter Property="Background" Value="#2C2C2C" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="BorderBrush" Value="#454545" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontWeight" Value="Normal" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="MessageBox">
+                            <Grid>
+                                <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                                    <StackPanel>
+                                        <ContentPresenter Content="{TemplateBinding Caption}"
+                                              HorizontalAlignment="Stretch"
+                                              Margin="10,5"
+                                              FontSize="18"
+                                              FontWeight="Bold"
+                                              Foreground="{TemplateBinding Foreground}" />
+
+                                        <ContentPresenter Content="{TemplateBinding Message}"
+                                              HorizontalAlignment="Center"
+                                              Margin="10"
+                                              Foreground="{TemplateBinding Foreground}" />
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,0">
+                                            <Button x:Name="PART_YesButton"
+                                        Content="Yes"
+                                        Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DialogResultCommand}"
+                                        CommandParameter="Yes"
+                                        Margin="5"
+                                        Padding="10,5"
+                                        Style="{StaticResource CustomMessageBoxButtonStyle}" />
+
+                                            <Button x:Name="PART_NoButton"
+                                        Content="No"
+                                        Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DialogResultCommand}"
+                                        CommandParameter="No"
+                                        Margin="5"
+                                        Padding="10,5"
+                                        Style="{StaticResource CustomMessageBoxButtonStyle}" />
+
+                                            <Button x:Name="PART_CancelButton"
+                                        Content="Cancel"
+                                        Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DialogResultCommand}"
+                                        CommandParameter="Cancel"
+                                        Margin="5"
+                                        Padding="10,5"
+                                        Style="{StaticResource CustomMessageBoxButtonStyle}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="CustomMessageBoxButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="#555555" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="BorderBrush" Value="#555555" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontWeight" Value="Normal" />
+                <Setter Property="Padding" Value="10,5" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="3">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      TextElement.FontFamily="{TemplateBinding FontFamily}"
+                                      TextElement.FontSize="{TemplateBinding FontSize}"
+                                      TextElement.FontWeight="{TemplateBinding FontWeight}"
+                                      Margin="{TemplateBinding Padding}"
+                                      Foreground="{TemplateBinding Foreground}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>-->
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

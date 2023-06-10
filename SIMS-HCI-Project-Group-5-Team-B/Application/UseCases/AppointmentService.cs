@@ -82,6 +82,25 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             }
             return null;
         }
+
+        public int GetGuideWithMostTours()
+        {
+            var a = GetAll()
+            .GroupBy(appointment => appointment.GuideId)
+            .OrderByDescending(group => group.Count())
+            .FirstOrDefault();
+            return a.Key;
+        }
+
+        public string GetMostSpokenLanguage()
+        {
+            var a = GetAll()
+            .GroupBy(appointment => appointment.Tour.Language)
+            .OrderByDescending(group => group.Count())
+            .FirstOrDefault();
+            return a.Key;
+        }
+
         public Appointment GetMostVisitedTour(int year, int userId)
         {
             int id = 0;
@@ -132,6 +151,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             if (appointments.Count() == 0)
                 return null;
             return appointments;
+        }
+        public List<Appointment> GetScheduledToursForPeriod(DateTime start,DateTime end)
+        {
+            return GetAll().FindAll(a => a.Start.Date >= start && a.Start.Date <= end);
         }
         public Appointment StartedAppointment(int guideId)
         {

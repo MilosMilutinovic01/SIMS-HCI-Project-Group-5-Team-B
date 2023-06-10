@@ -7,7 +7,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:cvt="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Converters"
         mc:Ignorable="d"
-        Title="Tour Creation" Height="700" Width="380" Background="White">
+        Title="Tour Creation" Background="Black" Height="700">
     <Page.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -32,11 +32,25 @@
             <RowDefinition ></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.3*"></ColumnDefinition>
-            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+            <ColumnDefinition Width="0.1*"></ColumnDefinition>
+            <ColumnDefinition Width="1.3*"></ColumnDefinition>
             <ColumnDefinition Width="3*"></ColumnDefinition>
-            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition Width="0.1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <Button Panel.ZIndex="1" x:Name="HelpButton" Command="{Binding OpenPopupCommand}" Style="{StaticResource GuideNavButton}" Height="30" Width="30" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0">
+            <Image Source="/Resources/Images/helpIcon.png" HorizontalAlignment="Center"/>
+        </Button>
+        <Popup x:Name="popup" PlacementTarget="{Binding ElementName=HelpButton}" IsOpen="{Binding IsOpenedPopup, UpdateSourceTrigger=PropertyChanged}" Placement="Bottom" HorizontalOffset="-170">
+            <Grid Width="200" Height="Auto" Background="#202122">
+                <TextBlock Padding="10" Foreground="GhostWhite" TextWrapping="Wrap">
+                    This page allows you to create a tour. You can enter the tour details such as the name, location, language, and maximum number of guests. You can also add key points and specify the tour's start date and duration. Additionally, you can upload images and provide a description for the tour. Once you have entered all the necessary information, click the "Create" button to create the tour.
+                    <LineBreak/><LineBreak/>
+                    Feel free to explore the different sections and use the provided elements to customize your tour. If you need any assistance, click the "Help" button for further guidance.
+                    <LineBreak/><LineBreak/>
+                    Enjoy creating your tour!
+                </TextBlock>
+            </Grid>
+        </Popup>
         <TextBox x:Name="HelpTextBox"
          IsReadOnly="True"
          IsReadOnlyCaretVisible="False"
@@ -44,28 +58,28 @@
          BorderThickness="1"
          TextWrapping="Wrap"
          BorderBrush="LightGray" Grid.Row="1" Grid.Column="2" Grid.RowSpan="5" Panel.ZIndex="10" Visibility="Hidden"/>
-        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1">Tour name:</Label>
-        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1">Location:</Label>
-        <Label Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1">Language:</Label>
-        <Label Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1">Maximum guests:</Label>
+        <Label Foreground="GhostWhite" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1">Tour name:</Label>
+        <Label Foreground="GhostWhite" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1">Location:</Label>
+        <Label Foreground="GhostWhite" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1">Language:</Label>
+        <Label Foreground="GhostWhite" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1">Maximum guests:</Label>
         <Grid Grid.Row="4" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">Key points:</Label>
+            <Label Foreground="GhostWhite" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">Key points:</Label>
         </Grid>
         <Grid Grid.Row="5" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">Start:</Label>
+            <Label Foreground="GhostWhite" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">Start:</Label>
         </Grid>
-        <Label Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="22,0,0,0">Duration:</Label>
-        <Label Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">Images:</Label>
-        <Label Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="22,0,0,0">Description:</Label>
-        <TextBox Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+        <Label Foreground="GhostWhite" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2">Duration:</Label>
+        <Label Foreground="GhostWhite" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">Images:</Label>
+        <Label Foreground="GhostWhite" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">Description:</Label>
+        <TextBox Background="#282928" Foreground="GhostWhite" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
         <Grid Grid.Row="1" Grid.Column="2">
             <Grid.RowDefinitions>
@@ -78,10 +92,10 @@
             <ComboBox x:Name="ComboBoxStates" Grid.Row="0" Grid.Column="0" Text="{Binding Path=State}" ItemsSource="{Binding states}" VerticalAlignment="Center" SelectionChanged="ComboBox_SelectionChanged"/>
             <ComboBox x:Name="ComboBoxCities" Grid.Row="0" Grid.Column="1" Text="{Binding Path=City}"  ItemsSource="{Binding cities}" VerticalAlignment="Center" Margin="10,0,0,0"/>
         </Grid>
-        <TextBox x:Name="LanguageTextBox" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Language, Mode=TwoWay, ValidatesOnDataErrors=True}"
+        <TextBox Background="#282928" Foreground="GhostWhite" x:Name="LanguageTextBox" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Tour.Language, Mode=TwoWay, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
         <DockPanel Grid.Row="3" Grid.Column="2" VerticalAlignment="Center">
-            <TextBox x:Name="sliderTextBox" Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged,Converter={cvt:IntegerToStringConverter}}"></TextBox>
+            <TextBox Background="#282928" Foreground="GhostWhite" x:Name="sliderTextBox" Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged,Converter={cvt:IntegerToStringConverter}}"></TextBox>
             <Slider x:Name="slider" Maximum="20" Value="{Binding Path=MaxGuests}"></Slider>
         </DockPanel>
         <Grid Grid.Row="4" Grid.Column="2">
@@ -93,10 +107,10 @@
                 <ColumnDefinition Width="6*"></ColumnDefinition>
                 <ColumnDefinition Width="1.3*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="KeyPointTextBox" Grid.Column="0" Grid.Row="0" Text="{Binding Path=KeyPoint.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+            <TextBox Background="#282928" Foreground="GhostWhite" x:Name="KeyPointTextBox" Grid.Column="0" Grid.Row="0" Text="{Binding Path=KeyPoint.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Center" />
-            <Button Content="Add" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="AddKeyPointsButton_Click"></Button>
-            <ListBox x:Name="KeyPointsListBox" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Height="45"></ListBox>
+            <Button Style="{StaticResource GuideButton}" Content="Add" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="AddKeyPointsButton_Click"></Button>
+            <ListBox Background="#282928" Foreground="GhostWhite" x:Name="KeyPointsListBox" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Height="45"></ListBox>
         </Grid>
         <Grid Grid.Row="5" Grid.Column="2">
             <Grid.RowDefinitions>
@@ -107,12 +121,12 @@
                 <ColumnDefinition Width="6*"></ColumnDefinition>
                 <ColumnDefinition Width="1.3*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <xctk:DateTimePicker x:Name="StartDatePicker" Grid.Column="0" VerticalAlignment="Center" Text="{Binding DateTime}" Format="Custom" FormatString="MM/dd/yyyy HH:mm:ss"/>
-            <Button x:Name="AddStartButton" Content="Add" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="AddStartButton_Click"></Button>
-            <ListBox x:Name="StartsListBox" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Height="45"></ListBox>
+            <xctk:DateTimePicker Background="#282928" Foreground="GhostWhite" x:Name="StartDatePicker" Grid.Column="0" VerticalAlignment="Center" Text="{Binding DateTime}" Format="Custom" FormatString="MM/dd/yyyy HH:mm:ss"/>
+            <Button Style="{StaticResource GuideButton}" x:Name="AddStartButton" Content="Add" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="AddStartButton_Click"></Button>
+            <ListBox Background="#282928" Foreground="GhostWhite" x:Name="StartsListBox" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Height="45"></ListBox>
         </Grid>
         <DockPanel Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" >
-            <TextBox Text="{Binding ElementName=slider1,Path=Value,UpdateSourceTrigger=PropertyChanged,Converter={cvt:IntegerToStringConverter}}"></TextBox>
+            <TextBox Background="#282928" Foreground="GhostWhite" Text="{Binding ElementName=slider1,Path=Value,UpdateSourceTrigger=PropertyChanged,Converter={cvt:IntegerToStringConverter}}"></TextBox>
             <Slider x:Name="slider1" Value="{Binding Path=Tour.Duration}" Maximum="10"></Slider>
         </DockPanel>
         <Grid Grid.Row="7" Grid.Column="2">
@@ -122,18 +136,18 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="6*"></ColumnDefinition>
+                <ColumnDefinition Width="4.5*"></ColumnDefinition>
                 <ColumnDefinition Width="1.3*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Width="30" Height="30" VerticalAlignment="Top" Style="{StaticResource {x:Type Button}}" Click="AddImageButton_Click" Background="White" BorderBrush="White">
+            <Button Grid.Column="1" Width="30" Height="30" VerticalAlignment="Top" Style="{StaticResource {x:Type Button}}" Click="AddImageButton_Click" Background="Black" BorderBrush="Black">
                 <Image Source="/Resources/Images/addImageIcon.png"/>
             </Button>
-            <Button x:Name="PreviewButton" Content="Preview" Grid.Column="1" VerticalAlignment="Center" Click="Button_Click" IsEnabled="false"></Button>
-            <Button x:Name="RemoveButton" Content="Remove" Grid.Column="1" VerticalAlignment="Bottom" Click="RemoveButton_Click" IsEnabled="false"></Button>
-            <ListBox x:Name="ImagesListBox" Grid.Column="0" SelectedValue="{Binding SelectedImage}" SelectionChanged="ImagesListBox_SelectionChanged"/>
+            <Button Style="{StaticResource GuideButton}" x:Name="PreviewButton" Content="Preview" Grid.Column="1" VerticalAlignment="Center" Click="Button_Click" IsEnabled="false"></Button>
+            <Button Style="{StaticResource GuideButton}" x:Name="RemoveButton" Content="Remove" Grid.Column="1" VerticalAlignment="Bottom" Click="RemoveButton_Click" IsEnabled="false"></Button>
+            <ListBox Background="#282928" Foreground="GhostWhite" x:Name="ImagesListBox" Grid.Column="0" SelectedValue="{Binding SelectedImage}" SelectionChanged="ImagesListBox_SelectionChanged"/>
         </Grid>
-        <TextBox x:Name="DescriptionTextBox" Grid.Row="8" Grid.Column="2" VerticalAlignment="Top" TextWrapping="Wrap" Height="45" Text="{Binding Path=Tour.Description, ValidatesOnDataErrors=True}"
+        <TextBox Background="#282928" Foreground="GhostWhite" x:Name="DescriptionTextBox" Grid.Row="8" Grid.Column="2" VerticalAlignment="Top" TextWrapping="Wrap" Height="45" Text="{Binding Path=Tour.Description, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <Button HorizontalAlignment="Right" Grid.Row="9" Grid.Column="2" VerticalAlignment="Top" Width="70" Content="Create" Click="CreateTourButton_Click"></Button>
+        <Button Style="{StaticResource GuideButton}" HorizontalAlignment="Right" Grid.Row="9" Grid.Column="2" VerticalAlignment="Top" Width="70" Content="Create" Click="CreateTourButton_Click"></Button>
     </Grid>
 </Page>

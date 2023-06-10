@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide"
         mc:Ignorable="d"
-        Title="Full review" Height="450" Width="430" WindowStartupLocation="CenterScreen">
+        Title="Full review" Height="430" Width="400" WindowStartupLocation="CenterScreen" Background="Black">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -19,14 +19,14 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding GuestName}" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Normal" FontFamily="Elephant" />
-        <TextBlock Grid.Row="1" Text="{Binding TourName}" Margin="10,0,0,0" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" />
-        <TextBlock Grid.Row="2" Text="{Binding KeyPointName}" FontWeight="Normal" Margin="10,0,0,0" />
-        <TextBlock Grid.Row="3" Text="{Binding Rating}" FontWeight="Normal" Margin="10,0,0,0" />
-        <TextBlock Grid.Row="4" Grid.RowSpan="2" ScrollViewer.CanContentScroll="True" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding Comment}" FontWeight="Normal" Height="50" HorizontalAlignment="Left" />
-        <!--<Button Grid.Row="7" Grid.Column="0" Command="{Binding DataContext.MoreCommand, ElementName=Items}"
-                                        CommandParameter="{Binding}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">More</Button>
-        <Button Grid.Row="7" Grid.Column="1" Command="{Binding DataContext.ReportCommand, ElementName=Items}"
-                                        CommandParameter="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">Report</Button>-->
+        <TextBlock Foreground="GhostWhite" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding GuestName}" Width="170" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Normal" FontFamily="Elephant" />
+        <TextBlock Foreground="GhostWhite" Grid.Row="1" Text="{Binding TourName}" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" />
+        <TextBlock Foreground="GhostWhite" Grid.Row="2" Text="{Binding KeyPointName}" FontWeight="Normal" />
+        <TextBlock Foreground="GhostWhite" Grid.Row="3" Text="{Binding Rating}" FontWeight="Normal" />
+        <TextBlock Foreground="GhostWhite" Grid.Row="4" Grid.RowSpan="2" ScrollViewer.CanContentScroll="True" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding Comment}" FontWeight="Normal" Height="50" HorizontalAlignment="Left" />
+        <Button Style="{StaticResource GuideButton}" Grid.Row="7" Grid.Column="0" Command="{Binding DataContext.CloseCommand}"
+                                        CommandParameter="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center">Close</Button>
+        <Button Style="{StaticResource GuideButton}" Grid.Row="7" Grid.Column="1" Command="{Binding DataContext.ReportCommand}"
+                                        CommandParameter="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center">Report</Button>
     </Grid>
 </Window>

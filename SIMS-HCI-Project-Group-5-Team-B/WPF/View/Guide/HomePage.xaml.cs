@@ -25,32 +25,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
     /// </summary>
     public partial class HomePage : Page
     {
-        public HomePageViewModel homePageViewModel { get; set; }
-        private TourService tourService;
-        private AppointmentService appointmentService;
-        private TourAttendanceService tourAttendanceService;
-        private TourGradeService tourGradeService;
-        private void LoadData()
-        {
-            KeyPointCSVRepository keyPointCSVRepository = new KeyPointCSVRepository();
-            LocationCSVRepository locationCSVRepository = new LocationCSVRepository();
-            TourCSVRepository tourCSVRepository = new TourCSVRepository();
-
-            TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
-            TourGradeCSVRepository tourGradeCSVRepository = new TourGradeCSVRepository();
-            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository();
-
-            tourService = new TourService();
-            tourAttendanceService = new TourAttendanceService();
-            tourGradeService = new TourGradeService();
-            appointmentService = new AppointmentService();
-        }
+        public HomePageViewModel HomePageViewModel { get; set; }
         public HomePage(SIMS_HCI_Project_Group_5_Team_B.Domain.Models.Guide guide, Frame frame)
         {
-            homePageViewModel = new HomePageViewModel(guide, frame);
+            HomePageViewModel = new HomePageViewModel(guide, frame.NavigationService, frame);
             InitializeComponent();
-            this.DataContext = this.homePageViewModel;
-            LoadData();
+            this.DataContext = this.HomePageViewModel;
         }
     }
 }

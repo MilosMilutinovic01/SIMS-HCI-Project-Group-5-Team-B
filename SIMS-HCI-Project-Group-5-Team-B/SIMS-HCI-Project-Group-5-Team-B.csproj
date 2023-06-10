@@ -33,6 +33,10 @@
     <None Remove="Resources\Images\statisticsIcon.png" />
     <None Remove="Resources\Images\threeDots.png" />
     <None Remove="Resources\Images\upcomingIcon.png" />
+    <None Remove="Resources\WizardImages\createTourPage.png" />
+    <None Remove="Resources\WizardImages\dropMenu.png" />
+    <None Remove="Resources\WizardImages\homePage.png" />
+    <None Remove="Resources\WizardImages\menuBar.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,6 +66,7 @@
   <ItemGroup>
     <PackageReference Include="DynamicPDF" Version="8.0.0" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
@@ -107,6 +112,18 @@
     <Resource Include="Resources\Images\StarImage.png" />
     <Resource Include="Resources\Images\threeDots.png" />
     <Resource Include="Resources\Images\upcomingIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\createTourPage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\dropMenu.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\homePage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\menuBar.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

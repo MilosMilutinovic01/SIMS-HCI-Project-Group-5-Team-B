@@ -19,8 +19,37 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private VoucherService voucherService;
         public TourAttendanceService tourAttendanceService;
         public ObservableCollection<Appointment> AvailableAppointments { get; }
-        public Appointment SelectedAppointment { get; set; }
+        private Appointment selectedAppointment;
+        public Appointment SelectedAppointment 
+        {
+            get { return selectedAppointment; } 
+            set
+            {
+                if(selectedAppointment != value) 
+                {
+                    selectedAppointment = value;
+                    OnPropertyChanged(nameof(SelectedAppointment));
+                }
+            }
+        }
+        private bool isOpenedPopup;
+        public bool IsOpenedPopup
+        {
+            get
+            {
+                return isOpenedPopup;
+            }
+            set
+            {
+                if (isOpenedPopup != value)
+                {
+                    isOpenedPopup = value;
+                    OnPropertyChanged(nameof(IsOpenedPopup));
+                }
+            }
+        }
         public RelayCommandWithParams CancelTourCommand { get; set; }
+        public RelayCommandWithParams OpenPopupCommand { get; set; }
 
         public int userId;
         #endregion
@@ -29,6 +58,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private bool CanExecute_Command(object obj)
         {
             return true;
+        }
+        private void Execute_OpenPopupCommand(object obj)
+        {
+            IsOpenedPopup = !IsOpenedPopup;
         }
         private void Execute_CancelTourCommand(object obj)
         {
@@ -59,10 +92,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.appointmentService = new AppointmentService();
             voucherService = new VoucherService();
 
+            SelectedAppointment = new Appointment();
             this.CancelTourCommand = new RelayCommandWithParams(Execute_CancelTourCommand, CanExecute_Command);
+            this.OpenPopupCommand = new RelayCommandWithParams(Execute_OpenPopupCommand, CanExecute_Command);
             AvailableAppointments = new ObservableCollection<Appointment>();
 
             RefreshAppointments();
+            IsOpenedPopup = false;
         }
 
         private void RefreshAppointments()

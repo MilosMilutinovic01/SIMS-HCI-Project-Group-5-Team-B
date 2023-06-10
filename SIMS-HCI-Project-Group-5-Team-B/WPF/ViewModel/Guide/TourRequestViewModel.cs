@@ -146,12 +146,29 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 }
             }
         }
+        private bool isOpenedPopup;
+        public bool IsOpenedPopup
+        {
+            get
+            {
+                return isOpenedPopup;
+            }
+            set
+            {
+                if (isOpenedPopup != value)
+                {
+                    isOpenedPopup = value;
+                    OnPropertyChanged(nameof(IsOpenedPopup));
+                }
+            }
+        }
         public RelayCommand FilterRequestsCommand { get; set; }
         public RelayCommand EnableAcceptCommand { get; set; }
         public RelayCommand EnableDateCommand { get; set; }
         public RelayCommand LoadCitiesCommand { get; set; }
         public RelayCommand AcceptCommand { get; set; }
         public RelayCommand ChangeDateCommand { get; set; }
+        public RelayCommand OpenPopupCommand { get; set; }
 
         public TourRequestService tourRequestService;
         public LocationService locationService;
@@ -166,7 +183,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             return true;
         }
-
+        private void Execute_OpenPopupCommand()
+        {
+            IsOpenedPopup = !IsOpenedPopup;
+        }
         private void Execute_FilterRequestsCommand()
         {
             List<TourRequest> filtered = tourRequestService.FilterRequests(State, City, Language, MaxGuests, StartDate, EndDate);
@@ -253,6 +273,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.AcceptCommand = new RelayCommand(Execute_AcceptCommand, CanExecute_Command);
             this.ChangeDateCommand = new RelayCommand(Execute_ChangeDateCommand, CanExecute_Command);
             this.EnableDateCommand = new RelayCommand(Execute_EnableDateCommand, CanExecute_Command);
+            this.OpenPopupCommand = new RelayCommand(Execute_OpenPopupCommand, CanExecute_Command);
 
             List<TourRequest> filtered = tourRequestService.FilterRequests(State, City, Language, MaxGuests, StartDate, EndDate);
             TourRequests.Clear();
@@ -263,6 +284,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             EnabledAccept = false;
             this.frame = frame;
             logged = userService.getLogged();
+            IsOpenedPopup = false;
         }
         #endregion
     }

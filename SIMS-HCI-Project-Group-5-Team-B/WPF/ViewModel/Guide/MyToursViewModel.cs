@@ -12,8 +12,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using ceTe.DynamicPDF;
-using ceTe.DynamicPDF.PageElements;
+//using ceTe.DynamicPDF;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+//using ceTe.DynamicPDF.PageElements;
+using System.Data;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.IO;
+using System.Windows.Markup;
+using Image = iTextSharp.text.Image;
+using Font = iTextSharp.text.Font;
+using Paragraph = iTextSharp.text.Paragraph;
+using System.Diagnostics;
+using System.Windows.Media.Effects;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 {
@@ -33,8 +45,26 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 }
             }
         }
+        private bool isOpenedPopup;
+        public bool IsOpenedPopup
+        {
+            get
+            {
+                return isOpenedPopup;
+            }
+            set
+            {
+                if (isOpenedPopup != value)
+                {
+                    isOpenedPopup = value;
+                    OnPropertyChanged(nameof(IsOpenedPopup));
+                }
+            }
+        }
         public RelayCommand ShowStatisticsCommand { get; set; }
         public RelayCommand ReportOnScheduledToursCommand { get; set; }
+        public RelayCommand EnableReportCommand { get; set; }
+        public RelayCommand OpenPopupCommand { get; set; }
         public ObservableCollection<string> Years { get; set; }
         public ObservableCollection<Appointment> MostVisitedAppointment { get; set; }
         public Appointment SelectedAppointment { get; set; }
@@ -43,6 +73,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         private AppointmentService appointmentService;
         private TourAttendanceService tourAttendanceService;
+        private GuideService guideService;
 
 
         #endregion
@@ -52,7 +83,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             return true;
         }
-
+        private void Execute_OpenPopupCommand()
+        {
+            IsOpenedPopup = !IsOpenedPopup;
+        }
         private void Execute_ShowStatisticsCommand()
         {
             if (SelectedAppointment == null)
@@ -60,29 +94,26 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 MessageBox.Show("You must select appointment!");
                 return;
             }
+            Window window = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            if (window != null)
+            {
+                window.Effect = new BlurEffect();
+            }
             TourStatistics tourStatistics = new TourStatistics(SelectedAppointment.Id, tourAttendanceService);
-            tourStatistics.Show();
+            tourStatistics.ShowDialog();
+            window.Effect = null;
         }
 
         private void Execute_ReportOnScheduledToursCommand()
         {
-            Document document = new Document();
-
-            ceTe.DynamicPDF.Page page = new ceTe.DynamicPDF.Page(PageSize.Letter, PageOrientation.Portrait, 54.0f);
-            document.Pages.Add(page);
-
-            string labelText = "Hello World...\nFrom DynamicPDF Generator for .NET\nDynamicPDF.com";
-            string labelText1 = "TEST...\nTEST\nTEST";
-            ceTe.DynamicPDF.PageElements.Label label = new ceTe.DynamicPDF.PageElements.Label(labelText, 0, 0, 504, 100, Font.Helvetica, 18, TextAlign.Center);
-            ceTe.DynamicPDF.PageElements.Label label1 = new ceTe.DynamicPDF.PageElements.Label(labelText1, 0, 100, 504, 100, Font.Helvetica, 18, TextAlign.Center);
-            page.Elements.Add(label);
-            page.Elements.Add(label1);
-
-            string projectFolderPath = System.IO.Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
-            string folderPath = System.IO.Path.Combine(projectFolderPath, "Resources");
-            string filePath = System.IO.Path.Combine(folderPath, "ReportOnScheduledTours.pdf");
-
-            document.Draw(filePath);
+            Window window = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            if (window != null)
+            {
+                window.Effect = new BlurEffect();
+            }
+            DateForReportWindow dateForReportWindow = new DateForReportWindow();
+            dateForReportWindow.ShowDialog();
+            window.Effect = null;
         }
         #endregion
         public MyToursViewModel(int userId)
@@ -97,18 +128,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
             this.tourAttendanceService = new TourAttendanceService();
             this.appointmentService = new AppointmentService();
+            this.guideService = new GuideService();
 
             MostVisitedAppointment = new ObservableCollection<Appointment>();
             FinishedAppointments = new ObservableCollection<Appointment>();
 
             this.ShowStatisticsCommand = new RelayCommand(Execute_ShowStatisticsCommand, CanExecute_NavigateCommand);
             this.ReportOnScheduledToursCommand = new RelayCommand(Execute_ReportOnScheduledToursCommand, CanExecute_NavigateCommand);
+            this.OpenPopupCommand = new RelayCommand(Execute_OpenPopupCommand, CanExecute_NavigateCommand);
             Years = new ObservableCollection<string>();
             foreach(string year in appointmentService.GetAllYears())
                 Years.Add(year);
 
             PageName = "My tours";
+            HelpMessage = "My tour help message!";
 
+            IsOpenedPopup = false;
             RefreshData();
         }
 

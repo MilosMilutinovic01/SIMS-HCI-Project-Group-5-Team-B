@@ -111,6 +111,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 }
             }
         }
+        private bool valid;
+        public bool Valid
+        {
+            get { return valid; }
+            set
+            {
+                if (value != valid)
+                {
+                    valid = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public TourGrade() { }
 

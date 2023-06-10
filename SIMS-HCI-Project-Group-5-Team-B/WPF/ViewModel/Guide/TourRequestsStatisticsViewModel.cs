@@ -36,6 +36,36 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 }
             }
         }
+        private bool isEnabledCrateButton;
+        public bool IsEnabledCrateButton
+        {
+            get { return isEnabledCrateButton; }
+            set
+            {
+                if (isEnabledCrateButton != value)
+                {
+                    isEnabledCrateButton = value;
+                    OnPropertyChanged(nameof(IsEnabledCrateButton));
+                }
+            }
+        }
+        private bool isOpenedPopup;
+        public bool IsOpenedPopup
+        {
+            get
+            {
+                return isOpenedPopup;
+            }
+            set
+            {
+                if (isOpenedPopup != value)
+                {
+                    isOpenedPopup = value;
+                    OnPropertyChanged(nameof(IsOpenedPopup));
+                }
+            }
+        }
+
         public Location Location { get; set; }
         public ObservableCollection<string> Cities { get; set; }
         public string Language { get; set; }
@@ -75,6 +105,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public RelayCommand RefreshStatisticsCommand { get; set; }
         public RelayCommand LoadCitiesCommand { get; set; }
         public RelayCommand CreateByStatisticsCommand { get; set; }
+        public RelayCommand EnableCreateButtonCommand { get; set; }
+        public RelayCommand OpenPopupCommand { get; set; }
 
         public Frame frame;
         #endregion
@@ -83,6 +115,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private bool CanExecute_Command()
         {
             return true;
+        }
+        private void Execute_OpenPopupCommand()
+        {
+            IsOpenedPopup = !IsOpenedPopup;
+        }
+        private void Execute_EnableCreateButtonCommand()
+        {
+            IsEnabledCrateButton =  true;
         }
 
         private void Execute_ChangeVisibilityCommand()
@@ -163,9 +203,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.RefreshStatisticsCommand = new RelayCommand(Execute_RefreshStatisticsCommand, CanExecute_Command);
             this.LoadCitiesCommand = new RelayCommand(Execute_LoadCitiesCommand, CanExecute_Command);
             this.CreateByStatisticsCommand = new RelayCommand(Execute_CreateByStatisticsCommand, CanExecute_Command);
-            
+            this.EnableCreateButtonCommand = new RelayCommand(Execute_EnableCreateButtonCommand, CanExecute_Command);
+            this.OpenPopupCommand = new RelayCommand(Execute_OpenPopupCommand, CanExecute_Command);
+
             MonthDataGridVisibility = false;
             YearDataGridVisibility = true;
+            IsEnabledCrateButton = false;
 
             States = locationService.GetStates();
             Languages = tourRequestService.GetLanguagesFromRequests();
@@ -173,6 +216,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             RefreshData(DisplayType);
 
             this.frame = frame;
+            IsOpenedPopup = false;
         }
 
         private void RefreshData(string DisplayType)

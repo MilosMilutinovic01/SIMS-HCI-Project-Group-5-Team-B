@@ -6,12 +6,16 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide"
         xmlns:cvt="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Converters"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:Properties="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Properties"
+        xmlns:p="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Properties"
       mc:Ignorable="d" 
       d:DesignHeight="718" d:DesignWidth="430"
-      Title="HomePage" Background="White">
+      Title="HomePage" Background="Black">
     <Page.Resources>
         <cvt:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -25,10 +29,28 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <Button x:Name="HelpButton" Command="{Binding OpenPopupCommand}" Style="{StaticResource GuideNavButton}" Height="30" Width="30" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0">
+            <Image Source="/Resources/Images/helpIcon.png" HorizontalAlignment="Center"/>
+        </Button>
+        <Popup x:Name="popup" PlacementTarget="{Binding ElementName=HelpButton}" IsOpen="{Binding IsOpenedPopup, UpdateSourceTrigger=PropertyChanged}" Placement="Bottom" HorizontalOffset="-170">
+            <Grid Width="200" Height="Auto" Background="#202122">
+                <TextBlock Padding="10" Foreground="GhostWhite" TextWrapping="Wrap">1. User Profile: On the center, you'll find your profile picture, username, and account information.
+                <LineBreak/>2. Navigation Buttons: In the middle of the page, you'll see buttons for different sections:
+                <LineBreak/>-'My Tours': View your personal tours.
+                <LineBreak/>-'Upcoming Tours': See a list of your upcoming tours.
+                <LineBreak/>-'Guest Reviews': Read reviews from other guests.
+                <LineBreak/>-'Resign': Cancel or resign from a tour.
+                <LineBreak/>-'Sign Out': Log out when you're done.
+                <LineBreak/><LineBreak/>Feel free to explore and use these elements to manage your account and access different sections. Click the 'Help' button if you need further assistance.
+
+                <LineBreak/><LineBreak/>Enjoy using the application!"
+                </TextBlock>
+            </Grid>
+        </Popup>
         <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center">
             <Image Source="/Resources/Images/profile.png"></Image>
-            <Label Content="{Binding Username}" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
-            <Label Content="{Binding SuperGuide}" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
+            <Label Content="{Binding Username}" Foreground="GhostWhite" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
+            <Label Content="{Binding SuperGuide}" Foreground="GhostWhite" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
         </StackPanel>
 
         <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">
