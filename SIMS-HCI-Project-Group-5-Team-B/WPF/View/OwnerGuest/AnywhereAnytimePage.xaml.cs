@@ -36,42 +36,56 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            //remembernig initial values
+            int incGuestNo = int.Parse(guestTB.Text);
+            int incDays = int.Parse(daysTB.Text);
+            Nullable<DateTime> incStart = StartDp.SelectedDate;
+            Nullable<DateTime> incIEnd = EndDP.SelectedDate;
+            ObservableCollection<AnywhereAnytimeReservation> initial = viewModel.AASuggestions;
+
+            //setting data 
+            guestTB.Text = "1";
+            daysTB.Text = "1";
             //guestno
+            await Task.Delay(1000);
             guestIncBtn.Background = new SolidColorBrush(Color.FromArgb(255, 201, 222, 245));
-            await Task.Delay(250);
+            await Task.Delay(750);
             guestIncBtn.Background = Brushes.LightGray;
             guestTB.Text = "2";
-            await Task.Delay(250);
+            await Task.Delay(750);
             guestIncBtn.Background = new SolidColorBrush(Color.FromArgb(255, 201, 222, 245));
-            await Task.Delay(250);
+            await Task.Delay(750);
             guestIncBtn.Background = Brushes.LightGray;
             guestTB.Text = "3";
-            
+
             //dates
-            await Task.Delay(500);
+            StartDp.SelectedDate = null;
+            
+            await Task.Delay(750);
             StartDp.SelectedDate = DateTime.Today;
             await Task.Delay(1000);
             EndDP.SelectedDate = DateTime.Today.AddDays(16);
             await Task.Delay(1000);
 
             //days
-            await Task.Delay(250);
+            await Task.Delay(750);
             daysIncBtn.Background = new SolidColorBrush(Color.FromArgb(255, 201, 222, 245));
-            await Task.Delay(250);
+            await Task.Delay(750);
             daysIncBtn.Background = Brushes.LightGray;
             daysTB.Text = "2";
 
-            await Task.Delay(250);
+            await Task.Delay(750);
             daysIncBtn.Background = new SolidColorBrush(Color.FromArgb(255, 201, 222, 245));
-            await Task.Delay(250);
+            await Task.Delay(750);
             daysIncBtn.Background = Brushes.LightGray;
             daysTB.Text = "3";
 
+            await Task.Delay(750);
             //Searchpress
             SearchBtn.Background = new SolidColorBrush(Color.FromArgb(255, 201, 222, 245));
-            await Task.Delay(500);
+            await Task.Delay(1000);
             SearchBtn.Background = new SolidColorBrush(Color.FromRgb(162, 162, 200));
-            await Task.Delay(500);
+            await Task.Delay(750);
 
             //search result
             ObservableCollection<AnywhereAnytimeReservation> suggestions = new ObservableCollection<AnywhereAnytimeReservation>();
@@ -88,18 +102,31 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest
             searchDG.ItemsSource = suggestions;
 
             await Task.Delay(2000);
+            searchDG.SelectedIndex = 0;
+            await Task.Delay(750);
 
             //end
-            MessageBox.Show("Demo ended!","AnywhereAnytime",MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("You can click on details to see details of the Reservation","AnywhereAnytime",MessageBoxButton.OK, MessageBoxImage.Information);
+            await Task.Delay(750);
+            MessageBox.Show("Demo ended!", "AnywhereAnytime",MessageBoxButton.OK, MessageBoxImage.Information);
 
             //reseting data
-            daysTB.Text = "1";
-            guestTB.Text = "1";
-            StartDp.SelectedDate = null;
-            EndDP.SelectedDate = null;
+            daysTB.Text = incDays.ToString();
+            guestTB.Text = incGuestNo.ToString();
+            StartDp.SelectedDate = incStart;
+            EndDP.SelectedDate = incIEnd;
             suggestions.Clear();
             searchDG.ItemsSource = suggestions;
+            viewModel.AASuggestions = initial;
             searchDG.ItemsSource = viewModel.AASuggestions;
+        }
+
+        private void Page_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.T))
+            {
+                Button_Click(sender, e);
+            }
         }
     }
 }

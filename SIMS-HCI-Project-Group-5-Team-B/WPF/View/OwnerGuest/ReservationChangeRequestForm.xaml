@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
         mc:Ignorable="d"
         Title="ReservationChangeRequestForm" Height="320" Width="440" WindowStartupLocation="CenterScreen"
-        Background="#c8a2c8">
+        Background="#c8a2c8"
+        KeyDown="Window_KeyDown">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -79,7 +80,7 @@
 
         <Button Click="Button_Click" Height="37" Width="66" Background="#a2a2c8" Margin="16,16,20,9" Grid.Column="1">
             <Button.Content>
-                <TextBlock  TextWrapping="Wrap" Text="Start Demo Ctrl+S+D" TextAlignment="Center"></TextBlock>
+                <TextBlock  TextWrapping="Wrap" Text="Start Demo Ctrl+T" TextAlignment="Center"></TextBlock>
             </Button.Content>
         </Button>
     </Grid>

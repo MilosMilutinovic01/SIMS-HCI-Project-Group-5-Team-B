@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="540" d:DesignWidth="920"
       Title="Anywhere Anytime"
-      Background="#c8a2c8">
+      Background="#c8a2c8" KeyDown="Page_KeyDown">
     <Page.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -43,7 +43,7 @@
         <WrapPanel Grid.Row="0" Grid.Column ="1" FlowDirection="RightToLeft" Margin="20,24,20,0">
             <Button Height="37" Width="66" Click="Button_Click" Background="#a2a2c8">
                 <Button.Content>
-                    <TextBlock  TextWrapping="Wrap" Text="Start Demo Ctrl+S+D" TextAlignment="Center"></TextBlock>
+                    <TextBlock  TextWrapping="Wrap" Text="Start Demo Ctrl+T" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
         </WrapPanel>
