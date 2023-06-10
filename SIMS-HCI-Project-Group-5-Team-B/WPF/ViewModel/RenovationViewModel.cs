@@ -146,7 +146,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                     {
                         MessageBox.Show("Renoviranje uspesno zakazano!");
                     }
-
+                    CancelExecute();
 
                 }
                 else

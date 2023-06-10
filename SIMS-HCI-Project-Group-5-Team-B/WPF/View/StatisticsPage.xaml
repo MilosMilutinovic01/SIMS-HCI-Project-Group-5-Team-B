@@ -37,7 +37,7 @@
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image x:Name="StarImage" Height="20" Width="20" Visibility="Collapsed" Source="/Resources/Images/StarImage.png">
+                                    <Image x:Name="StarImage" Height="20" Width="20" Visibility="Collapsed" Source="/Resources/Images/Star.png">
                                     </Image>
                                     <DataTemplate.Triggers>
                                         <DataTrigger Binding="{Binding IsBusiest}" Value="True">

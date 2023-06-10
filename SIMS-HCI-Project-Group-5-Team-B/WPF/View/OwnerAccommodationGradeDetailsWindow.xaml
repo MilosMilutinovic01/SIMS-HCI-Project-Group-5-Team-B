@@ -63,8 +63,8 @@
             </TextBlock>
             <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.Privacy}" Height="30" Style="{DynamicResource TextBlockGradeStyle}">
             </TextBlock>
-            <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.AdditionalComment}" Height="30" Style="{DynamicResource TextBlockGradeStyle}">
-            </TextBlock>
+            <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding SelectedOwnerAccommodationGrade.AdditionalComment}" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" IsReadOnly="True" Height="30" Margin="0,0,65,0" >
+            </TextBox>
 
 
         </Grid>

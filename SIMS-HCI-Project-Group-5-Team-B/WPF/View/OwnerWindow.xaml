@@ -38,7 +38,7 @@
             <ComboBoxItem Content="Serbian"></ComboBoxItem>
         </ComboBox>
         <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="{ns:Loc DarkTheme}" Margin="516,29,0,0" Style="{DynamicResource LabelStyle}"/>
-        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="{ns:Loc ChangeLanguage}" Margin="690,31,0,0" Style="{DynamicResource LabelStyle}"/>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="{ns:Loc ChangeLanguage}" Margin="691,31,0,0" Style="{DynamicResource LabelStyle}"/>
         <ToggleButton x:Name="ThemeToggleButton"
                          Height="30" Checked="Toggle2_Checked" Unchecked="Toggle2_Unchecked" Margin="594,27,276,13">
             <ToggleButton.Template>

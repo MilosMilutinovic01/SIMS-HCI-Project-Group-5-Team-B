@@ -52,13 +52,13 @@
                 </StackPanel>
             </Border>
         </WrapPanel>
-        <Label Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Content="{ns:Loc MonthlyStatistics}" Style="{DynamicResource LabelStyle}" Margin="40,0,0,0"></Label>
+        <Label Grid.Row="3" HorizontalAlignment="Left" FontWeight="Bold"  VerticalAlignment="Top" Content="{ns:Loc MonthlyStatistics}" Style="{DynamicResource LabelStyle}" Margin="40,0,0,0"></Label>
         <DataGrid  ItemsSource="{Binding Path=MonthlyAccommodationsStatistics, UpdateSourceTrigger=PropertyChanged}"  AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="3" Width="520" Margin="43,27,37,41">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image x:Name="StarImage" Height="20" Width="20" Visibility="Collapsed" Source="/Resources/Images/StarImage.png">
+                            <Image x:Name="StarImage" Height="20" Width="20" Visibility="Collapsed" Source="/Resources/Images/Star.png">
                             </Image>
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding IsBusiest}" Value="True">

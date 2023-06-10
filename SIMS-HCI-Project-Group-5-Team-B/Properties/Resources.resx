@@ -300,8 +300,14 @@
   <data name="GradingGuestWindow" xml:space="preserve">
     <value>Grading Guest Window</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language:</value>
+  </data>
   <data name="MaxGuests" xml:space="preserve">
     <value>Maximum Guests</value>
+  </data>
+  <data name="Medal" xml:space="preserve">
+    <value>🥇</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>Message</value>
@@ -365,6 +371,9 @@
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
+  </data>
+  <data name="ProfileImage" xml:space="preserve">
+    <value>👤</value>
   </data>
   <data name="ProposalOfPopularLocations" xml:space="preserve">
     <value>Proposal of locations for opening new accommodations</value>
@@ -458,6 +467,9 @@
   </data>
   <data name="SuggestionsForNewLocation" xml:space="preserve">
     <value>Suggestions for new location</value>
+  </data>
+  <data name="SuperOwner" xml:space="preserve">
+    <value>Super-owner</value>
   </data>
   <data name="SuperOwnerExplanation" xml:space="preserve">
     <value>If you are super-owner your accommodation will be shown first to the guests 🏅</value>

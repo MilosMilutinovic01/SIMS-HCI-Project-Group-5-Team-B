@@ -78,4 +78,13 @@
     <Style TargetType="TextBlock" x:Key="TextBlockGradeStyle">
         <Setter Property="Foreground" Value="#D8F3DC"></Setter>
     </Style>
+    <Style TargetType="Label" x:Key="LabelMedalStyle">
+        <Setter Property="Foreground" Value="#D8F3DC"></Setter>
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Style.Triggers>
+            <DataTrigger Value="True" Binding="{Binding Owner.IsSuperOwner}">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

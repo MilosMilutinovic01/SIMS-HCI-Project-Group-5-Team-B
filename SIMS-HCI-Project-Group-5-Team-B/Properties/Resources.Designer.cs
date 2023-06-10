@@ -610,11 +610,29 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language:.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maximum Guests.
         /// </summary>
         public static string MaxGuests {
             get {
                 return ResourceManager.GetString("MaxGuests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 🥇.
+        /// </summary>
+        public static string Medal {
+            get {
+                return ResourceManager.GetString("Medal", resourceCulture);
             }
         }
         
@@ -804,6 +822,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         public static string Profile {
             get {
                 return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 👤.
+        /// </summary>
+        public static string ProfileImage {
+            get {
+                return ResourceManager.GetString("ProfileImage", resourceCulture);
             }
         }
         
@@ -1083,6 +1110,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         public static string SuggestionsForNewLocation {
             get {
                 return ResourceManager.GetString("SuggestionsForNewLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Super-owner.
+        /// </summary>
+        public static string SuperOwner {
+            get {
+                return ResourceManager.GetString("SuperOwner", resourceCulture);
             }
         }
         
