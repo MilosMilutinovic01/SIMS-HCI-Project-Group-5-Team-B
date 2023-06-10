@@ -86,13 +86,13 @@
                 </i:Interaction.Triggers>
             </ComboBox>
         </Grid>
-        <DataGrid Grid.Row="2" Grid.RowSpan="2" Visibility="{Binding YearDataGridVisibility, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="2" Height="170" ItemsSource="{Binding Path=RequestsByYears}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
+        <DataGrid Style="{StaticResource GuideDataGrid}" Grid.Row="2" Grid.RowSpan="2" Visibility="{Binding YearDataGridVisibility, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="2" Height="170" ItemsSource="{Binding Path=RequestsByYears}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Number of requests" Width="*" Binding="{Binding NumberOfRequests}" />
                 <DataGridTextColumn Header="Year" Width="*" Binding="{Binding Year}" />
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid Grid.Row="2" Grid.RowSpan="2" Visibility="{Binding MonthDataGridVisibility, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="2" Height="170" ItemsSource="{Binding Path=RequestsByMonths}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
+        <DataGrid Style="{StaticResource GuideDataGrid}" Grid.Row="2" Grid.RowSpan="2" Visibility="{Binding MonthDataGridVisibility, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="2" Height="170" ItemsSource="{Binding Path=RequestsByMonths}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Number of requests" Width="*" Binding="{Binding NumberOfRequests}" />
                 <DataGridTextColumn Header="Month" Width="*" Binding="{Binding Month}" />

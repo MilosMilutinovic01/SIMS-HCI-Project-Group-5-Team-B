@@ -102,7 +102,7 @@
         </Grid>
         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <!--<Button HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,5" Command="{Binding FilterRequestsCommand,UpdateSourceTrigger=PropertyChanged}">Search</Button>-->
-            <DataGrid x:Name="TourRequestsDataGrid" Height="170" ItemsSource="{Binding Path=TourRequests, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedTourRequest}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
+            <DataGrid Style="{StaticResource GuideDataGrid}" x:Name="TourRequestsDataGrid" Height="170" ItemsSource="{Binding Path=TourRequests, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedTourRequest}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged" >
                         <i:InvokeCommandAction Command="{Binding EnableDateCommand}"/>
@@ -112,12 +112,10 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Description" Width="*" Binding="{Binding Description}" />
                     <DataGridTextColumn Header="State" Width="*" Binding="{Binding Location.State}" />
                     <DataGridTextColumn Header="City" Width="*" Binding="{Binding Location.City}" />
                     <DataGridTextColumn Header="Language" Width="*" Binding="{Binding Language}" />
                     <DataGridTextColumn Header="Start" Width="*" Binding="{Binding DateRangeStart}" />
-                    <DataGridTextColumn Header="End" Width="*" Binding="{Binding DateRangeEnd}" />
                     <DataGridTextColumn Header="MaxGuests" Width="*" Binding="{Binding MaxGuests}" />
                 </DataGrid.Columns>
             </DataGrid>

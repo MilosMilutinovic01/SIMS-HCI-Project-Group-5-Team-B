@@ -19,9 +19,9 @@
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                     <LinearGradientBrush.GradientStops>
                                         <GradientStopCollection>
-                                            <GradientStop Offset="0.0" Color="Black" />
-                                            <GradientStop Offset="0.5" Color="Black" />
-                                            <GradientStop Offset="1.0" Color="Black" />
+                                            <GradientStop Offset="0.0" Color="#333233" />
+                                            <GradientStop Offset="0.5" Color="#333233" />
+                                            <GradientStop Offset="1.0" Color="#333233" />
                                         </GradientStopCollection>
                                     </LinearGradientBrush.GradientStops>
                                 </LinearGradientBrush>
@@ -29,8 +29,8 @@
 
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                    <GradientStop Offset="0" Color="Black" />
-                                    <GradientStop Offset="1" Color="Black" />
+                                    <GradientStop Offset="0" Color="#333233" />
+                                    <GradientStop Offset="1" Color="#333233" />
                                 </LinearGradientBrush>
                             </Border.Background>
 
@@ -60,8 +60,8 @@
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <LinearGradientBrush.GradientStops>
                                             <GradientStopCollection>
-                                                <GradientStop Offset="0.0" Color="Black" />
-                                                <GradientStop Offset="1.0" Color="Black" />
+                                                <GradientStop Offset="0.0" Color="#333233" />
+                                                <GradientStop Offset="1.0" Color="#333233" />
                                             </GradientStopCollection>
                                         </LinearGradientBrush.GradientStops>
                                     </LinearGradientBrush>
@@ -69,8 +69,8 @@
                                 </Border.BorderBrush>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                        <GradientStop Offset="0" Color="Black" />
-                                        <GradientStop Offset="1" Color="Black" />
+                                        <GradientStop Offset="0" Color="#333233" />
+                                        <GradientStop Offset="1" Color="#333233" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
@@ -121,7 +121,7 @@
     </Window.Resources>
 
     <DockPanel>
-        <Grid DockPanel.Dock="Top" Height="30" Background="Black">
+        <Grid DockPanel.Dock="Top" Height="30" Background="#333233">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
@@ -130,12 +130,12 @@
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource GuideNavButton}" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding OpenMenuCommand}">
+            <Button Background="#333233" BorderBrush="#333233" Style="{StaticResource GuideNavButton}" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding OpenMenuCommand}">
                 <Image Source="/Resources/Images/hamburgerIcon.png"/>
             </Button>
             <TextBlock x:Name="NavLabel" Foreground="GhostWhite" Text="{Binding PageName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Grid.Column="1" VerticalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Button Style="{StaticResource GuideNavButton}" x:Name="threeDotsButton" Command="{Binding ToggleOpenCommand}" Height="30" Width="30">
+                <Button Background="#333233" BorderBrush="#333233" Style="{StaticResource GuideNavButton}" x:Name="threeDotsButton" Command="{Binding ToggleOpenCommand}" Height="30" Width="30">
                     <Image Source="/Resources/Images/threeDots.png" HorizontalAlignment="Center"/>
                 </Button>
             </StackPanel>
@@ -146,7 +146,7 @@
                         <CheckBox x:Name="TooltipCheckBox" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Source={x:Static p:Settings.Default}, 
            Path=Tooltips, Mode=TwoWay}"></CheckBox>
                     </StackPanel>
-                    <StackPanel Width="100" Orientation="Horizontal">
+                    <!--<StackPanel Width="100" Orientation="Horizontal">
                         <TextBlock Width="80" Foreground="GhostWhite" HorizontalAlignment="Center">Help</TextBlock>
                         <CheckBox x:Name="HelpCheckBox" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Help, UpdateSourceTrigger=PropertyChanged}">
                             <i:Interaction.Triggers>
@@ -155,7 +155,7 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </CheckBox>
-                    </StackPanel>
+                    </StackPanel>-->
                 </StackPanel>
             </Popup>
             <!--<Popup Panel.ZIndex="1" x:Name="helpPopup" PlacementTarget="{Binding ElementName=threeDotsButton}" IsOpen="{Binding Source={x:Static p:Settings.Default}, 
@@ -262,6 +262,12 @@
                 <Image Source="/Resources/Images/bellIcon.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
             </Button>
         </Grid>
-        <Frame x:Name="frame" NavigationUIVisibility="Hidden" Background="Black" BorderBrush="Black"/>
+        <Frame x:Name="frame" NavigationUIVisibility="Hidden" Background="Black" BorderBrush="Black">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="ContentRendered">
+                    <i:InvokeCommandAction Command="{Binding LoadWizardCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Frame>
     </DockPanel>
 </Window>

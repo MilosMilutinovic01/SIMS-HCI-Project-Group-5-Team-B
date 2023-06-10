@@ -41,10 +41,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         }
         public bool Help
         {
-            get { return Properties.Settings.Default.Help; }
+            get { return Properties.Settings.Default.Wizard; }
             set
             {
-                Properties.Settings.Default.Help = value;
+                Properties.Settings.Default.Wizard = value;
                 Properties.Settings.Default.Save();
                 OnPropertyChanged(nameof(Help));
             }
@@ -82,6 +82,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public NavigationService NavService { get; set; }
 
         public RelayCommand NavigateToCreateTourPageCommand { get; set; }
+        public RelayCommand LoadWizardCommand { get; set; }
 
         public RelayCommand NavigateToTrackingTourPageCommand { get; set; }
 
@@ -111,6 +112,24 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private bool CanExecute_NavigateCommand1(object obj)
         {
             return true;
+        }
+        private void Execute_LoadWizardCommand1()
+        {
+            if (Properties.Settings.Default.Wizard == false)
+            {
+                Window window = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+                if (window != null)
+                {
+                    window.Effect = new BlurEffect();
+                }
+                WizardWindow wizardWindow = new WizardWindow();
+                wizardWindow.ShowDialog();
+                Properties.Settings.Default.Wizard = true;
+                Properties.Settings.Default.Save();
+                window.Effect = null;
+            }
+            //Properties.Settings.Default.Wizard = false;
+            //Properties.Settings.Default.Save();
         }
         private void Execute_ToggleOpenCommand()
         {
@@ -214,6 +233,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.GoBackCommand = new RelayCommand(Execute_GoBackCommand, CanExecute_NavigateCommand);
             this.ToggleOpenCommand = new RelayCommand(Execute_ToggleOpenCommand, CanExecute_NavigateCommand);
             this.OpenWizardCommand = new RelayCommand(Execute_OpenWizardCommand, CanExecute_NavigateCommand);
+            this.LoadWizardCommand = new RelayCommand(Execute_LoadWizardCommand1, CanExecute_NavigateCommand);
             this.Checker = false;
             this.frame = frame;
             this.guide = guide;

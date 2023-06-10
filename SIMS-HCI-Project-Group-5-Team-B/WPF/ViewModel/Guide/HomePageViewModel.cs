@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Effects;
 using System.Windows.Navigation;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
@@ -40,11 +41,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             get
             {
-                return Properties.Settings.Default.Help;
+                return Properties.Settings.Default.Wizard;
             }
             set
             {
-                Properties.Settings.Default.Help = value;
+                Properties.Settings.Default.Wizard = value;
                 Properties.Settings.Default.Save();
                 OnPropertyChanged(nameof(IsVisibleWizard));
             }

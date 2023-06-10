@@ -44,7 +44,7 @@
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
                 <TextBlock Text="Most visited in selected year:" HorizontalAlignment="Left"></TextBlock>
-                <DataGrid x:Name="MostVisitedToursDataGrid" ItemsSource="{Binding Path=MostVisitedAppointment}" SelectedItem="{Binding Path=SelectedAppointment}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center">
+                <DataGrid Style="{StaticResource GuideDataGrid}" x:Name="MostVisitedToursDataGrid" ItemsSource="{Binding Path=MostVisitedAppointment}" SelectedItem="{Binding Path=SelectedAppointment}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Tour.Name}" />
                         <DataGridTextColumn Header="State" Width="*" Binding="{Binding Tour.Location.State}" />

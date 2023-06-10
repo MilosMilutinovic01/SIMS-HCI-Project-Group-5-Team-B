@@ -94,7 +94,7 @@
             </Style>
             
             <!--Style for guide's grid-->
-            <Style x:Key="GuideDataGridCellStyle" TargetType="{x:Type DataGridCell}">
+            <!--<Style x:Key="GuideDataGridCellStyle" TargetType="{x:Type DataGridCell}">
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="Width" Value="auto"></Setter>
@@ -108,21 +108,47 @@
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="Width" Value="auto"/>
-                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-            </Style>
+                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>-->
+            <!--</Style>-->
 
             <Style x:Key="GuideDataGrid" TargetType="{x:Type DataGrid}">
-                <Setter Property="AlternatingRowBackground" Value="Black"/>
+                <!--<Setter Property="AlternatingRowBackground" Value="#2A2B2A"/>-->
                 <Setter Property="AutoGenerateColumns" Value="False"/>
                 <Setter Property="Background" Value="Black"/>
-                <Setter Property="BorderBrush" Value="#2A2B2A"/>
-                <Setter Property="BorderThickness" Value="1"/>
+                <!--<Setter Property="BorderBrush" Value="#2A2B2A"/>-->
+                <Setter Property="Foreground" Value="GhostWhite"/>
+                <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="CanUserAddRows" Value="False"/>
                 <Setter Property="CanUserDeleteRows" Value="False"/>
                 <Setter Property="CanUserResizeColumns" Value="True"/>
                 <Setter Property="CanUserResizeRows" Value="False"/>
-                <Setter Property="CellStyle" Value="{StaticResource  DataGridCellStyle}"/>
-                <Setter Property="ColumnHeaderStyle" Value="{StaticResource DataGridColumnHeaderStyle}"/>
+                <Setter Property="CellStyle">
+                    <Setter.Value>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Foreground" Value="GhostWhite"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Width" Value="Auto"/>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ColumnHeaderStyle">
+                    <Setter.Value>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="Black"/>
+                            <!--<Setter Property="BorderBrush" Value="#2A2B2A"/>-->
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Foreground" Value="GhostWhite"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Width" Value="Auto"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="HeadersVisibility" Value="Column"/>
                 <Setter Property="RowBackground" Value="Black"/>
                 <Setter Property="RowHeaderWidth" Value="0"/>
@@ -130,8 +156,9 @@
                 <Setter Property="VerticalGridLinesBrush" Value="#2A2B2A"/>
                 <Setter Property="HorizontalGridLinesBrush" Value="#2A2B2A"/>
                 <Setter Property="Margin" Value="15,0,15,0"/>
-                <Setter Property="ColumnWidth" Value="auto"/>
+                <Setter Property="ColumnWidth" Value="Auto"/>
             </Style>
+
 
             <!--<Style x:Key="CustomMessageBoxStyle" TargetType="MessageBox">
                 <Setter Property="Background" Value="#2C2C2C" />

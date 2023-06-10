@@ -46,7 +46,7 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" VerticalAlignment="Center">
             <TextBlock Foreground="GhostWhite" Text="Most visited in selected year:" HorizontalAlignment="Left" FontSize="16"></TextBlock>
-            <DataGrid x:Name="MostVisitedToursDataGrid" ItemsSource="{Binding Path=MostVisitedAppointment}" SelectedItem="{Binding Path=SelectedAppointment}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center">
+            <DataGrid Style="{StaticResource GuideDataGrid}" x:Name="MostVisitedToursDataGrid" ItemsSource="{Binding Path=MostVisitedAppointment}" SelectedItem="{Binding Path=SelectedAppointment}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Tour.Name}" />
                     <DataGridTextColumn Header="State" Width="*" Binding="{Binding Tour.Location.State}" />
@@ -55,7 +55,7 @@
                     <DataGridTemplateColumn Header="Statistics" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Command="{Binding DataContext.ShowStatisticsCommand, 
+                                <Button Style="{StaticResource GuideButton}" Command="{Binding DataContext.ShowStatisticsCommand, 
                                   RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" HorizontalAlignment="Center">Statistics</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -65,7 +65,7 @@
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5">
             <TextBlock Foreground="GhostWhite" Text="All finished Tours:" HorizontalAlignment="Left" FontSize="16"></TextBlock>
-            <DataGrid x:Name="AllFinishedToursDataGrid" ItemsSource="{Binding Path=FinishedAppointments}" SelectedItem="{Binding Path=SelectedAppointment}" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid Style="{StaticResource GuideDataGrid}" x:Name="AllFinishedToursDataGrid" ItemsSource="{Binding Path=FinishedAppointments}" SelectedItem="{Binding Path=SelectedAppointment}" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Tour.Name}" />
                     <DataGridTextColumn Header="State" Width="*" Binding="{Binding Tour.Location.State}" />
@@ -74,7 +74,7 @@
                     <DataGridTemplateColumn Header="Statistics" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Command="{Binding DataContext.ShowStatisticsCommand, 
+                                <Button Style="{StaticResource GuideButton}" Command="{Binding DataContext.ShowStatisticsCommand, 
                                   RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" HorizontalAlignment="Center">Statistics</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

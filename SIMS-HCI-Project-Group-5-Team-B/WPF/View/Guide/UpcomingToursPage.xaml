@@ -29,7 +29,7 @@
         </Popup>
         <StackPanel Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Stretch">
             <TextBlock Foreground="GhostWhite" FontSize="16" Margin="5">Upcoming tours:</TextBlock>
-            <DataGrid x:Name="AvailableAppointmentDataGrid" ItemsSource="{Binding Path=AvailableAppointments}" SelectedItem="{Binding Path=SelectedAppointment}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid Style="{StaticResource GuideDataGrid}" x:Name="AvailableAppointmentDataGrid" ItemsSource="{Binding Path=AvailableAppointments}" SelectedItem="{Binding Path=SelectedAppointment}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Tour.Name}" />
                     <DataGridTextColumn Header="Start" Width="*" Binding="{Binding Start}" />
@@ -38,7 +38,7 @@
                     <DataGridTemplateColumn Header="Cancel" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Command="{Binding DataContext.CancelTourCommand, 
+                                <Button Style="{StaticResource GuideButton}" Command="{Binding DataContext.CancelTourCommand, 
                                   RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}" HorizontalAlignment="Center">Cancel</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
