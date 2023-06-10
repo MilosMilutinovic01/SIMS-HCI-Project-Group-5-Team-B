@@ -25,6 +25,7 @@
     <Page.InputBindings>
         <KeyBinding Gesture="Ctrl+S" Command="{Binding SearchCommand}"/>
         <KeyBinding Gesture="Ctrl+D" Command="{Binding DetailsCommand}"/>
+        <KeyBinding Gesture="Ctrl+X" Command="{Binding ResetCommand}"/>
     </Page.InputBindings>
 
     <Grid>
@@ -86,11 +87,20 @@
             <DatePicker Grid.Row="2" x:Name="EndDP" Background="LightGray" Grid.Column="1" SelectedDate="{Binding Path=End,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="18,19,0,11" HorizontalAlignment="Left"></DatePicker>
 
-            <Button x:Name="SearchBtn" Grid.Row="4" Grid.Column="1" Height="37" Width="66" Command="{Binding SearchCommand}" HorizontalAlignment="Right" Margin="0 0 14 0" Background="#a2a2c8">
-                <Button.Content>
-                    <TextBlock  TextWrapping="Wrap" Width="60"    Text="Search      Ctrl + S" TextAlignment="Center"></TextBlock>
-                </Button.Content>
-            </Button>
+            
+
+            <WrapPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" FlowDirection="LeftToRight">
+                <Button Grid.Row="7" Grid.Column="0" Height="37" Width="66"  Command="{Binding ResetCommand}" Margin="50 10 20 0" Background="#a2a2c8">
+                    <Button.Content>
+                        <TextBlock  TextWrapping="Wrap" Text="Reset          Ctrl + X" TextAlignment="Center"></TextBlock>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="SearchBtn" Grid.Row="4" Grid.Column="1" Height="37" Width="66" Command="{Binding SearchCommand}" HorizontalAlignment="Right" Margin="0 10 14 0" Background="#a2a2c8">
+                    <Button.Content>
+                        <TextBlock  TextWrapping="Wrap" Width="60"    Text="Search      Ctrl + X" TextAlignment="Center"></TextBlock>
+                    </Button.Content>
+                </Button>
+            </WrapPanel>
 
 
         </Grid>
