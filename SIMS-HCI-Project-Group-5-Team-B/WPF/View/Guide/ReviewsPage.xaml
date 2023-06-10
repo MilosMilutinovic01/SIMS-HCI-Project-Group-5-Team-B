@@ -20,7 +20,7 @@
             <Image Source="/Resources/Images/helpIcon.png" HorizontalAlignment="Center"/>
         </Button>
         <Popup x:Name="popup" PlacementTarget="{Binding ElementName=HelpButton}" IsOpen="{Binding IsOpenedPopup, UpdateSourceTrigger=PropertyChanged}" Placement="Bottom" HorizontalOffset="-170">
-            <Grid Width="200" Height="Auto" Background="#202122">
+            <Grid Width="200" Height="Auto" Background="#202122"> 
                 <TextBlock Padding="10" Foreground="GhostWhite" TextWrapping="Wrap">
                     View and manage reviews for tours. Scroll through the reviews and interact with them using the provided options. Click 'More' to see additional details or 'Report' to report a review.
                     <LineBreak/><LineBreak/>Feel free to explore and use these elements to manage your account and access different sections. Click the 'Help' button if you need further assistance.
