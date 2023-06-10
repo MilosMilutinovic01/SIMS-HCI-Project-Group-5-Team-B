@@ -50,13 +50,13 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="Name" Margin="10,7,0,8" Width="44"/>
-            <Label Grid.Row="2" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="Type" Margin="10,7,0,7" Width="37" />
-            <Label Grid.Row="3" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="MaxGuests" Margin="10,8,0,0" Width="73"/>
+            <Label Grid.Row="0" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="Name" Margin="0,7,0,8" Width="44"/>
+            <Label Grid.Row="2" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="Type" Margin="0,7,0,7" Width="37" />
+            <Label Grid.Row="3" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="MaxGuests" Margin="0,8,0,0" Width="73"/>
             <TextBlock Grid.Row="4" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Text="Min Reservation
-                       Days" Margin="12,8,0,0" TextWrapping="Wrap" Width="102"/>
-            <Label Grid.Row="5" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="NoticePeriod" Margin="10,7,0,8" Width="84"/>
-            <Label Grid.Row="1" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="Location" Margin="10,7,0,8" Width="59"/>
+                       Days" Margin="4,8,0,0" TextWrapping="Wrap" Width="102"/>
+            <Label Grid.Row="5" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="NoticePeriod" Margin="0,7,0,8" Width="84"/>
+            <Label Grid.Row="1" Grid.Column="0" FontSize="13" HorizontalAlignment="Left" Content="Location" Margin="0,7,0,8" Width="59"/>
 
 
             <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedAccommodation.Name}" FontSize="13" Margin="0 12 20 8" HorizontalAlignment="Right"/>
@@ -68,7 +68,7 @@
 
             <WrapPanel Grid.Column="0" Grid.RowSpan="2"  Grid.Row="6" Grid.ColumnSpan="2" FlowDirection="LeftToRight">
 
-                <Button Grid.Column="0" Grid.Row=" 6"  Command="{Binding ReserveCommand}"  Height="37" Width="66" Margin="100,7,10,8" Background="#a2a2c8">
+                <Button Grid.Column="0" Grid.Row=" 6"  Command="{Binding ReserveCommand}"  Height="37" Width="66" Margin="107,7,10,8" Background="#a2a2c8">
                     <Button.Content>
                         <TextBlock  TextWrapping="Wrap" Text="Reserve Ctrl + R" TextAlignment="Center"></TextBlock>
                     </Button.Content>

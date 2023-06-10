@@ -38,7 +38,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="0.2*"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Column="1" Margin="0 10 0 0 " Grid.ColumnSpan="2">
+        <StackPanel Grid.Column="1" Margin="4 10 0 0 " Grid.ColumnSpan="2">
             <TextBlock FontSize="24" Margin="0 0 0 3" Text="{Binding Path=Header, Mode=OneWay}" FontWeight="DemiBold"></TextBlock>
             <TextBlock   FontSize="15" Text="{Binding Path=Location, Mode=OneWay}" FontWeight="DemiBold"></TextBlock>
         </StackPanel>
@@ -88,7 +88,7 @@
             </Button>
         </WrapPanel>
 
-        <DataGrid Grid.Row="3" x:Name="reccommDG" Grid.ColumnSpan="2" Grid.Column ="1" Width="auto" ItemsSource="{Binding Path=ReservationRecommendations, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid Grid.Row="3" x:Name="reccommDG" Grid.ColumnSpan="2" Margin="4 0 0 0" Grid.Column ="1" Width="auto" ItemsSource="{Binding Path=ReservationRecommendations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedDate, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                       AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Resources>
