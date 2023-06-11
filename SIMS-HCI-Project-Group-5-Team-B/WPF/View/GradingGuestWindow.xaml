@@ -44,11 +44,13 @@
         <TextBox Grid.Column="1" Grid.Row="2" Margin="0,25,180,20" Text="{Binding ElementName=RulesComplianceSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <Slider x:Name="StateOfInventorySlider" Grid.Column="1" Grid.Row="3" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=NewOwnerGuestGrade.StateOfInventory, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></Slider>
         <TextBox Grid.Column="1" Grid.Row="3" Margin="0,25,180,20" Text="{Binding ElementName=StateOfInventorySlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <ComboBox Grid.Column="1" Grid.Row="4" Height="40" Name="PaymentOnTime_ComboBox" ItemsSource="{Binding BoolAnswers}" SelectedItem="{Binding SelectedIsPaymentCompletedOnTime, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" >
-
+        <ComboBox Grid.Column="1" Grid.Row="4" Height="40" x:Name="PaymentOnTime_ComboBox"  SelectedItem="{Binding SelectedIsPaymentCompletedOnTime,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
+            <ComboBoxItem Tag="0" IsSelected="True" >Yes</ComboBoxItem>
+            <ComboBoxItem Tag="1">No</ComboBoxItem>
         </ComboBox>
-        <ComboBox Grid.Column="1" Grid.Row="5" Height="40" Name="ComplaintsFromOtherGuests_ComboBox" ItemsSource="{Binding BoolAnswers}" SelectedItem="{Binding SelectedComplatintsFromGuests}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"  >
-
+        <ComboBox Grid.Column="1" Grid.Row="5" Height="40" x:Name="ComplaintsFromOtherGuests_ComboBox"  SelectedItem="{Binding SelectedComplatintsFromGuests,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   >
+            <ComboBoxItem Tag="0" >Yes</ComboBoxItem>
+            <ComboBoxItem Tag="1" IsSelected="True">No</ComboBoxItem>
         </ComboBox>
         <TextBox Grid.Column="1" Grid.Row="6" Height="40" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" Text="{Binding Path=NewOwnerGuestGrade.AdditionalComment, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
         <Button Grid.Column="1" Grid.Row="7" Height="20" HorizontalAlignment="Left" Width="50" Command="{Binding GradeCommand}" Content="{ns:Loc Grade}" Style="{DynamicResource ButtonInWindowStyle}" Margin="135,0,0,0"></Button>

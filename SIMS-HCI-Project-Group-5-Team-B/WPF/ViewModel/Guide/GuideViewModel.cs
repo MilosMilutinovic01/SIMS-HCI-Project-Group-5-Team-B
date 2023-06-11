@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Effects;
 using System.Windows.Navigation;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
@@ -21,7 +22,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public string Username { get; set; }
 
         public Frame frame;
-        public Guide guide;
+        public SIMS_HCI_Project_Group_5_Team_B.Domain.Models.Guide guide;
+        public GuideService guideService;
+        public AppointmentService appointmentService;
+        public TourGradeService tourGradeService;
+        private TourAttendanceService tourAttendanceService;
         public string SuperGuide { get; set; }
         public bool Tooltips
         {
@@ -35,10 +40,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         }
         public bool Help
         {
-            get { return Properties.Settings.Default.Help; }
+            get { return Properties.Settings.Default.Wizard; }
             set
             {
-                Properties.Settings.Default.Help = value;
+                Properties.Settings.Default.Wizard = value;
                 Properties.Settings.Default.Save();
                 OnPropertyChanged(nameof(Help));
             }
@@ -76,6 +81,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public NavigationService NavService { get; set; }
 
         public RelayCommand NavigateToCreateTourPageCommand { get; set; }
+        public RelayCommand LoadWizardCommand { get; set; }
 
         public RelayCommand NavigateToTrackingTourPageCommand { get; set; }
 
@@ -90,7 +96,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public RelayCommand NavigateToTourRequestsWithStatisticsPageCommand { get; set; }
 
         public RelayCommandMenu OpenMenuCommand { get; set; }
-
+        public RelayCommand OpenWizardCommand { get; set; }
         public RelayCommand GoBackCommand { get; set; }
         public RelayCommand FinishWizardCommand { get; set; }
         public RelayCommand ToggleOpenCommand { get; set; }
@@ -106,9 +112,39 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             return true;
         }
+        private void Execute_LoadWizardCommand1()
+        {
+            if (Properties.Settings.Default.Wizard == false)
+            {
+                Window window = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+                if (window != null)
+                {
+                    window.Effect = new BlurEffect();
+                }
+                WizardWindow wizardWindow = new WizardWindow();
+                wizardWindow.ShowDialog();
+                Properties.Settings.Default.Wizard = true;
+                Properties.Settings.Default.Save();
+                window.Effect = null;
+            }
+            Properties.Settings.Default.Wizard = false;
+            Properties.Settings.Default.Save();
+        }
         private void Execute_ToggleOpenCommand()
         {
             IsOpenedPopup = !IsOpenedPopup;
+        }
+
+        private void Execute_OpenWizardCommand()
+        {
+            Window window = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            if (window != null)
+            {
+                window.Effect = new BlurEffect();
+            }
+            WizardWindow wizardWindow = new WizardWindow();
+            wizardWindow.ShowDialog();
+            window.Effect = null;
         }
 
         private void Execute_GoBackCommand()
@@ -167,8 +203,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         #endregion
 
         #region constructors
-        public GuideViewModel(Guide guide, NavigationService navService, Frame frame) 
+        public GuideViewModel(SIMS_HCI_Project_Group_5_Team_B.Domain.Models.Guide guide, NavigationService navService, Frame frame) 
         {
+            this.guideService = new GuideService();
+            this.appointmentService = new AppointmentService();
+            this.tourGradeService = new TourGradeService();
+            this.tourAttendanceService = new TourAttendanceService();
+            string language = appointmentService.GetFinishedToursLastYear(guide.Id);
+            if(language == null)
+                language = "";
+            guide.AverageGrade = tourGradeService.GetAverageGrade(guide.Id, language);
+            guideService.Update(guide);
             this.NavService = navService;
             this.NavigateToCreateTourPageCommand = new RelayCommand(Execute_NavigateToCreateTourPageCommand, CanExecute_NavigateCommand);
             this.NavigateToTrackingTourPageCommand = new RelayCommand(Execute_NavigateToTrackingTourPageCommand, CanExecute_NavigateCommand);
@@ -180,14 +225,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.OpenMenuCommand = new RelayCommandMenu(execute => this.IsMenuOpened = !this.IsMenuOpened, CanExecute_NavigateCommand1);
             this.GoBackCommand = new RelayCommand(Execute_GoBackCommand, CanExecute_NavigateCommand);
             this.ToggleOpenCommand = new RelayCommand(Execute_ToggleOpenCommand, CanExecute_NavigateCommand);
+            this.OpenWizardCommand = new RelayCommand(Execute_OpenWizardCommand, CanExecute_NavigateCommand);
+            this.LoadWizardCommand = new RelayCommand(Execute_LoadWizardCommand1, CanExecute_NavigateCommand);
             this.Checker = false;
             this.frame = frame;
             this.guide = guide;
             this.frame.Content = new HomePage(this.guide, this.frame);
             this.IsMenuOpened = false;
             this.IsOpenedPopup = false;
-            PageName = "Home page";
-            HelpMessage = "Home page help message!";
         }
         #endregion
     }

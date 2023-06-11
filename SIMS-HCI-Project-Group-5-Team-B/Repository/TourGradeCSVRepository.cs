@@ -1,4 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.Serializer;
 using System;
@@ -72,6 +73,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
                 obj.TourAttendanceId.ToString(),
                 obj.GuideGuestId.ToString(),
                 obj.Comment,
+                obj.Valid.ToString()
             };
             return csvValues;
         }
@@ -88,6 +90,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             newTourGrade.TourAttendanceId = int.Parse(values[5]);
             newTourGrade.GuideGuestId = int.Parse(values[6]);
             newTourGrade.Comment = values[7];
+            newTourGrade.Valid = Convert.ToBoolean(values[8]);
 
             return newTourGrade;
         }

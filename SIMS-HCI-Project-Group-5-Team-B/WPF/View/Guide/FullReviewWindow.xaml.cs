@@ -1,4 +1,5 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.DTO;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.Guide;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,21 +21,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
     /// </summary>
     public partial class FullReviewWindow : Window
     {
-        public string GuestName { get; set; }
-        public string TourName { get; set; }
-        public string KeyPointName { get; set; }
-        public string Rating { get; set; }
-        public string Comment { get; set; }
+        public FullReviewViewModel FullReviewViewModel { get; set; }
         public FullReviewWindow(Card card)
         {
+            FullReviewViewModel = new FullReviewViewModel(card);
             InitializeComponent();
-            this.DataContext = this;
-            this.GuestName = "Guest name: " + card.GuestName;
-            this.TourName = "Tour name: " + card.TourName;
-            this.KeyPointName = "Key point name: " + card.KeyPointName;
-            double rating = (double) (card.TourFun + card.GeneralKnowledge + card.LanguageKnowledge) / 3;
-            this.Rating = "Rating: " + String.Format("{0:0.00}", rating);
-            this.Comment = "Full comment: " + card.Comment;
+            this.DataContext = FullReviewViewModel;
+            
         }
     }
 }

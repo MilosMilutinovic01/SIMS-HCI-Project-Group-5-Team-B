@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-
+using System.Windows.Media;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -100,11 +100,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 if(Properties.Settings.Default.currentLanguage == "en-US")
                 {
-                    MessageBox.Show("You have guests to grade!!!");
+                    MessageBox.Show("You have guests to grade!!!","Notification",MessageBoxButton.OK,MessageBoxImage.Warning);
                 }
                 else
                 {
-                    MessageBox.Show("Imate goste za ocenjivanje!!!");
+                    MessageBox.Show("Imate goste za ocenjivanje!!!", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
      
@@ -115,11 +115,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 if (Properties.Settings.Default.currentLanguage == "en-US")
                 {
-                    MessageBox.Show("You have new notifactions!");
+                    MessageBox.Show("You have new notifactions!", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 else
                 {
-                    MessageBox.Show("Imate nove notifikacije!");
+                    MessageBox.Show("Imate nove notifikacije!", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
         }
@@ -128,41 +128,128 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         private void Accommodation_Button_Click(object sender, RoutedEventArgs e)
         {
             frame.Content = new AccommodationPage(LogedInOwner.Id,reservationService);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
+            {
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
         }
 
         private void Requests_For_Changing_Reservation_Click(object sender, RoutedEventArgs e)
         {
             frame.Content = new RequestsForChangingReservationPage(reservationChangeRequestService,reservationService,LogedInOwner);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
+            {
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
+
         }
 
         private void Grading_Click(object sender, RoutedEventArgs e)
         {
             frame.Content = new GradingPage(reservationService,ownerAccommodationGradeService,ownerGuestGradeService,LogedInOwner);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
+            {
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
+
         }
 
         private void Statistics_Click(object sender, RoutedEventArgs e)
         {
-            frame.Content = new StatisticsPage(yearlyAccommodationStatisticsService,accommodationService,LogedInOwner,monthlyAccommodationStatisticsService);
+            frame.Content = new StatisticsPage(yearlyAccommodationStatisticsService, accommodationService, LogedInOwner, monthlyAccommodationStatisticsService);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
+            {
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
+
         }
 
         private void Renovation_Click(object sender, RoutedEventArgs e)
         {
             frame.Content = new RenovationPage(renovationService,reservationService,LogedInOwner,accommodationService);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
+            {
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
+
         }
 
         private void Owner_Forum_Click(object sender, RoutedEventArgs e)
         {
             frame.Content = new OwnerForumPage(LogedInOwner,accommodationService);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
+            {
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
+
         }
 
         private void Owner_Profile_Click(object sender, RoutedEventArgs e)
         {
             frame.Content = new OwnerProfilePage(LogedInOwner,superOwnerService);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
+            {
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
+
         }
 
         private void Owner_Notifications_Click(object sender, RoutedEventArgs e)
         {
             frame.Content = new OwnerNotificationsPage(LogedInOwner);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
+            {
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
+           
         }
 
         private void LocalizationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

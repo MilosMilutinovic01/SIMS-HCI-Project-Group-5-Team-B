@@ -46,6 +46,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             FutureRenovations = new ObservableCollection<RenovationGridView>(renovationService.GetFutureRenovationsView(owner.Id));
             PastRenovations = new ObservableCollection<Renovation>(renovationService.GetPastRenovations(owner.Id));
             GetAccommodationNames(owner.Id);
+            SelectedAccommodationName = AccommodationNames[0];
             CallOffWindowCommand = new RelayCommand(CallOffWindow_Execute, CanCallOffExecute);
             CallOffCommand = new RelayCommand(CallOffExecute, CanCallOffExecute);
             CancelCommand = new RelayCommand(CancelExecute, CanExecute);
@@ -107,12 +108,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                FutureRenovations.Remove(SelectedRenovationGridView);
                 if (Properties.Settings.Default.currentLanguage == "en-US")
                 {
-                    MessageBox.Show("Renovation was succesfully called off!");
+                    MessageBox.Show("Renovation was succesfully called off!","Succesfull",MessageBoxButton.OK,MessageBoxImage.Information);
                     CancelExecute();
                 }
                 else
                 {
-                    MessageBox.Show("Renoviranje je uspesno otkazano!");
+                    MessageBox.Show("Renoviranje je uspesno otkazano!", "Uspesno", MessageBoxButton.OK, MessageBoxImage.Information);
                     CancelExecute();
                 }
 
@@ -140,11 +141,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                     }
                     if (Properties.Settings.Default.currentLanguage == "en-US")
                     {
-                        MessageBox.Show("Renovation succesfully scheduled!");
+                        MessageBox.Show("Renovation succesfully scheduled!", "Succesfull", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Renoviranje uspesno zakazano!");
+                        MessageBox.Show("Renoviranje uspesno zakazano!", "Uspesno", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     CancelExecute();
 
@@ -153,11 +154,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 {
                     if (Properties.Settings.Default.currentLanguage == "en-US")
                     {
-                        MessageBox.Show("Renovation can't be scheduled, because fileds are not valid");
+                        MessageBox.Show("Renovation can't be scheduled, because fileds are not valid", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     else
                     {
-                        MessageBox.Show("Renoviranje ne moze biti zakazano, jer polja nisu validna");
+                        MessageBox.Show("Renoviranje ne moze biti zakazano, jer polja nisu validna", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
             
@@ -185,11 +186,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                
                     if (Properties.Settings.Default.currentLanguage == "en-US")
                     {
-                        MessageBox.Show("Search can not be preformed because data is not valid!");
+                        MessageBox.Show("Search can not be preformed because data is not valid!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     else
                     {
-                        MessageBox.Show("Pretraga ne moze biti izvrsena jer vrednosti nisu validne");
+                        MessageBox.Show("Pretraga ne moze biti izvrsena jer vrednosti nisu validne", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 
                 //MessageBox.Show("Search can not be preformed because data is not valid!");

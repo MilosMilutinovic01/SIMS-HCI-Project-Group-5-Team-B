@@ -52,9 +52,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
                 foreach (int id in allGuestsWithVoucher.Distinct())
                     if (ta.GuideGuestId == id)
                         result += 1;
+            if(totalGuests == 0)
+                return result;
             return result % totalGuests;
         }
-
         public int GetTotalGuest(int appointmentId)
         {
             int result = 0;

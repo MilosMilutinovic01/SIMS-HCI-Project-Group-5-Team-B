@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide"
         mc:Ignorable="d"
-        Title="TourStatistics" Height="550" Width="430" WindowStartupLocation="CenterScreen">
+        Title="TourStatistics" Height="550" Width="430" Background="#171616" WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Grid>
             <Grid.RowDefinitions>
@@ -22,18 +22,18 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label x:Name="TourName" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="16" FontWeight="Bold"></Label>
-            <Label x:Name="TotalGuests" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,0,0"></Label>
-            <Separator Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Bottom"></Separator>
+            <Label Foreground="GhostWhite" x:Name="TourName" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="16" FontWeight="Bold"></Label>
+            <Label Foreground="GhostWhite" x:Name="TotalGuests" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,0,0"></Label>
+            <Separator Foreground="White" Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Bottom"></Separator>
             <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Center" >
-                <Label x:Name="Under18" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Top"/>
-                <Label x:Name="Between" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Center"/>
-                <Label x:Name="Above50" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Bottom"/>
+                <Label Foreground="GhostWhite" x:Name="Under18" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Top"/>
+                <Label Foreground="GhostWhite" x:Name="Between" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Center"/>
+                <Label Foreground="GhostWhite" x:Name="Above50" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Bottom"/>
             </StackPanel>
             <Separator Grid.Row="2" Grid.ColumnSpan="5" VerticalAlignment="Bottom"></Separator>
             <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" >
-                <Label x:Name="WithVoucher" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Top"/>
-                <Label x:Name="WithoutVoucher" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Center"/>
+                <Label Foreground="GhostWhite" x:Name="WithVoucher" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Top"/>
+                <Label Foreground="GhostWhite" x:Name="WithoutVoucher" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Center"/>
             </StackPanel>
         </Grid>
     </DockPanel>

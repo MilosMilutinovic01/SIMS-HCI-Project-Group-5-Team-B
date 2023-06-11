@@ -23,11 +23,12 @@
     <None Remove="Resources\Images\LetterRImage.png" />
     <None Remove="Resources\Images\locationIcon.png" />
     <None Remove="Resources\Images\myToursIcon.png" />
-    <None Remove="Resources\Images\OwnerGuestUser.png" />
     <None Remove="Resources\Images\OwnerMedalImage.png" />
     <None Remove="Resources\Images\OwnerProfile.png" />
     <None Remove="Resources\Images\plusIcon.png" />
+    <None Remove="Resources\Images\previewIcon.png" />
     <None Remove="Resources\Images\profile.png" />
+    <None Remove="Resources\Images\removeIcon.png" />
     <None Remove="Resources\Images\requestIcon.png" />
     <None Remove="Resources\Images\reviewsIcon.png" />
     <None Remove="Resources\Images\Star.png" />
@@ -36,6 +37,16 @@
     <None Remove="Resources\Images\statisticsIcon.png" />
     <None Remove="Resources\Images\threeDots.png" />
     <None Remove="Resources\Images\upcomingIcon.png" />
+    <None Remove="Resources\WizardImages\createTourPage.png" />
+    <None Remove="Resources\WizardImages\dropMenu.png" />
+    <None Remove="Resources\WizardImages\homePage.png" />
+    <None Remove="Resources\WizardImages\menuBar.png" />
+    <None Remove="Resources\WizardImages\myToursPage.png" />
+    <None Remove="Resources\WizardImages\reviewsPage.png" />
+    <None Remove="Resources\WizardImages\tourRequestPage.png" />
+    <None Remove="Resources\WizardImages\tourRequestWithStatisticsPage.png" />
+    <None Remove="Resources\WizardImages\trackingTourLivePage.png" />
+    <None Remove="Resources\WizardImages\upcomingToursPage.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,6 +71,12 @@
     <Resource Include="Resources\Images\OwnerGuestUser.png" />
     <Resource Include="Resources\Images\Star.png" />
     <Resource Include="Resources\Images\StarPng.png" />
+    <Resource Include="Resources\Images\previewIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\removeIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\statisticsIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -68,6 +85,7 @@
   <ItemGroup>
     <PackageReference Include="DynamicPDF" Version="8.0.0" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="PdfiumViewer" Version="2.13.0" />
     <PackageReference Include="PdfSharp" Version="1.50.5147" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
@@ -118,6 +136,36 @@
     <Resource Include="Resources\Images\upcomingIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\WizardImages\createTourPage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\dropMenu.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\homePage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\menuBar.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\myToursPage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\reviewsPage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\tourRequestPage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\tourRequestWithStatisticsPage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\trackingTourLivePage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\upcomingToursPage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -152,12 +200,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\TourImages\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="PdfSharp">
-      <HintPath>bin\Debug\net6.0-windows\PdfSharp.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

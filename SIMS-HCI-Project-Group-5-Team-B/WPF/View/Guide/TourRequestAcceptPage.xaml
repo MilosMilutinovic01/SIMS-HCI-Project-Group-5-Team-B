@@ -9,7 +9,7 @@
         xmlns:cvt="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Converters"
         mc:Ignorable="d" 
         d:DesignHeight="700" d:DesignWidth="400"
-        Title="TourRequestAcceptPage" Background="White">
+        Title="TourRequestAcceptPage" Background="Black">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -25,6 +25,17 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="1" x:Name="HelpButton" Command="{Binding OpenPopupCommand}" Style="{StaticResource GuideNavButton}" Height="30" Width="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0">
+            <Image Source="/Resources/Images/helpIcon.png" HorizontalAlignment="Center"/>
+        </Button>
+        <Popup x:Name="popup" PlacementTarget="{Binding ElementName=HelpButton}" IsOpen="{Binding IsOpenedPopup, UpdateSourceTrigger=PropertyChanged}" Placement="Bottom" HorizontalOffset="-170">
+            <Grid Width="200" Height="Auto" Background="#202122">
+                <TextBlock Padding="10" Foreground="GhostWhite" TextWrapping="Wrap">
+                    This is a page for a tour request acceptance. It includes various controls such as buttons, popups, and data grids for managing tour requests. The page allows users to filter tour requests based on different criteria like state, city, language, maximum guests, start date, and end date. Users can view and interact with the tour requests using the provided options. The page also provides a help button for further assistance. Enjoy using the application!<LineBreak/><LineBreak/>Feel free to explore and use these elements to manage your account and access different sections. Click the 'Help' button if you need further assistance.
+                    <LineBreak/><LineBreak/>Enjoy using the application!
+                </TextBlock>
+            </Grid>
+        </Popup>
         <Grid Grid.Row="0" Grid.RowSpan="3">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
@@ -39,7 +50,7 @@
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="4*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">State:</TextBlock>
+            <TextBlock Foreground="GhostWhite" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">State:</TextBlock>
             <ComboBox Grid.Row="0" Grid.Column="2" SelectedValue="{Binding Path=State}" ItemsSource="{Binding States}" VerticalAlignment="Center">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
@@ -50,10 +61,10 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
-            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">City:</TextBlock>
+            <TextBlock Foreground="GhostWhite" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">City:</TextBlock>
             <ComboBox Grid.Row="1" Grid.Column="2" Text="{Binding Path=City}" ItemsSource="{Binding Cities}" VerticalAlignment="Center">
             </ComboBox>
-            <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Language:</TextBlock>
+            <TextBlock Foreground="GhostWhite" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Language:</TextBlock>
             <ComboBox Grid.Row="2" Grid.Column="2" SelectedValue="{Binding Language}" ItemsSource="{Binding Languages}" VerticalAlignment="Center">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
@@ -61,9 +72,9 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
-            <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Max guests:</TextBlock>
+            <TextBlock Foreground="GhostWhite" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Max guests:</TextBlock>
             <DockPanel Grid.Row="3" Grid.Column="2" VerticalAlignment="Center">
-                <TextBox Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged,Converter={cvt:IntegerToStringConverter}}"></TextBox>
+                <TextBox Background="Black" Foreground="GhostWhite" Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged,Converter={cvt:IntegerToStringConverter}}"></TextBox>
                 <Slider x:Name="slider" Maximum="20" Value="{Binding Path=MaxGuests}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="ValueChanged">
@@ -72,7 +83,7 @@
                     </i:Interaction.Triggers>
                 </Slider>
             </DockPanel>
-            <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Start date:</TextBlock>
+            <TextBlock Foreground="GhostWhite" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Start date:</TextBlock>
             <DatePicker Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" SelectedDate="{Binding StartDate}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedDateChanged">
@@ -80,7 +91,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </DatePicker>
-            <TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">End date:</TextBlock>
+            <TextBlock Foreground="GhostWhite" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">End date:</TextBlock>
             <DatePicker Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" SelectedDate="{Binding EndDate}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedDateChanged">
@@ -91,7 +102,7 @@
         </Grid>
         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <!--<Button HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,5" Command="{Binding FilterRequestsCommand,UpdateSourceTrigger=PropertyChanged}">Search</Button>-->
-            <DataGrid x:Name="TourRequestsDataGrid" Height="170" ItemsSource="{Binding Path=TourRequests, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedTourRequest}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
+            <DataGrid Style="{StaticResource GuideDataGrid}" x:Name="TourRequestsDataGrid" Height="170" ItemsSource="{Binding Path=TourRequests, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedTourRequest}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged" >
                         <i:InvokeCommandAction Command="{Binding EnableDateCommand}"/>
@@ -101,12 +112,10 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Description" Width="*" Binding="{Binding Description}" />
                     <DataGridTextColumn Header="State" Width="*" Binding="{Binding Location.State}" />
                     <DataGridTextColumn Header="City" Width="*" Binding="{Binding Location.City}" />
                     <DataGridTextColumn Header="Language" Width="*" Binding="{Binding Language}" />
                     <DataGridTextColumn Header="Start" Width="*" Binding="{Binding DateRangeStart}" />
-                    <DataGridTextColumn Header="End" Width="*" Binding="{Binding DateRangeEnd}" />
                     <DataGridTextColumn Header="MaxGuests" Width="*" Binding="{Binding MaxGuests}" />
                 </DataGrid.Columns>
             </DataGrid>
@@ -121,7 +130,7 @@
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="4*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Select date:</TextBlock>
+            <TextBlock Foreground="GhostWhite" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Select date:</TextBlock>
             <DatePicker Grid.Row="0" Grid.Column="2" DisplayDateStart="{Binding DisplayStartDate, UpdateSourceTrigger=PropertyChanged}" DisplayDateEnd="{Binding DisplayEndDate,UpdateSourceTrigger=PropertyChanged}" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding EnabledDate, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedDateChanged" >
@@ -141,7 +150,7 @@
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="0.5*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Grid.Row="1" Content="Accept" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="{Binding EnabledAccept, UpdateSourceTrigger=PropertyChanged}" Command="{Binding AcceptCommand}">
+            <Button Style="{StaticResource GuideButton}" Grid.Column="0" Grid.Row="1" Content="Accept" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="{Binding EnabledAccept, UpdateSourceTrigger=PropertyChanged}" Command="{Binding AcceptCommand}">
             </Button>
         </Grid>
     </Grid>

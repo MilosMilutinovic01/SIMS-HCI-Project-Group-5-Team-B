@@ -95,23 +95,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
             var SortedBusynessOnLocation = new Dictionary<Location, double>(busynessOnLocation.OrderBy(pair => pair.Value));
             var SortedNumberOfReservationsOnLocation = new Dictionary<Location, double>(numberOfReservationsOnLocation.OrderBy(pair => pair.Value));
-            var topFiveBusynessLocations = SortedBusynessOnLocation.Take(10).Select(pair => pair.Key).ToList();
-            var topFiveReservationLocations = SortedNumberOfReservationsOnLocation.Take(10).Select(pair => pair.Key).ToList();
-            var unpopularLocations = topFiveBusynessLocations.Intersect(topFiveReservationLocations).ToList();
+            var topTenBusynessLocations = SortedBusynessOnLocation.Take(10).Select(pair => pair.Key).ToList();
+            var topTenReservationLocations = SortedNumberOfReservationsOnLocation.Take(10).Select(pair => pair.Key).ToList();
+            var unpopularLocations = topTenBusynessLocations.Intersect(topTenReservationLocations).ToList();
             //var unpopularLocations = new ObservableCollection<Location>(intersectingLocations);
             return unpopularLocations;
         }
 
         private ObservableCollection<Accommodation> GetOwnersAccommodationsOnUnpopularLocations()
         {
-            ObservableCollection<Accommodation> accommodations = new ObservableCollection<Accommodation>();
-            foreach(Location location in UnpopularLocations)
-            {
-                foreach(Accommodation accommodation in accommodationService.GetOwnersAccommodationsOnLocation(location,Owner))
-                {
-                    accommodations.Add(accommodation);
-                }
-            }
+            ObservableCollection<Accommodation> accommodations = new ObservableCollection<Accommodation>(accommodationService.GetOwnersAccommodationsOnUnpopularLocations(UnpopularLocations,Owner));
             return accommodations;
         }
 
@@ -133,11 +126,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 AccommodationsOnUnpopularLocations.Remove(SelectedAccommodation);
                 if (Properties.Settings.Default.currentLanguage == "en-US")
                 {
-                    MessageBox.Show("You have succesfully deleted accommodation on unpopular location!");
+                    MessageBox.Show("You have succesfully deleted accommodation on unpopular location!","Accommodation deleted",MessageBoxButton.OK,MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Uspesno ste botisali smestaj na nepopularnoj lokaciji!");
+                    MessageBox.Show("Uspesno ste botisali smestaj na nepopularnoj lokaciji!", "Smestaj obirsan", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }
