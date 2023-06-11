@@ -22,7 +22,7 @@
                 <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="21,0,0,0" Content="{ns:Loc NotificationsFromGuests}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="1">
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,10,0,0" Content="{ns:Loc YourNotifications}" Style="{DynamicResource LabelStyle}"></Label>
+                <Label HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="22,10,0,0" FontWeight="Bold" Content="{ns:Loc YourNotifications}" Style="{DynamicResource LabelStyle}"></Label>
             <DataGrid  ItemsSource="{Binding Path=Notifications}"
                                  AutoGenerateColumns="False" IsReadOnly="True" Margin="22,40,22,40" >
                 <DataGrid.Columns>

@@ -115,6 +115,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accommodation Form With Popular Location.
+        /// </summary>
+        public static string AccommodationFormWithPopularLocation {
+            get {
+                return ResourceManager.GetString("AccommodationFormWithPopularLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accommodation Location Suggestions Window.
         /// </summary>
         public static string AccommodationLocationSuggestionsWindow {
@@ -196,6 +205,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calling off renovation.
+        /// </summary>
+        public static string CallingOffRenovation {
+            get {
+                return ResourceManager.GetString("CallingOffRenovation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Call Off.
         /// </summary>
         public static string CallOff {
@@ -255,6 +273,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         public static string CancelledReservations {
             get {
                 return ResourceManager.GetString("CancelledReservations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change language:.
+        /// </summary>
+        public static string ChangeLanguage {
+            get {
+                return ResourceManager.GetString("ChangeLanguage", resourceCulture);
             }
         }
         
@@ -345,6 +372,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         public static string Create {
             get {
                 return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark theme:.
+        /// </summary>
+        public static string DarkTheme {
+            get {
+                return ResourceManager.GetString("DarkTheme", resourceCulture);
             }
         }
         
@@ -457,6 +493,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forum for location:.
+        /// </summary>
+        public static string ForumLocationLabel {
+            get {
+                return ResourceManager.GetString("ForumLocationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forum Window.
         /// </summary>
         public static string ForumWindow {
@@ -475,11 +520,29 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click on the &apos;Generate&apos; button to generate reservation report for accommodation 📝.
+        ///   Looks up a localized string similar to Generate.
+        /// </summary>
+        public static string Generate {
+            get {
+                return ResourceManager.GetString("Generate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click on the &apos;Generate&apos; button to generate report on all reservations for a specific accommodation within a specific time period. 📝.
         /// </summary>
         public static string GenerateLabel {
             get {
                 return ResourceManager.GetString("GenerateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report on all reservations in wanted time period for.
+        /// </summary>
+        public static string GenerateReportLabel {
+            get {
+                return ResourceManager.GetString("GenerateReportLabel", resourceCulture);
             }
         }
         
@@ -547,11 +610,29 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language:.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maximum Guests.
         /// </summary>
         public static string MaxGuests {
             get {
                 return ResourceManager.GetString("MaxGuests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 🥇.
+        /// </summary>
+        public static string Medal {
+            get {
+                return ResourceManager.GetString("Medal", resourceCulture);
             }
         }
         
@@ -745,6 +826,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 👤.
+        /// </summary>
+        public static string ProfileImage {
+            get {
+                return ResourceManager.GetString("ProfileImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Proposal of locations for opening new accommodations.
         /// </summary>
         public static string ProposalOfPopularLocations {
@@ -795,6 +885,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         public static string Report {
             get {
                 return ResourceManager.GetString("Report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reports:.
+        /// </summary>
+        public static string Reports {
+            get {
+                return ResourceManager.GetString("Reports", resourceCulture);
             }
         }
         
@@ -988,11 +1087,38 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stacistics for:.
+        /// </summary>
+        public static string StatisticsLabel {
+            get {
+                return ResourceManager.GetString("StatisticsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Suggestions for new location.
         /// </summary>
         public static string SuggestionsForNewLocation {
             get {
                 return ResourceManager.GetString("SuggestionsForNewLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Super-owner.
+        /// </summary>
+        public static string SuperOwner {
+            get {
+                return ResourceManager.GetString("SuperOwner", resourceCulture);
             }
         }
         

@@ -14,9 +14,11 @@
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Content="{ns:Loc CallOffCheck}" Style="{DynamicResource LabelStyle}"></Label>
-        <Button Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="100"  Margin="22,0,0,0" Command="{Binding CallOffCommand}" Content="{ns:Loc Confirm}" Style="{DynamicResource ButtonInWindowStyle}"></Button>
-        <Button Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="100"  Margin="230,0,0,0" Command="{Binding CancelCommand}" Content="{ns:Loc Cancel}" Style="{DynamicResource ButtonInWindowStyle}"></Button>
+        <Label Grid.Row="0" HorizontalAlignment="Center" FontWeight="Bold"  VerticalAlignment="Center" FontSize="18" Content="{ns:Loc CallingOffRenovation}"  Style="{DynamicResource LabelStyle}"></Label>
+        <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Content="{ns:Loc CallOffCheck}" Style="{DynamicResource LabelStyle}"></Label>
+        <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="80"  Margin="10,0,0,0" Command="{Binding CallOffCommand}" Content="{ns:Loc Confirm}" Style="{DynamicResource ButtonInWindowStyle}"></Button>
+        <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="80"   Command="{Binding CancelCommand}" Content="{ns:Loc Cancel}" Style="{DynamicResource ButtonInWindowStyle}" Margin="245,0,0,0"></Button>
     </Grid>
 </Window>

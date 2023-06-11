@@ -1,0 +1,212 @@
+﻿<Page x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest.AccountPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+       xmlns:converters="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Converters"
+      xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest"
+      mc:Ignorable="d" 
+      Height="540" Width="920"
+      Background="#c8a2c8"
+      Title="AccountPage">
+    <Page.InputBindings>
+        <KeyBinding Gesture="Ctrl+M" Command="{Binding ModifyCommand}"></KeyBinding>
+        <KeyBinding Gesture="Ctrl+D" Command="{Binding CancelReservationCommand}"></KeyBinding>
+        <KeyBinding Gesture="Ctrl+E" Command="{Binding ReportCommand}"></KeyBinding>
+    </Page.InputBindings>
+    <Page.Resources>
+        <converters:DateConverter x:Key="DateConverter"></converters:DateConverter>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.9*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid  Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1.2*"/>
+                <RowDefinition Height="1.7*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="20 10">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="6" BorderThickness="3" BorderBrush="Black" />
+
+                <Image Grid.Row="0" Grid.Column="0" Source="/Resources/Images/GuideGuestUser.png" Height="20" Width="30" HorizontalAlignment="Left" Margin="16,3,0,3"></Image>
+                <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Name</Label>
+                <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Surname</Label>
+                <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Email</Label>
+                <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Phone Number</Label>
+
+                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10  5 10 5" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Username}" FontSize="13"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10  0 10 10" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Name}" FontSize="13"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10  0 10 10" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Surname}" FontSize="13"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10  0 10 10" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Email}" FontSize="13"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10  0 10 10" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Number}" FontSize="13"/>
+
+                
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Grid.Row="0" BorderBrush="black" BorderThickness="3" Background="LightGray" Margin="20 10 10 10">
+                    <StackPanel>
+                        <TextBlock Height="55" Text="{Binding Path=LastYearReservations, Mode=OneWay}" FontSize="30" TextAlignment="Center"></TextBlock>
+                        <TextBlock HorizontalAlignment="Center" FontSize="15"  VerticalAlignment="Center" TextWrapping="Wrap"  Text="Reservations in        Last Year" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="0" BorderBrush="black" BorderThickness="3" Background="LightGray" Margin="10 10 20 10">
+                    <StackPanel>
+                        <TextBlock Height="55" Text="{Binding Path=MyPoints, Mode=OneWay}" FontSize="30" TextAlignment="Center"></TextBlock>
+                        <TextBlock HorizontalAlignment="Center" FontSize="15"  VerticalAlignment="Center" Margin="0 0 0 0" >My Points</TextBlock>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <Label Height="40" Width="40" Content="✨" FontSize="20"  Margin="99,4,147,89" Grid.Row="1">
+                <Label.Style>
+                    <Style  TargetType="{x:Type Label}">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsSuperOwnerGuest}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+
+            <Grid Grid.Row="2" Grid.Column="0" Margin="20 10" >
+                <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="6" BorderThickness="3" BorderBrush="Black" />
+                <Label Grid.Row="0" Grid.Column="0" Content="Shortcuts" HorizontalAlignment="Center" FontSize="20" Grid.ColumnSpan= "2" FontWeight="DemiBold"></Label>
+                <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Modify</Label>
+                <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Close/Cancel</Label>
+                <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Forums</Label>
+                <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Start Demo</Label>
+
+
+                <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" FontSize="13" Margin="10 0">Ctrl + M</Label>
+                <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" FontSize="13" Margin="10 0">esc</Label>
+                <Label Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" FontSize="13" Margin="10 0">F6</Label>
+                <Label Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" FontSize="13" Margin="10 0">Ctrl + T</Label>
+            </Grid>
+            
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition/>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!--Data Grid FOr  Reservations -->
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="My Reservations" FontSize="20" Margin="0 10 0 0"></TextBlock>
+            <DataGrid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 0 10 0" x:Name="ReservationsGrid" ItemsSource="{Binding Path=ReservationViews, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedReservationView, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+                      AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Resources>
+                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#a2a2c8" />
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns >
+                    <DataGridTextColumn Header="Accommodation" Binding="{Binding Reservation.Accommodation.Name}" Width="0.65*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Location" Binding="{Binding Reservation.Accommodation.Location}" Width="1.2*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Start" Binding="{Binding Reservation.StartDate, Converter={StaticResource DateConverter}}" Width="0.4*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="End" Binding="{Binding Reservation.EndDate, Converter={StaticResource DateConverter}}" Width="0.4*"></DataGridTextColumn>
+                    <DataGridTextColumn  Binding="{Binding Reservation.GuestsNumber}" Width="0.3*">
+                        <DataGridTextColumn.Header>
+
+                            <TextBlock  Text="Guests   
+                                           No" Margin="0" TextWrapping="Wrap"/>
+
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn x:Name="ButtonColumn" Width="0.85*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <WrapPanel FlowDirection="RightToLeft">
+
+                                    <Button Width="50" Background="#a2a2c8" Command="{Binding DataContext.ModifyCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Margin="5" IsEnabled="{Binding IsModifiable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                        <Button.Content>
+                                            <TextBlock Height="30" FontSize="10" TextWrapping="Wrap" Text="Modify   Ctrl+M"></TextBlock>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Width="50" Background="#a2a2c8" Command="{Binding DataContext.CancelReservationCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Margin="5" IsEnabled="{Binding IsCancelable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                        <Button.Content>
+                                            <TextBlock Height="30" FontSize="10" TextWrapping="Wrap" Text="Cancel     Ctrl+D"></TextBlock>
+                                        </Button.Content>
+                                    </Button>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+
+            <!--Data Grid FOr Pending Requests -->
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="Pending Requests" FontSize="20" Margin="0 10 0 0"></TextBlock>
+            <DataGrid Margin="0 0 10 10" Grid.Row="3" Grid.Column="1" x:Name="ReservationsRequestsGrid" ItemsSource="{Binding Path=PendingChangeRequests, UpdateSourceTrigger=PropertyChanged}"
+                         SelectionMode="Single"
+                      AutoGenerateColumns="False" IsReadOnly="True" >
+                <DataGrid.Resources>
+                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#a2a2c8" />
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Accommodation" Binding="{Binding Reservation.Accommodation.Name}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Location" Binding="{Binding Reservation.Accommodation.Location}" Width="2*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Start" Binding="{Binding Start, Converter={StaticResource DateConverter}}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="End" Binding="{Binding End, Converter={StaticResource DateConverter}}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn  Binding="{Binding Reservation.GuestsNumber}" Width="0.7*">
+                        <DataGridTextColumn.Header>
+
+                            <TextBlock  Text="Guests   
+                                           No" Margin="0" TextWrapping="Wrap"/>
+
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    
+                    
+                </DataGrid.Columns>
+
+            </DataGrid>
+            <Button  HorizontalAlignment="Left" Height="35" Width="100" Margin="523,7,0,0" VerticalAlignment="Top" Command="{Binding ReportCommand}" Background="#a2a2c8">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Text="Generate Report  Ctrl + E" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
+        </Grid>
+    </Grid>
+</Page>

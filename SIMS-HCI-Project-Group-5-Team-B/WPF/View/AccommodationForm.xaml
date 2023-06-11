@@ -54,7 +54,7 @@
                      Height="30">
             </TextBox>
             <ComboBox Name="Type_ComboBox" Grid.Row="1" Grid.Column="1" 
-                     SelectionChanged="TypeChanged_ComboBox" Text="{Binding Path=Type, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                     SelectionChanged="TypeChanged_ComboBox" Text="{Binding Path=Accommodation.Type, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Height="30">
                 <ComboBoxItem Content="Apartment"></ComboBoxItem>
                 <ComboBoxItem Content="House"></ComboBoxItem>
@@ -94,7 +94,7 @@
                      Height="30">
             </TextBox>
         </Grid>
-        <Button Content="{ns:Loc Create}" HorizontalAlignment="Left" Margin="395,0,0,0" Height="20" VerticalAlignment="Center" Grid.Row="1" Width="50" Click="Create_Accommodation_Click" Style="{DynamicResource ButtonInWindowStyle}"/>
-        <Button Content="{ns:Loc Cancel}" HorizontalAlignment="Left" Margin="493,0,0,0" Height="20" VerticalAlignment="Center" Grid.Row="1" Width="50" Click="Cancel_Click" Style="{DynamicResource ButtonInWindowStyle}" />
+        <Button Content="{ns:Loc Create}" HorizontalAlignment="Left" Height="20" VerticalAlignment="Center" Grid.Row="1" Width="50"  Command="{Binding CreateAccommodationCommand}" Style="{DynamicResource ButtonInWindowStyle}" Margin="410,0,0,0"/>
+        <Button Content="{ns:Loc Cancel}" HorizontalAlignment="Left"  Height="20" VerticalAlignment="Center" Grid.Row="1" Width="50" Command="{Binding CancelCommand}" Style="{DynamicResource ButtonInWindowStyle}"  Margin="493,0,0,0" />
     </Grid>
 </Window>

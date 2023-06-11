@@ -23,7 +23,7 @@
 
             </Grid>
             <Grid Grid.Column="0" Grid.Row="1">
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,11,0,0" Content="{ns:Loc FutureRenovations}" Style="{DynamicResource LabelStyle}"></Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="22,11,0,0" Content="{ns:Loc FutureRenovations}" Style="{DynamicResource LabelStyle}"></Label>
                 <Button HorizontalAlignment="Right" VerticalAlignment="Top" Height="20" Width="55" Margin="0,8,22,0" Command="{Binding ScheduleWindowCommand}" Content="{ns:Loc Schedule}" Style="{DynamicResource ButtonStyle}" ></Button>
                 <DataGrid   ItemsSource="{Binding Path=FutureRenovations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedRenovationGridView, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
@@ -42,7 +42,7 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,170,0,0" Content="{ns:Loc PastRenovations}"></Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="22,170,0,0" Content="{ns:Loc PastRenovations}" Style="{DynamicResource LabelStyle}"></Label>
                 <DataGrid  ItemsSource="{Binding Path=PastRenovations}"
                                  AutoGenerateColumns="False" IsReadOnly="True" Margin="22,200,22,40" >
                     <DataGrid.Columns>

@@ -117,5 +117,48 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         }
 
+
+        public double CalculateAverageNumberOfReservationsForAccommodations(List<Accommodation> accommodationsOnLocation)
+        {
+            double averageNumberOfReservations = 0;
+            foreach (Accommodation accommodation in accommodationsOnLocation)
+            {
+                int numberOfReservationForAccommodation = 0;
+                List<YearlyAccommodationStatistics> yearlyAccommodationStatistics = new List<YearlyAccommodationStatistics>(GetYearlyStatistics(accommodation.Id));
+                if (yearlyAccommodationStatistics.Count() != 0)
+                {
+                    foreach (YearlyAccommodationStatistics yearlyAccommodationStatistic in yearlyAccommodationStatistics)
+                    {
+                        numberOfReservationForAccommodation = numberOfReservationForAccommodation + yearlyAccommodationStatistic.NumberOfReservations;
+                    }
+                    int numberOfYears = yearlyAccommodationStatistics.Count();
+                    averageNumberOfReservations = averageNumberOfReservations + (double)numberOfReservationForAccommodation / numberOfYears;
+                }
+            }
+            return averageNumberOfReservations;
+        }
+
+        public double CalculateAverageBusynessForAccommodations(List<Accommodation> accommodationsOnLocation)
+        {
+            double averageBusyness = 0;
+            foreach (Accommodation accommodation in accommodationsOnLocation)
+            {
+                double averageBusynessForAccommodation = 0;
+                List<YearlyAccommodationStatistics> yearlyAccommodationStatistics = new List<YearlyAccommodationStatistics>(GetYearlyStatistics(accommodation.Id));
+                if (yearlyAccommodationStatistics.Count() != 0)
+                {
+                    foreach (YearlyAccommodationStatistics yearlyAccommodationStatistic in yearlyAccommodationStatistics)
+                    {
+                        averageBusynessForAccommodation = averageBusynessForAccommodation + yearlyAccommodationStatistic.Busyness;
+                    }
+                    int numberOfYears = yearlyAccommodationStatistics.Count();
+                    averageBusyness = averageBusyness + (double)averageBusynessForAccommodation / numberOfYears;
+                }
+            }
+            return averageBusyness;
+        }
+
+
+
     }
 }

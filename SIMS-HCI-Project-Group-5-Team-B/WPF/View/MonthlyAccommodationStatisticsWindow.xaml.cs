@@ -25,10 +25,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     public partial class MonthlyAccommodationStatisticsWindow : Window
     {
        
-        public MonthlyAccommodationStatisticsWindow(YearlyAccommodationStatistics SelectedYearlyAccommodationStatistics,MonthlyAccommodationStatisticsService monthlyAccommodationStatisticsService, int SelectedAccommmodationId)
+        public MonthlyAccommodationStatisticsWindow(YearlyAccommodationStatistics SelectedYearlyAccommodationStatistics,MonthlyAccommodationStatisticsService monthlyAccommodationStatisticsService, int SelectedAccommmodationId, AccommodationService accommodationService)
         {
             InitializeComponent();
-            this.DataContext = new MonthlyAccommodationStatisticsViewModel(monthlyAccommodationStatisticsService, SelectedYearlyAccommodationStatistics, SelectedAccommmodationId);
+            this.DataContext = new MonthlyAccommodationStatisticsViewModel(monthlyAccommodationStatisticsService, SelectedYearlyAccommodationStatistics, SelectedAccommmodationId,accommodationService);
         }
     }
 }

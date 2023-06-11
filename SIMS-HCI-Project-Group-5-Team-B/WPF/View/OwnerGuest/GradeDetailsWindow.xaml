@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest"
         mc:Ignorable="d"
-        Title="GradeDetailsWindow" Height="520" Width="630" WindowStartupLocation="CenterScreen"
+        Title="GradeDetailsWindow" Height="600" Width="630" WindowStartupLocation="CenterScreen"
         Background="#c8a2c8">
     <Window.InputBindings>
         <KeyBinding Gesture="esc" Command="{Binding CloseCommand}"/>
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="79*"></RowDefinition>
-            <RowDefinition Height="327*"></RowDefinition>
-            <RowDefinition Height="98*"></RowDefinition>
+            <RowDefinition Height="91*"></RowDefinition>
+            <RowDefinition Height="320*"></RowDefinition>
+            <RowDefinition Height="173*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="Grade Details" VerticalAlignment="Center" FontSize="30" FontWeight="DemiBold" Margin="20,0,0,0" Height="39"/>
         <Grid Margin="20,79,20,0" Grid.RowSpan="2">
@@ -41,19 +41,19 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Label Margin="5 0 0 0" FontSize="13" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center">Owner</Label>
-                        <Label Margin="5 0 0 0" FontSize="13" Grid.Column="0" Grid.Row="2">Accommodaton</Label>
-                        <Label Margin="5 0 0 0" FontSize="13" Grid.Column="0" Grid.Row="3">Location</Label>
-                        <Label Margin="5 0 0 0" FontSize="13" Grid.Column="0" Grid.Row="4">Start</Label>
-                        <Label Margin="5 0 0 0" FontSize="13" Grid.Column="0" Grid.Row="5">End</Label>
-                        <Label Margin="5 0 0 0" FontSize="13" Grid.Column="0" Grid.Row="6">Guests No</Label>
+                        <Label Margin="10 0" FontSize="13" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center">Owner</Label>
+                        <Label Margin="10 0" FontSize="13" Grid.Column="0" Grid.Row="2">Accommodaton</Label>
+                        <Label Margin="10 0" FontSize="13" Grid.Column="0" Grid.Row="3">Location</Label>
+                        <Label Margin="10 0" FontSize="13" Grid.Column="0" Grid.Row="4">Start</Label>
+                        <Label Margin="10 0" FontSize="13" Grid.Column="0" Grid.Row="5">End</Label>
+                        <Label Margin="10 0" FontSize="13" Grid.Column="0" Grid.Row="6">Guests No</Label>
 
-                        <TextBlock Text="{Binding Path=SelectedGrade.OwnerName}" Margin=" 0 5 5 0" FontSize="13" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
-                        <TextBlock Text="{Binding Path=SelectedGrade.Grade.Reservation.Accommodation.Name}" Margin=" 0 5 5 0" FontSize="13" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right"></TextBlock>
-                        <TextBlock Text="{Binding Path=SelectedGrade.Grade.Reservation.Accommodation.Location}" Margin=" 0 5 5 0" FontSize="13" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right"></TextBlock>
-                        <TextBlock Text="{Binding Path=Start}" Margin=" 0 5 5 0" FontSize="13" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right"></TextBlock>
-                        <TextBlock Text="{Binding Path=End}" Margin=" 0 5 5 0" FontSize="13" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Right"></TextBlock>
-                        <TextBlock Text="{Binding Path=SelectedGrade.Grade.Reservation.GuestsNumber}" Margin=" 0 0 5 5" FontSize="13" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="{Binding Path=SelectedGrade.OwnerName}"  Margin=" 10 5 10 5" FontSize="13" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="{Binding Path=SelectedGrade.Grade.Reservation.Accommodation.Name}"  Margin=" 10 5 10 5" FontSize="13" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="{Binding Path=SelectedGrade.Grade.Reservation.Accommodation.Location}"  Margin=" 10 5 10 5" FontSize="13" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="{Binding Path=Start}"  Margin=" 10 5 10 5" FontSize="13" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="{Binding Path=End}"  Margin=" 10 5 10 5" FontSize="13" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="{Binding Path=SelectedGrade.Grade.Reservation.GuestsNumber}"  Margin=" 10 5 10 5" FontSize="13" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Right"></TextBlock>
 
                     </Grid>
                 </Border>
@@ -65,8 +65,9 @@
                 <Border Height="278" Margin="10 0 0 0" BorderBrush="Black"  BorderThickness="3" Background="LightGray">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="49*"></ColumnDefinition>
+                            <ColumnDefinition Width="44*">
+                                </ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1.5*"></RowDefinition>
@@ -78,39 +79,44 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Label Margin="5 0 0 0" FontSize="13" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center">Guest</Label>
-                        <Label Margin="5 0 0 0" FontSize="13" Grid.Column="0" Grid.Row="2">Cleaniliness</Label>
-                        <Label Margin="5 0 0 0" FontSize="13" Grid.Column="0" Grid.Row="3">Rules Complience</Label>
-                        <Label Margin="5 0 0 0" FontSize="13" Grid.Column="0" Grid.Row="4">State of inventory</Label>
-                        <Label Margin="5 0 0 0" FontSize="13" Grid.Column="0" Grid.Row="5">Paid on Time</Label>
-                        <Label Margin="5 0 0 0" FontSize="13" Grid.Column="0" Grid.Row="6">Guests` Complaints</Label>
-                        <Label Margin="5 0 0 0" FontSize="13" Grid.Column="0" Grid.Row="7" FontWeight="DemiBold">Average Grade</Label>
+                        <Label Margin="10 0" FontSize="13" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center">Guest</Label>
+                        <Label Margin="10 0" FontSize="13" Grid.Column="0" Grid.Row="2">Cleaniliness</Label>
+                        <Label Margin="10 0" FontSize="13" Grid.Column="0" Grid.Row="3">Rules Complience</Label>
+                        <Label Margin="10 0" FontSize="13" Grid.Column="0" Grid.Row="4">State of inventory</Label>
+                        <Label Margin="10 0" FontSize="13" Grid.Column="0" Grid.Row="5">Paid on Time</Label>
+                        <Label Margin="10 0" FontSize="13" Grid.Column="0" Grid.Row="6">Guests` Complaints</Label>
+                        <Label Margin="10 0" FontSize="13" Grid.Column="0" Grid.Row="7" FontWeight="DemiBold">Average Grade</Label>
 
-                        <TextBlock Text="{Binding Path=GuestName}" Margin=" 0 5 5 0" FontSize="13" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
-                        <TextBlock Text="{Binding Path=SelectedGrade.Grade.Cleanliness}" Margin=" 0 5 5 0" FontSize="13" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right"></TextBlock>
-                        <TextBlock Text="{Binding Path=SelectedGrade.Grade.RulesCompliance}" Margin=" 0 5 5 0" FontSize="13" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right"></TextBlock>
-                        <TextBlock Text="{Binding Path=SelectedGrade.Grade.StateOfInventory}" Margin=" 0 5 5 0" FontSize="13" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right"></TextBlock>
-                        <TextBlock Text="{Binding Path=SelectedGrade.CompletedOnTime}" Margin=" 0 5 5 0" FontSize="13" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Right"></TextBlock>
-                        <TextBlock Text="{Binding Path=SelectedGrade.GuestsComplaints}" Margin=" 0 5 5 0" FontSize="13" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Right"></TextBlock>
-                        <TextBlock Text="{Binding Path=SelectedGrade.AverageGrade}" Margin=" 0 5 5 0" FontSize="13" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Right" FontWeight="DemiBold"></TextBlock>
+                        <TextBlock Text="{Binding Path=GuestName}"  Margin=" 10 5 10 5" FontSize="13" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="{Binding Path=SelectedGrade.Grade.Cleanliness}"  Margin=" 10 5 10 5" FontSize="13" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="{Binding Path=SelectedGrade.Grade.RulesCompliance}"  Margin=" 10 5 10 5" FontSize="13" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="{Binding Path=SelectedGrade.Grade.StateOfInventory}"  Margin=" 10 5 10 5" FontSize="13" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="{Binding Path=SelectedGrade.CompletedOnTime}"  Margin=" 10 5 10 5" FontSize="13" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="{Binding Path=SelectedGrade.GuestsComplaints}"  Margin=" 10 5 10 5" FontSize="13" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="{Binding Path=SelectedGrade.AverageGrade}"  Margin=" 10 5 10 5" FontSize="13" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Right" FontWeight="DemiBold"></TextBlock>
                     </Grid>
                 </Border>
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="1" Margin="0,323,0,0" Grid.RowSpan="2">
+        <Grid Grid.Row="2" Margin="0,2,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="233*"></ColumnDefinition>
                 <ColumnDefinition Width="265*"></ColumnDefinition>
                 <ColumnDefinition Width="132*"></ColumnDefinition>
 
             </Grid.ColumnDefinitions>
-            <Label FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 15 0">Additional Comment</Label>
-            <Border Grid.Column="1" Margin="10 15" BorderBrush="Black"  BorderThickness="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="38*"/>
+                <RowDefinition Height="89*"/>
+                <RowDefinition Height="52*"/>
+            </Grid.RowDefinitions>
+            <Label  VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="13" FontWeight="DemiBold" Margin="20,0,0,0" Height="28" Width="150">Additional Comment</Label>
+            <Border Grid.Column="0" Grid.Row="1" Margin="20,0,20,10" BorderBrush="Black" Grid.ColumnSpan="3"  BorderThickness="3">
                 <TextBlock  Text="{Binding Path=SelectedGrade.Grade.AdditionalComment}" Background="LightGray"  TextWrapping="Wrap" FontSize="15"></TextBlock>
             </Border>
 
-            <Button Grid.Column="2" Height="37" Width="66" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,16,21" Command ="{Binding CloseCommand}">
+            <Button Grid.Column="2" Grid.Row="2" Background="#a2a2c8" Height="37" Width="66" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,16,10" Command ="{Binding CloseCommand}">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Text="Close          esc" TextAlignment="Center"></TextBlock>
                 </Button.Content>

@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
         mc:Ignorable="d"
-        Title="ReservationChangeRequestForm" Height="300" Width="427" WindowStartupLocation="CenterScreen"
-        Background="#c8a2c8">
+        Title="ReservationChangeRequestForm" Height="320" Width="440" WindowStartupLocation="CenterScreen"
+        Background="#c8a2c8"
+        KeyDown="Window_KeyDown">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -24,24 +25,28 @@
         <KeyBinding Gesture="esc" Command="{Binding CloseCommand}"/>
     </Window.InputBindings>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="325*"/>
+            <ColumnDefinition Width="102*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="2.6*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" >
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,160" Grid.RowSpan="2" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"></RowDefinition>
                 <RowDefinition></RowDefinition>
-                
+
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="{Binding Path=Header, Mode=OneWay}" FontSize="25"></TextBlock>
-            <TextBlock Grid.Row="1" Text="{Binding Path=LocationHeader, Mode=OneWay}" FontSize="15"></TextBlock>
+            <TextBlock Grid.Row="0" Text="{Binding Path=Header, Mode=OneWay}" FontWeight="DemiBold" FontSize="20"></TextBlock>
+            <TextBlock Grid.Row="1" Text="{Binding Path=LocationHeader, Mode=OneWay}" FontWeight="DemiBold" FontSize="15"></TextBlock>
         </Grid>
 
-        <TextBlock Grid.Row="0" Text="{Binding Path=Header, Mode=OneWay}" FontSize="25" ></TextBlock>
 
-        <Grid Grid.Row="1" Margin="30 0">
+
+        <Grid Grid.Row="1" Margin="30,0,30,0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="1.5*"></ColumnDefinition>
@@ -54,23 +59,29 @@
 
             <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="center">Start</Label>
             <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="center">End</Label>
-            <DatePicker Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Background="LightGray"
+            <DatePicker x:Name="StartDP" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Background="LightGray"
                          SelectedDate="{Binding Path=NewReservationRequest.Start,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True }" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15"></DatePicker>
-            <DatePicker Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Background="LightGray"
+            <DatePicker x:Name="EndDP" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Background="LightGray"
                          SelectedDate="{Binding Path=NewReservationRequest.End,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15"></DatePicker>
         </Grid>
-        <WrapPanel Grid.Row="2" FlowDirection="LeftToRight">
+        <WrapPanel Grid.Row="1" FlowDirection="LeftToRight" Grid.ColumnSpan="2" Margin="0,160,0,0" Grid.RowSpan="2">
 
-            <Button Margin="200 10 15 10" Command="{Binding SendCommand}" Height="37" Width="66">
+            <Button x:Name="SaveBtn" Margin="200 10 15 10" Command="{Binding SendCommand}" Height="37" Width="66" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Text="Save          Ctrl + S" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
-            <Button Margin="20 10" Command="{Binding CloseCommand}" Height="37" Width="66">
+            <Button Margin="20 10" Command="{Binding CloseCommand}" Height="37" Width="66" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Text="Close          esc" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
         </WrapPanel>
+
+        <Button Click="Button_Click" Height="37" Width="66" Background="#a2a2c8" Margin="16,16,20,9" Grid.Column="1">
+            <Button.Content>
+                <TextBlock  TextWrapping="Wrap" Text="Start Demo Ctrl+T" TextAlignment="Center"></TextBlock>
+            </Button.Content>
+        </Button>
     </Grid>
 </Window>

@@ -1,0 +1,74 @@
+﻿<Page x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest.ForumsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ForumsPage"
+      Background="#c8a2c8">
+    <Page.InputBindings>
+        <KeyBinding Key="F8" Command="{Binding NewForumCommand}"/>
+        <KeyBinding Key="G" Modifiers="Ctrl" Command="{Binding GoCommand}"/>
+    </Page.InputBindings>
+
+    <Page.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+
+        </ControlTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="0.7*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Forum Navigation"  FontSize="24" FontWeight="DemiBold" Margin="20 10 0 0"></TextBlock>
+
+        <Grid Grid.Row="1" Margin="20 10">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Grid.Row="0" Height="37" Width="100" HorizontalAlignment="Left" Command="{Binding NewForumCommand}" Background="#a2a2c8">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Width="90"    Text="New Forum      F8" TextAlignment="Center" ></TextBlock>
+                </Button.Content>
+            </Button>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="State" Height="30" FontSize="15" Grid.ColumnSpan="2" Margin="0,15,205,31"></Label>
+            <Label Grid.Row="2" Grid.Column="0" Content="City" Height="30" FontSize="15" Grid.ColumnSpan="2" Margin="0,14,205,31"></Label>
+
+            <ComboBox Grid.Row="1" Grid.Column="1"  x:Name="ComboBoxStates" Height="30" Text="{Binding Path=State, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" ItemsSource="{Binding States}" 
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"  Margin="0,3,0,18"></ComboBox>
+
+            <ComboBox Grid.Row="2" Grid.Column="1"  x:Name="ComboBoxCities" Height="30" Text="{Binding Path=City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" ItemsSource="{Binding Cities}" 
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"  Margin="0,3,0,18"></ComboBox>
+
+            <Button Grid.Column="1" Grid.Row="3" Height="37" Width="60" HorizontalAlignment="Right" Command="{Binding GoCommand}" Background="#a2a2c8">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Width="57"    Text="Go             Ctrl+G" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
+
+        </Grid>
+
+    </Grid>
+
+    
+</Page>

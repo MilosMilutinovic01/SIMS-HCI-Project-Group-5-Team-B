@@ -16,19 +16,23 @@
     <None Remove="Resources\Images\GuideGuestNotificationBell.png" />
     <None Remove="Resources\Images\GuideGuestUser.png" />
     <None Remove="Resources\Images\hamburgerIcon.png" />
+    <None Remove="Resources\Images\helpIcon.png" />
     <None Remove="Resources\Images\homeIcon.png" />
     <None Remove="Resources\Images\home_icon.jpg" />
     <None Remove="Resources\Images\leftArrow.png" />
     <None Remove="Resources\Images\LetterRImage.png" />
     <None Remove="Resources\Images\locationIcon.png" />
     <None Remove="Resources\Images\myToursIcon.png" />
+    <None Remove="Resources\Images\OwnerGuestUser.png" />
     <None Remove="Resources\Images\OwnerMedalImage.png" />
     <None Remove="Resources\Images\OwnerProfile.png" />
     <None Remove="Resources\Images\plusIcon.png" />
     <None Remove="Resources\Images\profile.png" />
     <None Remove="Resources\Images\requestIcon.png" />
     <None Remove="Resources\Images\reviewsIcon.png" />
+    <None Remove="Resources\Images\Star.png" />
     <None Remove="Resources\Images\StarImage.png" />
+    <None Remove="Resources\Images\StarPng.png" />
     <None Remove="Resources\Images\statisticsIcon.png" />
     <None Remove="Resources\Images\threeDots.png" />
     <None Remove="Resources\Images\upcomingIcon.png" />
@@ -41,6 +45,9 @@
     <Resource Include="Resources\Images\bellIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\helpIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\homeIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -50,13 +57,20 @@
     <Resource Include="Resources\Images\leftArrow.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\OwnerGuestUser.png" />
+    <Resource Include="Resources\Images\Star.png" />
+    <Resource Include="Resources\Images\StarPng.png" />
     <Resource Include="Resources\Images\statisticsIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DynamicPDF" Version="8.0.0" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+    <PackageReference Include="PdfiumViewer" Version="2.13.0" />
+    <PackageReference Include="PdfSharp" Version="1.50.5147" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
@@ -138,6 +152,12 @@
 
   <ItemGroup>
     <Folder Include="Resources\TourImages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PdfSharp">
+      <HintPath>bin\Debug\net6.0-windows\PdfSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

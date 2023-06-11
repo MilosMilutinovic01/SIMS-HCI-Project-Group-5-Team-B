@@ -2,6 +2,7 @@
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.View;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,34 +26,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View
     /// </summary>
     public partial class AccommodationPage : Page
     {
-        private AccommodationService accommodationService;
-        private LocationController locationController;
-        private OwnerService ownerService;
-        public ObservableCollection<Accommodation> AccomodationsOfLogedInOwner { get; set; }
-        public Owner LogedInOwner { get; set; }
-       
-        public AccommodationPage(int ownerId)
+        
+        public AccommodationPage(int ownerId, ReservationService reservationService)
         {
             InitializeComponent();
-            DataContext = this;
-            locationController = new LocationController();
-            ownerService = new OwnerService();
-            this.accommodationService = new AccommodationService(locationController, ownerService);
-            AccomodationsOfLogedInOwner = new ObservableCollection<Accommodation>(accommodationService.GetAccommodationsOfLogedInOwner(ownerId));
-            this.LogedInOwner = ownerService.getById(ownerId);
-            
+            this.DataContext = new AccommodationPageViewModel(ownerId,reservationService);  
         }
 
-        private void Create_Accommodation_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationForm accommodationForm = new AccommodationForm(AccomodationsOfLogedInOwner, LogedInOwner);
-            accommodationForm.Show();
-        }
-
-        private void Suggestions_Button_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationLocationSuggestionsWindow accommodationLocationSuggestionsWindow = new AccommodationLocationSuggestionsWindow();
-            accommodationLocationSuggestionsWindow.Show();
-        }
     }
 }

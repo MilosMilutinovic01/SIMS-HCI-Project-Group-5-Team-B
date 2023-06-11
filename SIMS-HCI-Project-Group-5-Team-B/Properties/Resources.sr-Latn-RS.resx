@@ -135,6 +135,9 @@
   <data name="Accommodation" xml:space="preserve">
     <value>Smestaj</value>
   </data>
+  <data name="AccommodationFormWithPopularLocation" xml:space="preserve">
+    <value>Forma za registraciju smestaja na popularnoj lokaciji</value>
+  </data>
   <data name="AccommodationLocationSuggestionsWindow" xml:space="preserve">
     <value>Prozor Predloga Lokacija Za Smestaj</value>
   </data>
@@ -162,6 +165,9 @@
   <data name="Busyness" xml:space="preserve">
     <value>Zauzetost</value>
   </data>
+  <data name="CallingOffRenovation" xml:space="preserve">
+    <value>Otkazivanje renoviranja</value>
+  </data>
   <data name="CallOff" xml:space="preserve">
     <value>Otkazi</value>
   </data>
@@ -182,6 +188,9 @@
   </data>
   <data name="CancelledReservations" xml:space="preserve">
     <value>Otkazane rezervacije</value>
+  </data>
+  <data name="ChangeLanguage" xml:space="preserve">
+    <value>Promena jezika:</value>
   </data>
   <data name="City" xml:space="preserve">
     <value>Grad</value>
@@ -212,6 +221,9 @@
   </data>
   <data name="Create" xml:space="preserve">
     <value>Napravi</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Tamna tema:</value>
   </data>
   <data name="Decline" xml:space="preserve">
     <value>Odbij</value>
@@ -249,14 +261,23 @@
   <data name="Forum" xml:space="preserve">
     <value>Forum</value>
   </data>
+  <data name="ForumLocationLabel" xml:space="preserve">
+    <value>Forum za lokaciju:</value>
+  </data>
   <data name="ForumWindow" xml:space="preserve">
     <value>Prozor Foruma</value>
   </data>
   <data name="FutureRenovations" xml:space="preserve">
     <value>Buduca renoviranja</value>
   </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Generisi</value>
+  </data>
   <data name="GenerateLabel" xml:space="preserve">
-    <value>Kliknite 'Generisi' dugme da generisete izvestaj o rezervacijama za smestaj 📝</value>
+    <value>Kliknite 'Generisi' dugme da generisete izveštaj o svim rezervacijama za određeni smeštaj u određenom vremenskom periodu📝</value>
+  </data>
+  <data name="GenerateReportLabel" xml:space="preserve">
+    <value>Izvetaj o rezervacijama u zeljenom vremenskom periodu za</value>
   </data>
   <data name="Grade" xml:space="preserve">
     <value>Oceni</value>
@@ -280,10 +301,13 @@
     <value>Prozor Za Ocenjivanje Gostiju</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Jezik</value>
+    <value>Jezik:</value>
   </data>
   <data name="MaxGuests" xml:space="preserve">
     <value>Maksimalno Gostiju</value>
+  </data>
+  <data name="Medal" xml:space="preserve">
+    <value>🥇</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>Poruke</value>
@@ -348,6 +372,9 @@
   <data name="Profile" xml:space="preserve">
     <value>Profil</value>
   </data>
+  <data name="ProfileImage" xml:space="preserve">
+    <value>👤</value>
+  </data>
   <data name="ProposalOfPopularLocations" xml:space="preserve">
     <value>Predlozi populanih lokacija za otvaranje novog smestaja</value>
   </data>
@@ -365,6 +392,9 @@
   </data>
   <data name="Report" xml:space="preserve">
     <value>Izvestaj</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Prijave:</value>
   </data>
   <data name="RequestsForChangingReservation" xml:space="preserve">
     <value>Zahtevi za pomeranje rezervacije</value>
@@ -429,8 +459,14 @@
   <data name="Statistics" xml:space="preserve">
     <value>Statistika</value>
   </data>
+  <data name="StatisticsLabel" xml:space="preserve">
+    <value>Statistika za:</value>
+  </data>
   <data name="SuggestionsForNewLocation" xml:space="preserve">
     <value>Predlozi novih lokacija</value>
+  </data>
+  <data name="SuperOwner" xml:space="preserve">
+    <value>Super-vlasnik</value>
   </data>
   <data name="SuperOwnerExplanation" xml:space="preserve">
     <value>Ako ste super-vlasnik vasi smestaji ce biti prikazani prvi gostima 🏅</value>

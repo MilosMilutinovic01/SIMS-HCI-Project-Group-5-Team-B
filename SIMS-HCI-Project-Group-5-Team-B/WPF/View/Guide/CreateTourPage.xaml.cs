@@ -16,7 +16,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Win32;
 using System.IO;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
@@ -136,7 +135,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             this.TourRequest = tourRequest;
             this.Description = tourRequest.Description;
             Tour.Description = tourRequest.Description;
-            //appointments.Add(new Appointment(Tour.Id, 8, tourRequest.SelectedDate, Tour.MaxGuests));
         }
 
         public CreateTourPage(string language, int locationId)
@@ -321,6 +319,40 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
             ImagesListBox.Items.Remove(SelectedImage);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            HelpTextBox.Text = "Welcome to the Tour Creation Page!\r\n" +
+                "This page allows you to create a new tour by providing various details. " +
+                "Here's a step-by-step guide on how to use each element on this page:\r\n1. " +
+                "Tour Name: Enter the name of your tour in the provided TextBox. " +
+                "Choose a descriptive name that represents the tour's theme or destination.\r\n2. " +
+                "Location: Select the state and city of the tour using the two ComboBoxes. " +
+                "Choose the appropriate options from the dropdown lists.\r\n3. " +
+                "Language: Enter the language spoken on the tour in the TextBox provided. " +
+                "Specify the primary language used during the tour.\r\n4. " +
+                "Maximum Guests: Use the slider to set the maximum number of guests for the tour. " +
+                "Adjust the slider's position according to your desired limit.\r\n5. " +
+                "Key Points: Enter descriptions or highlights of the tour's key points in the TextBox. " +
+                "Click the \"Add Key Point\" button to add the entered text as a key point. " +
+                "Remember, you must have a minimum of two key points for the tour.\r\n6. " +
+                "Start Date: Select the start date of the tour using the DateTimePicker control. " +
+                "Choose the desired date by clicking on the control and selecting from the calendar.\r\n7." +
+                " Duration: Use the slider to specify the duration of the tour. " +
+                "Adjust the slider to set the number of days or hours for the tour's duration.\r\n8. " +
+                "Image: Click the image icon to add an image for the tour. " +
+                "Select an image file from your file system when prompted. " +
+                "You can also preview and delete added images using the provided buttons.\r\n9. " +
+                "Description: Enter a detailed description of the tour in the TextBox. " +
+                "Provide information about the tour's itinerary, highlights, and any additional relevant details.\r\n10." +
+                " Create Tour: Click the \"Create Tour\" button to finalize the tour creation process. " +
+                "Ensure that you have entered all the required information before creating the tour.\r\n" +
+                "If you encounter any issues or require further assistance, please consult the help documentation or contact our support team.\r\nHappy tour creation!";
+            if (HelpTextBox.Visibility == Visibility.Hidden)
+                HelpTextBox.Visibility = Visibility.Visible;
+            else
+                HelpTextBox.Visibility = Visibility.Hidden;
         }
     }
 }

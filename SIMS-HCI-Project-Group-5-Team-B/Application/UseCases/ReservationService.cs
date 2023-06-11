@@ -1,8 +1,10 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.RepositoryInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces;
+using SIMS_HCI_Project_Group_5_Team_B.DTO;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
@@ -246,7 +248,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         }
 
-
+        
         public List<RenovationProposalDates> GetRenovationProposalDatesInTimeSpan(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int renovationDays)
         {
             List<RenovationProposalDates> renovationProposalDates = new List<RenovationProposalDates>();
@@ -265,6 +267,91 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return renovationProposalDates;
         }
 
+        public List<AnywhereAnytimeReservation> GetAASuggestions(int guestNumber, Nullable<DateTime> start, Nullable<DateTime> end, int reservationDays) 
+        {
+            //going through list of accommodations
+            List<AnywhereAnytimeReservation> suggestions = new List<AnywhereAnytimeReservation>();
+            Random rdn = new Random();
+            foreach ( Accommodation a in accommodationRepository.GetAll())
+            {
+                if(a.IsGuestsDaysAppropriate(guestNumber, reservationDays))
+                {
+                    //if it meets requirenments, check dates
+                    if(CheckAADates(start,end))
+                    {
+                        //we already checked if dates are null, they are not!
+                        suggestions.AddRange(GetAccommodationAASuggestions(a, GetRecommendationsInTimeSpan(a, (DateTime)start, (DateTime)end, reservationDays)));
+                    }
+                    else
+                    {
+                        //out od time span, check for random adding of days
+                        suggestions.AddRange(GetAccommodationAASuggestions(a, GetRecommendationsOutOfTimeSpan(a, DateTime.Today, DateTime.Today.AddDays(rdn.Next(120)), reservationDays)));
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+
+            return Randomize(suggestions);
+        }
+
+        public bool CheckAADates(Nullable<DateTime> start, Nullable<DateTime> end)
+        {
+            if(start == null || end == null)
+                return false;
+            return true;
+        }
+
+        public List<AnywhereAnytimeReservation> GetAccommodationAASuggestions(Accommodation accommodation, List<ReservationRecommendation> reservationRecommendations)
+        {
+            List<AnywhereAnytimeReservation> suggestions= new List<AnywhereAnytimeReservation>();
+            int couter = 0;
+            foreach(ReservationRecommendation r in reservationRecommendations)
+            {
+                //just to break the loop and take first 3
+                if (couter == 3)
+                    break;
+                suggestions.Add(new AnywhereAnytimeReservation(accommodation, r.Start, r.End));
+                couter++;
+            }
+            return suggestions;
+        }
+
+        private List<AnywhereAnytimeReservation> Randomize(List<AnywhereAnytimeReservation> list)
+        {
+            Random rdn = new Random();
+            var randomized =  list.OrderBy(item => rdn.Next());
+            return randomized.ToList();
+        }
+
+        public int GetReservationsNumberInLastYear(int ownerGuestId)
+        {
+            return reservationRepository.GetOwnerGuestsReservationInLastYear(ownerGuestId).Count();
+        }
+        public List<Reservation> GetReservationsInTimeSpan(DateTime Start, DateTime End, int oenwrGuestId)
+        {
+            return GetUndeleted().FindAll(res => res.OwnerGuestId == oenwrGuestId && res.StartDate >= Start && res.EndDate <= End);
+        }
+
+        public List<Reservation> GetCanceledInTimeSpan(DateTime Start, DateTime End, int oenwrGuestId)
+        {
+            return GetAll().FindAll(res => res.OwnerGuestId == oenwrGuestId && res.StartDate >= Start && res.EndDate <= End && res.IsDeleted == true );
+        }
+        public List<Reservation> GetAccommodationReservationsInTimeSpan(Accommodation accommodation, DateTime startDate,DateTime endDate)
+        {
+            List<Reservation> reservations = new List<Reservation>();
+            foreach(Reservation reservation in GetUndeleted())
+            {
+                if(reservation.StartDate >= startDate && reservation.EndDate <= endDate && reservation.Accommodation.Id == accommodation.Id)
+                {
+                    reservations.Add(reservation);
+                }
+            }
+            return reservations;
+        }
 
     }
 }

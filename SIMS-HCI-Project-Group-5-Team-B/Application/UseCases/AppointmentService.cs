@@ -15,10 +15,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     {
         private IAppointmentRepository appointmentRepository;
         private TourAttendanceService tourAttendanceService;
+        private VoucherService voucherService;
         public AppointmentService()
         {
             this.tourAttendanceService = new TourAttendanceService();
             this.appointmentRepository = Injector.Injector.CreateInstance<IAppointmentRepository>();
+            this.voucherService = new VoucherService();
         }
 
         public Appointment Find(int appointmentId)
@@ -59,6 +61,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
                 }
             }
             return heldAppointments;
+        }
+
+        public List<string> GetAllYears()
+        {
+            return GetAll().Select(a => a.Start.Year.ToString()).Distinct().ToList();
         }
 
         public List<TourAttendance> GetAllFor(int guideGuestId)
@@ -127,6 +134,27 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             if (appointments.Count() == 0)
                 return null;
             return appointments;
+        }
+        public Appointment StartedAppointment(int guideId)
+        {
+            foreach (Appointment appointment in GetAll())
+            {
+                if (appointment.Started == true && appointment.Ended != true && guideId == appointment.GuideId)
+                {
+                    return appointment;
+                }
+            }
+            return null;
+        }
+        public void CancelAllGuideAppointments(int guideId) 
+        {
+            List<Appointment> all = appointmentRepository.GetAll().FindAll(a => a.GuideId == guideId).ToList();
+            foreach(Appointment appointment in all)
+            {
+                appointment.Cancelled = true;
+                voucherService.SendVouchers(guideId, appointment.Id);
+                appointmentRepository.Update(appointment);
+            }
         }
         public void Save(Appointment newAppointment)
         {

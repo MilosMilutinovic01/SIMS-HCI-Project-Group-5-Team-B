@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         
         Keyboard.KeyDown="Window_KeyDown" WindowStartupLocation="CenterScreen"
-        Title="OwnerGuestWindow" Height="620" Width="920">
+        Title="OwnerGuestWindow" Height="620" Width="930">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -24,7 +24,7 @@
         Background="#737eb3"
         BorderBrush="black" 
             FontWeight="Bold"
-            
+            x:Name="menu"
         BorderThickness="1" Height="45" Width="920"
             Keyboard.KeyDown="Window_KeyDown">
 
@@ -34,14 +34,14 @@
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
 
-            <MenuItem Header="Account F1 "></MenuItem>
-            <MenuItem Header="Accommodations F2 " Click="ShowAccomodation_Button_Click"></MenuItem>
-            <MenuItem Header="Anywhere/Anytime F3 "></MenuItem>
+            <MenuItem x:Name="accountMI" Header="Account F1 " Click="Account_Click"></MenuItem>
+            <MenuItem x:Name="accommodationMI" Header ="Accommodations F2 " Click="ShowAccomodation_Button_Click"></MenuItem>
+            <MenuItem x:Name ="aaMI"  Header="Anywhere/Anytime F3" Click="AnywhereAnytime_Click"></MenuItem>
 
-            <MenuItem Header="Reservations F4 " Click="Reservations_Button_Click"></MenuItem>
-            <MenuItem Header="Grades F5 " Click="Grades_Button_Click"></MenuItem>
-            <MenuItem Header="Forum F6 " ></MenuItem>
-            <MenuItem Header="Notifications F7 " Click="Notifications_Button_Click"></MenuItem>
+            <MenuItem x:Name="reservationsMI" Header="Reservations F4 " Click="Reservations_Button_Click"></MenuItem>
+            <MenuItem x:Name="gradesMI" Header="Grades F5 " Click="Grades_Button_Click"></MenuItem>
+            <MenuItem x:Name="forumMI" Header="Forum F6 " Click="Forums_Click"></MenuItem>
+            <MenuItem x:Name="notificationsMI" Header="Notifications F7 " Click="Notifications_Button_Click"></MenuItem>
         </Menu>
         <Frame Name="frame" NavigationUIVisibility="Hidden" Grid.Row="1" Width="920"></Frame>
     </Grid>

@@ -21,7 +21,7 @@
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="My Grades" VerticalAlignment="Center" FontSize="30" FontWeight="DemiBold" Margin="20 0 0 0"></TextBlock>
+        <TextBlock Grid.Row="0" Text="My Grades" VerticalAlignment="Center" FontSize="24" FontWeight="DemiBold" Margin="20 0 0 0"></TextBlock>
         <DataGrid Margin="20 0 20 0" Grid.Row="1" Grid.Column="1" x:Name="ReservationsRequestsGrid" ItemsSource="{Binding Path=GradeDTOs, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedGrade, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                       AutoGenerateColumns="False" IsReadOnly="True">
@@ -36,35 +36,38 @@
                 <DataGridTextColumn Header="Location" Binding="{Binding Grade.Reservation.Accommodation.Location}" Width="2.2*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Start" Binding="{Binding Grade.Reservation.StartDate, Converter={StaticResource DateConverter}}" Width="0.7*"></DataGridTextColumn>
                 <DataGridTextColumn Header="End" Binding="{Binding Grade.Reservation.EndDate, Converter={StaticResource DateConverter}}" Width="0.7*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Paid on Time" Binding="{Binding CompletedOnTime}" Width="*">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
+                <DataGridTextColumn  Binding="{Binding CompletedOnTime}" Width="*">
+                    <DataGridTextColumn.Header>
+
+                        <TextBlock  Text="Paid 
+                                    on Time" Margin="0" TextWrapping="Wrap"/>
+
+                    </DataGridTextColumn.Header>
 
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Guestst` Complaints" Binding="{Binding GuestsComplaints}" Width="*">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
+                <DataGridTextColumn  Binding="{Binding GuestsComplaints}" Width="*">
+                    <DataGridTextColumn.Header>
+
+                        <TextBlock  Text="Guestst`
+                                    Complaints" Margin="0" TextWrapping="Wrap"/>
+
+                    </DataGridTextColumn.Header>
 
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Average Grade" Binding="{Binding AverageGrade}" Width="*">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
+                <DataGridTextColumn  Binding="{Binding AverageGrade}" Width="*">
+                    <DataGridTextColumn.Header>
+
+                        <TextBlock  Text="Average
+                                    Grade" Margin="0" TextWrapping="Wrap"/>
+
+                    </DataGridTextColumn.Header>
 
                 </DataGridTextColumn>
                 <DataGridTemplateColumn x:Name="ButtonColumn">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <WrapPanel FlowDirection="LeftToRight">
-                                <Button Margin="5" Width="66" x:Name="Details" Command="{Binding DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                <Button Margin="5" Width="66" x:Name="Details" Background="#a2a2c8" Command="{Binding DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                     <Button.Content>
                                         <TextBlock  TextWrapping="Wrap" Text="Details    Ctrl + D" TextAlignment="Center"></TextBlock>
                                     </Button.Content>

@@ -47,7 +47,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public void GetAccommodationNames(Owner owner)
         {
-            foreach (Accommodation accommodation in accommodationService.GetAll())
+            foreach (Accommodation accommodation in accommodationService.GetUndeleted())
             {
                 if (accommodation.Owner.Id == owner.Id)
                 {
@@ -87,7 +87,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             if(SelectedYearlyAccommodationStatistics != null)
             {
-                MonthlyAccommodationStatisticsWindow monthlyAccommodationStatisticsWindow = new MonthlyAccommodationStatisticsWindow(SelectedYearlyAccommodationStatistics, monthlyAccommodationStatisticsService, accommodationId);
+                MonthlyAccommodationStatisticsWindow monthlyAccommodationStatisticsWindow = new MonthlyAccommodationStatisticsWindow(SelectedYearlyAccommodationStatistics, monthlyAccommodationStatisticsService, accommodationId,accommodationService);
                 monthlyAccommodationStatisticsWindow.Show();
             }
         }
