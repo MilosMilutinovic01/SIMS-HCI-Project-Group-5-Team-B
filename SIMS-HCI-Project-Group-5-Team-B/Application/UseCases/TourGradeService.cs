@@ -11,10 +11,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     public class TourGradeService
     {
         private ITourGradeRepository tourGradeRepository;
+        TourAttendanceService tourAttendanceService;
+        AppointmentService appointmentService;
 
         public TourGradeService()
         {
             this.tourGradeRepository = Injector.Injector.CreateInstance<ITourGradeRepository>();
+            this.tourAttendanceService = new TourAttendanceService();
+            this.appointmentService = new AppointmentService();
         }
 
         public void Save(TourGrade tourGrade)
@@ -35,6 +39,24 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return GetGradeFor(guideGuestId, tourAttendanceId) != null;
         }
 
+        public double GetAverageGrade(int guideId, string language)
+        {
+            double averageGrade = 0;
+            int counter = 0;
+            foreach(TourGrade tg in tourGradeRepository.GetAll())
+            {
+                TourAttendance ta = tourAttendanceService.GetById(tg.TourAttendanceId);
+                Appointment a = appointmentService.getById(ta.AppointmentId);
+                if(a.GuideId == guideId && a.Tour.Language.Equals(language))
+                {
+                    averageGrade += (double)(tg.GuideGeneralKnowledge + tg.GuideLanguageKnowledge + tg.TourFun) / 3;
+                    counter += 1;
+                }
+            }
+            if(counter!=0)
+                return averageGrade / counter;
+            return averageGrade;
+        }
         public List<TourGrade> GetAll()
         {
             return tourGradeRepository.GetAll();

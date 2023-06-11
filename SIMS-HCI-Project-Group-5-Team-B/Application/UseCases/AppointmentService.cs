@@ -154,6 +154,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
                 return null;
             return appointments;
         }
+        public string GetFinishedToursLastYear(int userId)
+        {
+            return appointmentRepository.GetAll()
+                .Where(a => a.Ended == true && a.Start >= DateTime.Now.AddYears(-1) && a.GuideId == userId)
+                .Select(a => a.Tour.Language)
+                .GroupBy(language => language)
+                .Where(group => group.Count() > 20)
+                .OrderByDescending(group => group.Count())
+                .Select(group => group.Key)
+                .FirstOrDefault();
+        }
         public List<Appointment> GetScheduledToursForPeriod(DateTime start,DateTime end)
         {
             return GetAll().FindAll(a => a.Start.Date >= start && a.Start.Date <= end);
