@@ -22,6 +22,7 @@ using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Media.Effects;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
 {
@@ -335,8 +336,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Window window = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            if (window != null)
+            {
+                window.Effect = new BlurEffect();
+            }
             PreviewImageWindow previewImageWindow = new PreviewImageWindow("../../../Resources/TourImages/" + SelectedImage);
-            previewImageWindow.Show();
+            previewImageWindow.ShowDialog();
+            window.Effect = null;
         }
 
         private void ImagesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

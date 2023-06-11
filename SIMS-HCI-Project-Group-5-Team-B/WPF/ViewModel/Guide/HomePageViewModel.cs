@@ -27,7 +27,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private UserService userService;
         private GuideService guideService;
         private AppointmentService appointmentService;
-        private VoucherService voucherService;
+        private TourGradeService tourGradeService;
+        private TourAttendanceService tourAttendanceService;
         private bool checker;
         public Frame frame;
         public SIMS_HCI_Project_Group_5_Team_B.Domain.Models.Guide guide;
@@ -150,8 +151,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             userService = new UserService();
             guideService = new GuideService();
             appointmentService = new AppointmentService();
+            tourAttendanceService = new TourAttendanceService();
             Username = "Username: " + guide.Username;
-            if (guide.AverageGrade > 4)
+            if (guide.AverageGrade >= 4)
                 SuperGuide = "Super-guide: yes";
             else
                 SuperGuide = "Super-guide: no";

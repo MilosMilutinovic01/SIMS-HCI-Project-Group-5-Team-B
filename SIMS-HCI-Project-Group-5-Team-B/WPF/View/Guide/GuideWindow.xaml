@@ -262,12 +262,14 @@
                 <Image Source="/Resources/Images/bellIcon.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
             </Button>
         </Grid>
-        <Frame x:Name="frame" NavigationUIVisibility="Hidden" Background="Black" BorderBrush="Black">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="ContentRendered">
-                    <i:InvokeCommandAction Command="{Binding LoadWizardCommand}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </Frame>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+            <Frame x:Name="frame" NavigationUIVisibility="Hidden" Background="Black" BorderBrush="Black">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ContentRendered">
+                        <i:InvokeCommandAction Command="{Binding LoadWizardCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Frame>
+        </ScrollViewer>
     </DockPanel>
 </Window>

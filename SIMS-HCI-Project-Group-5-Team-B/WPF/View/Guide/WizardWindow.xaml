@@ -18,7 +18,8 @@
                         <ColumnDefinition Width="5*"></ColumnDefinition>
                         <ColumnDefinition Width="7*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Foreground="GhostWhite" Grid.Column="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Hamburger icon: It opens a menu when clicked.
+                    <TextBlock Foreground="GhostWhite" Grid.Column="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        Hamburger icon: It opens a menu when clicked.
                         Three dots: Clicking them opens a popup with more options.
                         Navigation area: Used to navigate to important pages and perform actions described by buttons.
                         User info: Displays basic information about the user, such as username and superGuide status.
@@ -62,13 +63,15 @@
                         <ColumnDefinition Width="7*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Foreground="GhostWhite" Grid.Column="0" TextWrapping="Wrap" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        Hamburger icon: It opens a menu when clicked.
-                        Three dots: Clicking them opens a popup with more options.
-                        Navigation area: Used to navigate to important pages and perform actions described by buttons.
-                        User info: Displays basic information about the user, such as username and superGuide status.
-                        Action bar: It has three functions for navigation - going backward, returning to the home page, and accessing the notifications page.
+                        Create Tour: Add new tours with destinations, itineraries, and pricing.
+                        Tour Tracking: Monitor the status and progress of your tours.
+                        Upcoming Tours: View a list of scheduled tours.
+                        My Tours: Manage your own tours.
+                        Reviews: Check feedback from customers.
+                        Tour Requests: Handle inquiries and communicate with potential customers.
+                        Tour Requests with Stats: Analyze statistical insights for tour requests.
                     </TextBlock>
-                    <Image Grid.Column="1" Source="/Resources/WizardImages/homePage.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Image>
+                    <Image Grid.Column="1" Source="/Resources/WizardImages/menuBar.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Image>
                 </Grid>
             </xctk:WizardPage>
             <xctk:WizardPage x:Name="Page3"
