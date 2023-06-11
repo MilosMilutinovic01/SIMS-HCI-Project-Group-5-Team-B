@@ -32,7 +32,7 @@
             <Grid Width="200" Height="Auto" Background="#202122">
                 <TextBlock Padding="10" Foreground="GhostWhite" TextWrapping="Wrap">
                     This is a page for a tour request acceptance. It includes various controls such as buttons, popups, and data grids for managing tour requests. The page allows users to filter tour requests based on different criteria like state, city, language, maximum guests, start date, and end date. Users can view and interact with the tour requests using the provided options. The page also provides a help button for further assistance. Enjoy using the application!<LineBreak/><LineBreak/>Feel free to explore and use these elements to manage your account and access different sections. Click the 'Help' button if you need further assistance.
-                    <LineBreak/><LineBreak/>Enjoy using the application!"
+                    <LineBreak/><LineBreak/>Enjoy using the application!
                 </TextBlock>
             </Grid>
         </Popup>

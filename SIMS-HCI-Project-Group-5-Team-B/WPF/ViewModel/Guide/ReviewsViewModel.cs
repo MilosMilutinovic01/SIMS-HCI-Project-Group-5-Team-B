@@ -37,81 +37,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Cards)));
             }
         }
-
-        private bool firstStar;
-
-        public bool FirstStar
-        {
-            get { return firstStar; }
-            set
-            {
-                if (firstStar != value)
-                {
-                    firstStar = value;
-                    OnPropertyChanged(nameof(FirstStar));
-                }
-            }
-        }
-
-        private bool secondStar;
-
-        public bool SecondStar
-        {
-            get { return secondStar; }
-            set
-            {
-                if (secondStar != value)
-                {
-                    secondStar = value;
-                    OnPropertyChanged(nameof(SecondStar));
-                }
-            }
-        }
-
-        private bool thirdStar;
-
-        public bool ThirdStar
-        {
-            get { return thirdStar; }
-            set
-            {
-                if (thirdStar != value)
-                {
-                    thirdStar = value;
-                    OnPropertyChanged(nameof(ThirdStar));
-                }
-            }
-        }
-
-        private bool fourthStar;
-
-        public bool FourthStar
-        {
-            get { return fourthStar; }
-            set
-            {
-                if (fourthStar != value)
-                {
-                    fourthStar = value;
-                    OnPropertyChanged(nameof(FourthStar));
-                }
-            }
-        }
-
-        private bool fifthStar;
-
-        public bool FifthStar
-        {
-            get { return fifthStar; }
-            set
-            {
-                if (fifthStar != value)
-                {
-                    fifthStar = value;
-                    OnPropertyChanged(nameof(FifthStar));
-                }
-            }
-        }
         private bool isOpenedPopup;
         public bool IsOpenedPopup
         {
@@ -140,20 +65,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             IsOpenedPopup = !IsOpenedPopup;
         }
-        private void RatingStars()
-        {
-            //if (Comment.AverageRating < 5)
-            //    FifthStar = false;
-            //if (Comment.AverageRating < 4)
-            //    FourthStar = false;
-            //if (Comment.AverageRating < 3)
-            //    ThirdStar = false;
-            //if (Comment.AverageRating < 2)
-            //    SecondStar = false;
-            //if (Comment.AverageRating < 1)
-            //    FirstStar = false;
-        }
-
         public ReviewsViewModel(int userId)
         {
             this.tourAttendanceService = new TourAttendanceService();
@@ -178,12 +89,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.MoreCommand = new RelayCommandWithParams(More);
             this.OpenPopupCommand = new RelayCommand(Execute_OpenPopupCommand, CanExecute_NavigateCommand);
 
-            FifthStar = true;
-            ThirdStar = true;
-            FourthStar = true;
-            FirstStar = true;
-            SecondStar = true;
-            RatingStars();
             IsOpenedPopup = false;
         }
 

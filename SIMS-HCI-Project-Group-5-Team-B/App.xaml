@@ -119,18 +119,25 @@
                 <Setter Property="Foreground" Value="GhostWhite"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="CanUserAddRows" Value="False"/>
+                <!--<Setter Property="S" Value="False"/>-->
                 <Setter Property="CanUserDeleteRows" Value="False"/>
                 <Setter Property="CanUserResizeColumns" Value="True"/>
                 <Setter Property="CanUserResizeRows" Value="False"/>
                 <Setter Property="CellStyle">
+
                     <Setter.Value>
                         <Style TargetType="DataGridCell">
                             <Setter Property="BorderThickness" Value="0"/>
                             <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
                             <Setter Property="Foreground" Value="GhostWhite"/>
                             <Setter Property="Height" Value="25"/>
-                            <Setter Property="HorizontalAlignment" Value="Center"/>
                             <Setter Property="Width" Value="Auto"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#2A2B2A"/>
+                                </Trigger>
+                            </Style.Triggers>
                         </Style>
                     </Setter.Value>
                 </Setter>

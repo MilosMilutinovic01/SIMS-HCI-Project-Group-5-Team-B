@@ -26,7 +26,9 @@
     <None Remove="Resources\Images\OwnerMedalImage.png" />
     <None Remove="Resources\Images\OwnerProfile.png" />
     <None Remove="Resources\Images\plusIcon.png" />
+    <None Remove="Resources\Images\previewIcon.png" />
     <None Remove="Resources\Images\profile.png" />
+    <None Remove="Resources\Images\removeIcon.png" />
     <None Remove="Resources\Images\requestIcon.png" />
     <None Remove="Resources\Images\reviewsIcon.png" />
     <None Remove="Resources\Images\StarImage.png" />
@@ -37,6 +39,12 @@
     <None Remove="Resources\WizardImages\dropMenu.png" />
     <None Remove="Resources\WizardImages\homePage.png" />
     <None Remove="Resources\WizardImages\menuBar.png" />
+    <None Remove="Resources\WizardImages\myToursPage.png" />
+    <None Remove="Resources\WizardImages\reviewsPage.png" />
+    <None Remove="Resources\WizardImages\tourRequestPage.png" />
+    <None Remove="Resources\WizardImages\tourRequestWithStatisticsPage.png" />
+    <None Remove="Resources\WizardImages\trackingTourLivePage.png" />
+    <None Remove="Resources\WizardImages\upcomingToursPage.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +64,12 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\leftArrow.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\previewIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\removeIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\statisticsIcon.png">
@@ -127,6 +141,24 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\WizardImages\menuBar.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\myToursPage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\reviewsPage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\tourRequestPage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\tourRequestWithStatisticsPage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\trackingTourLivePage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\WizardImages\upcomingToursPage.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

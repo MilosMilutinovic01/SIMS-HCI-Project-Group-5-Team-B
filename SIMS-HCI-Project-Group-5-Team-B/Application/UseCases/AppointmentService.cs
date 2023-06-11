@@ -15,10 +15,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     {
         private IAppointmentRepository appointmentRepository;
         private TourAttendanceService tourAttendanceService;
+        private VoucherService voucherService;
         public AppointmentService()
         {
             this.tourAttendanceService = new TourAttendanceService();
             this.appointmentRepository = Injector.Injector.CreateInstance<IAppointmentRepository>();
+            this.voucherService = new VoucherService();
         }
 
         public Appointment Find(int appointmentId)
@@ -166,6 +168,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
                 }
             }
             return null;
+        }
+        public void CancelAllGuideAppointments(int guideId)
+        {
+            List<Appointment> all = appointmentRepository.GetAll().FindAll(a => a.GuideId == guideId).ToList();
+            foreach (Appointment appointment in all)
+            {
+                appointment.Cancelled = true;
+                voucherService.SendVouchers(guideId, appointment.Id);
+                appointmentRepository.Update(appointment);
+            }
         }
         public void Save(Appointment newAppointment)
         {

@@ -25,6 +25,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public string SuperGuide { get; set; }
 
         private UserService userService;
+        private GuideService guideService;
+        private AppointmentService appointmentService;
+        private VoucherService voucherService;
         private bool checker;
         public Frame frame;
         public SIMS_HCI_Project_Group_5_Team_B.Domain.Models.Guide guide;
@@ -107,6 +110,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             bool result = MessageBox.Show("Are you sure you want to resign?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
             if (result)
             {
+                this.guide.Resigned = true;
+                guideService.Update(this.guide);
+                userService.DeleteUser(userService.GetById(guide.Id));
+                appointmentService.CancelAllGuideAppointments(guide.Id);
                 Window window = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
                 if (window != null)
                 {
@@ -141,8 +148,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             HelpMessage = "Home page help message";
 
             userService = new UserService();
-            Username = "Username: " + userService.getLogged().Username;
-            SuperGuide = "Super-guide: no";
+            guideService = new GuideService();
+            appointmentService = new AppointmentService();
+            Username = "Username: " + guide.Username;
+            if (guide.AverageGrade > 4)
+                SuperGuide = "Super-guide: yes";
+            else
+                SuperGuide = "Super-guide: no";
             this.NavigateToUpcomingToursPageCommand = new RelayCommand(Execute_NavigateToUpcomingToursPageCommand, CanExecute_NavigateCommand);
             this.NavigateToMyToursPageCommand = new RelayCommand(Execute_NavigateToMyToursPageCommand, CanExecute_NavigateCommand);
             this.NavigateToReviewsPageCommand = new RelayCommand(Execute_NavigateToReviewsPageCommand, CanExecute_NavigateCommand);

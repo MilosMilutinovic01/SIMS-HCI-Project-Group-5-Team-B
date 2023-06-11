@@ -28,11 +28,11 @@
                 </TextBlock>
             </Grid>
         </Popup>
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
             <ItemsControl x:Name="Items" ItemsSource="{Binding Cards}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Height="200" BorderBrush="Gray" CornerRadius="5" BorderThickness="1" Margin="5">
+                        <Border BorderBrush="Gray" CornerRadius="5" BorderThickness="1" Margin="5">
                             <Border.Style>
                                 <Style TargetType="Border">
                                     <Setter Property="Background" Value="#171616" />
@@ -58,22 +58,22 @@
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Foreground="GhostWhite" Grid.Row="0" Text="{Binding GuestName}" Width="150" HorizontalAlignment="Left" Margin="10,5,0,0" FontSize="16" FontWeight="Normal" FontFamily="Elephant" />
-                                <TextBlock Foreground="GhostWhite" Grid.Row="1" Text="{Binding TourName, StringFormat='Tour name: {0}'}" FontWeight="Normal" Margin="10,0,0,0" />
-                                <TextBlock Foreground="GhostWhite" Grid.Row="2" Text="{Binding KeyPointName, StringFormat='Key point: {0}'}" FontWeight="Normal" Margin="10,0,0,0" />
+                                <TextBlock Foreground="GhostWhite" Grid.Row="0" Text="{Binding GuestName}" Width="150" HorizontalAlignment="Left" Margin="10,10,0,0" FontSize="16" FontWeight="Normal" FontFamily="Elephant" />
+                                <TextBlock Foreground="GhostWhite" Grid.Row="1" Text="{Binding TourName, StringFormat='Tour name: {0}'}" FontWeight="Normal" Margin="10,10,0,0" />
+                                <TextBlock Foreground="GhostWhite" Grid.Row="2" Text="{Binding KeyPointName, StringFormat='Key point: {0}'}" FontWeight="Normal" Margin="10,10,0,0" />
                                 <DockPanel Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="0">
                                     <StackPanel>
-                                        <TextBlock Foreground="GhostWhite" Text="{Binding GeneralKnowledge, StringFormat='General knowledge: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                        <TextBlock Foreground="GhostWhite" Text="{Binding LanguageKnowledge, StringFormat='Language knowledge: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                        <TextBlock Foreground="GhostWhite" Text="{Binding TourFun, StringFormat='Tour fun: {0}'}" FontWeight="Normal" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                        <TextBlock Foreground="GhostWhite" Text="{Binding GeneralKnowledge, StringFormat='General knowledge: {0}/5'}" FontWeight="Normal" Margin="10,10,0,0" HorizontalAlignment="Left" />
+                                        <TextBlock Foreground="GhostWhite" Text="{Binding LanguageKnowledge, StringFormat='Language knowledge: {0}/5'}" FontWeight="Normal" Margin="10,10,0,0" HorizontalAlignment="Left" />
+                                        <TextBlock Foreground="GhostWhite" Text="{Binding TourFun, StringFormat='Tour fun: {0}/5'}" FontWeight="Normal" Margin="10,10,0,0" HorizontalAlignment="Left" />
                                     </StackPanel>
                                 </DockPanel>
                                 <CheckBox Foreground="GhostWhite" Grid.Row="3" Grid.Column="1" IsChecked="{Binding Valid}" HorizontalAlignment="Right" Margin="0,0,10,0">Valid</CheckBox>
-                                <TextBlock Foreground="GhostWhite" Grid.Row="5" Grid.RowSpan="2" ScrollViewer.CanContentScroll="True" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding Comment, StringFormat='Comment: {0}'}" Margin="10,0,0,0" FontWeight="Normal" Height="50" HorizontalAlignment="Left" />
+                                <!--<TextBlock Foreground="GhostWhite" Grid.Row="5" Grid.RowSpan="2" ScrollViewer.CanContentScroll="True" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding Comment, StringFormat='Comment: {0}'}" Margin="10,10,10,0" FontWeight="Normal" Height="50" HorizontalAlignment="Left" />-->
                                 <Button Style="{StaticResource GuideButton}" Grid.Row="7" Grid.Column="0" Command="{Binding DataContext.MoreCommand, ElementName=Items}"
-                                        CommandParameter="{Binding}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">More</Button>
+                                        CommandParameter="{Binding}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,0,10">More</Button>
                                 <Button Style="{StaticResource GuideButton}" Grid.Row="7" Grid.Column="1" Command="{Binding DataContext.ReportCommand, ElementName=Items}"
-                                        CommandParameter="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">Report</Button>
+                                        CommandParameter="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,10,10,10">Report</Button>
                             </Grid>
                         </Border>
                     </DataTemplate>

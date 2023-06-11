@@ -14,20 +14,20 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Panel.ZIndex="1" Grid.Row="0" x:Name="HelpButton" Command="{Binding OpenPopupCommand}" Style="{StaticResource GuideNavButton}" Height="30" Width="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0">
-            <Image Source="/Resources/Images/helpIcon.png" HorizontalAlignment="Center"/>
-        </Button>
-        <Popup x:Name="popup" PlacementTarget="{Binding ElementName=HelpButton}" IsOpen="{Binding IsOpenedPopup, UpdateSourceTrigger=PropertyChanged}" Placement="Bottom" HorizontalOffset="-170">
-            <Grid Width="200" Height="Auto" Background="#202122">
-                <TextBlock Padding="10" Foreground="GhostWhite" TextWrapping="Wrap">
+        <StackPanel Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Stretch">
+            <Button Panel.ZIndex="1" x:Name="HelpButton" Command="{Binding OpenPopupCommand}" Style="{StaticResource GuideNavButton}" Height="30" Width="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0">
+                <Image Source="/Resources/Images/helpIcon.png" HorizontalAlignment="Center"/>
+            </Button>
+            <Popup x:Name="popup" PlacementTarget="{Binding ElementName=HelpButton}" IsOpen="{Binding IsOpenedPopup, UpdateSourceTrigger=PropertyChanged}" Placement="Bottom" HorizontalOffset="-170">
+                <Grid Width="200" Height="Auto" Background="#202122">
+                    <TextBlock Padding="10" Foreground="GhostWhite" TextWrapping="Wrap">
                     Welcome to the Upcoming Tours page! Here, you can view and manage your upcoming tours.
                     <LineBreak/>In the 'Upcoming tours' section, you will see a list of your scheduled tours. Each tour entry includes details such as the name, start time, state, and city. To cancel a tour, click the 'Cancel' button.
                     <LineBreak/><LineBreak/>Feel free to explore and use these elements to manage your account and access different sections. Click the 'Help' button if you need further assistance.
                     <LineBreak/><LineBreak/>Enjoy using the application!
-                </TextBlock>
-            </Grid>
-        </Popup>
-        <StackPanel Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Stretch">
+                    </TextBlock>
+                </Grid>
+            </Popup>
             <TextBlock Foreground="GhostWhite" FontSize="16" Margin="5">Upcoming tours:</TextBlock>
             <DataGrid Style="{StaticResource GuideDataGrid}" x:Name="AvailableAppointmentDataGrid" ItemsSource="{Binding Path=AvailableAppointments}" SelectedItem="{Binding Path=SelectedAppointment}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
@@ -46,7 +46,7 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <Grid Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Stretch">
+        <Grid Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>

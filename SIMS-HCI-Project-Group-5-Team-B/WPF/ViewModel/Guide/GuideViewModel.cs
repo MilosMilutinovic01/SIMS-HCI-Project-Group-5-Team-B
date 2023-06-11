@@ -128,8 +128,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 Properties.Settings.Default.Save();
                 window.Effect = null;
             }
-            //Properties.Settings.Default.Wizard = false;
-            //Properties.Settings.Default.Save();
+            Properties.Settings.Default.Wizard = false;
+            Properties.Settings.Default.Save();
         }
         private void Execute_ToggleOpenCommand()
         {
