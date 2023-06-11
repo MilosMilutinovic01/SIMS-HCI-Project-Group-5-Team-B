@@ -54,7 +54,7 @@
                      Height="30">
             </TextBox>
             <ComboBox Name="Type_ComboBox" Grid.Row="1" Grid.Column="1" 
-                      Text="{Binding Path=Type, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                      Text="{Binding Path=Accommodation.Type, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Height="30">
                 <ComboBoxItem Content="Apartment"></ComboBoxItem>
                 <ComboBoxItem Content="House"></ComboBoxItem>
