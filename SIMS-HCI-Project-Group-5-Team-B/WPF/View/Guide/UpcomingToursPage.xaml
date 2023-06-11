@@ -5,17 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
         mc:Ignorable="d"
-        Title="TourCancelWindow" Height="700" Width="430" Background="White">
+        Title="TourCancelWindow" Height="680" Background="Black">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="1">
-            <TextBlock FontSize="16" Margin="5">Upcoming tours:</TextBlock>
-            <DataGrid x:Name="AvailableAppointmentDataGrid" ItemsSource="{Binding Path=AvailableAppointments}" SelectedItem="{Binding Path=SelectedAppointment}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False">
+        <StackPanel Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Stretch">
+            <Button Panel.ZIndex="1" x:Name="HelpButton" Command="{Binding OpenPopupCommand}" Style="{StaticResource GuideNavButton}" Height="30" Width="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0">
+                <Image Source="/Resources/Images/helpIcon.png" HorizontalAlignment="Center"/>
+            </Button>
+            <Popup x:Name="popup" PlacementTarget="{Binding ElementName=HelpButton}" IsOpen="{Binding IsOpenedPopup, UpdateSourceTrigger=PropertyChanged}" Placement="Bottom" HorizontalOffset="-170">
+                <Grid Width="200" Height="Auto" Background="#202122">
+                    <TextBlock Padding="10" Foreground="GhostWhite" TextWrapping="Wrap">
+                    Welcome to the Upcoming Tours page! Here, you can view and manage your upcoming tours.
+                    <LineBreak/>In the 'Upcoming tours' section, you will see a list of your scheduled tours. Each tour entry includes details such as the name, start time, state, and city. To cancel a tour, click the 'Cancel' button.
+                    <LineBreak/><LineBreak/>Feel free to explore and use these elements to manage your account and access different sections. Click the 'Help' button if you need further assistance.
+                    <LineBreak/><LineBreak/>Enjoy using the application!
+                    </TextBlock>
+                </Grid>
+            </Popup>
+            <TextBlock Foreground="GhostWhite" FontSize="16" Margin="5">Upcoming tours:</TextBlock>
+            <DataGrid Style="{StaticResource GuideDataGrid}" x:Name="AvailableAppointmentDataGrid" ItemsSource="{Binding Path=AvailableAppointments}" SelectedItem="{Binding Path=SelectedAppointment}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Tour.Name}" />
                     <DataGridTextColumn Header="Start" Width="*" Binding="{Binding Start}" />
@@ -24,7 +38,7 @@
                     <DataGridTemplateColumn Header="Cancel" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Command="{Binding DataContext.CancelTourCommand, 
+                                <Button Style="{StaticResource GuideButton}" Command="{Binding DataContext.CancelTourCommand, 
                                   RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}" HorizontalAlignment="Center">Cancel</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -32,5 +46,27 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
+        <Grid Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="9*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="GhostWhite">Name:</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="GhostWhite">Start:</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="GhostWhite">State:</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="GhostWhite">City:</TextBlock>
+            <TextBox Background="#2A2B2A" Foreground="GhostWhite" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=SelectedAppointment.Tour.Name,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Background="#2A2B2A" Foreground="GhostWhite" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=SelectedAppointment.Start,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Background="#2A2B2A" Foreground="GhostWhite" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=SelectedAppointment.Tour.Location.State,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Background="#2A2B2A" Foreground="GhostWhite" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=SelectedAppointment.Tour.Location.City,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </Grid>
     </Grid>
 </Page>

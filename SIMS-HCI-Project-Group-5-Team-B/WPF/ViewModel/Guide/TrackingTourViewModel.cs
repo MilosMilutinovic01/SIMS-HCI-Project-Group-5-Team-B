@@ -92,12 +92,29 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                     OnPropertyChanged(nameof(IsHitTestVisibleDataGrid));
                 }
             }
-        }      
+        }
+        private bool isOpenedPopup;
+        public bool IsOpenedPopup
+        {
+            get
+            {
+                return isOpenedPopup;
+            }
+            set
+            {
+                if (isOpenedPopup != value)
+                {
+                    isOpenedPopup = value;
+                    OnPropertyChanged(nameof(IsOpenedPopup));
+                }
+            }
+        }
         public KeyPoint SelectedKeyPoint { get; set; }
         public SIMS_HCI_Project_Group_5_Team_B.Domain.Models.GuideGuest SelectedGuest { get; set; }
         public RelayCommand StartTourCommand { get; set; }
         public RelayCommand EndTourCommand { get; set; }
         public RelayCommand CheckKeyPointCommand { get; set; }
+        public RelayCommand OpenPopupCommand { get; set; }
         public int userId;
 
         #region actions
@@ -105,7 +122,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             return true;
         }
-
+        private void Execute_OpenPopupCommand()
+        {
+            IsOpenedPopup = !IsOpenedPopup;
+        }
         private void Execute_StartTourCommand()
         {
             if (SelectedAppointment.Ended)
@@ -212,6 +232,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.StartTourCommand = new RelayCommand(Execute_StartTourCommand, CanExecute_NavigateCommand);
             this.EndTourCommand = new RelayCommand(Execute_EndTourCommand, CanExecute_NavigateCommand);
             this.CheckKeyPointCommand = new RelayCommand(Execute_CheckKeyPointCommand, CanExecute_NavigateCommand);
+            this.OpenPopupCommand = new RelayCommand(Execute_OpenPopupCommand, CanExecute_NavigateCommand);
 
             //SelectedAppointment = appointmentService.StartedAppointment(userService.getLogged().Id);
             //if(SelectedAppointment != null)
@@ -225,6 +246,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             IsEnabledStartButton = true;
             IsEnabledEndButton = true;
             IsHitTestVisibleDataGrid = true;
+            IsOpenedPopup = false;
             //}
         }
 

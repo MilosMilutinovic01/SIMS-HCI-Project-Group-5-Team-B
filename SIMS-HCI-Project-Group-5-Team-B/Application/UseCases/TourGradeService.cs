@@ -21,6 +21,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             tourGradeRepository.Save(tourGrade);
         }
+        public void Update(TourGrade tourGrade)
+        {
+            tourGradeRepository.Update(tourGrade);
+        }
         public TourGrade? GetGradeFor(int guideGuestId, int tourAttendanceId)
         {
             return tourGradeRepository.GetAll().Find(tg => ((tg.GuideGuestId == guideGuestId) && (tg.TourAttendanceId == tourAttendanceId)));

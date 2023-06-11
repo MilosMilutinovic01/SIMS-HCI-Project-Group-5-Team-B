@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide"
         mc:Ignorable="d"
-        Title="PreviewImageWindow" Width="400" WindowStartupLocation="CenterScreen">
+        Title="PreviewImageWindow" Width="400" WindowStartupLocation="CenterScreen" Background="#171616">
     <Grid>
         <Image x:Name="ImageControl"></Image>
     </Grid>

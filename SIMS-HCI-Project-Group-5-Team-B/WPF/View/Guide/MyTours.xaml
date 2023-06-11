@@ -5,19 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide"
         mc:Ignorable="d"
-        Title="MyTours" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+        Title="MyTours" Height="750" Width="430" Background="Black" WindowStartupLocation="CenterScreen">
     <DockPanel>
-        <DockPanel DockPanel.Dock="top" Height="30">
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                <Button>
-                    <Image Source="/Resources/Images/hamburgerIcon.png" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                </Button>
-                <Label Content="My tours" Margin="15,0,0,0" />
-            </StackPanel>
-            <Button DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Image Source="/Resources/Images/threeDots.png" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            </Button>
-        </DockPanel>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
@@ -33,8 +22,19 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <Button x:Name="HelpButton" Command="{Binding OpenPopupCommand}" Style="{StaticResource GuideNavButton}" Height="30" Width="30" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0">
+                <Image Source="/Resources/Images/helpIcon.png" HorizontalAlignment="Center"/>
+            </Button>
+            <Popup x:Name="popup" PlacementTarget="{Binding ElementName=HelpButton}" IsOpen="{Binding IsOpenedPopup, UpdateSourceTrigger=PropertyChanged}" Placement="Bottom" HorizontalOffset="-170">
+                <Grid Width="200" Height="Auto" Background="#202122">
+                    <TextBlock Padding="10" Foreground="GhostWhite" TextWrapping="Wrap">
+                        This page allows you to view and manage your tours. You can see the most visited tours for a selected year and view all finished tours. Use the provided elements to navigate and customize your tour data. Click 'Show statistics' to see detailed tour statistics."
+                        <LineBreak/><LineBreak/>Feel free to customize the message further based on your specific requirements.
+                    </TextBlock>
+                </Grid>
+            </Popup>
             <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
-                <Label VerticalAlignment="Bottom" HorizontalAlignment="Center">Choose year:</Label>
+                <Label Foreground="GhostWhite" VerticalAlignment="Bottom" HorizontalAlignment="Center">Choose year:</Label>
                 <ComboBox x:Name="ComboBoxYear" HorizontalAlignment="Center" VerticalAlignment="Bottom" SelectionChanged="ComboBox_SelectionChanged">
                     <ComboBoxItem Content="2020"/>
                     <ComboBoxItem Content="2021"/>
@@ -44,7 +44,7 @@
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
                 <TextBlock Text="Most visited in selected year:" HorizontalAlignment="Left"></TextBlock>
-                <DataGrid x:Name="MostVisitedToursDataGrid" ItemsSource="{Binding Path=MostVisitedAppointment}" SelectedItem="{Binding Path=SelectedAppointment}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center">
+                <DataGrid Style="{StaticResource GuideDataGrid}" x:Name="MostVisitedToursDataGrid" ItemsSource="{Binding Path=MostVisitedAppointment}" SelectedItem="{Binding Path=SelectedAppointment}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Tour.Name}" />
                         <DataGridTextColumn Header="State" Width="*" Binding="{Binding Tour.Location.State}" />
@@ -64,7 +64,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
-            <Button Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ShowStatsButton_Click">Show statistics</Button>
+            <Button Style="{StaticResource GuideButton}" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ShowStatsButton_Click">Show statistics</Button>
         </Grid>
     </DockPanel>
 </Window>

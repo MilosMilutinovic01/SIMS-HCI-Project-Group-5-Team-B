@@ -25,12 +25,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
     /// </summary>
     public partial class HomePage : Page
     {
-        public HomePageViewModel homePageViewModel { get; set; }
+        public HomePageViewModel HomePageViewModel { get; set; }
         public HomePage(SIMS_HCI_Project_Group_5_Team_B.Domain.Models.Guide guide, Frame frame)
         {
-            homePageViewModel = new HomePageViewModel(guide, frame);
+            HomePageViewModel = new HomePageViewModel(guide, frame.NavigationService, frame);
             InitializeComponent();
-            this.DataContext = this.homePageViewModel;
+            this.DataContext = this.HomePageViewModel;
         }
     }
 }

@@ -74,12 +74,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Help {
+        public bool Wizard {
             get {
-                return ((bool)(this["Help"]));
+                return ((bool)(this["Wizard"]));
             }
             set {
-                this["Help"] = value;
+                this["Wizard"] = value;
             }
         }
     }

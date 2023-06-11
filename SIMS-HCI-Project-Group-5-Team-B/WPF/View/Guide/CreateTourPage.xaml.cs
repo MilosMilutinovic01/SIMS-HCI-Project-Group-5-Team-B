@@ -19,13 +19,16 @@ using System.Windows.Shapes;
 using System.IO;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
+using SIMS_HCI_Project_Group_5_Team_B.Utilities;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
 {
     /// <summary>
     /// Interaction logic for CreateTourPage.xaml
     /// </summary>
-    public partial class CreateTourPage : Page
+    public partial class CreateTourPage : Page, INotifyPropertyChanged
     {
         //public CreateTourViewModel createTourViewModel { get; set; }
         //public CreateTourPage()
@@ -49,6 +52,31 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         public int MaxGuests { get; set; }
         public string Description { get; set; }
         public string SelectedImage { get; set; }
+        private bool isOpenedPopup;
+        public bool IsOpenedPopup
+        {
+            get
+            {
+                return isOpenedPopup;
+            }
+            set
+            {
+                if (isOpenedPopup != value)
+                {
+                    isOpenedPopup = value;
+                    OnPropertyChanged(nameof(IsOpenedPopup));
+                }
+            }
+        }
+        public RelayCommand OpenPopupCommand { get; set; }
+        private bool CanExecute_NavigateCommand()
+        {
+            return true;
+        }
+        private void Execute_OpenPopupCommand()
+        {
+            IsOpenedPopup = !IsOpenedPopup;
+        }
 
         public List<KeyPoint> keyPoints;
         public List<Appointment> appointments;
@@ -81,6 +109,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             starts = new List<DateTime>();
             locations = locationService.GetAllAsStrings();
             states = locationService.GetStates();
+            this.OpenPopupCommand = new RelayCommand(Execute_OpenPopupCommand, CanExecute_NavigateCommand);
+            IsOpenedPopup = false;
         }
 
         public CreateTourPage(string flag, TourRequest tourRequest)
@@ -135,6 +165,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             this.TourRequest = tourRequest;
             this.Description = tourRequest.Description;
             Tour.Description = tourRequest.Description;
+            this.OpenPopupCommand = new RelayCommand(Execute_OpenPopupCommand, CanExecute_NavigateCommand);
+            IsOpenedPopup = false;
         }
 
         public CreateTourPage(string language, int locationId)
@@ -181,6 +213,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             Tour.Language = language;
             Tour.Location = locationService1.getById(locationId);
             flag = "";
+            this.OpenPopupCommand = new RelayCommand(Execute_OpenPopupCommand, CanExecute_NavigateCommand);
+            IsOpenedPopup = false;
         }
 
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
@@ -353,6 +387,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
                 HelpTextBox.Visibility = Visibility.Visible;
             else
                 HelpTextBox.Visibility = Visibility.Hidden;
+        }
+
+        [field: NonSerialized]
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

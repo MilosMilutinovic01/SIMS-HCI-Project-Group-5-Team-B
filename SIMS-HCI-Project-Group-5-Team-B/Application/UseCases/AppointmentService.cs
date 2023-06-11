@@ -84,6 +84,25 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             }
             return null;
         }
+
+        public int GetGuideWithMostTours()
+        {
+            var a = GetAll()
+            .GroupBy(appointment => appointment.GuideId)
+            .OrderByDescending(group => group.Count())
+            .FirstOrDefault();
+            return a.Key;
+        }
+
+        public string GetMostSpokenLanguage()
+        {
+            var a = GetAll()
+            .GroupBy(appointment => appointment.Tour.Language)
+            .OrderByDescending(group => group.Count())
+            .FirstOrDefault();
+            return a.Key;
+        }
+
         public Appointment GetMostVisitedTour(int year, int userId)
         {
             int id = 0;
@@ -135,6 +154,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
                 return null;
             return appointments;
         }
+        public List<Appointment> GetScheduledToursForPeriod(DateTime start,DateTime end)
+        {
+            return GetAll().FindAll(a => a.Start.Date >= start && a.Start.Date <= end);
+        }
         public Appointment StartedAppointment(int guideId)
         {
             foreach (Appointment appointment in GetAll())
@@ -146,10 +169,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             }
             return null;
         }
-        public void CancelAllGuideAppointments(int guideId) 
+        public void CancelAllGuideAppointments(int guideId)
         {
             List<Appointment> all = appointmentRepository.GetAll().FindAll(a => a.GuideId == guideId).ToList();
-            foreach(Appointment appointment in all)
+            foreach (Appointment appointment in all)
             {
                 appointment.Cancelled = true;
                 voucherService.SendVouchers(guideId, appointment.Id);

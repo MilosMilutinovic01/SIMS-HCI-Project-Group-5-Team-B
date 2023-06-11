@@ -23,10 +23,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     public partial class GuideWindow : Window
     {
         public GuideViewModel GuideViewModel { get; set; }
+        public ViewModel ViewModel { get; set; }
         public GuideWindow(Guide guide)
         {
             InitializeComponent();
             this.GuideViewModel = new GuideViewModel(guide, this.frame.NavigationService, frame);
+            this.ViewModel = new ViewModel();
             this.DataContext = this.GuideViewModel;
         }
     }
