@@ -1,4 +1,6 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.DTO;
@@ -127,7 +129,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         public DateTime SelectedDate { get; set; }
         public int NumberOfPeopleAttending { get; set; }
         #endregion
-
+        #region Tour graphs variables
+        public SeriesCollection NumberOfGuestsSeries { get; set; }
+        public String[] NumberOfGuestsLabels { get; set; }
+        private void LoadGraph()
+        {
+            NumberOfGuestsSeries = new SeriesCollection
+            {
+                new RowSeries
+                {
+                    Title="Number of guests attended",
+                    Values = new ChartValues<double> {4, 21, 13, 20}
+                }
+            };
+            NumberOfGuestsLabels = new[] { "2020", "2021", "2022", "2023"};
+        }
+        #endregion
 
         public ICommand SearchCommand { get; }
         public ICommand ResetCommand { get; }
@@ -159,6 +176,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
             TourClickedCommand = new RelayCommandWithParams(TourClicked_Execute);
             CloseTourInformation = new RelayCommand(CloseTourInformation_Execute);
             BookTour = new RelayCommand(BookTour_Execute);
+
+            LoadGraph();
         }
 
 

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
+             xmlns:liveCharts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:model="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Domain.Models"
              mc:Ignorable="d"
              Height="530" Width="1050" Background="White">
@@ -146,5 +147,32 @@
         </Border>
 
         <!-- Graphs -->
+        <Grid Grid.Row="2" Grid.RowSpan="2" Grid.Column="3" Margin="5, 0, 0, 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <liveCharts:CartesianChart Grid.Row="0" Series="{Binding NumberOfGuestsSeries}"
+                                       LegendLocation="Bottom" Hoverable="False">
+                <liveCharts:CartesianChart.AxisX>
+                    <liveCharts:Axis Title="Number of guests attended" Foreground="Black"/>
+                </liveCharts:CartesianChart.AxisX>
+                <liveCharts:CartesianChart.AxisY>
+                    <liveCharts:Axis Title="Year" Labels="{Binding NumberOfGuestsLabels}" Foreground="Black"/>
+                </liveCharts:CartesianChart.AxisY>
+            </liveCharts:CartesianChart>
+
+            <liveCharts:PieChart Grid.Row="1"
+                                 LegendLocation="Bottom" Hoverable="False">
+                <liveCharts:PieChart.Series>
+                    <liveCharts:PieSeries Title="age&lt;18" Values="3" DataLabels="True"/>
+                    <liveCharts:PieSeries Title="18&lt;age&lt;30" Values="5" DataLabels="True"/>
+                    <liveCharts:PieSeries Title="30&lt;age&lt;50" Values="14" DataLabels="True"/>
+                    <liveCharts:PieSeries Title="age>50" Values="18" DataLabels="True"/>
+                </liveCharts:PieChart.Series>
+            </liveCharts:PieChart>
+
+        </Grid>
     </Grid>
 </UserControl>

@@ -8,7 +8,7 @@
       xmlns:model="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Domain.Models"
       xmlns:forms="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
       xmlns:liveCharts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:dto="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.DTO"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="1050"
       Title="GuideGuestProfilePage" Background="White">
@@ -97,12 +97,12 @@
                     <liveCharts:CartesianChart Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                                                Series="{Binding LanguageSeries}">
                         <liveCharts:CartesianChart.AxisX>
-                            <liveCharts:Axis Title="Languages"
+                            <liveCharts:Axis Title="Languages" Foreground="Black"
                                              Separator="{x:Static liveCharts:DefaultAxes.CleanSeparator}"
                                              Labels="{Binding LanguageLabels}"/>
                         </liveCharts:CartesianChart.AxisX>
                         <liveCharts:CartesianChart.AxisY>
-                            <liveCharts:Axis Title="Number of requests" Labels="{Binding Values}"/>
+                            <liveCharts:Axis Title="Number of requests" Labels="{Binding Values}" Foreground="Black"/>
                         </liveCharts:CartesianChart.AxisY>
                     </liveCharts:CartesianChart>
 
@@ -110,12 +110,12 @@
                     <liveCharts:CartesianChart Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                                                Series="{Binding LocationSeries}">
                         <liveCharts:CartesianChart.AxisX>
-                            <liveCharts:Axis Title="Locations"
+                            <liveCharts:Axis Title="Locations" Foreground="Black"
                                              Separator="{x:Static liveCharts:DefaultAxes.CleanSeparator}"
                                              Labels="{Binding LocationLabels}"/>
                         </liveCharts:CartesianChart.AxisX>
                         <liveCharts:CartesianChart.AxisY>
-                            <liveCharts:Axis Title="Number of requests" Labels="{Binding Values}"/>
+                            <liveCharts:Axis Title="Number of requests" Labels="{Binding Values}" Foreground="Black"/>
                         </liveCharts:CartesianChart.AxisY>
                     </liveCharts:CartesianChart>
                     
@@ -200,7 +200,63 @@
 
                     <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="Your booked tours"/>
 
-                    <DataGrid Grid.Row="1"/>
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding TourAttendances}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
+                        <DataGrid.Resources>
+                            <DataTemplate x:Key="ButtonAtEnd">
+                                <Button x:Name="Visit" Content="Visit"
+                                                    FontSize="13" Width="45" Margin="0, 0, 10, 0" Visibility="Collapsed">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Status, RelativeSource={RelativeSource AncestorType=DataGrid}}" Value="{x:Static dto:TourAttendanceStatus.LIVE}">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </DataTemplate>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tour name" Binding="{Binding Appointment.Tour.Name}"/>
+                            <DataGridTextColumn Header="Date started" Binding="{Binding Appointment.Start}"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+                            <DataGridTemplateColumn Header="Some" CellTemplate="{StaticResource ButtonAtEnd}"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Button x:Name="Visit" Content="Visit"
+                                                    FontSize="13" Width="45" Margin="0, 0, 10, 0" Visibility="Collapsed">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Status,RelativeSource={RelativeSource AncestorType=DataGrid}}" Value="{x:Static dto:TourAttendanceStatus.LIVE}">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                            <Button x:Name="Grade" Content="Grade"
+                                                    FontSize="13" Width="45" Margin="0, 0, 10, 0" Visibility="Visible">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Status}" Value="{x:Static dto:TourAttendanceStatus.LIVE}">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </Grid>
         </Grid>

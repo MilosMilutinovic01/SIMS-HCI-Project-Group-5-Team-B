@@ -4,6 +4,7 @@ using LiveCharts.Definitions.Series;
 using LiveCharts.Wpf;
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.DTO;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls;
 using System;
@@ -27,7 +28,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         public ObservableCollection<Voucher> Vouchers { get; set; }
         public ObservableCollection<TourRequest> TourRequests { get; set; }
         public ObservableCollection<SpecialTourRequest> SpecialTourRequests { get; set; }
-        public ObservableCollection<TourAttendance> TourAttendances { get; set; }
+        public ObservableCollection<GuideGuestTourAttendanceDTO> TourAttendances { get; set; }
 
 
         public ObservableCollection<string> YearsWithTourRequests { get; set; }
@@ -290,6 +291,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
             Vouchers = new ObservableCollection<Voucher>(new VoucherService().GetAllFor(LoggedGuideGuest.Id));
             TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetFor(LoggedGuideGuest.Id));
             SpecialTourRequests = new ObservableCollection<SpecialTourRequest>(new SpecialTourRequestService().GetFor(LoggedGuideGuest.Id));
+            TourAttendances = new ObservableCollection<GuideGuestTourAttendanceDTO>(new TourAttendanceService().GetAllAttendances(LoggedGuideGuest.Id));
             LoadYearsWithTourRequests();
 
 
