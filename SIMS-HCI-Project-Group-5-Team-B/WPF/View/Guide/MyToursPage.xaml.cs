@@ -24,12 +24,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
     /// </summary>
     public partial class MyToursPage : Page
     {
-        public MyToursViewModel myToursViewModel { get; set; }
+        public MyToursViewModel MyToursViewModel { get; set; }
+        public UserService UserService { get; set; }
         public MyToursPage()
         {
+            UserService = new UserService();
             InitializeComponent();
-            this.myToursViewModel = new MyToursViewModel(8);
-            this.DataContext = myToursViewModel;
+            this.MyToursViewModel = new MyToursViewModel(UserService.getLogged().Id);
+            this.DataContext = MyToursViewModel;
         }
     }
 }

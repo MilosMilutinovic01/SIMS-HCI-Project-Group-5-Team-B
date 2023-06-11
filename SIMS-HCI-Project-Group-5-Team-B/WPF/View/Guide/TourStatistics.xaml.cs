@@ -1,6 +1,7 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
+using SIMS_HCI_Project_Group_5_Team_B.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
         private TourController tourController;
         private VoucherService voucherService;
         private TourAttendanceService tourAttendanceService;
+
+        public RelayCommand CloseCommand { get; set; }
+        private bool CanExecute_NavigateCommand()
+        {
+            return true;
+        }
+
+        private void Execute_CloseCommand()
+        {
+            Window window = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            if (window != null)
+            {
+                window.Close();
+            }
+        }
         public TourStatistics(int appointmentId, TourAttendanceService tourAttendanceService)
         {
             InitializeComponent();
@@ -35,6 +51,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             voucherService = new VoucherService();
 
             this.tourAttendanceService = tourAttendanceService;
+            this.CloseCommand = new RelayCommand(Execute_CloseCommand, CanExecute_NavigateCommand);
 
             TourName.Content = tourController.getById(appointmentId).Name;
             int totalGuests = tourAttendanceService.GetTotalGuest(appointmentId);
