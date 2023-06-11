@@ -24,6 +24,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -38,16 +39,18 @@
             <TextBlock Grid.Column="0" Grid.Row="1"
                 Text="Tour parts:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="3"
-                Text="Location:" FontSize="15"/>
+                Text="State:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="4"
-                Text="Language:" FontSize="15"/>
+                Text="City:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="5"
-                Text="Number of guests:" FontSize="15"/>
+                Text="Language:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="6"
-                Text="Date range start:" FontSize="15"/>
+                Text="Number of guests:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="7"
-                Text="Date range end:" FontSize="15"/>
+                Text="Date range start:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="8"
+                Text="Date range end:" FontSize="15"/>
+            <TextBlock Grid.Column="0" Grid.Row="9"
                 Text="Description:" FontSize="15"/>
 
             <WrapPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
@@ -56,13 +59,14 @@
             </WrapPanel>
             <DataGrid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"/>
             <ComboBox Grid.Column="1" Grid.Row="3"/>
-            <TextBox Grid.Column="1" Grid.Row="4"/>
+            <ComboBox Grid.Column="1" Grid.Row="4"/>
             <TextBox Grid.Column="1" Grid.Row="5"/>
-            <DatePicker Grid.Column="1" Grid.Row="6"/>
+            <TextBox Grid.Column="1" Grid.Row="6"/>
             <DatePicker Grid.Column="1" Grid.Row="7"/>
-            <TextBlock Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Background="WhiteSmoke"/>
+            <DatePicker Grid.Column="1" Grid.Row="8"/>
+            <TextBlock Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" Background="WhiteSmoke"/>
 
-            <WrapPanel Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+            <WrapPanel Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" HorizontalAlignment="Right">
                 <Button Content="Save"/>
                 <Button Content="Cancel"/>
             </WrapPanel>

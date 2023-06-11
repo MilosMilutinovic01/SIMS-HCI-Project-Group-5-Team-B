@@ -99,6 +99,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             }
             newTourRequest.SelectedDate = Convert.ToDateTime(values[9], CultureInfo.GetCultureInfo("en-US"));
             newTourRequest.AcceptedTourId = int.Parse(values[10]);
+            newTourRequest.SpecialTourId = int.Parse(values[11]);
             return newTourRequest;
         }
 
@@ -117,6 +118,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
                 obj.Status.ToString(),
                 obj.SelectedDate.ToString(CultureInfo.GetCultureInfo("en-US")),
                 obj.AcceptedTourId.ToString(),
+                obj.SpecialTourId.ToString(),
             };
             return csvValues;
         }

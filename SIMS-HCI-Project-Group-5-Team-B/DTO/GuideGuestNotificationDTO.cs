@@ -19,6 +19,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.DTO
             Notification.Id = notification.Id;
             Notification.ReceiverId = notification.ReceiverId;
             Notification.Message = notification.Message;
+            Notification.AdditionalInfo = notification.AdditionalInfo;
             Notification.IsRead = notification.IsRead;
             Type = notificationType;
         }

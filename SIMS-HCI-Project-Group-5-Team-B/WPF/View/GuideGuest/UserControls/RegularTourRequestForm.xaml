@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
-             x:Name="root"
              mc:Ignorable="d" 
              Height="380" Width="300"
              Background="Transparent">
@@ -15,6 +14,7 @@
 
         <Grid Margin="5">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -34,30 +34,34 @@
                        Text="Regular tour" FontSize="20" FontWeight="DemiBold" Margin="0, 15"/>
 
             <TextBlock Grid.Column="0" Grid.Row="1"
-                Text="Location:" FontSize="15"/>
+                Text="State:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="2"
-                Text="Language:" FontSize="15"/>
+                Text="City:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="3"
-                Text="Number of guests:" FontSize="15"/>
+                Text="Language:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="4"
-                Text="Date range start:" FontSize="15"/>
+                Text="Number of guests:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="5"
-                Text="Date range end:" FontSize="15"/>
+                Text="Date range start:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="6"
+                Text="Date range end:" FontSize="15"/>
+            <TextBlock Grid.Column="0" Grid.Row="7"
                 Text="Description:" FontSize="15"/>
 
-            <ComboBox Grid.Column="1" Grid.Row="1"/>
-            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding TourRequest.Language, ElementName=root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding TourRequest.MaxGuests ,ElementName=root,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <DatePicker Grid.Column="1" Grid.Row="4" Text="{Binding TourRequest.DateRangeStart, ElementName=root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <DatePicker Grid.Column="1" Grid.Row="5" Text="{Binding TourRequest.DateRangeEnd, ElementName=root,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Background="WhiteSmoke"
-                       Text="{Binding TourRequest.Description, ElementName=root, Mode=TwoWay}"/>
+            <ComboBox Grid.Column="1" Grid.Row="1"
+                      ItemsSource="{Binding States}" SelectedItem="{Binding RegularTourSelectedState}"/>
+            <ComboBox Grid.Column="1" Grid.Row="2"
+                      ItemsSource="{Binding RegularTourCities}" SelectedItem="{Binding RegularTourSelectedCity}"/>
+            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding SelectedTourRequest.Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding SelectedTourRequest.MaxGuests, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <DatePicker Grid.Column="1" Grid.Row="5" Text="{Binding SelectedTourRequest.DateRangeStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <DatePicker Grid.Column="1" Grid.Row="6" Text="{Binding SelectedTourRequest.DateRangeEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Background="WhiteSmoke"
+                       Text="{Binding SelectedTourRequest.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <WrapPanel Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Right"
-                       DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
-                <Button x:Name="SaveRegularTourRequestButton" Content="Save" Command="{Binding SaveCommand}"/>
-                <Button x:Name="CancelRegularTourRequestButton" Content="Cancel" Command="{Binding CancelCommand}"/>
+            <WrapPanel Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+                <Button x:Name="SaveRegularTourRequestButton" Content="Save" Command="{Binding SaveRegularTourRequestCommand}"/>
+                <Button x:Name="CancelRegularTourRequestButton" Content="Cancel" Command="{Binding CancelRegularTourRequestCommand}"/>
             </WrapPanel>
         </Grid>
     </Grid>

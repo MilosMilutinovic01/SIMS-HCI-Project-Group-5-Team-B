@@ -80,11 +80,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             Tour createdTour = new TourService().getById(tourId);
 
             NotificationService notificationService = new NotificationService();
+            List<int> sentNotifications = new List<int>();
 
-            foreach(var tourRequest in tourRequestRepository.GetAll())
+            foreach (var tourRequest in tourRequestRepository.GetAll())
             {
-                if(tourRequest.Location == createdTour.Location)
+                if (sentNotifications.Contains(tourRequest.GuideGuestId)) continue;
+                if (tourRequest.Location == createdTour.Location)
                 {
+                    sentNotifications.Add(tourRequest.GuideGuestId);
                     notificationService.SendWithAdditionalInfo(tourRequest.GuideGuestId, "Guide created tour similar to your request", tourId);
                 }
             }
@@ -95,11 +98,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             Tour createdTour = new TourService().getById(tourId);
 
             NotificationService notificationService = new NotificationService();
+            List<int> sentNotifications = new List<int>();
 
             foreach(var tourRequest in tourRequestRepository.GetAll())
             {
+                if (sentNotifications.Contains(tourRequest.GuideGuestId)) continue;
                 if(tourRequest.Language == createdTour.Language)
                 {
+                    sentNotifications.Add(tourRequest.GuideGuestId);
                     notificationService.SendWithAdditionalInfo(tourRequest.GuideGuestId, "Guide created tour similar to your request", tourId);
                 }
             }

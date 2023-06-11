@@ -177,5 +177,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             return GetAll().Find(a => a.Id == id);
         }
+        public List<Appointment> GetAllBookable(int tourId)
+        {
+            return GetAll().FindAll(appointment => appointment.TourId == tourId && appointment.Start > DateTime.Now && !appointment.Started);
+        }
     }
 }
