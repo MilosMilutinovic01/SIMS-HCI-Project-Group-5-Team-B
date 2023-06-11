@@ -1,25 +1,20 @@
 ﻿using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Definitions.Series;
 using LiveCharts.Wpf;
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
 using SIMS_HCI_Project_Group_5_Team_B.DTO;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
-using SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Printing;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using ToastNotifications.Events;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Diagnostics;
+using System.IO;
+using System.Windows;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
 {
@@ -273,7 +268,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         #endregion
 
         public SIMS_HCI_Project_Group_5_Team_B.Domain.Models.GuideGuest LoggedGuideGuest { get; set; }
-        
+
+        public ICommand GeneratePDFReportCommand { get; }
         
         private TourRequestService tourRequestService;
         private TourRequestStatisticsService tourRequestStatisticsService;
@@ -312,8 +308,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
             AddNewPartCommand = new RelayCommand(AddNewPart_Execute);
             RemovePartCommand = new RelayCommand(RemovePart_Execute, CanRemovePart);
 
+            GeneratePDFReportCommand = new RelayCommand(GeneratePDFReport_Execute);
         }
-
 
 
         private void LoadYearsWithTourRequests()
@@ -556,5 +552,100 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         }
         
         
+        private void GeneratePDFReport_Execute()
+        {
+            TourAttendanceService tourAttendanceService = new TourAttendanceService();
+            iTextSharp.text.Document document = new iTextSharp.text.Document();
+            string projectFolderPath = System.IO.Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
+            string folderPath = System.IO.Path.Combine(projectFolderPath, "Resources");
+            string filePath = System.IO.Path.Combine(folderPath, "GuideGuestReportOnTourAttendances.pdf");
+            
+            List<string> data = new List<string>();
+            data.Add("\n\n");
+            data.Add("Name: " + LoggedGuideGuest.Name);
+            data.Add("Surname: " + LoggedGuideGuest.Surname);
+            data.Add("Number of tours booked: " + tourAttendanceService.GetNumberOfBookedTour(LoggedGuideGuest.Id));
+            data.Add("Number of tour attended: " + tourAttendanceService.GetNumberOfAttendances(LoggedGuideGuest.Id));
+
+            try
+            {
+                PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+
+                document.Open();
+
+                Image agencyImage = Image.GetInstance(folderPath + "/Images/logo.jpeg");
+                agencyImage.ScaleToFit(70f, 70f); // Adjust the size as needed
+                agencyImage.Alignment = Image.TEXTWRAP | Image.ALIGN_LEFT;
+                agencyImage.IndentationLeft = 9f;
+                agencyImage.SpacingAfter = 9f;
+                document.Add(agencyImage);
+
+                iTextSharp.text.Paragraph par = new iTextSharp.text.Paragraph("Tourist agency\n     Uspon", new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD));
+                par.Alignment = Element.ALIGN_LEFT;
+                document.Add(par);
+
+                iTextSharp.text.Paragraph header = new iTextSharp.text.Paragraph("\nTour attendances report for the last year (from" + DateTime.Now.AddYears(-1).ToString("d") + " to " + DateTime.Now.ToString("d") + ")", new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD));
+                header.Alignment = Element.ALIGN_CENTER;
+                document.Add(header);
+
+                Paragraph dataParagraph = new Paragraph();
+                foreach (string item in data)
+                {
+                    dataParagraph.Add(new Chunk(item + "\n", new Font(Font.FontFamily.HELVETICA, 12)));
+                }
+                dataParagraph.Add("\n");
+                document.Add(dataParagraph);
+
+                iTextSharp.text.Paragraph text = new iTextSharp.text.Paragraph("\nBooked tours\n\n", new Font(Font.FontFamily.HELVETICA, 18));
+                text.Alignment = Element.ALIGN_CENTER;
+                document.Add(text);
+
+                PdfPTable table = new PdfPTable(4);
+                table.WidthPercentage = 100f;
+
+                for (int i = 0; i < 1; i++)
+                {
+                    table.AddCell(new PdfPCell(new Phrase("Tour name", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD))));
+                    table.AddCell(new PdfPCell(new Phrase("Location", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD))));
+                    table.AddCell(new PdfPCell(new Phrase("Language", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD))));
+                    table.AddCell(new PdfPCell(new Phrase("People attended", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD))));
+                }
+
+                List<GuideGuestTourAttendanceDTO> all = tourAttendanceService.GetAllAttendances(LoggedGuideGuest.Id);
+                foreach (GuideGuestTourAttendanceDTO attendanceDTO in all)
+                {
+                    for (int j = 0; j < 1; j++)
+                    {
+                        table.AddCell(new PdfPCell(new Phrase(attendanceDTO.Appointment.Tour.Name, new Font(Font.FontFamily.HELVETICA, 10))));
+                        table.AddCell(new PdfPCell(new Phrase(attendanceDTO.Appointment.Tour.Location.ToString(), new Font(Font.FontFamily.HELVETICA, 10))));
+                        table.AddCell(new PdfPCell(new Phrase(attendanceDTO.Appointment.Tour.Language, new Font(Font.FontFamily.HELVETICA, 10))));
+                        table.AddCell(new PdfPCell(new Phrase(attendanceDTO.TourAttendance.PeopleAttending.ToString(), new Font(Font.FontFamily.HELVETICA, 10))));
+                    }
+                }
+
+                document.Add(table);
+
+                iTextSharp.text.Paragraph agencyParagraph = new iTextSharp.text.Paragraph("\n\n\nReport generated on: \n" + DateTime.Now.ToString(), new Font(Font.FontFamily.HELVETICA, 13));
+                agencyParagraph.Alignment = Element.ALIGN_RIGHT;
+                document.Add(agencyParagraph);
+
+                Image agencyImage1 = Image.GetInstance(folderPath + "/Images/signature.png");
+                agencyImage1.ScaleToFit(130f, 60f); // Adjust the size as needed
+                agencyImage1.Alignment = Image.TEXTWRAP | Image.ALIGN_RIGHT;
+                agencyImage1.IndentationLeft = 9f;
+                agencyImage1.SpacingAfter = 9f;
+                document.Add(agencyImage1);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error generating PDF: " + ex.Message);
+            }
+            finally
+            {
+                document.Close();
+            }
+            //System.Diagnostics.Process.Start("IExplore.exe", filePath);
+            Process.Start(new ProcessStartInfo { FileName = filePath, UseShellExecute = true });
+        }
     }
 }

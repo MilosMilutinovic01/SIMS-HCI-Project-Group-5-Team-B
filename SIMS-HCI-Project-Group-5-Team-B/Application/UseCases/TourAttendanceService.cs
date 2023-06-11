@@ -82,5 +82,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             }
             return list;
         }
+
+        public int GetNumberOfBookedTour(int guideGuestId)
+        {
+            return GetAllAttendances(guideGuestId).
+                FindAll(attendance => attendance.Appointment.Start > DateTime.Now.AddYears(-1)).Count;
+        }
+
+        public int GetNumberOfAttendances(int guideGuestId)
+        {
+            return GetAllAttendances(guideGuestId).
+                FindAll(attendance => attendance.Appointment.Start > DateTime.Now.AddYears(-1)
+                                        && attendance.TourAttendance.KeyPointGuestArrivedId != -1).Count;
+        }
     }
 }
