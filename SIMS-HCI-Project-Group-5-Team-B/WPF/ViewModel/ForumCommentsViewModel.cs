@@ -226,11 +226,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                     {
                         if (Properties.Settings.Default.currentLanguage == "en-US")
                         {
-                            MessageBox.Show("You have already reported this comment!");
+                            MessageBox.Show("You have already reported this comment!","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
                         }
                         else
                         {
-                            MessageBox.Show("Vec ste bili prijavili ovaj komentar!");
+                            MessageBox.Show("Vec ste bili prijavili ovaj komentar!", "Upozerenje", MessageBoxButton.OK, MessageBoxImage.Warning);
                         }
                         return;
                     }
@@ -288,11 +288,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             {
                 if (Properties.Settings.Default.currentLanguage == "en-US")
                 {
-                    MessageBox.Show("Comment field is not filled!");
+                    MessageBox.Show("Comment field is not filled!","Not valid",MessageBoxButton.OK,MessageBoxImage.Warning);
                 }
                 else
                 {
-                    MessageBox.Show("Polje za komentar nije popunjeno!");
+                    MessageBox.Show("Polje za komentar nije popunjeno!", "Nije validno", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
         }

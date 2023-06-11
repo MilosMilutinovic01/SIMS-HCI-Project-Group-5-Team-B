@@ -97,11 +97,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             {
                 if (Properties.Settings.Default.currentLanguage == "en-US")
                 {
-                    MessageBox.Show("Accommodation can't be created, because fileds are not valid");
+                    MessageBox.Show("Accommodation can't be created, because fileds are not valid","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
                 }
                 else
                 {
-                    MessageBox.Show("Smestaj ne moze biti kreiran, jer polja nisu validna");
+                    MessageBox.Show("Smestaj ne moze biti kreiran, jer polja nisu validna","Upozerenje",MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                
             }

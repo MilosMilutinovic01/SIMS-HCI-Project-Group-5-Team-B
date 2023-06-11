@@ -142,6 +142,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                         }
                     }
                 }
+                else if (columnName == "SelectedStartDate")
+                {
+                    if (SelectedStartDate > SelectedEndDate)
+                    {
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "Start date can not\n" + "be bigger than end date";
+                        }
+                        else
+                        {
+                            return "Datum pocetka ne moze\n" + "biti veci od datuma kraja";
+                        }
+                    }
+                }
 
                 return null;
             }
