@@ -55,11 +55,11 @@
                 <TextBlock Grid.Row="1" Text="Username" HorizontalAlignment="Center"
                            FontSize="18" Margin="0, 0, 0, 5"/>
                 <Image Grid.Row="2" HorizontalAlignment="Center" Height="100" Width="100" Source="/Resources/Images/GuideGuestUser.png"/>
-                <TextBlock Grid.Row="3" Text="Name" HorizontalAlignment="Center"
+                <TextBlock Grid.Row="3" Text="{Binding LoggedGuideGuest.Name}" HorizontalAlignment="Center"
                            FontSize="16" Margin="0, 20, 0, 10"/>
-                <TextBlock Grid.Row="4" Text="Surname" HorizontalAlignment="Center"
+                <TextBlock Grid.Row="4" Text="{Binding LoggedGuideGuest.Surname}" HorizontalAlignment="Center"
                            FontSize="16" Margin="0, 10"/>
-                <TextBlock Grid.Row="5" Text="Age" HorizontalAlignment="Center"
+                <TextBlock Grid.Row="5" Text="{Binding LoggedGuideGuest.Age}" HorizontalAlignment="Center"
                            FontSize="15" Margin="0, 10"/>
             </Grid>
         </Border>
@@ -162,7 +162,7 @@
 
                     <DataGrid Grid.Row="1" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" IsReadOnly="True"
                               ItemsSource="{Binding TourRequests}" SelectedItem="{Binding SelectedTourRequest, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              AutoGenerateColumns="False" BorderThickness="0">
+                              AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Location" Width="*" Binding="{Binding Location}"/>
                             <DataGridTextColumn Header="Status" Width="*" Binding="{Binding Status}"/>
@@ -222,7 +222,7 @@
                 </forms:RegularTourRequestForm>
             </StackPanel>
             
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="400" Width="300">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="500" Width="300">
                 <forms:SpecialTourRequestForm x:Name="SpecialTourRequestForm"
                                               DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GuideGuestProfilePage}}}">
                     <forms:SpecialTourRequestForm.Style>

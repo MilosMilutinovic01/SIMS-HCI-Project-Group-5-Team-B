@@ -5,9 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
              mc:Ignorable="d" 
-             Height="400" Width="300"
+             Height="500" Width="300"
              Background="Transparent">
-
+    <UserControl.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" Margin="0, -3, 0, 0"/>
+            </StackPanel>
+        </ControlTemplate>
+    </UserControl.Resources>
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1" CornerRadius="8">
             <Rectangle Fill="White" RadiusX="8" RadiusY="8"/>
@@ -18,7 +26,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="80"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -35,7 +43,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"
-                       Text="Special tour" FontSize="20" FontWeight="DemiBold" Margin="0, 15"/>
+                       Text="Special tour" FontSize="20" FontWeight="DemiBold" Margin="0, 15, 0, 5"/>
 
             <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
                     BorderThickness="0, 0, 0, 1" BorderBrush="Black"
@@ -50,24 +58,26 @@
                     <TextBlock Grid.Column="0"
                                Text="Name:" FontSize="15"/>
 
-                    <TextBox Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <TextBox Grid.Column="1" Grid.ColumnSpan="2" FontSize="14"
+                             Text="{Binding SelectedSpecialTourRequest.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
                 </Grid>
             </Border>
 
             <TextBlock Grid.Column="0" Grid.Row="2"
-                Text="Tour parts:" FontSize="15"/>
+                Text="Tour parts:" FontSize="15" Margin="0, 0, 0, 4"/>
             <TextBlock Grid.Column="0" Grid.Row="4"
-                Text="State:" FontSize="15"/>
+                Text="State:" FontSize="15" Margin="0, 0, 0, 4"/>
             <TextBlock Grid.Column="0" Grid.Row="5"
-                Text="City:" FontSize="15"/>
+                Text="City:" FontSize="15" Margin="0, 0, 0, 4"/>
             <TextBlock Grid.Column="0" Grid.Row="6"
-                Text="Language:" FontSize="15"/>
+                Text="Language:" FontSize="15" Margin="0, 0, 0, 4"/>
             <TextBlock Grid.Column="0" Grid.Row="7"
-                Text="Number of guests:" FontSize="15"/>
+                Text="Number of guests:" FontSize="15" Margin="0, 0, 0, 4"/>
             <TextBlock Grid.Column="0" Grid.Row="8"
-                Text="Date range start:" FontSize="15"/>
+                Text="Date range start:" FontSize="15" Margin="0, 0, 0, 4"/>
             <TextBlock Grid.Column="0" Grid.Row="9"
-                Text="Date range end:" FontSize="15"/>
+                Text="Date range end:" FontSize="15" Margin="0, 0, 0, 4"/>
             <TextBlock Grid.Column="0" Grid.Row="10"
                 Text="Description:" FontSize="15"/>
 
@@ -75,14 +85,37 @@
                 <Button Content="Remove" Command="{Binding RemovePartCommand}" Background="LightBlue"/>
                 <Button Content="Add new" Command="{Binding AddNewPartCommand}" Background="LightBlue"/>
             </WrapPanel>
-            <DataGrid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"/>
-            <ComboBox Grid.Column="1" Grid.Row="4"/>
-            <ComboBox Grid.Column="1" Grid.Row="5"/>
-            <TextBox Grid.Column="1" Grid.Row="6"/>
-            <TextBox Grid.Column="1" Grid.Row="7"/>
-            <DatePicker Grid.Column="1" Grid.Row="8"/>
-            <DatePicker Grid.Column="1" Grid.Row="9"/>
-            <TextBlock Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Background="WhiteSmoke"/>
+            <DataGrid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" IsReadOnly="True" AutoGenerateColumns="False"
+                      ItemsSource="{Binding SelectedSpecialTourRequest.TourRequests}" SelectedItem="{Binding SelectedPart, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                      SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Location" Width="*" Binding="{Binding Location}"/>
+                    <DataGridTextColumn Header="Language" Width="Auto" Binding="{Binding Language}"/>
+                    <DataGridTextColumn Header="MaxGuests" Width="Auto" Binding="{Binding MaxGuests}"/>
+                    <DataGridTextColumn Header="Description" Width="Auto" Binding="{Binding Description}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <ComboBox Grid.Column="1" Grid.Row="4" ItemsSource="{Binding States}"
+                      SelectedItem="{Binding SpecialTourSelectedState, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                      FontSize="14" Margin="0, 0, 0, 12"/>
+            <ComboBox Grid.Column="1" Grid.Row="5" ItemsSource="{Binding SpecialTourCities, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                      SelectedItem="{Binding SpecialTourSelectedCity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                      FontSize="14" Margin="0, 0, 0, 12"/>
+            <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding SelectedPart.Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                     FontSize="14" Margin="0, 0, 0, 12"/>
+            <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding SelectedPart.MaxGuests, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                     FontSize="14" Margin="0, 0, 0, 12"/>
+            <DatePicker Grid.Column="1" Grid.Row="8"  Text="{Binding SelectedPart.DateRangeStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                        FontSize="14" Margin="0, 0, 0, 12"/>
+            <DatePicker Grid.Column="1" Grid.Row="9" Text="{Binding SelectedPart.DateRangeEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                        FontSize="14" Margin="0, 0, 0, 12"/>
+            <TextBox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Text="{Binding SelectedPart.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                     FontSize="14" Background="WhiteSmoke"/>
 
             <WrapPanel Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" HorizontalAlignment="Right">
                 <Button Content="Save" Command="{Binding SaveSpecialTourRequestCommand}" Background="LightBlue"/>

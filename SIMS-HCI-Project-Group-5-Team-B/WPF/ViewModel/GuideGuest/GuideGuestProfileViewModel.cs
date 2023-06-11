@@ -151,7 +151,40 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
                 }
             }
         }
-        public TourRequest SelectedPart { get; set; }
+        private TourRequest selectedPart;
+        public TourRequest SelectedPart
+        {
+            get => selectedPart;
+            set
+            {
+                if(selectedPart != value)
+                {
+                    selectedPart = value;
+                    if (value == null)
+                    {
+                        selectedPart = new TourRequest();
+                    }
+                    string cityCopy = string.Copy(selectedPart.Location.City);
+                    if(string.IsNullOrWhiteSpace(selectedPart.Location.State))
+                    {
+                        SpecialTourSelectedState = null;
+                    }
+                    else
+                    {
+                        SpecialTourSelectedState = selectedPart.Location.State;
+                    }
+                    if(string.IsNullOrWhiteSpace(cityCopy))
+                    {
+                        SpecialTourSelectedCity = string.Empty;
+                    }
+                    else
+                    {
+                        SpecialTourSelectedCity = cityCopy;
+                    }
+                    OnPropertyChanged();
+                }
+            }
+        }
         private bool showSpecialTourRequestForm;
         public bool ShowSpecialTourRequestForm
         {
@@ -175,6 +208,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         #region Location variables for regular and special tour requests
         public ObservableCollection<string> States { get; set; }
         public ObservableCollection<string> RegularTourCities { get; set; }
+        public ObservableCollection<string> SpecialTourCities { get; set; }
         private string regularTourSelectedState = string.Empty;
         public string RegularTourSelectedState
         {
@@ -199,6 +233,38 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
                 if (regularTourSelectedCity != value)
                 {
                     regularTourSelectedCity = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string specialTourSelectedState = string.Empty;
+        public string SpecialTourSelectedState
+        {
+            get => specialTourSelectedState;
+            set
+            {
+                specialTourSelectedState = value;
+                SpecialTourCities.Clear();
+                foreach (var city in locationService.GetCityByState(specialTourSelectedState))
+                {
+                    SpecialTourCities.Add(city);
+                }
+                SelectedPart.Location.State = specialTourSelectedState;
+                OnPropertyChanged("SelectedPart.Location.State");
+                OnPropertyChanged();
+            }
+        }
+        private string specialTourSelectedCity = string.Empty;
+        public string SpecialTourSelectedCity
+        {
+            get => specialTourSelectedCity;
+            set
+            {
+                if (specialTourSelectedCity != value)
+                {
+                    specialTourSelectedCity = value;
+                    SelectedPart.Location.City = specialTourSelectedCity;
+                    OnPropertyChanged("SelectedPart");
                     OnPropertyChanged();
                 }
             }
@@ -229,6 +295,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
 
             States = new ObservableCollection<string>(locationService.GetStates());
             RegularTourCities = new ObservableCollection<string>();
+            SpecialTourCities = new ObservableCollection<string>();
 
 
             EditRegularTourRequestCommand = new RelayCommand(EditRegularTourRequest_Execute, CanEditRegularTourRequest);
@@ -441,11 +508,30 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         }
         private bool CanSaveSpecialTourRequest()
         {
-            return SelectedSpecialTourRequest != null && SelectedSpecialTourRequest.IsValid;
+            if(SelectedSpecialTourRequest != null)
+            {
+                foreach (var request in SelectedSpecialTourRequest.TourRequests)
+                {
+                    if (!request.IsValid) return false;
+                }
+                return SelectedSpecialTourRequest.IsValid;
+            }
+            return false;
         }
         private void SaveSpecialTourRequest_Execute()
         {
-            throw new NotImplementedException();
+            SpecialTourRequestService specialTourRequestService = new SpecialTourRequestService();
+            specialTourRequestService.Save(SelectedSpecialTourRequest);
+            SelectedSpecialTourRequest = specialTourRequestService.Get(SelectedSpecialTourRequest);
+            foreach(var tourReqest in selectedSpecialTourRequest.TourRequests)
+            {
+                tourReqest.SpecialTourId = selectedSpecialTourRequest.Id;
+                tourReqest.Location = locationService.GetLocation(tourReqest.Location.State, tourReqest.Location.City);
+                tourReqest.LocationId = tourReqest.Location.Id;
+                tourRequestService.Save(tourReqest);
+            }
+            SpecialTourRequests.Add(SelectedSpecialTourRequest);
+            ShowSpecialTourRequestForm = false;
         }
         private bool CanRemovePart()
         {
@@ -458,7 +544,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         }
         private void AddNewPart_Execute()
         {
-            throw new NotImplementedException();
+            SelectedPart = new TourRequest();
+            SelectedPart.GuideGuestId = LoggedGuideGuest.Id;
+            SelectedPart.AcceptedTourId = -1;
+            SelectedPart.Description = "Test";
+            SelectedPart.Status = TourRequestStatuses.WAITING;
+
+            SelectedSpecialTourRequest.TourRequests.Add(SelectedPart);
         }
         
         

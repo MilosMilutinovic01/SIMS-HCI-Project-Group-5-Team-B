@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -25,8 +26,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 }
             }
         }
-        private List<TourRequest> tourRequests;
-        public List<TourRequest> TourRequests
+        private ObservableCollection<TourRequest> tourRequests;
+        public ObservableCollection<TourRequest> TourRequests
         {
             get => tourRequests;
             set
@@ -41,7 +42,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 
         public SpecialTourRequest()
         {
-            tourRequests = new List<TourRequest>();
+            tourRequests = new ObservableCollection<TourRequest>();
         }
 
 

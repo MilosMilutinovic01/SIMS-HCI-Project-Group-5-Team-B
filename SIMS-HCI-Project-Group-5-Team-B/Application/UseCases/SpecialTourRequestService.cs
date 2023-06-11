@@ -31,5 +31,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             return GetAll().FindAll(specReq => specReq.TourRequests[0].GuideGuestId == guideGuestId);
         }
+
+        public SpecialTourRequest Get(SpecialTourRequest specialTourRequest)
+        {
+            return GetAll().Find(req => req.Name.Equals(specialTourRequest.Name) && req.TourRequests.Equals(specialTourRequest.TourRequests));
+        }
     }
 }

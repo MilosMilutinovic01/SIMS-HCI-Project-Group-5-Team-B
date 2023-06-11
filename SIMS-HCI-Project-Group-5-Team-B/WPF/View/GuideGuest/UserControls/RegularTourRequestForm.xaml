@@ -78,7 +78,7 @@
                         Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                         Margin="0, 0, 0, 4"/>
             <TextBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Background="WhiteSmoke" FontSize="14"
-                       Text="{Binding SelectedTourRequest.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Text="{Binding SelectedTourRequest.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Margin="0, 0, 0, 15"/>
 

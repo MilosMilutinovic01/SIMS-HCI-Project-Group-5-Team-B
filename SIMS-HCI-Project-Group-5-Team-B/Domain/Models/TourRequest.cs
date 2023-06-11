@@ -200,6 +200,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         public TourRequest()
         {
             this.Location = new Location(string.Empty, string.Empty);
+            DateRangeStart = DateTime.Now.AddDays(2);
+            DateRangeEnd = DateTime.Now.AddDays(2);
         }
 
 
