@@ -82,6 +82,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             SpecialTourRequest newSpecialTourRequest = new SpecialTourRequest();
 
             newSpecialTourRequest.Id = int.Parse(values[0]);
+            newSpecialTourRequest.Name = values[1];
 
             return newSpecialTourRequest;
         }
@@ -91,6 +92,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Repository
             string[] csvValues =
             {
                 obj.Id.ToString(),
+                obj.Name.ToString(),
             };
             return csvValues;
         }

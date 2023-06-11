@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
              mc:Ignorable="d" 
-             Height="380" Width="300"
+             Height="400" Width="300"
              Background="Transparent">
 
     <Grid>
@@ -15,6 +15,7 @@
 
         <Grid Margin="5">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="60"/>
@@ -34,41 +35,58 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"
-                       Text="Complex tour" FontSize="20" FontWeight="DemiBold" Margin="0, 15"/>
+                       Text="Special tour" FontSize="20" FontWeight="DemiBold" Margin="0, 15"/>
 
-            <TextBlock Grid.Column="0" Grid.Row="1"
+            <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                    BorderThickness="0, 0, 0, 1" BorderBrush="Black"
+                    Margin="0, 0, 0, 5" Padding="0, 0, 0, 3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="144*"/>
+                        <ColumnDefinition Width="29*"/>
+                        <ColumnDefinition Width="115*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               Text="Name:" FontSize="15"/>
+
+                    <TextBox Grid.Column="1" Grid.ColumnSpan="2"/>
+                </Grid>
+            </Border>
+
+            <TextBlock Grid.Column="0" Grid.Row="2"
                 Text="Tour parts:" FontSize="15"/>
-            <TextBlock Grid.Column="0" Grid.Row="3"
-                Text="State:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="4"
-                Text="City:" FontSize="15"/>
+                Text="State:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="5"
-                Text="Language:" FontSize="15"/>
+                Text="City:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="6"
-                Text="Number of guests:" FontSize="15"/>
+                Text="Language:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="7"
-                Text="Date range start:" FontSize="15"/>
+                Text="Number of guests:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="8"
-                Text="Date range end:" FontSize="15"/>
+                Text="Date range start:" FontSize="15"/>
             <TextBlock Grid.Column="0" Grid.Row="9"
+                Text="Date range end:" FontSize="15"/>
+            <TextBlock Grid.Column="0" Grid.Row="10"
                 Text="Description:" FontSize="15"/>
 
-            <WrapPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
-                <Button Content="Remove"/>
-                <Button Content="Add new"/>
+            <WrapPanel Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right">
+                <Button Content="Remove" Command="{Binding RemovePartCommand}" Background="LightBlue"/>
+                <Button Content="Add new" Command="{Binding AddNewPartCommand}" Background="LightBlue"/>
             </WrapPanel>
-            <DataGrid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"/>
-            <ComboBox Grid.Column="1" Grid.Row="3"/>
+            <DataGrid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"/>
             <ComboBox Grid.Column="1" Grid.Row="4"/>
-            <TextBox Grid.Column="1" Grid.Row="5"/>
+            <ComboBox Grid.Column="1" Grid.Row="5"/>
             <TextBox Grid.Column="1" Grid.Row="6"/>
-            <DatePicker Grid.Column="1" Grid.Row="7"/>
+            <TextBox Grid.Column="1" Grid.Row="7"/>
             <DatePicker Grid.Column="1" Grid.Row="8"/>
-            <TextBlock Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" Background="WhiteSmoke"/>
+            <DatePicker Grid.Column="1" Grid.Row="9"/>
+            <TextBlock Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Background="WhiteSmoke"/>
 
-            <WrapPanel Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" HorizontalAlignment="Right">
-                <Button Content="Save"/>
-                <Button Content="Cancel"/>
+            <WrapPanel Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+                <Button Content="Save" Command="{Binding SaveSpecialTourRequestCommand}" Background="LightBlue"/>
+                <Button Content="Cancel" Command="{Binding CancelSpecialTourRequestCommand}" Background="LightBlue"/>
             </WrapPanel>
         </Grid>
     </Grid>

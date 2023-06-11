@@ -40,7 +40,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
 
         public List<TourRequest> GetFor(int guideGuestId)
         {
-            return tourRequestRepository.GetAll().FindAll(req => req.GuideGuestId == guideGuestId);
+            return tourRequestRepository.GetAll().FindAll(req => req.GuideGuestId == guideGuestId && req.SpecialTourId == -1);
         }
 
         public List<TourRequest> FilterRequests(string state, string city, string language, int maxGuests, DateTime start, DateTime end)

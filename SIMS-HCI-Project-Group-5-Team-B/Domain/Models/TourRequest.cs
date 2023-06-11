@@ -107,6 +107,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 if(dateRangeStart != value)
                 {
                     dateRangeStart = value;
+                    OnPropertyChanged("DateRangeEnd");
                     OnPropertyChanged();
                 }
             }
@@ -122,6 +123,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 {
                     dateRangeEnd = value;
                     OnPropertyChanged();
+                    OnPropertyChanged("DateRangeStart");
                 }
             }
         }
@@ -197,7 +199,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 
         public TourRequest()
         {
-            this.Location = new Location();
+            this.Location = new Location(string.Empty, string.Empty);
         }
 
 
@@ -211,14 +213,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             {
                 if (columnName == "Description")
                 {
-                    if(Description == null || Description == string.Empty)
+                    if(String.IsNullOrWhiteSpace(Description))
                     {
                         return "Tour request must have description";
                     }
                 }
                 else if (columnName == "Language")
                 {
-                    if (Language == null || Language == string.Empty)
+                    if (String.IsNullOrWhiteSpace(Language))
                     {
                         return "Tour request must have language";
                     }
@@ -239,7 +241,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 }
                 else if (columnName == "DateRangeEnd")
                 {
-                    if (DateRangeEnd > DateRangeStart)
+                    if (DateRangeEnd < DateRangeStart)
                     {
                         return "Date range can't end before it started";
                     }
@@ -248,7 +250,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
-        private readonly string[] _validatedProperties = { "GuideGeneralKnowlegde", "GuideLanguageKnowledge", "TourFun" };
+        private readonly string[] _validatedProperties = { "Description", "Language", "MaxGuests", "DateRangeStart", "DateRangeEnd" };
 
         public bool IsValid
         {

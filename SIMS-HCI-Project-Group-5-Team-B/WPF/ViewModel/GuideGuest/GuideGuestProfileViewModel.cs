@@ -26,6 +26,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
     {
         public ObservableCollection<Voucher> Vouchers { get; set; }
         public ObservableCollection<TourRequest> TourRequests { get; set; }
+        public ObservableCollection<SpecialTourRequest> SpecialTourRequests { get; set; }
         public ObservableCollection<TourAttendance> TourAttendances { get; set; }
 
 
@@ -101,6 +102,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
                 if (selectedTourRequest != value)
                 {
                     selectedTourRequest = value;
+                    ShowRegularTourRequestForm = false;
                     if(value != null)
                     {
                         RegularTourSelectedState = selectedTourRequest.Location.State;
@@ -133,6 +135,42 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         public ICommand AddNewRegularTourRequestCommand { get; }
         public ICommand SaveRegularTourRequestCommand { get; }
         public ICommand CancelRegularTourRequestCommand { get; }
+        #endregion
+        #region SpecialTourRequestForm variables
+        private SpecialTourRequest backupSpecialTourRequest;
+        private SpecialTourRequest selectedSpecialTourRequest;
+        public SpecialTourRequest SelectedSpecialTourRequest
+        {
+            get => selectedSpecialTourRequest;
+            set
+            {
+                if(selectedSpecialTourRequest != value)
+                {
+                    selectedSpecialTourRequest = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public TourRequest SelectedPart { get; set; }
+        private bool showSpecialTourRequestForm;
+        public bool ShowSpecialTourRequestForm
+        {
+            get => showSpecialTourRequestForm;
+            set
+            {
+                if(showSpecialTourRequestForm != value)
+                {
+                    showSpecialTourRequestForm = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public ICommand AddNewPartCommand { get; }
+        public ICommand RemovePartCommand { get; }
+        public ICommand EditSpecialTourRequestCommand { get; }
+        public ICommand AddNewSpecialTourRequestCommand { get; }
+        public ICommand SaveSpecialTourRequestCommand { get; }
+        public ICommand CancelSpecialTourRequestCommand { get; }
         #endregion
         #region Location variables for regular and special tour requests
         public ObservableCollection<string> States { get; set; }
@@ -185,6 +223,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
 
             Vouchers = new ObservableCollection<Voucher>(new VoucherService().GetAllFor(LoggedGuideGuest.Id));
             TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetFor(LoggedGuideGuest.Id));
+            SpecialTourRequests = new ObservableCollection<SpecialTourRequest>(new SpecialTourRequestService().GetFor(LoggedGuideGuest.Id));
             LoadYearsWithTourRequests();
 
 
@@ -194,10 +233,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
 
             EditRegularTourRequestCommand = new RelayCommand(EditRegularTourRequest_Execute, CanEditRegularTourRequest);
             AddNewRegularTourRequestCommand = new RelayCommand(AddNewRegularTourRequest_Execute);
-            SaveRegularTourRequestCommand = new RelayCommand(SaveRegularTourRequest_Execute);
+            SaveRegularTourRequestCommand = new RelayCommand(SaveRegularTourRequest_Execute, CanSaveRegularTourRequest);
             CancelRegularTourRequestCommand = new RelayCommand(CancelRegularTourRequest_Execute);
 
+            EditSpecialTourRequestCommand = new RelayCommand(EditSpecialTourRequest_Execute, CanEditSpecialTourRequest);
+            AddNewSpecialTourRequestCommand = new RelayCommand(AddNewSpecialTourRequest_Execute);
+            SaveSpecialTourRequestCommand = new RelayCommand(SaveSpecialTourRequest_Execute, CanSaveSpecialTourRequest);
+            CancelSpecialTourRequestCommand = new RelayCommand(CancelSpecialTourRequest_Execute);
+            AddNewPartCommand = new RelayCommand(AddNewPart_Execute);
+            RemovePartCommand = new RelayCommand(RemovePart_Execute, CanRemovePart);
+
         }
+
+
 
         private void LoadYearsWithTourRequests()
         {
@@ -291,6 +339,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         }
         private void EditRegularTourRequest_Execute()
         {
+            if (ShowSpecialTourRequestForm)
+            {
+                CancelSpecialTourRequest_Execute();
+            }
             backupTourRequest = new TourRequest();
             backupTourRequest.LocationId = SelectedTourRequest.LocationId;
             backupTourRequest.Location = new Location();
@@ -306,6 +358,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         }
         private void AddNewRegularTourRequest_Execute()
         {
+            if (ShowSpecialTourRequestForm)
+            {
+                CancelSpecialTourRequest_Execute();
+            }
             backupTourRequest = null;
             SelectedTourRequest = new TourRequest();
             SelectedTourRequest.AcceptedTourId = -1;
@@ -325,14 +381,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
                 SelectedTourRequest.DateRangeStart = backupTourRequest.DateRangeStart ;
                 SelectedTourRequest.DateRangeEnd = backupTourRequest.DateRangeEnd ;
             }
-            ShowRegularTourRequestForm = false;
             backupTourRequest = null;
+            SelectedTourRequest = null;
+            ShowRegularTourRequestForm = false;
+        }
+        private bool CanSaveRegularTourRequest()
+        {
+            return SelectedTourRequest != null && SelectedTourRequest.IsValid;
         }
         private void SaveRegularTourRequest_Execute()
         {
             SelectedTourRequest.LocationId = locationService.GetLocation(RegularTourSelectedState, RegularTourSelectedCity).Id;
             SelectedTourRequest.Location.State = RegularTourSelectedState;
             SelectedTourRequest.Location.City = RegularTourSelectedCity;
+            SelectedTourRequest.SpecialTourId = -1;
             if(backupTourRequest == null)
             {
                 tourRequestService.Save(SelectedTourRequest);
@@ -344,5 +406,61 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
             }
             ShowRegularTourRequestForm = false;
         }
+        
+
+        private bool CanEditSpecialTourRequest()
+        {
+            return SelectedSpecialTourRequest != null;
+        }
+        private void EditSpecialTourRequest_Execute()
+        {
+            if (ShowRegularTourRequestForm)
+            {
+                CancelRegularTourRequest_Execute();
+            }
+            throw new NotImplementedException();
+        }
+        private void AddNewSpecialTourRequest_Execute()
+        {
+            if(ShowRegularTourRequestForm)
+            {
+                CancelRegularTourRequest_Execute();
+            }
+            backupSpecialTourRequest = null;
+            SelectedSpecialTourRequest = new SpecialTourRequest();
+            ShowSpecialTourRequestForm = true;
+        }
+        private void CancelSpecialTourRequest_Execute()
+        {
+            if(backupSpecialTourRequest != null)
+            {
+                //Load backup
+            }
+            ShowSpecialTourRequestForm = false;
+            backupSpecialTourRequest = null;
+        }
+        private bool CanSaveSpecialTourRequest()
+        {
+            return SelectedSpecialTourRequest != null && SelectedSpecialTourRequest.IsValid;
+        }
+        private void SaveSpecialTourRequest_Execute()
+        {
+            throw new NotImplementedException();
+        }
+        private bool CanRemovePart()
+        {
+            return SelectedPart != null;
+        }
+        private void RemovePart_Execute()
+        {
+            SelectedSpecialTourRequest.TourRequests.Remove(SelectedPart);
+            SelectedPart = null;
+        }
+        private void AddNewPart_Execute()
+        {
+            throw new NotImplementedException();
+        }
+        
+        
     }
 }

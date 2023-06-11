@@ -5,8 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
              mc:Ignorable="d" 
-             Height="380" Width="300"
+             Height="420" Width="300"
              Background="Transparent">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" Margin="0, -3, 0, 0"/>
+            </StackPanel>
+        </ControlTemplate>
+    </UserControl.Resources>
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1" CornerRadius="8">
             <Rectangle Fill="White" RadiusX="8" RadiusY="8"/>
@@ -34,34 +43,48 @@
                        Text="Regular tour" FontSize="20" FontWeight="DemiBold" Margin="0, 15"/>
 
             <TextBlock Grid.Column="0" Grid.Row="1"
-                Text="State:" FontSize="15"/>
+                Text="State:" FontSize="15" Margin="0, 0, 0, 4"/>
             <TextBlock Grid.Column="0" Grid.Row="2"
-                Text="City:" FontSize="15"/>
+                Text="City:" FontSize="15" Margin="0, 0, 0, 4"/>
             <TextBlock Grid.Column="0" Grid.Row="3"
-                Text="Language:" FontSize="15"/>
+                Text="Language:" FontSize="15" Margin="0, 0, 0, 4"/>
             <TextBlock Grid.Column="0" Grid.Row="4"
-                Text="Number of guests:" FontSize="15"/>
+                Text="Number of guests:" FontSize="15" Margin="0, 0, 0, 4"/>
             <TextBlock Grid.Column="0" Grid.Row="5"
-                Text="Date range start:" FontSize="15"/>
+                Text="Date range start:" FontSize="15" Margin="0, 0, 0, 4"/>
             <TextBlock Grid.Column="0" Grid.Row="6"
-                Text="Date range end:" FontSize="15"/>
+                Text="Date range end:" FontSize="15" Margin="0, 0, 0, 4"/>
             <TextBlock Grid.Column="0" Grid.Row="7"
                 Text="Description:" FontSize="15"/>
 
             <ComboBox Grid.Column="1" Grid.Row="1"
-                      ItemsSource="{Binding States}" SelectedItem="{Binding RegularTourSelectedState}"/>
+                      ItemsSource="{Binding States}" SelectedItem="{Binding RegularTourSelectedState, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                      Margin="0, 0, 0, 15" FontSize="14"/>
             <ComboBox Grid.Column="1" Grid.Row="2"
-                      ItemsSource="{Binding RegularTourCities}" SelectedItem="{Binding RegularTourSelectedCity}"/>
-            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding SelectedTourRequest.Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding SelectedTourRequest.MaxGuests, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <DatePicker Grid.Column="1" Grid.Row="5" Text="{Binding SelectedTourRequest.DateRangeStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <DatePicker Grid.Column="1" Grid.Row="6" Text="{Binding SelectedTourRequest.DateRangeEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Background="WhiteSmoke"
-                       Text="{Binding SelectedTourRequest.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                      ItemsSource="{Binding RegularTourCities}" SelectedItem="{Binding RegularTourSelectedCity, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                      Margin="0, 0, 0, 15" FontSize="14"/>
+            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding SelectedTourRequest.Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                     Margin="0, 0, 0, 15" FontSize="14"/>
+            <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding SelectedTourRequest.MaxGuests, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                     Margin="0, 0, 0, 15" FontSize="14"/>
+            <DatePicker Grid.Column="1" Grid.Row="5" Text="{Binding SelectedTourRequest.DateRangeStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                        Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                        Margin="0, 0, 0, 15"/>
+            <DatePicker Grid.Column="1" Grid.Row="6" Text="{Binding SelectedTourRequest.DateRangeEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                        Margin="0, 0, 0, 4"/>
+            <TextBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Background="WhiteSmoke" FontSize="14"
+                       Text="{Binding SelectedTourRequest.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                     Margin="0, 0, 0, 15"/>
 
             <WrapPanel Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" HorizontalAlignment="Right">
-                <Button x:Name="SaveRegularTourRequestButton" Content="Save" Command="{Binding SaveRegularTourRequestCommand}"/>
-                <Button x:Name="CancelRegularTourRequestButton" Content="Cancel" Command="{Binding CancelRegularTourRequestCommand}"/>
+                <Button x:Name="SaveRegularTourRequestButton" Content="Save" Command="{Binding SaveRegularTourRequestCommand}" Background="LightBlue"/>
+                <Button x:Name="CancelRegularTourRequestButton" Content="Cancel" Command="{Binding CancelRegularTourRequestCommand}" Background="LightBlue"/>
             </WrapPanel>
         </Grid>
     </Grid>

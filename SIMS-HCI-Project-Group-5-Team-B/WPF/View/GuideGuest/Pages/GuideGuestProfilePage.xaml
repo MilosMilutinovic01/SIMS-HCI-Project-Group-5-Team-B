@@ -5,14 +5,31 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.Pages"
       xmlns:viewModel="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest"
+      xmlns:model="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Domain.Models"
       xmlns:forms="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
       xmlns:liveCharts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="1050"
       Title="GuideGuestProfilePage" Background="White">
     <Page.DataContext>
         <viewModel:GuideGuestProfileViewModel/>
     </Page.DataContext>
+    <Page.Resources>
+        <DataTemplate x:Name="SpecialTourRequestTemplate" DataType="{x:Type model:SpecialTourRequest}">
+            <Expander Header="{Binding Name}" ExpandDirection="Down" IsExpanded="False">
+                <DataGrid ItemsSource="{Binding TourRequests}" IsReadOnly="True" IsHitTestVisible="False"
+                          AutoGenerateColumns="False" BorderThickness="0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Location" Width="150" Binding="{Binding Location}"/>
+                        <DataGridTextColumn Header="Status" Width="100" Binding="{Binding Status}"/>
+                        <DataGridTextColumn Header="Language" Width="100" Binding="{Binding Language}"/>
+                        <DataGridTextColumn Header="MaxGuests" Width="86" Binding="{Binding MaxGuests}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Expander>
+        </DataTemplate>
+    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -117,7 +134,7 @@
                               CanUserReorderColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Time received" Width="2*" Binding="{Binding Received}"/>
-                            <DataGridCheckBoxColumn Header="User" Width="Auto" Binding="{Binding Used}"/>
+                            <DataGridCheckBoxColumn Header="Used" Width="Auto" Binding="{Binding Used}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -139,12 +156,21 @@
 
                     <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="Your regular tour requests"/>
                     <WrapPanel Grid.Row="0" HorizontalAlignment="Right">
-                        <Button x:Name="EditRegularTourRequestButton" Content="Edit" Command="{Binding EditRegularTourRequestCommand}"/>
-                        <Button x:Name="AddNewRegularTourRequestButton" Content="Add new" Command="{Binding AddNewRegularTourRequestCommand}"/>
+                        <Button Content="Edit" Command="{Binding EditRegularTourRequestCommand}" Background="LightBlue"/>
+                        <Button Content="Add new" Command="{Binding AddNewRegularTourRequestCommand}" Background="LightBlue"/>
                     </WrapPanel>
 
-                    <DataGrid Grid.Row="1" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
-                              ItemsSource="{Binding TourRequests}" SelectedItem="{Binding SelectedTourRequest, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGrid Grid.Row="1" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" IsReadOnly="True"
+                              ItemsSource="{Binding TourRequests}" SelectedItem="{Binding SelectedTourRequest, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              AutoGenerateColumns="False" BorderThickness="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Location" Width="*" Binding="{Binding Location}"/>
+                            <DataGridTextColumn Header="Status" Width="*" Binding="{Binding Status}"/>
+                            <DataGridTextColumn Header="Language" Width="Auto" Binding="{Binding Language}"/>
+                            <DataGridTextColumn Header="MaxGuests" Width="Auto" Binding="{Binding MaxGuests}"/>
+                            <DataGridTextColumn Header="Description" Width="Auto" Binding="{Binding Description}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
 
                 <!-- Special tour requests -->
@@ -156,11 +182,13 @@
 
                     <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="Your special tour requests"/>
                     <WrapPanel Grid.Row="0" HorizontalAlignment="Right">
-                        <Button Content="Edit"/>
-                        <Button Content="Add new"/>
+                        <Button Content="Edit" Command="{Binding EditSpecialTourRequestCommand}" Background="LightBlue"/>
+                        <Button Content="Add new" Command="{Binding AddNewSpecialTourRequestCommand}" Background="LightBlue"/>
                     </WrapPanel>
 
-                    <DataGrid Grid.Row="1"/>
+                    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding SpecialTourRequests}"/>
+                    </ScrollViewer>
                 </Grid>
 
                 <!-- Held tours -->
@@ -178,7 +206,7 @@
         </Grid>
 
         <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="400" Width="300">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="430" Width="300">
                 <forms:RegularTourRequestForm x:Name="RegularTourRequestForm"
                                               DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GuideGuestProfilePage}}}">
                     <forms:RegularTourRequestForm.Style>
@@ -191,10 +219,23 @@
                             </Style.Triggers>
                         </Style>
                     </forms:RegularTourRequestForm.Style>
-                    <!--<DataTrigger Binding="{Binding ShowRegularTourRequestForm}" Value="True">
-                        <Setter TargetName="RegularTourRequestForm" Property="Visibility" Value="Visible"/>
-                    </DataTrigger>-->
                 </forms:RegularTourRequestForm>
+            </StackPanel>
+            
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="400" Width="300">
+                <forms:SpecialTourRequestForm x:Name="SpecialTourRequestForm"
+                                              DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GuideGuestProfilePage}}}">
+                    <forms:SpecialTourRequestForm.Style>
+                        <Style TargetType="{x:Type forms:SpecialTourRequestForm}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShowSpecialTourRequestForm}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </forms:SpecialTourRequestForm.Style>
+                </forms:SpecialTourRequestForm>
             </StackPanel>
         </Grid>
         
