@@ -10,6 +10,8 @@ using SIMS_HCI_Project_Group_5_Team_B.Notifications;
 using System.Text;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Utilities;
+using ceTe.DynamicPDF.ReportWriter;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 {
@@ -32,6 +34,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public RelayCommand GradeCommand { get; }
         public RelayCommand ModifyCommand { get; }
         public RelayCommand CancelReservationCommand { get; }
+        public RelayCommand ReportCommand { get; }
         public ReservationsViewModel(ReservationService reservationService, OwnerAccommodationGradeSevice ownerAccommodationGradeService, SuperOwnerService superOwnerService, OwnerService ownerService, int ownerGuestId, ReservationChangeRequestService reservationChangeRequestService)
         {
             this.reservationService = reservationService;
@@ -50,7 +53,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             GradeCommand = new RelayCommand(Grade_Execute, Grade_CanExecute);
             ModifyCommand = new RelayCommand(Modify_Execute, Modify_CanExecute);
             CancelReservationCommand = new RelayCommand(Cancel_Execute, Cancel_CanExecute);
-            
+            ReportCommand = new RelayCommand(OnReport);
         }
 
         public bool Grade_CanExecute()
@@ -171,6 +174,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             StringBuilder sb = new StringBuilder($"{SelectedReservationView.Reservation.OwnerGuest.Name} {SelectedReservationView.Reservation.OwnerGuest.Surname} cancelled reservation in ");
             sb.Append($"{SelectedReservationView.Reservation.Accommodation.Name} From: {SelectedReservationView.Reservation.StartDate} To: {SelectedReservationView.Reservation.EndDate}");
             return sb.ToString();
+        }
+
+        public void OnReport()
+        {
+            ReportWindow window = new ReportWindow(ownerGuestId);
+            window.Show();
         }
     }
 }

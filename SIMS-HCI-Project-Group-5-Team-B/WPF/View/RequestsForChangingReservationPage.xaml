@@ -22,7 +22,7 @@
                 <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="22,0,0,0" Content="{ns:Loc AcceptAndDeclineLabel}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="1">
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,10,0,0" Content="{ns:Loc RequestsForChangingReservation}" Style="{DynamicResource LabelStyle}"></Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,10,0,0" Content="{ns:Loc RequestsForChangingReservation}" FontWeight="Bold" Style="{DynamicResource LabelStyle}"></Label>
             <DataGrid  ItemsSource="{Binding Path=OwnersPendingRequests, UpdateSourceTrigger=PropertyChanged}"
                                  SelectedItem="{Binding Path=SelectedReservationChangeRequest, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                                  AutoGenerateColumns="False" IsReadOnly="True" Margin="22,40,22,40" >

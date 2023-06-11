@@ -12,9 +12,16 @@
         <Setter Property="Foreground" Value="#081C15"/>
         <Setter Property="FontSize" Value="14"></Setter>
         <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="Background" Value="#40916C"></Setter>
         <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#40916C"/>
+           <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#95d5b2"/>
+            </Trigger>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="Background" Value="#95d5b2"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#95d5b2"></Setter>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -71,5 +78,14 @@
     </Style>
     <Style TargetType="TextBlock" x:Key="TextBlockGradeStyle">
         <Setter Property="Foreground" Value="#081C15"></Setter>
+    </Style>
+    <Style TargetType="Label" x:Key="LabelMedalStyle">
+        <Setter Property="Foreground" Value="#081C15"></Setter>
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Style.Triggers>
+            <DataTrigger Value="True" Binding="{Binding Owner.IsSuperOwner}">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

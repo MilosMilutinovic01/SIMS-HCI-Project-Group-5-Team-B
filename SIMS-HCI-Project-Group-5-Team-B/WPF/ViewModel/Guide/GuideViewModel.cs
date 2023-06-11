@@ -21,11 +21,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         #region fields
         public string Username { get; set; }
 
-        public GuideService guideService;
-        public TourService tourService;
-        public AppointmentService appointmentService;
-        public TourAttendanceService tourAttendanceService;
-        public TourGradeService tourGradeService;
         public Frame frame;
         public SIMS_HCI_Project_Group_5_Team_B.Domain.Models.Guide guide;
         public string SuperGuide { get; set; }
@@ -206,19 +201,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         #region constructors
         public GuideViewModel(SIMS_HCI_Project_Group_5_Team_B.Domain.Models.Guide guide, NavigationService navService, Frame frame) 
         {
-            KeyPointCSVRepository keyPointCSVRepository = new KeyPointCSVRepository();
-            LocationCSVRepository locationCSVRepository = new LocationCSVRepository();
-            TourCSVRepository tourCSVRepository = new TourCSVRepository();
-            TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
-            TourGradeCSVRepository tourGradeCSVRepository = new TourGradeCSVRepository();
-            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository();
-
-            guideService = new GuideService();
-            tourService = new TourService(tourCSVRepository);
-            tourAttendanceService = new TourAttendanceService();
-            tourGradeService = new TourGradeService();
-            appointmentService = new AppointmentService();
-
             this.NavService = navService;
             Username = "Username: " + guide.Username;
             SuperGuide = "Super-guide: no";

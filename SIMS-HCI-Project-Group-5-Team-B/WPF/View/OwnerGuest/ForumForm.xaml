@@ -57,12 +57,12 @@
         </Grid>
 
         <WrapPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" FlowDirection="RightToLeft">
-            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66" Command="{Binding CloseCommand}">
+            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66" Command="{Binding CloseCommand}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="66"   Text="Cancel          esc" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
-            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66"  Command="{Binding CreateCommand}">
+            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66"  Command="{Binding CreateCommand}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Width="50"    Text="Create    Ctrl+C" TextAlignment="Center"></TextBlock>
                 </Button.Content>

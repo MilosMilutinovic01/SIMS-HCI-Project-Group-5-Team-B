@@ -12,6 +12,7 @@
     <Page.InputBindings>
         <KeyBinding Gesture="Ctrl+M" Command="{Binding ModifyCommand}"></KeyBinding>
         <KeyBinding Gesture="Ctrl+D" Command="{Binding CancelReservationCommand}"></KeyBinding>
+        <KeyBinding Gesture="Ctrl+E" Command="{Binding ReportCommand}"></KeyBinding>
     </Page.InputBindings>
     <Page.Resources>
         <converters:DateConverter x:Key="DateConverter"></converters:DateConverter>
@@ -36,7 +37,6 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition Height="1.2*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -44,26 +44,19 @@
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="6" BorderThickness="3" BorderBrush="Black" />
 
-                <Image Grid.Row="0" Grid.Column="0" Source="/Resources/Images/OwnerGuestUser.png" Height="20" Width="30" HorizontalAlignment="Left" Margin="16,3,0,3"></Image>
+                <Image Grid.Row="0" Grid.Column="0" Source="/Resources/Images/GuideGuestUser.png" Height="20" Width="30" HorizontalAlignment="Left" Margin="16,3,0,3"></Image>
                 <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Name</Label>
                 <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Surname</Label>
                 <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Email</Label>
                 <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" FontSize="13" Margin="10 0">Phone Number</Label>
 
-                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10 0" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Username}" FontSize="13"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10 0" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Name}" FontSize="13"/>
-                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10 0" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Surname}" FontSize="13"/>
-                <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10 0" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Email}" FontSize="13"/>
-                <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10 0" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Number}" FontSize="13"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10  5 10 5" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Username}" FontSize="13"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10  0 10 10" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Name}" FontSize="13"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10  0 10 10" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Surname}" FontSize="13"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10  0 10 10" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Email}" FontSize="13"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="10  0 10 10" VerticalAlignment="Center" Text="{Binding Path=ActiveOwnerGuest.Number}" FontSize="13"/>
 
-                <WrapPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" FlowDirection="RightToLeft">
-                    <Button Grid.Row="7" Grid.Column="0" Height="34" Width="66" Margin="10 0 0 2"  Command="{Binding ResetCommand}">
-                        <Button.Content>
-                            <TextBlock  TextWrapping="Wrap" Text="Start Demo  Ctrl + T" TextAlignment="Center"></TextBlock>
-                        </Button.Content>
-                    </Button>
-                    
-                </WrapPanel>
+                
             </Grid>
 
             <Grid Grid.Row="1">
@@ -161,13 +154,13 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <WrapPanel FlowDirection="RightToLeft">
-                                    
-                                    <Button Width="50" Command="{Binding DataContext.ModifyCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Margin="5" IsEnabled="{Binding IsModifiable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+                                    <Button Width="50" Background="#a2a2c8" Command="{Binding DataContext.ModifyCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Margin="5" IsEnabled="{Binding IsModifiable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                         <Button.Content>
                                             <TextBlock Height="30" FontSize="10" TextWrapping="Wrap" Text="Modify   Ctrl+M"></TextBlock>
                                         </Button.Content>
                                     </Button>
-                                    <Button Width="50" Command="{Binding DataContext.CancelReservationCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Margin="5" IsEnabled="{Binding IsCancelable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <Button Width="50" Background="#a2a2c8" Command="{Binding DataContext.CancelReservationCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Margin="5" IsEnabled="{Binding IsCancelable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                         <Button.Content>
                                             <TextBlock Height="30" FontSize="10" TextWrapping="Wrap" Text="Cancel     Ctrl+D"></TextBlock>
                                         </Button.Content>
@@ -196,13 +189,20 @@
                     <DataGridTextColumn Header="Location" Binding="{Binding Reservation.Accommodation.Location}" Width="2*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Start" Binding="{Binding Start, Converter={StaticResource DateConverter}}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="End" Binding="{Binding End, Converter={StaticResource DateConverter}}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Guests No" Binding="{Binding Reservation.GuestsNumber}" Width="0.7*"></DataGridTextColumn>
+                    <DataGridTextColumn  Binding="{Binding Reservation.GuestsNumber}" Width="0.7*">
+                        <DataGridTextColumn.Header>
+
+                            <TextBlock  Text="Guests   
+                                           No" Margin="0" TextWrapping="Wrap"/>
+
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
                     
                     
                 </DataGrid.Columns>
 
             </DataGrid>
-            <Button  HorizontalAlignment="Left" Height="35" Width="100" Margin="523,7,0,0" VerticalAlignment="Top">
+            <Button  HorizontalAlignment="Left" Height="35" Width="100" Margin="523,7,0,0" VerticalAlignment="Top" Command="{Binding ReportCommand}" Background="#a2a2c8">
                 <Button.Content>
                     <TextBlock  TextWrapping="Wrap" Text="Generate Report  Ctrl + E" TextAlignment="Center"></TextBlock>
                 </Button.Content>

@@ -87,7 +87,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Forum on that location does not exist.");
+                    MessageBox.Show("Forum on that location does not exist.", "Forum", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

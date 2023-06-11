@@ -17,7 +17,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
         public GradingOwnerAccommodation(OwnerAccommodationGradeSevice ownerAccommodationGradeService, ReservationService reservationService, SingleReservationViewModel reservationView, SuperOwnerService superOwnerService, OwnerService ownerService)
         {
             InitializeComponent();
-            this.DataContext = new GradingOwnerAccommodationViewModel(ownerAccommodationGradeService,reservationService,reservationView,superOwnerService,ownerService,this);
+            this.DataContext = new GradingOwnerAccommodationViewModel(ownerAccommodationGradeService,reservationService,reservationView,superOwnerService,ownerService);
            
             
         }

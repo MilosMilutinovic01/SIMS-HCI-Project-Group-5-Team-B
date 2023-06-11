@@ -1,0 +1,68 @@
+﻿<Window x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest.ReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest"
+        mc:Ignorable="d"
+        Title="ReportWindow" Height="360" Width="350" Background="#c8a2c8" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+
+        </ControlTemplate>
+
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+G" Command="{Binding GenerateCommand}"/>
+        <KeyBinding Gesture="esc" Command="{Binding CLoseCommand}"/>
+    </Window.InputBindings>
+    <Grid >
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="20 10 0 0">
+            <Label FontSize="20" FontWeight="DemiBold" Content="Report Generation"/>
+        </TextBlock>
+        <Label Grid.Row="1" FontSize="13" Grid.Column="0" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left" Margin=" 20 0 0 0 " Content="Start"/>
+        <Label Grid.Row="2" FontSize="13" Grid.Column="0" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left" Margin=" 20 0 0 0 " Content="End"/>
+        <Label Grid.Row="3" FontSize="13" Grid.Column="0" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left" Margin=" 20 0 0 0 " Content="Generate about"/>
+
+        <DatePicker Height="30" Grid.Row="1" Background="LightGray" Grid.Column="1" SelectedDate="{Binding Path=Start,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="25,19,14,20" HorizontalAlignment="Left" Width="132"></DatePicker>
+        <DatePicker Height="30" Grid.Row="2" Background="LightGray" Grid.Column="1" SelectedDate="{Binding Path=End,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="25,19,14,19" HorizontalAlignment="Left" Width="132"></DatePicker>
+
+        <ComboBox Grid.Row="3" Grid.Column="1" Height="30" Margin="0,15,14,15" Text="{Binding Type}">
+            <ComboBoxItem>Scheduled Reservations</ComboBoxItem>
+            <ComboBoxItem>Canceled Reservations</ComboBoxItem>
+        </ComboBox>
+        <WrapPanel Grid.Column="0" Grid.Row="4" FlowDirection="LeftToRight" Grid.ColumnSpan="2">
+            <Button  VerticalAlignment="Center" Margin="170 10 10 10" Height="37" Width="66" Command="{Binding GenerateCommand}" Background="#a2a2c8">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap"    Text="Generate      Ctrl+G" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
+            <Button VerticalAlignment="Center" Margin="10 10" Width="66" Height="37"  Command="{Binding CLoseCommand}" Background="#a2a2c8">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Width="66"  Text="Close       esc" TextAlignment="Center" ></TextBlock>
+                </Button.Content>
+            </Button>
+        </WrapPanel>
+    </Grid>
+</Window>

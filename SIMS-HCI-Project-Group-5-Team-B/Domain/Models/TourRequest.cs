@@ -51,6 +51,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 {
                     locationId = value;
                     OnPropertyChanged();
+                    OnPropertyChanged("Location");
                 }
             }
         }
@@ -167,6 +168,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
+        private int specialTourId;
+        public int SpecialTourId
+        {
+            get => specialTourId;
+            set
+            {
+                if(specialTourId != value)
+                {
+                    specialTourId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public TourRequest(int guideGuestId, int locationId, string description, string language, int maxGuests, DateTime dateRangeStart, DateTime dateRangeEnd, TourRequestStatuses status)
         {
             GuideGuestId = guideGuestId;
@@ -180,7 +195,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             AcceptedTourId = -1;
         }
 
-        public TourRequest() { }
+        public TourRequest()
+        {
+            this.Location = new Location();
+        }
 
 
 

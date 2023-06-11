@@ -23,14 +23,14 @@
                 <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,53,0,0" Content="{ns:Loc StarForumExplanation}"  Style="{DynamicResource ExplanationLabelStyle}"></Label>
             </Grid>
             <Grid Grid.Column="0" Grid.Row="1">
-                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,16,0,0" Content="{ns:Loc AvailableForums}" Style="{DynamicResource LabelStyle}"></Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"  Margin="22,16,0,0" Content="{ns:Loc AvailableForums}" Style="{DynamicResource LabelStyle}"></Label>
                 <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Margin="22,45,22,70" ItemsSource="{Binding Path=Forums, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedForum, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image x:Name="StarImage" Height="20" Width="20" Visibility="Collapsed" Source="/Resources/Images/StarImage.png">
+                                    <Image x:Name="StarImage" Height="20" Width="20" Visibility="Collapsed" Source="/Resources/Images/Star.png">
                                     </Image>
                                     <DataTemplate.Triggers>
                                         <DataTrigger Binding="{Binding IsVeryUseful}" Value="True">
@@ -40,7 +40,6 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="{ns:Loc Name}" Width="*" ></DataGridTextColumn>
                         <DataGridTextColumn Header="{ns:Loc City}" Binding="{Binding Location.City}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="{ns:Loc State}" Binding="{Binding Location.State}" Width="*"></DataGridTextColumn>
                         <DataGridTemplateColumn x:Name="ButtonShowForum" Header="{ns:Loc Show}" Width="*">

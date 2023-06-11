@@ -19,27 +19,20 @@
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
             <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Content="{ns:Loc SuperOwnerExplanation}" Style="{DynamicResource ExplanationLabelStyle}"></Label>
-            <Image x:Name="ProfileImage" Grid.Row="1" HorizontalAlignment="Left"  Margin="40,10,0,10" Source="/Resources/Images/OwnerProfile.png" ></Image>
-            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,15,0,0" Content="{ns:Loc Name}" Style="{DynamicResource LabelStyle}"></Label>
-            <TextBlock Grid.Row="1" HorizontalAlignment="Left" Width="80" Text="{Binding Owner.Name}" Margin="360,20,0,164" TextAlignment="Left"></TextBlock>
-            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,50,0,0" Content="{ns:Loc Surname}" Style="{DynamicResource LabelStyle}"></Label>
-            <TextBlock Grid.Row="1"  HorizontalAlignment="Left" Width="80" Text="{Binding Owner.Surname}" Margin="360,55,0,129" TextAlignment="Left"></TextBlock>
-            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,85,0,0" Content="{ns:Loc NumberOfGrades}" Style="{DynamicResource LabelStyle}"></Label>
-            <TextBlock Grid.Row="1"  HorizontalAlignment="Left" Width="80" Text="{Binding NumberOfGrades}" Margin="360,90,0,94" TextAlignment="Left"></TextBlock>
-            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,120,0,0" Content="{ns:Loc GradingAverage}" Style="{DynamicResource LabelStyle}"></Label>
-            <TextBlock Grid.Row="1"  HorizontalAlignment="Left" Width="80" Text="{Binding Owner.GradeAverage}" Margin="360,125,0,59" TextAlignment="Left"></TextBlock>
-            <Image x:Name="MedalImage" Grid.Row="2"  Height="80" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" Source="/Resources/Images/OwnerMedalImage.png" Margin="65,10,0,10">
-                <Image.Style>
-                    <Style TargetType="{x:Type Image}">
-                        <Setter Property="Visibility" Value="Collapsed" />
-                        <Style.Triggers>
-                            <DataTrigger Value="True" Binding="{Binding Owner.IsSuperOwner}">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Image.Style>
-            </Image>
+
+            <Label Grid.Row="1" HorizontalAlignment="Left" FontSize="120"  Margin="40,20,0,20"  Content="{ns:Loc ProfileImage}" Style="{DynamicResource LabelStyle}" ></Label>
+
+
+            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,50,0,0" Content="{ns:Loc Name}" FontWeight="Bold" Style="{DynamicResource LabelStyle}"></Label>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top"  Width="80" Text="{Binding Owner.Name}" Margin="360,54,0,0" TextAlignment="Left" Style="{DynamicResource TextBlockGradeStyle}"></TextBlock>
+            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,85,0,0" Content="{ns:Loc Surname}" FontWeight="Bold" Style="{DynamicResource LabelStyle}"></Label>
+            <TextBlock Grid.Row="1"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Text="{Binding Owner.Surname}" Margin="360,89,0,0" TextAlignment="Left" Style="{DynamicResource TextBlockGradeStyle}"></TextBlock>
+            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,120,0,0" Content="{ns:Loc NumberOfGrades}" FontWeight="Bold" Style="{DynamicResource LabelStyle}"></Label>
+            <TextBlock Grid.Row="1"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Text="{Binding NumberOfGrades}" Margin="360,125,0,0" TextAlignment="Left" Style="{DynamicResource TextBlockGradeStyle}"></TextBlock>
+            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,155,0,0" Content="{ns:Loc GradingAverage}" FontWeight="Bold" Style="{DynamicResource LabelStyle}"></Label>
+            <TextBlock Grid.Row="1"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Text="{Binding Owner.GradeAverage}" Margin="360,161,0,0" TextAlignment="Left" Style="{DynamicResource TextBlockGradeStyle}"></TextBlock>
+            <Label x:Name="MedalImage" Grid.Row="2"   HorizontalAlignment="Left" VerticalAlignment="Top" Content="{ns:Loc Medal}" FontSize="50" Margin="75,0,0,50" Style="{DynamicResource LabelMedalStyle}"></Label>
+            <Label Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="{ns:Loc SuperOwner}" FontWeight="Bold" Style="{DynamicResource LabelMedalStyle}" Margin="75,0,0,25"></Label>
         </Grid>
     </Border>
 </Page>

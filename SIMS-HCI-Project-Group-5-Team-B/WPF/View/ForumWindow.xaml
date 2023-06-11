@@ -26,8 +26,10 @@
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="0.5*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Content="{ns:Loc CommentStarExplanation}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Style="{DynamicResource ExplanationLabelStyle}"/>
-        <Label Content="{ns:Loc Comments}" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource LabelStyle}" Margin="20,97,0,0" Grid.RowSpan="2"/>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,20,0,0" FontSize="20" FontWeight="Bold" Content="{ns:Loc ForumLocationLabel}" Style="{DynamicResource LabelStyle}"></Label>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Content="{Binding ForumLocation, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Style="{DynamicResource LabelStyle}" Margin="200,20,0,0"/>
+        <Label Content="{ns:Loc CommentStarExplanation}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,60,0,0" Style="{DynamicResource ExplanationLabelStyle}"/>
+        <Label Content="{ns:Loc Comments}" HorizontalAlignment="Left" FontWeight="Bold"  VerticalAlignment="Top" Style="{DynamicResource LabelStyle}" Margin="13,97,0,0" Grid.RowSpan="2"/>
         <ListBox Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Height="200" Width="560" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,28,0,0" ItemsSource="{Binding Comments, Mode=OneWay}" SelectedItem="{Binding SelectedComment,Mode=TwoWay}" Style="{DynamicResource ListBoxStyle}" >
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
@@ -48,7 +50,7 @@
                             <TextBlock  Height="20" HorizontalAlignment="Left" Text="{Binding Content}" Style="{DynamicResource TextBlockCommentStyle}" Margin="10,50,0,0"/>
                             <TextBlock Height="20" HorizontalAlignment="Right" Text="{ns:Loc Reports}" Style="{DynamicResource TextBlockCommentStyle}" VerticalAlignment="Bottom" Margin="0,0,30,0"/>
                             <TextBlock Height="20" HorizontalAlignment="Right" Style="{DynamicResource TextBlockCommentStyle}" Text="{Binding NumberOfReports, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="0,0,10,0"></TextBlock>
-                            <Image x:Name="StarImage" Height="20" Width="20" HorizontalAlignment="Left" VerticalAlignment="Center" Source="/Resources/Images/StarImage.png" Margin="65,0,0,45">
+                            <Image x:Name="StarImage" Height="20" Width="20" HorizontalAlignment="Left" VerticalAlignment="Center" Source="/Resources/Images/Star.png" Margin="65,0,0,45">
                                 <Image.Style>
                                     <Style TargetType="{x:Type Image}">
                                         <Setter Property="Visibility" Value="Collapsed" />
@@ -65,10 +67,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Content="{ns:Loc AddComment}" Margin="20,240,0,0" Style="{DynamicResource LabelStyle}"></Label>
-        <TextBox Grid.Row="1" HorizontalAlignment="Center" Width="560" Height="100" Margin="0,260,0,10" Text="{Binding Path=Content, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"  Content="{ns:Loc AddComment}" Margin="13,240,0,0" Style="{DynamicResource LabelStyle}"></Label>
+        <TextBox Grid.Row="1" HorizontalAlignment="Center" Width="560" Height="100" Margin="0,260,0,10" TextWrapping="Wrap" Text="{Binding Path=Content, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" IsEnabled="{Binding CanAddComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Content="{ns:Loc Cancel}" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="70" Margin="500,0,0,0" Style="{DynamicResource ButtonInWindowStyle}" Command="{Binding CloseCommand}"></Button>
-        <Button Content="{ns:Loc AddComment}" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="90" Margin="381,0,0,0" Style="{DynamicResource ButtonInWindowStyle}" Command="{Binding AddCommentCommand}"  IsEnabled="{Binding CanAddComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></Button>
+        <Button Content="{ns:Loc Cancel}" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="50" Margin="520,0,0,0" Style="{DynamicResource ButtonInWindowStyle}" Command="{Binding CloseCommand}"></Button>
+        <Button Content="{ns:Loc AddComment}" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="90" Margin="404,0,0,0" Style="{DynamicResource ButtonInWindowStyle}" Command="{Binding AddCommentCommand}"  IsEnabled="{Binding CanAddComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></Button>
     </Grid>
 </Window>

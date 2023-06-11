@@ -81,5 +81,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             voucher.Used = true;
             Update(voucher);
         }
+
+        public List<Voucher> GetAllFor(int guideGuestId)
+        {
+            return GetAll().FindAll(v => v.GuideGuestId == guideGuestId);
+        }
     }
 }

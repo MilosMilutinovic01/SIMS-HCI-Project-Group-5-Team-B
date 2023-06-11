@@ -87,7 +87,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             if(SelectedYearlyAccommodationStatistics != null)
             {
-                MonthlyAccommodationStatisticsWindow monthlyAccommodationStatisticsWindow = new MonthlyAccommodationStatisticsWindow(SelectedYearlyAccommodationStatistics, monthlyAccommodationStatisticsService, accommodationId);
+                MonthlyAccommodationStatisticsWindow monthlyAccommodationStatisticsWindow = new MonthlyAccommodationStatisticsWindow(SelectedYearlyAccommodationStatistics, monthlyAccommodationStatisticsService, accommodationId,accommodationService);
                 monthlyAccommodationStatisticsWindow.Show();
             }
         }

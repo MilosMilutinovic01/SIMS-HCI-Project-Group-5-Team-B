@@ -101,6 +101,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         public RelayCommand DaysDecreaseCommand { get; }
         public RelayCommand SearchCommand { get; }
         public RelayCommand DetailsCommand {get;}
+        public RelayCommand ResetCommand { get;}
 
         public string Error => null;
 
@@ -168,6 +169,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             this.ownerGuestId = ownerGuestId;
             SearchCommand = new RelayCommand(OnSearch);
             DetailsCommand = new RelayCommand(OnDetails);
+            ResetCommand = new RelayCommand(OnReset);
             
         }
 
@@ -210,7 +212,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
             else
             {
-                MessageBox.Show("You must fill required fields.");
+                MessageBox.Show("You must fill required fields.", "Search", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
         }
@@ -224,8 +226,17 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             }
             else
             {
-                MessageBox.Show("You must select the reservation!");
+                MessageBox.Show("You must select the reservation!","Accommodation Details", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        public void OnReset()
+        {
+            GuestNo = 1;
+            Days = 1;
+            Start = null;
+            End = null;
+            AASuggestions.Clear();
         }
 
         private readonly string[] _validatedProperties = { "Days", "GuestNo", "Start", "End" };

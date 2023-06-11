@@ -17,7 +17,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.Column="0">
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Content="{ns:Loc AcceptingRequest}"  Style="{DynamicResource LabelStyle}"></Label>
+            <Label HorizontalAlignment="Center" FontWeight="Bold" VerticalAlignment="Center" FontSize="18" Content="{ns:Loc AcceptingRequest}"  Style="{DynamicResource LabelStyle}"></Label>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="0">
             <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Content="{ns:Loc AcceptionCheck}" Style="{DynamicResource LabelStyle}"></Label>

@@ -189,6 +189,9 @@
   <data name="CancelledReservations" xml:space="preserve">
     <value>Otkazane rezervacije</value>
   </data>
+  <data name="ChangeLanguage" xml:space="preserve">
+    <value>Promena jezika:</value>
+  </data>
   <data name="City" xml:space="preserve">
     <value>Grad</value>
   </data>
@@ -258,6 +261,9 @@
   <data name="Forum" xml:space="preserve">
     <value>Forum</value>
   </data>
+  <data name="ForumLocationLabel" xml:space="preserve">
+    <value>Forum za lokaciju:</value>
+  </data>
   <data name="ForumWindow" xml:space="preserve">
     <value>Prozor Foruma</value>
   </data>
@@ -295,10 +301,13 @@
     <value>Prozor Za Ocenjivanje Gostiju</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Jezik</value>
+    <value>Jezik:</value>
   </data>
   <data name="MaxGuests" xml:space="preserve">
     <value>Maksimalno Gostiju</value>
+  </data>
+  <data name="Medal" xml:space="preserve">
+    <value>🥇</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>Poruke</value>
@@ -362,6 +371,9 @@
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profil</value>
+  </data>
+  <data name="ProfileImage" xml:space="preserve">
+    <value>👤</value>
   </data>
   <data name="ProposalOfPopularLocations" xml:space="preserve">
     <value>Predlozi populanih lokacija za otvaranje novog smestaja</value>
@@ -447,8 +459,14 @@
   <data name="Statistics" xml:space="preserve">
     <value>Statistika</value>
   </data>
+  <data name="StatisticsLabel" xml:space="preserve">
+    <value>Statistika za:</value>
+  </data>
   <data name="SuggestionsForNewLocation" xml:space="preserve">
     <value>Predlozi novih lokacija</value>
+  </data>
+  <data name="SuperOwner" xml:space="preserve">
+    <value>Super-vlasnik</value>
   </data>
   <data name="SuperOwnerExplanation" xml:space="preserve">
     <value>Ako ste super-vlasnik vasi smestaji ce biti prikazani prvi gostima 🏅</value>

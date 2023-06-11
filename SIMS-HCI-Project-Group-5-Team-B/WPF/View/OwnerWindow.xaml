@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <Menu Height="30" FontSize="12"
         VerticalAlignment="Top"
-        HorizontalAlignment="Center"  Style="{DynamicResource MenuStyle}" Width="820" Margin="0,10,0,0" Grid.Row="1">
+        HorizontalAlignment="Center" Style="{DynamicResource MenuStyle}"  Width="820" Margin="0,10,0,0" Grid.Row="1">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel Orientation="Horizontal" />
@@ -33,13 +33,14 @@
             <MenuItem x:Name="Notifications" Header="{ns:Loc Notifications}"  Click="Owner_Notifications_Click" Style="{DynamicResource MenuItemStyle}" Margin="5,0,-5,0"  ></MenuItem>
         </Menu>
         <Frame Name="frame" NavigationUIVisibility="Hidden" Grid.Row="1" Margin="59,40,58,62"/>
-        <ComboBox Name="LocalizationComboBox" SelectionChanged="LocalizationComboBox_SelectionChanged" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80" Margin="0,28,58,0" >
+        <ComboBox Name="LocalizationComboBox" SelectionChanged="LocalizationComboBox_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="797,33,0,0" >
             <ComboBoxItem Content="English"></ComboBoxItem>
             <ComboBoxItem Content="Serbian"></ComboBoxItem>
         </ComboBox>
-        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="{ns:Loc DarkTheme}" Margin="606,26,0,0" Style="{DynamicResource LabelStyle}"/>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="{ns:Loc DarkTheme}" Margin="516,29,0,0" Style="{DynamicResource LabelStyle}"/>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="{ns:Loc ChangeLanguage}" Margin="691,31,0,0" Style="{DynamicResource LabelStyle}"/>
         <ToggleButton x:Name="ThemeToggleButton"
-                         Height="30" Checked="Toggle2_Checked" Unchecked="Toggle2_Unchecked" Margin="684,20,186,15">
+                         Height="30" Checked="Toggle2_Checked" Unchecked="Toggle2_Unchecked" Margin="594,27,276,13">
             <ToggleButton.Template>
                 <ControlTemplate TargetType="ToggleButton">
                     <Border x:Name="B1" Background="#081C15"

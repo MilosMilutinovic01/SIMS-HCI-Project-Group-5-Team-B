@@ -1,4 +1,5 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.DTO;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,30 +19,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls
 {
     public partial class TourInformationUserControl : UserControl
     {
-        public GuideGuestTourDTO TourDTO
-        {
-            get { return (GuideGuestTourDTO)GetValue(TourDTOProperty); }
-            set { SetValue(TourDTOProperty, value); }
-        }
-
-        public static readonly DependencyProperty TourDTOProperty =
-            DependencyProperty.Register("TourDTO", typeof(GuideGuestTourDTO), typeof(TourInformationUserControl),
-                new PropertyMetadata(null));
-
-
-
-        public ICommand BookTourCommand
-        {
-            get { return (ICommand)GetValue(BookTourCommandProperty); }
-            set { SetValue(BookTourCommandProperty, value); }
-        }
-
-        public static readonly DependencyProperty BookTourCommandProperty =
-            DependencyProperty.Register("BookTourCommand", typeof(ICommand), typeof(TourInformationUserControl),
-                new PropertyMetadata(null));
-
-
-
         public TourInformationUserControl()
         {
             InitializeComponent();

@@ -88,7 +88,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
 
         public Guide()
         {
-            
+        
         }
         public Guide(string username, string name, string surname)
         {

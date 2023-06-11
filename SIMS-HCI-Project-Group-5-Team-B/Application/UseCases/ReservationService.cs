@@ -331,8 +331,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         {
             return reservationRepository.GetOwnerGuestsReservationInLastYear(ownerGuestId).Count();
         }
+        public List<Reservation> GetReservationsInTimeSpan(DateTime Start, DateTime End, int oenwrGuestId)
+        {
+            return GetUndeleted().FindAll(res => res.OwnerGuestId == oenwrGuestId && res.StartDate >= Start && res.EndDate <= End);
+        }
 
-
+        public List<Reservation> GetCanceledInTimeSpan(DateTime Start, DateTime End, int oenwrGuestId)
+        {
+            return GetAll().FindAll(res => res.OwnerGuestId == oenwrGuestId && res.StartDate >= Start && res.EndDate <= End && res.IsDeleted == true );
+        }
         public List<Reservation> GetAccommodationReservationsInTimeSpan(Accommodation accommodation, DateTime startDate,DateTime endDate)
         {
             List<Reservation> reservations = new List<Reservation>();

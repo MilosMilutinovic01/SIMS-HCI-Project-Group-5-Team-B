@@ -24,11 +24,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
     {
         public ObservableCollection<GuideGuestTourDTO> Tours { get; set; }
 
-
+        #region Searching variables
         public ObservableCollection<string> States { get; set; }
         public ObservableCollection<string> Cities { get; set; }
-
-
         private string selectedState = string.Empty;
         public string SelectedState
         {
@@ -96,6 +94,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
                 }
             }
         }
+        #endregion
+        #region TourInformations variables
         private GuideGuestTourDTO clickedTour;
         public GuideGuestTourDTO ClickedTour
         {
@@ -109,22 +109,47 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
                 }
             }
         }
+        private bool showTourInformation = false;
+        public bool ShowTourInformation
+        {
+            get => showTourInformation;
+            set
+            {
+                if(showTourInformation != value)
+                {
+                    showTourInformation = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public ObservableCollection<Voucher> Vouchers;
+        public ObservableCollection<DateTime> AvailableDates { get; set; }
+        public DateTime SelectedDate { get; set; }
+        public int NumberOfPeopleAttending { get; set; }
+        #endregion
 
 
         public ICommand SearchCommand { get; }
         public ICommand ResetCommand { get; }
         public ICommand TourClickedCommand { get; }
+        public ICommand CloseTourInformation { get; }
+        public ICommand BookTour { get; }
 
 
         private LocationService locationService;
         private TourService tourService;
+        private AppointmentService appointmentService;
 
         public TourSearchPageViewModel()
         {
             locationService = new LocationService();
             tourService = new TourService();
+            appointmentService = new AppointmentService();
 
             Tours = new ObservableCollection<GuideGuestTourDTO>(tourService.GuideGuestGetAll());
+
+            Vouchers = new ObservableCollection<Voucher>(new VoucherService().GetAllFor(new GuideGuestService().getLoggedGuideGuest().Id));
+            AvailableDates = new ObservableCollection<DateTime>();
 
             States = new ObservableCollection<string>(locationService.GetStates());
             Cities = new ObservableCollection<string>();
@@ -132,6 +157,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
             SearchCommand = new RelayCommand(Search_Execute, CanSearch);
             ResetCommand = new RelayCommand(Reset_Execute);
             TourClickedCommand = new RelayCommandWithParams(TourClicked_Execute);
+            CloseTourInformation = new RelayCommand(CloseTourInformation_Execute);
+            BookTour = new RelayCommand(BookTour_Execute);
         }
 
 
@@ -173,6 +200,40 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         private void TourClicked_Execute(object obj)
         {
             ClickedTour = (obj as GuideGuestTourDTO);
+            AvailableDates.Clear();
+            foreach(var appointment in appointmentService.GetAllBookable(ClickedTour.Tour.Id))
+            {
+                AvailableDates.Add(appointment.Start);
+            }
+            ShowTourInformation = true;
+        }
+        private void CloseTourInformation_Execute()
+        {
+            ShowTourInformation = false;
+        }
+        private void BookTour_Execute()
+        {
+            TourAttendanceService tourAttendanceService = new TourAttendanceService();
+            SIMS_HCI_Project_Group_5_Team_B.Domain.Models.GuideGuest loggedGuideGuest = new GuideGuestService().getLoggedGuideGuest();
+
+            TourAttendance newTourAttendance = new TourAttendance();
+            newTourAttendance.KeyPointGuestArrivedId = -1;
+            newTourAttendance.GuideGuestId = loggedGuideGuest.Id;
+
+            newTourAttendance.VoucherId = -1;
+            
+            newTourAttendance.AppointmentId = -1;
+            foreach (var appointment in new AppointmentService().GetAllBookable(ClickedTour.Tour.Id))
+            {
+                if (appointment.Start.Equals(SelectedDate))
+                {
+                    newTourAttendance.AppointmentId = appointment.Id;
+                    break;
+                }
+            }
+            newTourAttendance.PeopleAttending = NumberOfPeopleAttending;
+
+            tourAttendanceService.Save(newTourAttendance);
         }
     }
 }
