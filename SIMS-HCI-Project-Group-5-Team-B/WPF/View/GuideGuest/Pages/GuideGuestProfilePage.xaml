@@ -24,7 +24,7 @@
                         <DataGridTextColumn Header="Location" Width="150" Binding="{Binding Location}"/>
                         <DataGridTextColumn Header="Status" Width="100" Binding="{Binding Status}"/>
                         <DataGridTextColumn Header="Language" Width="100" Binding="{Binding Language}"/>
-                        <DataGridTextColumn Header="MaxGuests" Width="86" Binding="{Binding MaxGuests}"/>
+                        <DataGridTextColumn Header="MaxGuests" Width="83" Binding="{Binding MaxGuests}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Expander>
@@ -99,6 +99,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Graph -->
+                <Border BorderThickness="0, 0, 0, 1" BorderBrush="Black" Margin="0, 0, 0, 5"/>
                 <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -169,7 +170,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Regular tour requests -->
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Margin="5, 0, 0, 5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
@@ -177,8 +178,8 @@
 
                     <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="Your regular tour requests"/>
                     <WrapPanel Grid.Row="0" HorizontalAlignment="Right">
-                        <Button Content="Edit" Command="{Binding EditRegularTourRequestCommand}" Background="LightBlue"/>
-                        <Button Content="Add new" Command="{Binding AddNewRegularTourRequestCommand}" Background="LightBlue"/>
+                        <Button Content="Edit" Command="{Binding EditRegularTourRequestCommand}" Background="LightBlue" Width="45" Margin="0, 0, 5, 0"/>
+                        <Button Content="Add new" Command="{Binding AddNewRegularTourRequestCommand}" Background="LightBlue" Width="50"/>
                     </WrapPanel>
 
                     <DataGrid Grid.Row="1" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" IsReadOnly="True"
@@ -195,7 +196,8 @@
                 </Grid>
 
                 <!-- Special tour requests -->
-                <Grid Grid.Row="1">
+                <Border Grid.Row="1" BorderThickness="0, 0, 0, 1" BorderBrush="Black" Margin="0, 0, 0, 5"/>
+                <Grid Grid.Row="1" Margin="5, 0, 0, 5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
@@ -203,7 +205,7 @@
 
                     <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="Your special tour requests"/>
                     <WrapPanel Grid.Row="0" HorizontalAlignment="Right">
-                        <Button Content="Edit" Command="{Binding EditSpecialTourRequestCommand}" Background="LightBlue"/>
+                        <Button Content="Edit" Command="{Binding EditSpecialTourRequestCommand}" Background="LightBlue" Width="45" Margin="0, 0, 5, 0"/>
                         <Button Content="Add new" Command="{Binding AddNewSpecialTourRequestCommand}" Background="LightBlue"/>
                     </WrapPanel>
 
@@ -213,7 +215,7 @@
                 </Grid>
 
                 <!-- Held tours -->
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Margin="5, 0, 0, 0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
@@ -223,15 +225,16 @@
 
                     <DataGrid Grid.Row="1" x:Name="AttendancesDataGrid" ItemsSource="{Binding TourAttendances}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Tour name" Binding="{Binding Appointment.Tour.Name}"/>
+                            <DataGridTextColumn Header="Tour name" Width="*" Binding="{Binding Appointment.Tour.Name}"/>
+                            <DataGridTextColumn Header="Location" Width="*" Binding="{Binding Appointment.Tour.Location}"/>
                             <DataGridTextColumn Header="Date started" Binding="{Binding Appointment.Start}"/>
                             <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
-                            <DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Action">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Grid>
                                             <Button x:Name="Visit" Content="Visit"
-                                                    FontSize="13" Width="45" Margin="0, 0, 10, 0"
+                                                    FontSize="13" Width="45" Background="LightBlue"
                                                     Command="{Binding DataContext.VisitLiveTourCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GuideGuestProfilePage}}}">
                                                 <Button.Style>
                                                     <Style TargetType="Button">
@@ -245,7 +248,7 @@
                                                 </Button.Style>
                                             </Button>
                                             <Button x:Name="Grade" Content="Grade"
-                                                    FontSize="13" Width="45" Margin="0, 0, 10, 0"
+                                                    FontSize="13" Width="45" Background="LightBlue"
                                                     Command="{Binding DataContext.GradeTourCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GuideGuestProfilePage}}}">
                                                 <Button.Style>
                                                     <Style TargetType="Button">
@@ -269,7 +272,7 @@
         </Grid>
 
         <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="430" Width="300">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="430" Width="375">
                 <forms:RegularTourRequestForm x:Name="RegularTourRequestForm"
                                               DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GuideGuestProfilePage}}}">
                     <forms:RegularTourRequestForm.Style>
@@ -285,7 +288,7 @@
                 </forms:RegularTourRequestForm>
             </StackPanel>
 
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="500" Width="300">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="520" Width="400">
                 <forms:SpecialTourRequestForm x:Name="SpecialTourRequestForm"
                                               DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GuideGuestProfilePage}}}">
                     <forms:SpecialTourRequestForm.Style>

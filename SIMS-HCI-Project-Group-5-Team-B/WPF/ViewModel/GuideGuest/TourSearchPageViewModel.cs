@@ -57,7 +57,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
                 }
             }
         }
-        private int numberOfGuests;
+        private int numberOfGuests = 1;
         public int NumberOfGuests
         {
             get => numberOfGuests;

@@ -51,6 +51,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
             BackCommand = new RelayCommand(Back_Execute);
             HomeCommand = new RelayCommand(Home_Execute);
             ProfileCommand = new RelayCommand(Profile_Execute);
+
+            Home_Execute();
         }
 
         private void Profile_Execute()
@@ -71,7 +73,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         private void JoinTourNotification_Execute(object obj)
         {
             var notificationDTO = obj as GuideGuestNotificationDTO;
-            throw new NotImplementedException();
+            (guideGuestProfilePage.DataContext as GuideGuestProfileViewModel).ShowTourTrackingForm = true;
+            frameNavigationService.Content = guideGuestProfilePage;
         }
         private void VisitTourNotification_Execute(object obj)
         {

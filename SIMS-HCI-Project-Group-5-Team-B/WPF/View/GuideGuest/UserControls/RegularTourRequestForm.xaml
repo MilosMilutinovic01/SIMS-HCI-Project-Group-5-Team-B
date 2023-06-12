@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
              mc:Ignorable="d" 
-             Height="420" Width="300"
-             Background="Transparent">
+             Height="420" Width="360"
+             Background="Transparent" Margin="7">
     <UserControl.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -35,8 +35,8 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.45*"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"
@@ -83,8 +83,8 @@
                      Margin="0, 0, 0, 15"/>
 
             <WrapPanel Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" HorizontalAlignment="Right">
-                <Button x:Name="SaveRegularTourRequestButton" Content="Save" Command="{Binding SaveRegularTourRequestCommand}" Background="LightBlue"/>
-                <Button x:Name="CancelRegularTourRequestButton" Content="Cancel" Command="{Binding CancelRegularTourRequestCommand}" Background="LightBlue"/>
+                <Button x:Name="SaveRegularTourRequestButton" Content="Save" Command="{Binding SaveRegularTourRequestCommand}" Background="LightBlue" Width="45" Margin="0, 0, 5, 0"/>
+                <Button x:Name="CancelRegularTourRequestButton" Content="Cancel" Command="{Binding CancelRegularTourRequestCommand}" Background="LightBlue" Width="45"/>
             </WrapPanel>
         </Grid>
     </Grid>

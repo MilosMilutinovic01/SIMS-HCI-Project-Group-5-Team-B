@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
              mc:Ignorable="d" 
-             Height="500" Width="300"
-             Background="Transparent">
+             Height="500" Width="370"
+             Background="Transparent" Margin="7">
     <UserControl.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -38,8 +38,8 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.5*"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"
@@ -50,9 +50,8 @@
                     Margin="0, 0, 0, 5" Padding="0, 0, 0, 3">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="144*"/>
-                        <ColumnDefinition Width="29*"/>
-                        <ColumnDefinition Width="115*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1.5*"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0"
@@ -117,9 +116,9 @@
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      FontSize="14" Background="WhiteSmoke"/>
 
-            <WrapPanel Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" HorizontalAlignment="Right">
-                <Button Content="Save" Command="{Binding SaveSpecialTourRequestCommand}" Background="LightBlue"/>
-                <Button Content="Cancel" Command="{Binding CancelSpecialTourRequestCommand}" Background="LightBlue"/>
+            <WrapPanel Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0, 5, 0, 0">
+                <Button Content="Save" Command="{Binding SaveSpecialTourRequestCommand}" Background="LightBlue" Width="45" Margin="0, 0, 5, 0"/>
+                <Button Content="Cancel" Command="{Binding CancelSpecialTourRequestCommand}" Background="LightBlue" Width="45"/>
             </WrapPanel>
         </Grid>
     </Grid>

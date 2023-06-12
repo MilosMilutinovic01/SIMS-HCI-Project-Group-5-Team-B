@@ -67,8 +67,8 @@
 
 
             <WrapPanel Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" HorizontalAlignment="Right">
-                <Button Content="Save" Command="{Binding SaveGradeCommand}" Background="LightBlue" Margin="5, 0"/>
-                <Button Content="Cancel" Command="{Binding CancelGradeCommand}" Background="LightBlue" Margin="5, 0"/>
+                <Button Content="Save" Command="{Binding SaveGradeCommand}" Background="LightBlue" Margin="3, 0"/>
+                <Button Content="Cancel" Command="{Binding CancelGradeCommand}" Background="LightBlue" Margin="3, 0"/>
             </WrapPanel>
         </Grid>
     </Grid>
