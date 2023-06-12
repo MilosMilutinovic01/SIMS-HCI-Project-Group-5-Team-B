@@ -4,9 +4,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
+             xmlns:model="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Domain.Models"
              mc:Ignorable="d" 
              Height="350" Width="300"
              Background="Transparent">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type model:KeyPoint}">
+            <BulletDecorator Width="Auto" Margin="0, 4">
+                <BulletDecorator.Bullet>
+                    <Ellipse Stroke="Black" StrokeThickness="0.7" Width="7" Height="7" Margin="0, 2">
+                        <Ellipse.Style>
+                            <Style TargetType="Ellipse">
+                                <Setter Property="Fill" Value="LightGray"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Selected}" Value="True">
+                                        <Setter Property="Fill" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                    </Ellipse>
+                </BulletDecorator.Bullet>
+                <TextBlock Text="{Binding Name}" FontSize="15" Margin="2, 0"/>
+            </BulletDecorator>
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1" CornerRadius="8">
             <Rectangle Fill="White" RadiusX="8" RadiusY="8"/>
@@ -28,15 +50,19 @@
             <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"
                        Text="Tour tracking" FontSize="20" FontWeight="DemiBold" Margin="0, 15"/>
 
-            <TextBlock Grid.Row="1" FontSize="15">
-                Tour is currently live.<LineBreak/>
-                You can see current progress here:
+            <TextBlock Grid.Row="1" FontSize="15" TextWrapping="Wrap">
+                <Run Text="Tour "/>
+                <Run Text="{Binding LiveTour.Name}"/>
+                <Run Text=" is currently live."/>
+                <LineBreak/>
+                <Run Text="You can se current progress here:"/>
             </TextBlock>
-            <DataGrid Grid.Row="2"/>
+
+            <ItemsControl Grid.Row="2" ItemsSource="{Binding LiveTour.KeyPoints}"
+                         BorderThickness="0"/>
 
             <WrapPanel Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Right">
-                <Button Content="Save"/>
-                <Button Content="Cancel"/>
+                <Button Content="Cancel" Background="LightBlue" Command="{Binding CloseLiveTourCommand}"/>
             </WrapPanel>
         </Grid>
     </Grid>

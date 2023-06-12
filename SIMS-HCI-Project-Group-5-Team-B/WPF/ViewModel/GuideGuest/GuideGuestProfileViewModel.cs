@@ -266,11 +266,32 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
             }
         }
         #endregion
+        #region Live tour tracking variables
+        public ICommand VisitLiveTourCommand { get; }
+        public ICommand CloseLiveTourCommand { get; }
+        private bool showTourTrackingForm;
+        public bool ShowTourTrackingForm
+        {
+            get => showTourTrackingForm;
+            set
+            {
+                if(showTourTrackingForm!= value)
+                {
+                    showTourTrackingForm = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public Tour LiveTour { get; set; }
+        #endregion
+
 
         public SIMS_HCI_Project_Group_5_Team_B.Domain.Models.GuideGuest LoggedGuideGuest { get; set; }
 
+        public ICommand GradeTour;
+
         public ICommand GeneratePDFReportCommand { get; }
-        
+
         private TourRequestService tourRequestService;
         private TourRequestStatisticsService tourRequestStatisticsService;
         private GuideGuestService guideGuestService;
@@ -307,6 +328,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
             CancelSpecialTourRequestCommand = new RelayCommand(CancelSpecialTourRequest_Execute);
             AddNewPartCommand = new RelayCommand(AddNewPart_Execute);
             RemovePartCommand = new RelayCommand(RemovePart_Execute, CanRemovePart);
+
+            VisitLiveTourCommand = new RelayCommand(VisitLiveTour_Execute);
+            CloseLiveTourCommand = new RelayCommand(CloseLiveTour_Execute);
+            GetLiveTour();
 
             GeneratePDFReportCommand = new RelayCommand(GeneratePDFReport_Execute);
         }
@@ -475,6 +500,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
 
         private bool CanEditSpecialTourRequest()
         {
+            return false;
             return SelectedSpecialTourRequest != null;
         }
         private void EditSpecialTourRequest_Execute()
@@ -551,7 +577,30 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
             SelectedSpecialTourRequest.TourRequests.Add(SelectedPart);
         }
         
+        private void VisitLiveTour_Execute()
+        {
+            ShowTourTrackingForm = true;
+        }
+        private void CloseLiveTour_Execute()
+        {
+            ShowTourTrackingForm = false;
+        }
+        private void GetLiveTour()
+        {
+            LiveTour = new Tour();
+            LiveTour.Name = "Obilazak manastira fruske gore";
+            LiveTour.KeyPoints = new List<KeyPoint> { new KeyPoint("Krusedol", true, -1),
+                                                        new KeyPoint("Petkovica", true, -1),
+                                                        new KeyPoint("Mala remeta", true, -1),
+                                                        new KeyPoint("Kuvazdin", false, -1),
+                                                        new KeyPoint("Vrdnik", false, -1),
+                                                        new KeyPoint("Grgeteg", false, -1),
+                                                        new KeyPoint("Vranjas", false, -1),
+                                                        };
+        }
         
+
+
         private void GeneratePDFReport_Execute()
         {
             TourAttendanceService tourAttendanceService = new TourAttendanceService();
@@ -628,13 +677,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
                 iTextSharp.text.Paragraph agencyParagraph = new iTextSharp.text.Paragraph("\n\n\nReport generated on: \n" + DateTime.Now.ToString(), new Font(Font.FontFamily.HELVETICA, 13));
                 agencyParagraph.Alignment = Element.ALIGN_RIGHT;
                 document.Add(agencyParagraph);
-
-                Image agencyImage1 = Image.GetInstance(folderPath + "/Images/signature.png");
-                agencyImage1.ScaleToFit(130f, 60f); // Adjust the size as needed
-                agencyImage1.Alignment = Image.TEXTWRAP | Image.ALIGN_RIGHT;
-                agencyImage1.IndentationLeft = 9f;
-                agencyImage1.SpacingAfter = 9f;
-                document.Add(agencyImage1);
             }
             catch (Exception ex)
             {

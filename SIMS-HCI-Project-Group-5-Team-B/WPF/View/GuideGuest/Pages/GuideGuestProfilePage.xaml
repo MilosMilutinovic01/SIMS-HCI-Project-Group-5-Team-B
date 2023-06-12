@@ -139,7 +139,7 @@
                             <liveCharts:Axis Title="Number of requests" Labels="{Binding Values}" Foreground="Black"/>
                         </liveCharts:CartesianChart.AxisY>
                     </liveCharts:CartesianChart>
-                    
+
                 </Grid>
 
                 <!-- Vouchers -->
@@ -221,38 +221,23 @@
 
                     <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="Your booked tours"/>
 
-                    <DataGrid Grid.Row="1" ItemsSource="{Binding TourAttendances}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
-                        <DataGrid.Resources>
-                            <DataTemplate x:Key="ButtonAtEnd">
-                                <Button x:Name="Visit" Content="Visit"
-                                                    FontSize="13" Width="45" Margin="0, 0, 10, 0" Visibility="Collapsed">
-                                    <Button.Style>
-                                        <Style TargetType="Button">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Status, RelativeSource={RelativeSource AncestorType=DataGrid}}" Value="{x:Static dto:TourAttendanceStatus.LIVE}">
-                                                    <Setter Property="Visibility" Value="Visible"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
-                            </DataTemplate>
-                        </DataGrid.Resources>
+                    <DataGrid Grid.Row="1" x:Name="AttendancesDataGrid" ItemsSource="{Binding TourAttendances}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Tour name" Binding="{Binding Appointment.Tour.Name}"/>
                             <DataGridTextColumn Header="Date started" Binding="{Binding Appointment.Start}"/>
                             <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
-                            <DataGridTemplateColumn Header="Some" CellTemplate="{StaticResource ButtonAtEnd}"/>
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Grid>
                                             <Button x:Name="Visit" Content="Visit"
-                                                    FontSize="13" Width="45" Margin="0, 0, 10, 0" Visibility="Collapsed">
+                                                    FontSize="13" Width="45" Margin="0, 0, 10, 0"
+                                                    Command="{Binding DataContext.VisitLiveTourCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GuideGuestProfilePage}}}">
                                                 <Button.Style>
                                                     <Style TargetType="Button">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Status,RelativeSource={RelativeSource AncestorType=DataGrid}}" Value="{x:Static dto:TourAttendanceStatus.LIVE}">
+                                                            <DataTrigger Binding="{Binding Status}" Value="{x:Static dto:TourAttendanceStatus.LIVE}">
                                                                 <Setter Property="Visibility" Value="Visible"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
@@ -260,9 +245,10 @@
                                                 </Button.Style>
                                             </Button>
                                             <Button x:Name="Grade" Content="Grade"
-                                                    FontSize="13" Width="45" Margin="0, 0, 10, 0" Visibility="Visible">
+                                                    FontSize="13" Width="45" Margin="0, 0, 10, 0">
                                                 <Button.Style>
                                                     <Style TargetType="Button">
+                                                        <Setter Property="Visibility" Value="Visible"/>
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding Status}" Value="{x:Static dto:TourAttendanceStatus.LIVE}">
                                                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -298,7 +284,7 @@
                     </forms:RegularTourRequestForm.Style>
                 </forms:RegularTourRequestForm>
             </StackPanel>
-            
+
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="500" Width="300">
                 <forms:SpecialTourRequestForm x:Name="SpecialTourRequestForm"
                                               DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GuideGuestProfilePage}}}">
@@ -314,7 +300,23 @@
                     </forms:SpecialTourRequestForm.Style>
                 </forms:SpecialTourRequestForm>
             </StackPanel>
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="500" Width="300">
+                <forms:TourTrackingForm x:Name="TourTrackingForm"
+                                              DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GuideGuestProfilePage}}}">
+                    <forms:TourTrackingForm.Style>
+                        <Style TargetType="{x:Type forms:TourTrackingForm}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShowTourTrackingForm}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </forms:TourTrackingForm.Style>
+                </forms:TourTrackingForm>
+            </StackPanel>
         </Grid>
-        
+
     </Grid>
 </Page>
