@@ -261,6 +261,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
                 appointmentService.SaveAll(appointments);
                 if (flag.Equals("request"))
                     tourRequestService.AcceptRequest(TourRequest, Tour.Id);
+                else if(flag.Equals("special"))
+                {
+                    tourRequestService.AcceptRequest(TourRequest, Tour.Id);
+                    TourRequest.AcceptedTourId = Tour.Id;
+                }
                 else
                 {
                     if (!ComboBoxCities.IsEnabled)

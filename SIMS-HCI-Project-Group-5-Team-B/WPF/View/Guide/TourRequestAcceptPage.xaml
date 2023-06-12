@@ -121,6 +121,13 @@
                     <DataGridTextColumn Header="Language" Width="*" Binding="{Binding Language}" />
                     <DataGridTextColumn Header="Start" Width="*" Binding="{Binding DateRangeStart}" />
                     <DataGridTextColumn Header="MaxGuests" Width="*" Binding="{Binding MaxGuests}" />
+                    <DataGridTemplateColumn Header="Complex tour">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsEnabled="False" IsChecked="{Binding SpecialTourId, Converter={cvt:IntegerToBooleanConverter}}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

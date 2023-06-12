@@ -239,6 +239,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 return;
             }
             SelectedTourRequest.SelectedDate = SelectedDate;
+            if(SelectedTourRequest.SpecialTourId != -1)
+            {
+                Page createSpecial = new CreateTourPage("special", SelectedTourRequest);
+                this.frame.NavigationService.Navigate(createSpecial);
+                return;
+            }
             Page create = new CreateTourPage("request", SelectedTourRequest);
             this.frame.NavigationService.Navigate(create);
         }
