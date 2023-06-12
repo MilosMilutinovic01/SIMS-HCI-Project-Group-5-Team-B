@@ -61,9 +61,26 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 }
             }
         }
+        
+        private bool isEnabledStatisticsButton;
+        public bool IsEnabledStatisticsButton
+        {
+            get
+            {
+                return isEnabledStatisticsButton;
+            }
+            set
+            {
+                if (isEnabledStatisticsButton != value)
+                {
+                    isEnabledStatisticsButton = value;
+                    OnPropertyChanged(nameof(IsEnabledStatisticsButton));
+                }
+            }
+        }
         public RelayCommand ShowStatisticsCommand { get; set; }
         public RelayCommand ReportOnScheduledToursCommand { get; set; }
-        public RelayCommand EnableReportCommand { get; set; }
+        public RelayCommand EnableStatisticsButtonCommand { get; set; }
         public RelayCommand OpenPopupCommand { get; set; }
         public ObservableCollection<string> Years { get; set; }
         public ObservableCollection<Appointment> MostVisitedAppointment { get; set; }
@@ -87,6 +104,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         {
             IsOpenedPopup = !IsOpenedPopup;
         }
+        private void Execute_EnableStatisticsButtonCommand()
+        {
+            IsEnabledStatisticsButton = true;
+        }
+        private void Execute_ReportOnScheduledToursCommand()
+        {
+            Window window = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            if (window != null)
+            {
+                window.Effect = new BlurEffect();
+            }
+            DateForReportWindow dateForReportWindow = new DateForReportWindow();
+            dateForReportWindow.ShowDialog();
+            window.Effect = null;
+        }
         private void Execute_ShowStatisticsCommand()
         {
             if (SelectedAppointment == null)
@@ -103,28 +135,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             tourStatistics.ShowDialog();
             window.Effect = null;
         }
-
-        private void Execute_ReportOnScheduledToursCommand()
-        {
-            Window window = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-            if (window != null)
-            {
-                window.Effect = new BlurEffect();
-            }
-            DateForReportWindow dateForReportWindow = new DateForReportWindow();
-            dateForReportWindow.ShowDialog();
-            window.Effect = null;
-        }
         #endregion
         public MyToursViewModel(int userId)
         {
             this.userId = userId;
-            KeyPointCSVRepository keyPointCSVRepository = new KeyPointCSVRepository();
-            LocationCSVRepository locationCSVRepository = new LocationCSVRepository();
-            TourCSVRepository tourCSVRepository = new TourCSVRepository();
-            TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
-            TourGradeCSVRepository tourGradeCSVRepository = new TourGradeCSVRepository();
-            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository();
 
             this.tourAttendanceService = new TourAttendanceService();
             this.appointmentService = new AppointmentService();
@@ -135,15 +149,14 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
             this.ShowStatisticsCommand = new RelayCommand(Execute_ShowStatisticsCommand, CanExecute_NavigateCommand);
             this.ReportOnScheduledToursCommand = new RelayCommand(Execute_ReportOnScheduledToursCommand, CanExecute_NavigateCommand);
+            this.EnableStatisticsButtonCommand = new RelayCommand(Execute_EnableStatisticsButtonCommand, CanExecute_NavigateCommand);
             this.OpenPopupCommand = new RelayCommand(Execute_OpenPopupCommand, CanExecute_NavigateCommand);
             Years = new ObservableCollection<string>();
             foreach(string year in appointmentService.GetAllYears())
                 Years.Add(year);
 
-            PageName = "My tours";
-            HelpMessage = "My tour help message!";
-
             IsOpenedPopup = false;
+            IsEnabledStatisticsButton = false;
             RefreshData();
         }
 

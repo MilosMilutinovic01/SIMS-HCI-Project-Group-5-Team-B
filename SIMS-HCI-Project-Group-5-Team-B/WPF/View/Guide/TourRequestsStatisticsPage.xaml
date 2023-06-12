@@ -14,7 +14,7 @@
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.4*"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -26,19 +26,22 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <TextBlock Grid.ColumnSpan="2" Panel.ZIndex="1" Background="Black" Foreground="GhostWhite" FontSize="20" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top">
+            Tour requests with statistics
+        </TextBlock>
         <Button Grid.Row="0" Grid.Column="1" x:Name="HelpButton" Command="{Binding OpenPopupCommand}" Style="{StaticResource GuideNavButton}" Height="30" Width="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0">
             <Image Source="/Resources/Images/helpIcon.png" HorizontalAlignment="Center"/>
         </Button>
         <Popup x:Name="popup" PlacementTarget="{Binding ElementName=HelpButton}" IsOpen="{Binding IsOpenedPopup, UpdateSourceTrigger=PropertyChanged}" Placement="Bottom" HorizontalOffset="-170">
             <Grid Width="200" Height="Auto" Background="#202122">
                 <TextBlock Padding="10" Foreground="GhostWhite" TextWrapping="Wrap">
-                    Welcome to the Tour Requests Statistics page! Here, you can view and manage reviews for tours. Scroll through the reviews and interact with them using the provided options. Click 'More' to see additional details or 'Report' to report a review.
+                    Welcome to the Tour Requests Statistics page! Here, you can view and manage reviews for tours. Scroll through the reviews and interact with them using the provided options.
                     <LineBreak/><LineBreak/>Feel free to explore and use these elements to manage your account and access different sections. Click the 'Help' button if you need further assistance.
                     <LineBreak/><LineBreak/>Enjoy using the application!
                 </TextBlock>
             </Grid>
         </Popup>
-        <Grid Grid.Row="0" Grid.RowSpan="2">
+        <Grid Grid.Row="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -46,11 +49,10 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"></ColumnDefinition>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="4*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Foreground="GhostWhite" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">State:</TextBlock>
+            <TextBlock Foreground="GhostWhite" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">State:</TextBlock>
             <ComboBox Grid.Row="0" Grid.Column="2" SelectedValue="{Binding Path=State}" ItemsSource="{Binding States}" VerticalAlignment="Center">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged" >
@@ -61,7 +63,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
-            <TextBlock Foreground="GhostWhite" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">City:</TextBlock>
+            <TextBlock Foreground="GhostWhite" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">City:</TextBlock>
             <ComboBox Grid.Row="1" Grid.Column="2" Text="{Binding Path=City}" ItemsSource="{Binding Cities}" VerticalAlignment="Center">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged" >
@@ -69,7 +71,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
-            <TextBlock Foreground="GhostWhite" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Language:</TextBlock>
+            <TextBlock Foreground="GhostWhite" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">Language:</TextBlock>
             <ComboBox Grid.Row="2" Grid.Column="2" SelectedValue="{Binding Language}" ItemsSource="{Binding Languages}" VerticalAlignment="Center">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged" >
@@ -77,7 +79,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>  
             </ComboBox>
-            <TextBlock Foreground="GhostWhite" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">Dsiplay by:</TextBlock>
+            <TextBlock Foreground="GhostWhite" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">Dsiplay by:</TextBlock>
             <ComboBox Grid.Row="3" Grid.Column="2" SelectedValue="{Binding DisplayType}" ItemsSource="{Binding DisplayTypes}" VerticalAlignment="Center">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged" >
@@ -86,21 +88,21 @@
                 </i:Interaction.Triggers>
             </ComboBox>
         </Grid>
-        <DataGrid Style="{StaticResource GuideDataGrid}" Grid.Row="2" Grid.RowSpan="2" Visibility="{Binding YearDataGridVisibility, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="2" Height="170" ItemsSource="{Binding Path=RequestsByYears}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
+        <DataGrid Style="{StaticResource GuideDataGrid}" Grid.Row="3" Grid.RowSpan="2" Visibility="{Binding YearDataGridVisibility, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="2" Height="170" ItemsSource="{Binding Path=RequestsByYears}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Number of requests" Width="*" Binding="{Binding NumberOfRequests}" />
                 <DataGridTextColumn Header="Year" Width="*" Binding="{Binding Year}" />
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid Style="{StaticResource GuideDataGrid}" Grid.Row="2" Grid.RowSpan="2" Visibility="{Binding MonthDataGridVisibility, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="2" Height="170" ItemsSource="{Binding Path=RequestsByMonths}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
+        <DataGrid Style="{StaticResource GuideDataGrid}" Grid.Row="4" Grid.RowSpan="2" Visibility="{Binding MonthDataGridVisibility, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="2" Height="170" ItemsSource="{Binding Path=RequestsByMonths}" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Number of requests" Width="*" Binding="{Binding NumberOfRequests}" />
                 <DataGridTextColumn Header="Month" Width="*" Binding="{Binding Month}" />
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <TextBlock Foreground="GhostWhite" VerticalAlignment="Center">Create tour by:</TextBlock>
-            <ComboBox VerticalAlignment="Center" Width="150" SelectedValue="{Binding Type}" ItemsSource="{Binding TypesForCreating}">
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <TextBlock Foreground="GhostWhite" VerticalAlignment="Center" Margin="5,0,0,0">Create tour by:</TextBlock>
+            <ComboBox VerticalAlignment="Center" Width="150" SelectedValue="{Binding Type}" ItemsSource="{Binding TypesForCreating}" Margin="5,0,0,0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged" >
                         <i:InvokeCommandAction Command="{Binding EnableCreateButtonCommand}"/>
@@ -108,6 +110,6 @@
                 </i:Interaction.Triggers>
             </ComboBox>
         </StackPanel>
-        <Button Style="{StaticResource GuideButton}" IsEnabled="{Binding IsEnabledCrateButton,UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding CreateByStatisticsCommand}">Create</Button>
+        <Button Style="{StaticResource GuideButton}" IsEnabled="{Binding IsEnabledCrateButton,UpdateSourceTrigger=PropertyChanged}" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding CreateByStatisticsCommand}">Create</Button>
     </Grid>
 </Page>

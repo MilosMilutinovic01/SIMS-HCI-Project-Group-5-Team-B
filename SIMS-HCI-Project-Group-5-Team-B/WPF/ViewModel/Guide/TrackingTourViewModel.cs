@@ -155,6 +155,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         private void Execute_EndTourCommand()
         {
             bool result = false;
+            if(SelectedAppointment.Ended)
+            {
+                MessageBox.Show("Tour already ended!");
+                return;
+            }
             if (SelectedAppointment.Started == true)
                 result = MessageBox.Show("Are you sure you want to end?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
             else
@@ -168,14 +173,28 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         private void Execute_CheckKeyPointCommand()
         {
-
+            List<KeyPoint> kp = appointmentService.getById(SelectedAppointment.Id).Tour.KeyPoints;
+            int targetId = SelectedKeyPoint.Id - 1;
+            KeyPoint previousKeyPoint = keyPointsController.GetById(targetId);
+            if (SelectedAppointment == null || SelectedAppointment.Started == false)
+            {
+                MessageBox.Show("Must start tour first");
+                return;
+            }
             if (SelectedKeyPoint == KeyPoints[0] || SelectedKeyPoint.Selected == true)
             {
                 MessageBox.Show("Already selected!");
+                return;
                 //keyPointName = KeyPoints[0].Name;
             }
             //else if (isLastKeyPoint)
-            else if(false)
+            else if (previousKeyPoint.Selected != true)
+            {
+                MessageBox.Show("Can't select this key point before previous is selected!");
+                return;
+                
+            }
+            else if(SelectedKeyPoint.Id == kp.Last().Id)
             {
                 SelectedKeyPoint.Selected = true;
                 keyPointsController.Update(SelectedKeyPoint);
@@ -186,9 +205,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 appointmentService.Update(SelectedAppointment);
 
                 MessageBox.Show("Tour ended!");
-            }
-            //else if (KeyPoints[KeyPointsDataGrid.SelectedIndex - 1].Selected == true)
-            else if(true)
+                return;
+            }   
+            else
             {
                 SelectedAppointment.CheckedKeyPointId = SelectedKeyPoint.Id;
                 appointmentService.Update(SelectedAppointment);
@@ -196,10 +215,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 SelectedKeyPoint.Selected = true;
                 keyPointsController.Update(SelectedKeyPoint);
                 //keyPointName = SelectedKeyPoint.Name;
-            }
-            else
-            {
-                MessageBox.Show("Can't select this key point before previous is selected!");
             }
 
             RefreshKeyPoints();
