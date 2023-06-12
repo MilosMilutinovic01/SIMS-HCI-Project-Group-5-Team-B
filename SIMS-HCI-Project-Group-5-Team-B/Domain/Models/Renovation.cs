@@ -156,6 +156,20 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                         }
                     }
 
+                    if (StartDate > EndDate)
+                    {
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "Start date can not be bigger than end date";
+                        }
+                        else
+                        {
+                            return "Datum pocetka ne moze biti veci od datuma kraja";
+                        }
+                    }
+
+
+
                 }
                 else if (columnName == "EndDate")
                 {

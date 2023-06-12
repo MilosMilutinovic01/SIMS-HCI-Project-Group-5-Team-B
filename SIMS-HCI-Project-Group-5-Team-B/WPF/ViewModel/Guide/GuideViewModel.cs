@@ -23,6 +23,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
 
         public Frame frame;
         public SIMS_HCI_Project_Group_5_Team_B.Domain.Models.Guide guide;
+        public GuideService guideService;
+        public AppointmentService appointmentService;
+        public TourGradeService tourGradeService;
+        private TourAttendanceService tourAttendanceService;
         public string SuperGuide { get; set; }
         public bool Tooltips
         {
@@ -201,9 +205,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
         #region constructors
         public GuideViewModel(SIMS_HCI_Project_Group_5_Team_B.Domain.Models.Guide guide, NavigationService navService, Frame frame) 
         {
+            this.guideService = new GuideService();
+            this.appointmentService = new AppointmentService();
+            this.tourGradeService = new TourGradeService();
+            this.tourAttendanceService = new TourAttendanceService();
+            string language = appointmentService.GetFinishedToursLastYear(guide.Id);
+            if(language == null)
+                language = "";
+            guide.AverageGrade = tourGradeService.GetAverageGrade(guide.Id, language);
+            guideService.Update(guide);
             this.NavService = navService;
-            Username = "Username: " + guide.Username;
-            SuperGuide = "Super-guide: no";
             this.NavigateToCreateTourPageCommand = new RelayCommand(Execute_NavigateToCreateTourPageCommand, CanExecute_NavigateCommand);
             this.NavigateToTrackingTourPageCommand = new RelayCommand(Execute_NavigateToTrackingTourPageCommand, CanExecute_NavigateCommand);
             this.NavigateToUpcomingToursPageCommand = new RelayCommand(Execute_NavigateToUpcomingToursPageCommand, CanExecute_NavigateCommand);

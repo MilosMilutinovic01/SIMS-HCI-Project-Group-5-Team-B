@@ -89,12 +89,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 OwnersPendingRequests.Remove(SelectedReservationChangeRequest);
                 if(Properties.Settings.Default.currentLanguage == "en-US")
                 {
-                    MessageBox.Show("Reservation was succesfully changed");
+                    MessageBox.Show("Reservation was succesfully changed","Succesfull",MessageBoxButton.OK,MessageBoxImage.Information);
                     Close();
                 }
                 else
                 {
-                    MessageBox.Show("Rezervacija je uspesno pomerena");
+                    MessageBox.Show("Rezervacija je uspesno pomerena", "Uspesno", MessageBoxButton.OK, MessageBoxImage.Information);
                     Close();
                 }
             }
@@ -102,12 +102,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
             {
                 if (Properties.Settings.Default.currentLanguage == "en-US")
                 {
-                    MessageBox.Show("Reservation was not selected");
+                    MessageBox.Show("Reservation was not selected", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     Close();
                 }
                 else
                 {
-                    MessageBox.Show("Rezervacija nije selektovana");
+                    MessageBox.Show("Rezervacija nije selektovana", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
                     Close();
                 }
             }
@@ -123,12 +123,30 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel
                 //send notification
                 notificationController.Send(CreateOwnerNotification("Denied"));
                 OwnersPendingRequests.Remove(SelectedReservationChangeRequest);
-                MessageBox.Show("Request was succesfully denied!");
-                Close();
+                if (Properties.Settings.Default.currentLanguage == "en-US")
+                {
+                    MessageBox.Show("Request was succesfully denied!", "Succesfull", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Zahtev je uspesno odbijen", "Uspesno", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
+                }
+
             }
             else
             {
-                MessageBox.Show("Request was not selected!");
+                if (Properties.Settings.Default.currentLanguage == "en-US")
+                {
+                    MessageBox.Show("Request was not selected", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Zahtev nije selektovan", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    Close();
+                }
             }
         }
 

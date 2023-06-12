@@ -14,7 +14,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="7*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Menu Height="30" FontSize="12"
+        <Menu Height="30" FontSize="12" x:Name="menu"
         VerticalAlignment="Top"
         HorizontalAlignment="Center" Style="{DynamicResource MenuStyle}"  Width="820" Margin="0,10,0,0" Grid.Row="1">
             <Menu.ItemsPanel>

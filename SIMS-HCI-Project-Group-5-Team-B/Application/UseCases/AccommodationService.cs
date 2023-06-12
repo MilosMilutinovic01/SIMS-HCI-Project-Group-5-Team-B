@@ -226,7 +226,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return accomodationRepository.GetUndeleted();
         }
 
-
+        public List<Accommodation> GetOwnersAccommodationsOnUnpopularLocations(List<Location> unpopularLocations, Owner owner)
+        {
+            List<Accommodation> accommodations = new List<Accommodation>();
+            foreach (Location location in unpopularLocations)
+            {
+                foreach (Accommodation accommodation in GetOwnersAccommodationsOnLocation(location, owner))
+                {
+                    accommodations.Add(accommodation);
+                }
+            }
+            return accommodations;
+        }
 
     }
 }
