@@ -284,11 +284,40 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
         }
         public Tour LiveTour { get; set; }
         #endregion
-
+        #region Tour grading variables
+        private TourGrade tourGrade;
+        public TourGrade TourGrade
+        {
+            get => tourGrade;
+            set
+            {
+                if(tourGrade != value)
+                {
+                    tourGrade = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool showTourGradingForm;
+        public bool ShowTourGradingForm
+        {
+            get => showTourGradingForm;
+            set
+            {
+                if (showTourGradingForm != value)
+                {
+                    showTourGradingForm = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public ICommand GradeTourCommand { get; }
+        public ICommand SaveGradeCommand { get; }
+        public ICommand CancelGradeCommand { get; }
+        #endregion
 
         public SIMS_HCI_Project_Group_5_Team_B.Domain.Models.GuideGuest LoggedGuideGuest { get; set; }
 
-        public ICommand GradeTour;
 
         public ICommand GeneratePDFReportCommand { get; }
 
@@ -332,6 +361,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
             VisitLiveTourCommand = new RelayCommand(VisitLiveTour_Execute);
             CloseLiveTourCommand = new RelayCommand(CloseLiveTour_Execute);
             GetLiveTour();
+
+            GradeTourCommand = new RelayCommand(GradeTour_Execute);
+            SaveGradeCommand = new RelayCommand(SaveGrade_Execute, CanSaveGrade);
+            CancelGradeCommand = new RelayCommand(CancelGrade_Execute);
 
             GeneratePDFReportCommand = new RelayCommand(GeneratePDFReport_Execute);
         }
@@ -599,6 +632,25 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel.GuideGuest
                                                         };
         }
         
+        private void CancelGrade_Execute()
+        {
+            TourGrade = new TourGrade();
+            ShowTourGradingForm = false;
+        }
+        private bool CanSaveGrade()
+        {
+            return TourGrade != null && TourGrade.IsValid;
+        }
+        private void SaveGrade_Execute()
+        {
+            TourGrade = new TourGrade();
+            ShowTourGradingForm = false;
+        }
+        private void GradeTour_Execute()
+        {
+            TourGrade = new TourGrade();
+            ShowTourGradingForm = true;
+        }
 
 
         private void GeneratePDFReport_Execute()

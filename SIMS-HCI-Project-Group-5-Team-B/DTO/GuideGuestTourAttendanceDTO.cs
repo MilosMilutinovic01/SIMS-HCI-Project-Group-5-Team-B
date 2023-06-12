@@ -41,7 +41,6 @@ namespace SIMS_HCI_Project_Group_5_Team_B.DTO
             {
                 Status = TourAttendanceStatus.WAITING;
             }
-            Status = TourAttendanceStatus.LIVE;
         }
     }
 }

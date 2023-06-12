@@ -245,7 +245,8 @@
                                                 </Button.Style>
                                             </Button>
                                             <Button x:Name="Grade" Content="Grade"
-                                                    FontSize="13" Width="45" Margin="0, 0, 10, 0">
+                                                    FontSize="13" Width="45" Margin="0, 0, 10, 0"
+                                                    Command="{Binding DataContext.GradeTourCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GuideGuestProfilePage}}}">
                                                 <Button.Style>
                                                     <Style TargetType="Button">
                                                         <Setter Property="Visibility" Value="Visible"/>
@@ -261,7 +262,6 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -315,6 +315,22 @@
                         </Style>
                     </forms:TourTrackingForm.Style>
                 </forms:TourTrackingForm>
+            </StackPanel>
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="420" Width="400">
+                <forms:TourGradeUserControl x:Name="TourGradingForm"
+                                              DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GuideGuestProfilePage}}}">
+                    <forms:TourGradeUserControl.Style>
+                        <Style TargetType="{x:Type forms:TourGradeUserControl}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShowTourGradingForm}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </forms:TourGradeUserControl.Style>
+                </forms:TourGradeUserControl>
             </StackPanel>
         </Grid>
 
