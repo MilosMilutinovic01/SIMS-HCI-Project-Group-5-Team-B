@@ -200,15 +200,15 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                     }
                 }else if(columnName == "RenovationDays")
                 {
-                    if (RenovationDays < 0)
+                    if (RenovationDays < 1)
                     {
                         if (Properties.Settings.Default.currentLanguage == "en-US")
                         {
-                            return "Value must be greater than zero";
+                            return "Value must be greater than one";
                         }
                         else
                         {
-                            return "Vrednost mora biti veca od nule";
+                            return "Vrednost mora biti veca od jedan";
                         }
                     }
                 }

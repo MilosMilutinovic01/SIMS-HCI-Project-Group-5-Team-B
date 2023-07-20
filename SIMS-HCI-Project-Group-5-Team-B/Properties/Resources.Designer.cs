@@ -1213,7 +1213,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your Accommodations 🏠.
+        ///   Looks up a localized string similar to Your Accommodations.
         /// </summary>
         public static string YourAccommodations {
             get {
