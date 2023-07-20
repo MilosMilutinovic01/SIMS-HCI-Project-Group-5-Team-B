@@ -34,5 +34,53 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Properties {
                 this["LastShownDate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("en-US")]
+        public string currentLanguage {
+            get {
+                return ((string)(this["currentLanguage"]));
+            }
+            set {
+                this["currentLanguage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool darkThemeOn {
+            get {
+                return ((bool)(this["darkThemeOn"]));
+            }
+            set {
+                this["darkThemeOn"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Tooltips {
+            get {
+                return ((bool)(this["Tooltips"]));
+            }
+            set {
+                this["Tooltips"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Wizard {
+            get {
+                return ((bool)(this["Wizard"]));
+            }
+            set {
+                this["Wizard"] = value;
+            }
+        }
     }
 }

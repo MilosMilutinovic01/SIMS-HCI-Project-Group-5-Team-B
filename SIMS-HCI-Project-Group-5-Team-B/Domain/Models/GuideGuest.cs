@@ -22,17 +22,21 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             get { return surname; }
             set { name = value; }
         }
-
-        public GuideGuest()
+        private int age;
+        public int Age
         {
-            //initially, there is only one guest, in order to not complicate the implementation of other features
+            get { return age; }
+            set { age = value; }
         }
 
-        public GuideGuest(int id, string name, string surname)
+        public GuideGuest() { }
+
+        public GuideGuest(int id, string name, string surname, int age)
         {
             Id = id;
             this.name = name;
             this.surname = surname;
+            Age = age;
         }
         public GuideGuest(int id, string name)
         {
@@ -45,6 +49,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             Id = int.Parse(values[0]);
             name = values[1];
             surname = values[2];
+            age = int.Parse(values[3]);
         }
 
         public string[] ToCSV()
@@ -53,7 +58,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             {
                 Id.ToString(),
                 name,
-                surname
+                surname,
+                age.ToString(),
             };
             return csvValues;
         }

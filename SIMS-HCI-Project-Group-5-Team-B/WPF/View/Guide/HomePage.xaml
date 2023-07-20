@@ -1,0 +1,97 @@
+﻿<Page x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide"
+        xmlns:cvt="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Converters"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:Properties="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Properties"
+        xmlns:p="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Properties"
+      mc:Ignorable="d" 
+      d:DesignHeight="718" d:DesignWidth="430"
+      Title="HomePage" Background="Black">
+    <Page.Resources>
+        <cvt:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Page.Resources>
+
+    <Grid x:Name="HomePageGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.4*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Panel.ZIndex="1" Background="Black" Foreground="GhostWhite" FontSize="20" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top">
+            Home page
+        </TextBlock>
+        <Button x:Name="HelpButton" Command="{Binding OpenPopupCommand}" Style="{StaticResource GuideNavButton}" Height="30" Width="30" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0">
+        <Image Source="/Resources/Images/helpIcon.png" HorizontalAlignment="Center"/>
+        </Button>
+        <Popup x:Name="popup" PlacementTarget="{Binding ElementName=HelpButton}" IsOpen="{Binding IsOpenedPopup, UpdateSourceTrigger=PropertyChanged}" Placement="Bottom" HorizontalOffset="-170">
+            <Grid Width="200" Height="Auto" Background="#202122">
+                <TextBlock Padding="10" Foreground="GhostWhite" TextWrapping="Wrap">
+                    1. User Profile: On the center, you'll find your profile picture, username, and account information.
+                    <LineBreak/>2. Navigation Buttons: In the middle of the page, you'll see buttons for different sections:
+                    <LineBreak/>-'My Tours': View your personal tours.
+                    <LineBreak/>-'Upcoming Tours': See a list of your upcoming tours.
+                    <LineBreak/>-'Guest Reviews': Read reviews from other guests.
+                    <LineBreak/>-'Resign': Cancel or resign from a tour.
+                    <LineBreak/>-'Sign Out': Log out when you're done.
+                    <LineBreak/><LineBreak/>Feel free to explore and use these elements to manage your account and access different sections. Click the 'Help' button if you need further assistance.
+                    <LineBreak/><LineBreak/>Enjoy using the application!
+                </TextBlock>
+            </Grid>
+        </Popup>
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center">
+            <Image Source="/Resources/Images/profile.png"></Image>
+            <Label Content="{Binding Username}" Foreground="GhostWhite" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
+            <Label Content="{Binding SuperGuide}" Foreground="GhostWhite" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
+        </StackPanel>
+
+        <Grid Grid.Row="3" Grid.Column="1" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Style="{StaticResource GuideButton}" Height="30" Grid.Row="0" Command="{Binding NavigateToMyToursPageCommand}">My tours</Button>
+            <Button Style="{StaticResource GuideButton}" Height="30" Grid.Row="1" Command="{Binding NavigateToUpcomingToursPageCommand}">Upcoming tours</Button>
+            <Button Style="{StaticResource GuideButton}" Height="30" Grid.Row="2" Command="{ Binding NavigateToReviewsPageCommand}">Guest reviews</Button>
+            <Button Style="{StaticResource GuideButton}" Height="30" Grid.Row="3" Command="{Binding ResignCommand}">Resign</Button>
+            <Button Style="{StaticResource GuideButton}" Height="30" Grid.Row="4" Command="{Binding SignOutCommand}">Sign out</Button>
+        </Grid>
+        <!--<Popup IsOpen="True" Placement="Center">
+            <xctk:Wizard FinishButtonClosesWindow="True">
+                <xctk:WizardPage x:Name="IntroPage" Title="Home page wizard" PageType="Exterior" ExteriorPanelContent="Ovde ide opis sta se desava!">
+                    <Image Source="/Resources/Images/profile.png" Width="300" Height="300"></Image>
+                </xctk:WizardPage>
+                <xctk:WizardPage x:Name="Page1" PageType="Exterior" ExteriorPanelContent="Ovde ide opis sta se desava!"
+                             Title="Page 1"
+                             NextPage="{Binding ElementName=Page2}"
+                             PreviousPage="{Binding ElementName=IntroPage}">
+                    <Image Source="/Resources/Images/profile.png" Width="300" Height="300"></Image>
+                </xctk:WizardPage>
+                <xctk:WizardPage x:Name="Page2" PageType="Exterior" ExteriorPanelContent="Ovde ide opis sta se desava!"
+                             Title="Page 2">
+                    <Image Source="/Resources/Images/profile.png" Width="300" Height="300"></Image>
+                </xctk:WizardPage>
+                <xctk:WizardPage x:Name="LastPage" PageType="Exterior" ExteriorPanelContent="Ovde ide opis sta se desava!"
+                             Title="Last Page"
+                             CanFinish="True">
+                    <Image Source="/Resources/Images/profile.png" Width="300" Height="300"></Image>
+                </xctk:WizardPage>
+            </xctk:Wizard>
+        </Popup>-->
+    </Grid>
+</Page>

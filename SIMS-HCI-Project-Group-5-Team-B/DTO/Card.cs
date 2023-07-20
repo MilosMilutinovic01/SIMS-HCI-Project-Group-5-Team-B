@@ -77,7 +77,13 @@ namespace SIMS_HCI_Project_Group_5_Team_B.DTO
             set { reported = value; }
         }
 
-        public Card(string guestName, string keyPointName, int generalKnowledge, int languageKnowledge, int tourFun, string comment, bool valid, bool reported)
+        private int tourGradeId;
+        public int TourGradeId
+        {
+            get { return tourGradeId; }
+            set { tourGradeId = value; }
+        }
+        public Card(string guestName, string keyPointName, int generalKnowledge, int languageKnowledge, int tourFun, string comment, bool valid, bool reported, string tourName, int tourGradeId)
         {
             this.guestName = guestName;
             this.keyPointName = keyPointName;
@@ -87,6 +93,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.DTO
             this.comment = comment;
             this.valid = valid;
             this.reported = reported;
+            this.tourName = tourName;
+            this.tourGradeId = tourGradeId;
         }
 
         public Card()

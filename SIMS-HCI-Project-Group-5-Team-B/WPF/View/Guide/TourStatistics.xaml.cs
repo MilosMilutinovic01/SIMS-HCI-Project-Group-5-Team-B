@@ -1,6 +1,7 @@
 ﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Repository;
+using SIMS_HCI_Project_Group_5_Team_B.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,23 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
     {
         private TourController tourController;
         private VoucherService voucherService;
+        private AppointmentService appointmentService;
         private TourAttendanceService tourAttendanceService;
+
+        public RelayCommand CloseCommand { get; set; }
+        private bool CanExecute_NavigateCommand()
+        {
+            return true;
+        }
+
+        private void Execute_CloseCommand()
+        {
+            Window window = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            if (window != null)
+            {
+                window.Close();
+            }
+        }
         public TourStatistics(int appointmentId, TourAttendanceService tourAttendanceService)
         {
             InitializeComponent();
@@ -33,10 +50,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
             tourController = new TourController();
             voucherService = new VoucherService();
+            appointmentService = new AppointmentService();
 
             this.tourAttendanceService = tourAttendanceService;
+            this.CloseCommand = new RelayCommand(Execute_CloseCommand, CanExecute_NavigateCommand);
 
-            TourName.Content = tourController.getById(appointmentId).Name;
+            TourName.Content = appointmentService.getById(appointmentId).Tour.Name;
             int totalGuests = tourAttendanceService.GetTotalGuest(appointmentId);
             TotalGuests.Content = "Total guests: " + totalGuests;
 
@@ -44,8 +63,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide
             Between.Content = "Guests between 18 and 50 years: " + totalGuests;
             Above50.Content = "Guests above 50 years: 0";   //hardcoded because of lack of this information in data
 
-            double withVouchers = (double)tourAttendanceService.GetNumberOfGuestsWithVoucher(voucherService.GetAllGuests(), totalGuests) / totalGuests * 100;
-            double withoutVouchers = (double)(totalGuests - tourAttendanceService.GetNumberOfGuestsWithVoucher(voucherService.GetAllGuests(), totalGuests)) / totalGuests * 100;
+            double withVouchers = 0;
+            double withoutVouchers = 0;
+            if (totalGuests != 0)
+            {
+                withVouchers = (double)tourAttendanceService.GetNumberOfGuestsWithVoucher(voucherService.GetAllGuests(), totalGuests) / totalGuests * 100;
+                withoutVouchers = (double)(totalGuests - tourAttendanceService.GetNumberOfGuestsWithVoucher(voucherService.GetAllGuests(), totalGuests)) / totalGuests * 100;
+            }
+            else
+            {
+                withVouchers = 0;
+                withoutVouchers = 0;
+            }
+            if(totalGuests != 0)
             WithVoucher.Content = "Guests with voucher on this tour: " + withVouchers.ToString("F2") + "%";
             WithoutVoucher.Content = "Guests without voucher on this tour: " + withoutVouchers.ToString("F2") + "%";
         }

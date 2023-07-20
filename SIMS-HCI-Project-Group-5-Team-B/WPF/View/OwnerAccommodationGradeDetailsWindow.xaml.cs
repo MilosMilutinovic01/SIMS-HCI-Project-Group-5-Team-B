@@ -12,35 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
     
     public partial class OwnerAccommodationGradeDetailsWindow : Window
     {
-
-        public OwnerAccommodationGrade SelectedOwnerAccommodationGrade { get; set; }
         public OwnerAccommodationGradeDetailsWindow(OwnerAccommodationGrade SelectedOwnerAccommodationGrade)
         {
             InitializeComponent();
-            DataContext = this;
-            this.SelectedOwnerAccommodationGrade = SelectedOwnerAccommodationGrade;
-            ShowImages();
+            this.DataContext = new OwnerAccommodationGradeDetailsViewModel(SelectedOwnerAccommodationGrade, imageListBox);
         }
 
-        private void ShowImages()
-        {
-            imageListBox.Items.Clear();
-
-            foreach (String imageSource in SelectedOwnerAccommodationGrade.PictureURLs)
-            {
-                imageListBox.Items.Add(imageSource);
-            }
-        }
-
-        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
     }
 }

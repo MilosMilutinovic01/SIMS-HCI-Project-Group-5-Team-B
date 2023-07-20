@@ -52,7 +52,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
         
         public List<Accommodation> GetSortedAccommodations()
         {
-            List<Accommodation> accommodationsForSotring = accommodationService.GetAll();
+            List<Accommodation> accommodationsForSotring = new List<Accommodation>(accommodationService.GetUndeleted());
             for (int i = 0; i < accommodationsForSotring.Count(); i++)
             {
                 if (accommodationsForSotring[i].Owner.GradeAverage > 4.5 && GetNumberOfGrades(accommodationsForSotring[i].Owner) >= 50)

@@ -134,6 +134,18 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             gradeAverage = 0;
         }
 
+        public OwnerAccommodationGrade(int cleanliness, int ownerCorrectness, int stateOfInventory, int quietness, int privacy)
+        {
+            Reservation = new Reservation();
+            PictureURLs = new List<string>();
+            Cleanliness = cleanliness;
+            OwnerCorrectness = ownerCorrectness;
+            StateOfInventory = stateOfInventory;
+            Quietness = quietness;
+            Privacy = privacy;
+            gradeAverage = 0;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

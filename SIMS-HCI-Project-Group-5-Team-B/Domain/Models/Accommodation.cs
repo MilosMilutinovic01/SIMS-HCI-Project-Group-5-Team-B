@@ -85,6 +85,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
+
+
+
         private int maxGuests;
         public int MaxGuests
         {
@@ -159,7 +162,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         }
 
 
-        public List<string> pictureURLs;
+        public List<string> pictureURLs { get; set; }
 
         private string pictureURLsString;
 
@@ -176,12 +179,41 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
+        private bool isRenovatedInTheLastYear;
 
+        public bool IsRenovatedInTheLastYear
+        {
+            get { return isRenovatedInTheLastYear; }
+            set
+            {
+                if(value != isRenovatedInTheLastYear)
+                {
+                    isRenovatedInTheLastYear = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool isClosed;
+        public bool IsClosed
+        {
+            get { return isClosed; }
+            set
+            {
+                if (value != isClosed)
+                {
+                    isClosed = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public Accommodation()
         {
             noticePeriod = 1;
+            isRenovatedInTheLastYear = false;
             pictureURLs = new List<string>();
+            isClosed = false;
         }
 
         public Accommodation(string name, TYPE type, int maxGuests, int minReservationDays, int noticePeriod, int locationId)
@@ -225,7 +257,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 maxGuests.ToString(),
                 minReservationDays.ToString(),
                 noticePeriod.ToString(),
-                PictureURLsString
+                PictureURLsString,
+                isRenovatedInTheLastYear.ToString(),
+                isClosed.ToString()
 
 
             };
@@ -265,6 +299,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 pictureURLs.Add(url);
             }
 
+            isRenovatedInTheLastYear = bool.Parse(values[9]);
+            isClosed = bool.Parse(values[10]);
+
 
         }
         public string Error => null;
@@ -276,39 +313,87 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 if (columnName == "Name")
                 {
                     if (string.IsNullOrEmpty(Name))
-                        return "The field must be filled";
+                    {
+                        if(Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "The field must be filled";
+                        }
+                        else
+                        {
+                            return "Polje mora biti popunjeno";
+                        }
+                    }
+                        
                 }
                 else if (columnName == "Type")
                 {
                     if (string.IsNullOrEmpty(Type))
-                        return "The field must be filled";
+                    {
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "The field must be filled";
+                        }
+                        else
+                        {
+                            return "Polje mora biti popunjeno";
+                        }
+                    }
                 }
                 else if (columnName == "MaxGuests")
                 {
                     if (MaxGuests < 1)
                     {
-                        return "Value must be greater than zero";
+
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "Value must be greater than zero";
+                        }
+                        else
+                        {
+                            return "Vrednost mora biti veca od nule";
+                        }
                     }
                 }
                 else if (columnName == "MinReservationDays")
                 {
                     if (MinReservationDays < 1)
                     {
-                        return "Value must be greater than zero";
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "Value must be greater than zero";
+                        }
+                        else
+                        {
+                            return "Vrednost mora biti veca od nule";
+                        }
                     }
                 }
                 else if (columnName == "NoticePeriod")
                 {
                     if (NoticePeriod < 1)
                     {
-                        return "Value must be greater than zero";
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "Value must be greater than zero";
+                        }
+                        else
+                        {
+                            return "Vrednost mora biti veca od nule";
+                        }
                     }
                 }
                 else if (columnName == "PictureURLsString")
                 {
                     if (string.IsNullOrEmpty(PictureURLsString))
                     {
-                        return "This field must be filled";
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "The field must be filled";
+                        }
+                        else
+                        {
+                            return "Polje mora biti popunjeno";
+                        }
                     }
                 }
                 return null;
@@ -336,6 +421,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public bool IsGuestsDaysAppropriate(int guestNo, int days)
+        {
+            return MinReservationDays <= days && MaxGuests >= guestNo;
         }
 
     }

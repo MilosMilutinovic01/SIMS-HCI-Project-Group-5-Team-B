@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        xmlns:converters="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.Converters"
         mc:Ignorable="d"
-        Title="ReservationFormWindow" Height="450" Width="600">
+        Title="Reservation Form" Height="720" Width="470" WindowStartupLocation="CenterScreen"
+        Background="#c8a2c8" KeyDown="Window_KeyDown">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -15,73 +17,120 @@
             </StackPanel>
 
         </ControlTemplate>
+        <converters:DateConverter x:Key="DateConverter"></converters:DateConverter>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding SearchCommand}"></KeyBinding>
+        <KeyBinding Gesture="esc" Command="{Binding CloseCommand}"></KeyBinding>
+        <KeyBinding Gesture="Ctrl+R" Command="{Binding ReserveCommand}"></KeyBinding>
+    </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="0.3*"></ColumnDefinition>
             <ColumnDefinition Width="2.5*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition Width="0.6*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="0.3*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0.2*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="1" Grid.Column="1">
+        <StackPanel Grid.Column="1" Margin="4 10 0 0 " Grid.ColumnSpan="2">
+            <TextBlock FontSize="24" Margin="0 0 0 3" Text="{Binding Path=Header, Mode=OneWay}" FontWeight="DemiBold"></TextBlock>
+            <TextBlock   FontSize="15" Text="{Binding Path=Location, Mode=OneWay}" FontWeight="DemiBold"></TextBlock>
+        </StackPanel>
+
+        <Button Grid.Column="2" Grid.ColumnSpan="2" Click="Button_Click" Height="37" Width="70" Margin="0,0,0,5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#a2a2c8">
+            <Button.Content>
+                <TextBlock  TextWrapping="Wrap" Width="60"    Text="Start Demo      Ctrl + T" TextAlignment="Center"></TextBlock>
+            </Button.Content>
+        </Button>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="0 0 45 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                
+
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Content="Start Date" Height="30" FontSize="15" HorizontalAlignment="Center"></Label>
-            <Label Grid.Row="1" Grid.Column="0" Content="End Date" Height="30" FontSize="15" HorizontalAlignment="Center"></Label>
-            <Label Grid.Row="2" Grid.Column="0" Content="Reservation Days" Height="30" FontSize="15" HorizontalAlignment="Center"></Label>
-            <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding Path=NewReservation.StartDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15"></DatePicker>
-            <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Path=NewReservation.EndDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15"></DatePicker>
-            <WrapPanel Grid.Row="2" Grid.Column="1" FlowDirection="LeftToRight" Margin="20">
-                <Button Content="-" Margin="15 0 0 0" Width="15" Click="ReservationDaysDecrease_Button_Click"></Button>
-                <TextBox Name="reservationDaysTextBox" Width="30" Text="{Binding Path=NewReservation.ReservationDays, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+            <Label Grid.Row="0" Grid.Column="0" Content="Start Date" FontSize="13" HorizontalAlignment="Left" Margin="0,10,0,10" Width="76"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="End Date" FontSize="13" HorizontalAlignment="Left" Margin="0,11,0,10" Width="70"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Reservation Days" FontSize="13" HorizontalAlignment="Left" Margin="0,10,0,10" Width="122"/>
+            <DatePicker x:Name="StartDP" Grid.Row="0" Background="LightGray" Grid.Column="1" SelectedDate="{Binding Path=NewReservation.StartDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15,15,14,15" HorizontalAlignment="Right"></DatePicker>
+            <DatePicker Name="EndDP" Grid.Row="1" Background="LightGray" Grid.Column="1" SelectedDate="{Binding Path=NewReservation.EndDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="15,15,14,15" HorizontalAlignment="Right"></DatePicker>
+            <WrapPanel Grid.Row="2" Grid.Column="1" FlowDirection="LeftToRight" Margin="15,15,14,15" HorizontalAlignment="Right">
+                <Button Content="-" Margin="15 0 0 0" Width="15" Command="{Binding DaysDecreaseCommand}"></Button>
+                <TextBox Name="ResDaysTB" Width="30" Text="{Binding Path=NewReservation.ReservationDays, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" IsReadOnly="True"></TextBox>
-                <Button Content="+" Width="15" Click="ReservationDaysIncrease_Button_Click"></Button>
+                <Button x:Name="DaysIncBtn" Content="+" Width="15" Command="{Binding DaysIncreaseCommand}"></Button>
             </WrapPanel>
-            
+
+            <Button Grid.Row="3" x:Name="SearchBtn" Background="#a2a2c8" Grid.Column="1" Height="37" Width="66" Command="{Binding SearchCommand}" HorizontalAlignment="Right" Margin="0 0 14 0">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Width="60"    Text="Search      Ctrl + S" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
         </Grid>
-        <WrapPanel Grid.Row="2" Grid.Column="1" FlowDirection="RightToLeft" Margin="0 50 0 0">
-            <Button Content="Cancel" Margin="15 0" Click="Cancel_Button_Click"></Button>
-            <Button Content="Search" Click="Search_Button_CLick"></Button>
+        <WrapPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Margin="0" >
+            <Button  Margin="0 5 0 0" Command="{Binding CloseCommand}" Height="37" Width="66" Background="#a2a2c8">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Width="60"    Text="Cancel      esc" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
         </WrapPanel>
 
-        <DataGrid Grid.Row="1" Grid.Column ="2" Width="auto" ItemsSource="{Binding Path=ReservationRecommendations, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=SelectedDate, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged" 
+        <DataGrid Grid.Row="3" x:Name="reccommDG" Grid.ColumnSpan="2" Margin="4 0 0 0" Grid.Column ="1" Width="auto" ItemsSource="{Binding Path=ReservationRecommendations, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedDate, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                       AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Resources>
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#a2a2c8" />
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Start" Binding="{Binding Start}" Width="2*"></DataGridTextColumn>
-                <DataGridTextColumn Header="End" Binding="{Binding End}" Width="2*"></DataGridTextColumn>
-
+                <DataGridTextColumn Header="Start" Binding="{Binding Start, Converter={StaticResource DateConverter}}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="End" Binding="{Binding End, Converter={StaticResource DateConverter}}" Width="*"></DataGridTextColumn>
+                <DataGridTemplateColumn x:Name="ime" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="ReserveBtn" Margin="3" Background="#a2a2c8" Command="{Binding DataContext.ReserveCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                <Button.Content>
+                                    <TextBlock  TextWrapping="Wrap" Width="60"    Text="Reserve      Ctrl + R" TextAlignment="Center"></TextBlock>
+                                </Button.Content>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
             </DataGrid.Columns>
         </DataGrid>
 
-        <Grid Grid.Row="2" Grid.Column="2">
+
+        <Border Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" Height="1" Width="500" Margin="0 177 0 0"  Background="Black" />
+        <Grid Grid.Row="2" Grid.Column="1" Height="64" Margin="0,0,45,0" VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <WrapPanel Grid.Row="0" Grid.Column="0" FlowDirection="RightToLeft">
-                <Button Name="guestNumberIncreaseButton" Content="+" Margin="15 0 0 0" Width="15" Click="GuestNumberIncrease_Button_Click"></Button>
-                <TextBox Name="guestNumberTextBox" Width="30" Text="{Binding Path=NewReservation.GuestsNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Guest Number" FontSize="13" Margin="1 0 0 0" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></Label>
+            <WrapPanel Grid.Row="0" Grid.Column="1" FlowDirection="RightToLeft" Margin="15,15,14,15" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button  Name="guestIncBtn" Content="+" Margin="0 0 0 0" Width="15" Command="{Binding GuestIncreaseCommand}"></Button>
+                <TextBox Name="guestNoTB" Width="30" Text="{Binding Path=NewReservation.GuestsNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}" IsReadOnly="True"></TextBox>
-                <Button x:Name="guestNumberDecreaseButton" Content="-" Width="15" Click="GuestNumberDecrease_Button_Click" ></Button>
-                <Label Content="Guest Number" Margin="15 0"></Label>
+                <Button x:Name="guestNumberDecreaseButton" Content="-" Width="15" Command="{Binding GuestDecreaseCommand}" ></Button>
             </WrapPanel>
-            <Button Name="reservationButton" Grid.Row="1" Height="20" Width="44" HorizontalAlignment="Center" Content="Reserve" Click="Reserve_Button_Click"></Button>
         </Grid>
     </Grid>
 </Window>

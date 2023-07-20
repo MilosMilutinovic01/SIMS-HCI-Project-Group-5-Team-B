@@ -15,9 +15,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     {
 
         private ITourAttendanceRepository tourAttendanceRepository;
-        public TourAttendanceService(ITourAttendanceRepository tourAttendanceRepository)
+        public TourAttendanceService()
         {
-            this.tourAttendanceRepository = tourAttendanceRepository;
+            this.tourAttendanceRepository = Injector.Injector.CreateInstance<ITourAttendanceRepository>();
         }
 
         public List<TourAttendance> GetAllFor(int guideGuestId)
@@ -51,9 +51,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
                 foreach (int id in allGuestsWithVoucher.Distinct())
                     if (ta.GuideGuestId == id)
                         result += 1;
+            if(totalGuests == 0)
+                return result;
             return result % totalGuests;
         }
-
         public int GetTotalGuest(int appointmentId)
         {
             int result = 0;
@@ -63,6 +64,11 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
                     result += ta.PeopleAttending;
             }
             return result;
+        }
+
+        public void Save(TourAttendance newTourAttendance)
+        {
+            tourAttendanceRepository.Save(newTourAttendance);
         }
     }
 }

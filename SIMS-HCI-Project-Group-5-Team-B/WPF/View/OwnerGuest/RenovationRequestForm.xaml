@@ -1,0 +1,67 @@
+﻿<Window x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest.RenovationRequestForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.OwnerGuest"
+        mc:Ignorable="d"
+        Title="Renovation Request" Height="380" Width="480" WindowStartupLocation="CenterScreen"
+        Background="#c8a2c8">
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+
+        </ControlTemplate>
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding SendCommand}"></KeyBinding>
+        <KeyBinding Gesture="esc" Command="{Binding CloseCommand}"></KeyBinding>
+    </Window.InputBindings>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="54*"></RowDefinition>
+            <RowDefinition Height="117*"></RowDefinition>
+            <RowDefinition Height="82*"></RowDefinition>
+            <RowDefinition Height="65*"></RowDefinition>
+            <RowDefinition Height="16*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Text="Renovation Request" FontWeight="DemiBold" FontSize="20" Margin="38,10,34,0" />
+        <Label Grid.Row="1" FontSize="15" Grid.ColumnSpan="2" Margin="34,6,0,70" >Comment</Label>
+        <Label Grid.Row="2" FontSize="15" Margin="34,27,0,25" Grid.ColumnSpan="2" >Level</Label>
+        <TextBox Grid.Column="1" Margin="137,54,34,4" Text="{Binding Path=NewRenovationRequest.Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True }" TextWrapping="Wrap"
+  AcceptsReturn="True"
+  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+  VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
+        <ComboBox x:Name="comboBox" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="5,27,34,25" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" RenderTransformOrigin="0.497,0.635" >
+            <ComboBoxItem Tag="0" IsSelected="True" >Level1 - Minor Renovations Needed</ComboBoxItem>
+            <ComboBoxItem Tag="1">Level2 - It Would Be Nice To Renovate</ComboBoxItem>
+            <ComboBoxItem Tag="2">Level3 - Renovation Necessary</ComboBoxItem>
+            <ComboBoxItem Tag="3">Level4 - Accommodation IS In Very Bad State, Renovation Necessary</ComboBoxItem>
+            <ComboBoxItem Tag="4">Level5 - Accommodation Unrentable, Renovation Is Urgent</ComboBoxItem>
+        </ComboBox>
+
+        <WrapPanel Grid.Row="2" Grid.ColumnSpan="4" FlowDirection="RightToLeft" Margin="34,82,34,0" Grid.RowSpan="2">
+            <Button  VerticalAlignment="Center" Margin="1 10 15 10" Height="37" Width="66" Command="{Binding CloseCommand}" Background="#a2a2c8">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Width="66"   Text="Cancel          esc" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
+            <Button  VerticalAlignment="Center" Margin="15 10" Height="37" Width="66"  Command="{Binding SendCommand}" Background="#a2a2c8">
+                <Button.Content>
+                    <TextBlock  TextWrapping="Wrap" Width="50"    Text="Send      Ctrl+S" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
+        </WrapPanel>
+    </Grid>
+</Window>

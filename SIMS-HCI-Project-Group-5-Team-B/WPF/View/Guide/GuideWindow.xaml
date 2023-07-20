@@ -3,28 +3,248 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:p="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Properties"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:Properties="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Properties"
         mc:Ignorable="d"
         Title="Guide" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="ExtendMenuStyle" TargetType="Menu">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Menu}">
+                        <Border BorderThickness="0">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Offset="0.0" Color="#333233" />
+                                            <GradientStop Offset="0.5" Color="#333233" />
+                                            <GradientStop Offset="1.0" Color="#333233" />
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Offset="0" Color="#333233" />
+                                    <GradientStop Offset="1" Color="#333233" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+
+                            <StackPanel
+                                ClipToBounds="True"
+                                IsItemsHost="True"
+                                Orientation="Vertical" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BaseMenuItem" TargetType="MenuItem">
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Width" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Grid x:Name="MenuItemGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="MenuItemBorder" Grid.ColumnSpan="2">
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStopCollection>
+                                                <GradientStop Offset="0.0" Color="#333233" />
+                                                <GradientStop Offset="1.0" Color="#333233" />
+                                            </GradientStopCollection>
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop Offset="0" Color="#333233" />
+                                        <GradientStop Offset="1" Color="#333233" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                            <ContentPresenter
+                                x:Name="IconPresenter"
+                                Grid.Column="0"
+                                ContentSource="Icon" />
+                            <ContentPresenter
+                                Grid.Column="1"
+                                Margin="7,1,7,1"
+                                ContentSource="Header" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="MenuItemBorder" Property="Background" Value="#3F91FE" />
+                                <Setter Property="Cursor" Value="Hand" />
+                            </Trigger>
+
+                            <DataTrigger Binding="{Binding Path=IsMenuOpened}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetProperty="Width"
+                                                From="0"
+                                                To="320"
+                                                Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetProperty="Width"
+                                                From="320"
+                                                To="0"
+                                                Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <DockPanel>
-        <DockPanel DockPanel.Dock="top" Height="30">
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                <Button>
-                    <Image Source="/Resources/Images/hamburgerIcon.png" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                </Button>
-                <Label Content="Home" Margin="15,0,0,0" />
-            </StackPanel>
-            <Button DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Image Source="/Resources/Images/threeDots.png" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            </Button>
-        </DockPanel>
-        
-        <Grid>
+        <Grid DockPanel.Dock="Top" Height="30" Background="#333233">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <Button Background="#333233" BorderBrush="#333233" Style="{StaticResource GuideNavButton}" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding OpenMenuCommand}">
+                <Image Source="/Resources/Images/hamburgerIcon.png"/>
+            </Button>
+            <TextBlock x:Name="NavLabel" Foreground="GhostWhite" Text="{Binding PageName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Grid.Column="1" VerticalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Background="#333233" BorderBrush="#333233" Style="{StaticResource GuideNavButton}" x:Name="threeDotsButton" Command="{Binding ToggleOpenCommand}" Height="30" Width="30">
+                    <Image Source="/Resources/Images/threeDots.png" HorizontalAlignment="Center"/>
+                </Button>
+            </StackPanel>
+            <Popup x:Name="popup" PlacementTarget="{Binding ElementName=threeDotsButton}" IsOpen="{Binding IsOpenedPopup, UpdateSourceTrigger=PropertyChanged}" Placement="Bottom" HorizontalOffset="-80">
+                <StackPanel Background="#2A2B2A" Width="100">
+                    <StackPanel Width="100" Orientation="Horizontal">
+                        <TextBlock Width="80" Foreground="GhostWhite" HorizontalAlignment="Center">Tooltip</TextBlock>
+                        <CheckBox x:Name="TooltipCheckBox" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Source={x:Static p:Settings.Default}, 
+           Path=Tooltips, Mode=TwoWay}"></CheckBox>
+                    </StackPanel>
+                    <!--<StackPanel Width="100" Orientation="Horizontal">
+                        <TextBlock Width="80" Foreground="GhostWhite" HorizontalAlignment="Center">Help</TextBlock>
+                        <CheckBox x:Name="HelpCheckBox" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Help, UpdateSourceTrigger=PropertyChanged}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding OpenWizardCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </CheckBox>
+                    </StackPanel>-->
+                </StackPanel>
+            </Popup>
+            <!--<Popup Panel.ZIndex="1" x:Name="helpPopup" PlacementTarget="{Binding ElementName=threeDotsButton}" IsOpen="{Binding Source={x:Static p:Settings.Default}, 
+           Path=Help, Mode=TwoWay}" Placement="Bottom" HorizontalOffset="-5" VerticalOffset="5">
+                <Button Background="White" BorderBrush="White" Width="20" Height="20">
+                    <Image Source="/Resources/Images/helpIcon.png"></Image>
+                </Button>
+            </Popup>-->
+        </Grid>
+        <!--<Button DockPanel.Dock="Top" Command="{Binding OpenMenuCommand}">Test</Button>-->
+        <Menu DockPanel.Dock="Left" Style="{StaticResource ExtendMenuStyle}">
+            <!--<MenuItem Style="{StaticResource BaseMenuItem}" Name="OpenMenuItem" Command="{Binding OpenMenuCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/hamburgerIcon.png" />
+                    </MenuItem.Icon>
+                </MenuItem>-->
+            <MenuItem Header="Create tour" Foreground="GhostWhite" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToCreateTourPageCommand}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding OpenMenuCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/plusIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Tour tracking" Foreground="GhostWhite" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTrackingTourPageCommand}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding OpenMenuCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/locationIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Upcoming tours" Foreground="GhostWhite" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToUpcomingToursPageCommand}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding OpenMenuCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/upcomingIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="My tours" Foreground="GhostWhite" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToMyToursPageCommand}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding OpenMenuCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/myToursIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Reviews" Foreground="GhostWhite" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToReviewsPageCommand}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding OpenMenuCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/reviewsIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Tour requests" Foreground="GhostWhite" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourRequestsPageCommand}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding OpenMenuCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/requestIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Tour requests with stats" Foreground="GhostWhite" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourRequestsWithStatisticsPageCommand}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding OpenMenuCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/statisticsIcon.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </Menu>
+        <Grid DockPanel.Dock="Bottom" Height="30" Background="Black">
+            <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -32,16 +252,24 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image Source="/Resources/Images/profile.png" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"></Image>
-            <Label Grid.Row="1" Grid.Column="1" Content="{Binding Source=Username}" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
-            
-            <StackPanel Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Center">
-                <Button Height="30" Click="AddTourClick" Margin="0,15,0,15">Create tour</Button>
-                <Button Height="30" Click="TrackinTourLiveClick" Margin="0,15,0,15">Track tour</Button>
-                <Button Height="30" Click="TourCancellationClick" Margin="0,15,0,15">Cancel tour</Button>
-                <Button Height="30" Margin="0,15,0,15" Click="SignOutClick">Reviews</Button>
-                <Button Height="30" Margin="0,15,0,15" Click="MyToursClick">My tours</Button>
-            </StackPanel>
+            <Button Style="{StaticResource GuideNavButton}" BorderBrush="Black" Width="70" Grid.Column="0" Grid.Row="0" Command="{Binding GoBackCommand}">
+                <Image Source="/Resources/Images/leftArrow.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
+            </Button>
+            <Button Style="{StaticResource GuideNavButton}" Width="70" Grid.Column="1" Grid.Row="0" Command="{Binding NavigateToMyToursPageCommand}">
+                <Image Source="/Resources/Images/homeIcon.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
+            </Button>
+            <Button Style="{StaticResource GuideNavButton}" Width="70" Grid.Column="2" Grid.Row="0" Command="{Binding NavigateToReviewsPageCommand}">
+                <Image Source="/Resources/Images/bellIcon.png" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
+            </Button>
         </Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+            <Frame x:Name="frame" NavigationUIVisibility="Hidden" Background="Black" BorderBrush="Black">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ContentRendered">
+                        <i:InvokeCommandAction Command="{Binding LoadWizardCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Frame>
+        </ScrollViewer>
     </DockPanel>
 </Window>

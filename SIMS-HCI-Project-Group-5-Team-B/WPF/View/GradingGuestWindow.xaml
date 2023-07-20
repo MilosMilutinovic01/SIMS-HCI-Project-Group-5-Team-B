@@ -4,9 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
         mc:Ignorable="d"
-        Title="GradingGuestWindow" Height="600" Width="600">
-    <Grid Margin="50 50 50 50">
+        Title="{ns:Loc GradingGuestWindow}" Height="600" Width="600" Style="{DynamicResource WindowStyle}" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid Margin="45 45 45 45">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -19,30 +29,32 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Grid.Column="0" Grid.Row="0" Content="Cleanliness" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35"></Label>
-        <Label Grid.Column="0" Grid.Row="1" Content="Rules Compliance" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35"></Label>
-        <Label Grid.Column="0" Grid.Row="2" Content="State of Inventory" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35"></Label>
-        <Label Grid.Column="0" Grid.Row="3" Content="Completed Payment On Time" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35"></Label>
-        <Label Grid.Column="0" Grid.Row="4" Content="Complaints From Other Guests" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35"></Label>
-        <Label Grid.Column="0" Grid.Row="5" Content="Additonal Comment" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35"></Label>
-        <Slider x:Name="CleanlinessSlider" Grid.Column="1" Grid.Row="0" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=NewOwnerGuestGrade.Cleanliness, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></Slider>
-        <TextBox Grid.Column="1" Grid.Row="0" Margin="0 30 140 0" Text="{Binding ElementName=CleanlinessSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <Slider x:Name="RulesComplianceSlider" Grid.Column="1" Grid.Row="1" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=NewOwnerGuestGrade.RulesCompliance, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></Slider>
-        <TextBox Grid.Column="1" Grid.Row="1" Margin="0 30 140 0" Text="{Binding ElementName=RulesComplianceSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <Slider x:Name="StateOfInventorySlider" Grid.Column="1" Grid.Row="2" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=NewOwnerGuestGrade.StateOfInventory, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></Slider>
-        <TextBox Grid.Column="1" Grid.Row="2" Margin="0 30 140 0" Text="{Binding ElementName=StateOfInventorySlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <ComboBox Grid.Column="1" Grid.Row="3" Height="40" Name="PaymentOnTime_ComboBox" SelectionChanged="PaymentOnTimeComboBox">
-            <ComboBoxItem>Yes</ComboBoxItem>
-            <ComboBoxItem>No</ComboBoxItem>
+        <Label Grid.Row="0"  Grid.ColumnSpan="2" Content="{Binding Heading}" Style="{DynamicResource LabelStyle}" FontSize="20" FontWeight="Bold"></Label>
+        <Label Grid.Column="0" Grid.Row="1" Content="{ns:Loc Cleanliness}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35" Style="{DynamicResource LabelStyle}"></Label>
+        <Label Grid.Column="0" Grid.Row="2" Content="{ns:Loc RulesCompliance}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35" Style="{DynamicResource LabelStyle}"></Label>
+        <Label Grid.Column="0" Grid.Row="3" Content="{ns:Loc StateOfInventory}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35" Style="{DynamicResource LabelStyle}"></Label>
+        <Label Grid.Column="0" Grid.Row="4" Content="{ns:Loc CompletedPaymentOnTime}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35" Style="{DynamicResource LabelStyle}"></Label>
+        <Label Grid.Column="0" Grid.Row="5" Content="{ns:Loc ComplaintsFromOtherGuests}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35" Style="{DynamicResource LabelStyle}"></Label>
+        <Label Grid.Column="0" Grid.Row="6" Content="{ns:Loc AdditionalComment}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="35" Style="{DynamicResource LabelStyle}"></Label>
+        <Slider x:Name="CleanlinessSlider" Grid.Column="1" Grid.Row="1" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=NewOwnerGuestGrade.Cleanliness, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" ></Slider>
+        <TextBox Grid.Column="1" Grid.Row="1" Margin="0,25,180,20" Text="{Binding ElementName=CleanlinessSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Slider x:Name="RulesComplianceSlider" Grid.Column="1" Grid.Row="2" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=NewOwnerGuestGrade.RulesCompliance, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></Slider>
+        <TextBox Grid.Column="1" Grid.Row="2" Margin="0,25,180,20" Text="{Binding ElementName=RulesComplianceSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Slider x:Name="StateOfInventorySlider" Grid.Column="1" Grid.Row="3" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" Value="{Binding Path=NewOwnerGuestGrade.StateOfInventory, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></Slider>
+        <TextBox Grid.Column="1" Grid.Row="3" Margin="0,25,180,20" Text="{Binding ElementName=StateOfInventorySlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <ComboBox Grid.Column="1" Grid.Row="4" Height="40" x:Name="PaymentOnTime_ComboBox"  SelectedItem="{Binding SelectedIsPaymentCompletedOnTime,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
+            <ComboBoxItem Tag="0" IsSelected="True" >Yes</ComboBoxItem>
+            <ComboBoxItem Tag="1">No</ComboBoxItem>
         </ComboBox>
-        <ComboBox Grid.Column="1" Grid.Row="4" Height="40" Name="ComplaintsFromOtherGuests_ComboBox" SelectionChanged="ComplaintsFromOtherGuestsComboBox">
-            <ComboBoxItem >Yes</ComboBoxItem>
-            <ComboBoxItem>No</ComboBoxItem>
+        <ComboBox Grid.Column="1" Grid.Row="5" Height="40" x:Name="ComplaintsFromOtherGuests_ComboBox"  SelectedItem="{Binding SelectedComplatintsFromGuests,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   >
+            <ComboBoxItem Tag="0" >Yes</ComboBoxItem>
+            <ComboBoxItem Tag="1" IsSelected="True">No</ComboBoxItem>
         </ComboBox>
-        <TextBox Grid.Column="1" Grid.Row="5" Height="40" Text="{Binding Path=NewOwnerGuestGrade.AdditionalComment, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
-        <Button Grid.Column="1" Grid.Row="6" Height="30" HorizontalAlignment="Left" Width="50"  Content="Grade" Click="Grade_Button_Click" Margin="125,18,0,18"></Button>
-        <Button Grid.Column="1" Grid.Row="6" Height="30" HorizontalAlignment="Right" Width="50" Content="Cancel" Click="Cancel_Button_Click"></Button>
+        <TextBox Grid.Column="1" Grid.Row="6" Height="40" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" Text="{Binding Path=NewOwnerGuestGrade.AdditionalComment, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+        <Button Grid.Column="1" Grid.Row="7" Height="20" HorizontalAlignment="Left" Width="50" Command="{Binding GradeCommand}" Content="{ns:Loc Grade}" Style="{DynamicResource ButtonInWindowStyle}" Margin="135,0,0,0"></Button>
+        <Button Grid.Column="1" Grid.Row="7" Height="20" HorizontalAlignment="Right" Width="50" Command="{Binding CancelCommand}" Content="{ns:Loc Cancel}" Style="{DynamicResource ButtonInWindowStyle}" ></Button>
 
     </Grid>
 

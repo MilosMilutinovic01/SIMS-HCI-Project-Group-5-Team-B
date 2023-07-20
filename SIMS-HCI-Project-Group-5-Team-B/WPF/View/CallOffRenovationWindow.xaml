@@ -1,0 +1,24 @@
+﻿<Window x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.CallOffRenovationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
+        xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
+        mc:Ignorable="d"
+        Title="{ns:Loc CallOffRenovationWindow}" Height="250" Width="350" Style="{DynamicResource WindowStyle}" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" HorizontalAlignment="Center" FontWeight="Bold"  VerticalAlignment="Center" FontSize="18" Content="{ns:Loc CallingOffRenovation}"  Style="{DynamicResource LabelStyle}"></Label>
+        <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Content="{ns:Loc CallOffCheck}" Style="{DynamicResource LabelStyle}"></Label>
+        <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="80"  Margin="10,0,0,0" Command="{Binding CallOffCommand}" Content="{ns:Loc Confirm}" Style="{DynamicResource ButtonInWindowStyle}"></Button>
+        <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="80"   Command="{Binding CancelCommand}" Content="{ns:Loc Cancel}" Style="{DynamicResource ButtonInWindowStyle}" Margin="245,0,0,0"></Button>
+    </Grid>
+</Window>

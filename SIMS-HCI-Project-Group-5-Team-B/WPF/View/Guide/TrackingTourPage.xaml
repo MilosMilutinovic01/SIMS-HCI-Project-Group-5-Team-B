@@ -1,0 +1,99 @@
+﻿<Page x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.Guide.TrackingTourPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.View"
+        xmlns:Syncfusion="http://schemas.syncfusion.com/wpf"
+        mc:Ignorable="d"
+        Title="Tracking Tour Live" Background="Black">
+
+    <DockPanel>
+        <!--<ToolBar DockPanel.Dock="Top" Height="30">
+            <Button x:Name="TourStartButton" Content="Start" Click="TourStartButton_Click"></Button>
+            <Button x:Name="KeyPointCheckButton" Content="Check" Click="KeyPointCheckButton_Click"></Button>
+        </ToolBar>-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Panel.ZIndex="1" Background="Black" Foreground="GhostWhite" FontSize="20" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top">
+                Tracking tour live
+            </TextBlock>
+            <Button Panel.ZIndex="1" Grid.Row="0" x:Name="HelpButton" Command="{Binding OpenPopupCommand}" Style="{StaticResource GuideNavButton}" Height="30" Width="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0">
+                <Image Source="/Resources/Images/helpIcon.png" HorizontalAlignment="Center"/>
+            </Button>
+            <Popup x:Name="popup" PlacementTarget="{Binding ElementName=HelpButton}" IsOpen="{Binding IsOpenedPopup, UpdateSourceTrigger=PropertyChanged}" Placement="Bottom" HorizontalOffset="-170">
+                <Grid Width="200" Height="Auto" Background="#202122">
+                    <TextBlock Padding="10" Foreground="GhostWhite" TextWrapping="Wrap">
+                        Welcome to the Tracking Tour Live page! Here, you can track tours in real-time. Use the available options to manage tours, guests, and key points.
+                        <LineBreak/>To get started, select a tour from the 'Tours' section. You can view tour details such as the name, start time, and duration. Click 'Start' to begin the tour and 'End' to finish it.
+                        <LineBreak/>In the 'Guests' section, you can see the list of guests associated with the selected tour.
+                        <LineBreak/>The 'KeyPoints' section displays the key points of the tour. You can check off each key point as it is reached. Click 'Check' to mark a key point as completed.
+                        <LineBreak/><LineBreak/>Feel free to explore and use these elements to manage your account and access different sections. Click the 'Help' button if you need further assistance.
+                        <LineBreak/><LineBreak/>Enjoy using the application!
+                    </TextBlock>
+                </Grid>
+            </Popup>
+            <StackPanel Grid.Row="0" Margin="0,10,0,0">
+                <Label Foreground="GhostWhite" FontSize="16" Margin="10,0,0,0">Tours:</Label>
+                <DataGrid Style="{StaticResource GuideDataGrid}" x:Name="AvailableAppointmentDataGrid" ItemsSource="{Binding Path=AvailableAppointments}" SelectedItem="{Binding Path=SelectedAppointment}" IsHitTestVisible="{Binding IsHitTestVisibleDataGrid, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Height="200">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Tour.Name}" />
+                        <DataGridTextColumn Header="Start" Binding="{Binding Start}" />
+                        <DataGridTextColumn Header="Duration" Binding="{Binding Tour.Duration}" />
+                        <DataGridTemplateColumn Header="Start" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource GuideButton}" Command="{Binding DataContext.StartTourCommand, 
+                                  RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" IsEnabled="{Binding DataContext.IsEnabledStartButton,UpdateSourceTrigger=PropertyChanged}">Start</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="End" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource GuideButton}" Command="{Binding DataContext.EndTourCommand, 
+                                  RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" IsEnabled="{Binding DataContext.IsEnabledEndButton,UpdateSourceTrigger=PropertyChanged}">End</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Margin="0,10,0,0">
+                <Label Foreground="GhostWhite" FontSize="16" Margin="10,0,0,0">Guests:</Label>
+                <DataGrid Style="{StaticResource GuideDataGrid}" x:Name="GuestsDataGrid" Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding Path=GuideGuests}" SelectedItem="{Binding Path=SelectedGuest}" IsReadOnly="True" AutoGenerateColumns="False" Height="200">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Username" Width="auto" Binding="{Binding Name}" />
+                        <!--<DataGridTextColumn Header="Surname" Binding="{Binding Surname}" />-->
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Grid.RowSpan="2" Margin="0,10,0,0">
+                <Label Foreground="GhostWhite" FontSize="16" Margin="10,0,0,0">KeyPoints:</Label>
+                <DataGrid Style="{StaticResource GuideDataGrid}" x:Name="KeyPointsDataGrid" ItemsSource="{Binding Path=KeyPoints}" SelectedItem="{Binding Path=SelectedKeyPoint}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Check" Binding="{Binding Selected}" />
+                        <DataGridTemplateColumn Header="End" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource GuideButton}" Command="{Binding DataContext.CheckKeyPointCommand, 
+                                  RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">Check</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</Page>

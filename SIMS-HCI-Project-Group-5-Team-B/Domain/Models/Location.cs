@@ -84,7 +84,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 if (columnName == "City")
                 {
                     if (string.IsNullOrEmpty(City))
-                        return "The field must be filled";
+                    {
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "The field must be filled";
+                        }
+                        else
+                        {
+                            return "Polje mora biti popunjeno";
+                        }
+                    }
 
                     Match match = locationRegex.Match(City);
                     if (!match.Success)
@@ -93,7 +102,16 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 else if (columnName == "State")
                 {
                     if (string.IsNullOrEmpty(State))
-                        return "The field must be filled";
+                    {
+                        if (Properties.Settings.Default.currentLanguage == "en-US")
+                        {
+                            return "The field must be filled";
+                        }
+                        else
+                        {
+                            return "Polje mora biti popunjeno";
+                        }
+                    }
 
                     Match match = locationRegex.Match(State);
                     if (!match.Success)
@@ -103,7 +121,7 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
-        private readonly string[] _validatedProperties = { "City", "State" };
+        private readonly string[] _validatedProperties = { /*"City", "State"*/ };
 
         public bool IsValid
         {

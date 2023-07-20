@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
 using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
@@ -52,18 +53,10 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
 
         private void LoadData()
         {
-            KeyPointCSVRepository keyPointCSVRepository = new KeyPointCSVRepository();
-            LocationCSVRepository locationCSVRepository = new LocationCSVRepository();
-            TourCSVRepository tourCSVRepository = new TourCSVRepository(keyPointCSVRepository, locationCSVRepository);
-
-            TourAttendanceCSVRepository tourAttendanceCSVRepository = new TourAttendanceCSVRepository();
-            TourGradeCSVRepository tourGradeCSVRepository = new TourGradeCSVRepository();
-            AppointmentCSVRepository appointmentCSVRepository = new AppointmentCSVRepository(tourCSVRepository);
-
-            tourService = new TourService(tourCSVRepository);
-            tourAttendanceService = new TourAttendanceService(tourAttendanceCSVRepository);
-            tourGradeService = new TourGradeService(tourGradeCSVRepository);
-            appointmentService = new AppointmentService(appointmentCSVRepository, tourAttendanceService);
+            tourService = new TourService();
+            tourAttendanceService = new TourAttendanceService();
+            appointmentService = new AppointmentService();
+            tourGradeService = new TourGradeService();
         }
 
         public void SearchButton_Click(object sender, RoutedEventArgs e)

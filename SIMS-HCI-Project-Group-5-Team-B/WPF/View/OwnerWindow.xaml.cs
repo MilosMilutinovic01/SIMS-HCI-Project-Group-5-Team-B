@@ -1,13 +1,17 @@
-﻿using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
+﻿using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Domain.ServiceInterfaces;
 using SIMS_HCI_Project_Group_5_Team_B.Notifications;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.View;
 using SIMS_HCI_Project_Group_5_Team_B.WPF.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SIMS_HCI_Project_Group_5_Team_B.View
 {
@@ -16,43 +20,46 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
     /// </summary>
     public partial class OwnerWindow : Window
     {
-        LocationController locationService;
-        AccommodationService accommodationService;
-        ReservationService reservationService;
-        OwnerService ownerService;
-        public List<Reservation> reservationsForGrading;
-        OwnerAccommodationGradeSevice ownerAccommodationGradeService;
-        OwnerGuestGradeService ownerGuestGradeService;
-        SuperOwnerService superOwnerService;
-        public Owner LogedInOwner;
-        public ObservableCollection<Accommodation> AccomodationsOfLogedInOwner { get; set; }
-        public ObservableCollection<Reservation> ReservationsForGrading { get; set; }
-        public ObservableCollection<OwnerAccommodationGrade> OwnerAccommodationGradesForShowing { get; set; }
-        public ObservableCollection<ReservationChangeRequest> OwnersPendingRequests { get; set; }
-        public Reservation SelectedReservation { get; set; }
-        public OwnerAccommodationGrade SelectedOwnerAccommodationGrade { get; set; }
-        public ReservationChangeRequest SelectedReservationChangeRequest { get; set; }
-        private readonly HandleReservationChangeRequestViewModel handleReservationChangeRequestViewModel;
+        
+        private LocationController locationService;
+        private AccommodationService accommodationService;
+        private ReservationService reservationService;
+        private OwnerService ownerService;
+        private OwnerAccommodationGradeSevice ownerAccommodationGradeService;
+        private OwnerGuestGradeService ownerGuestGradeService;
+        private SuperOwnerService superOwnerService;
         private ReservationChangeRequestService reservationChangeRequestService;
-        public ObservableCollection<Notification> Notifications { get; set; }
-
-        //private DateTime lastDisplayed;
+        private IRenovationService renovationService;
+        private RenovationRequestService renovationRequestService;
+        private YearlyAccommodationStatisticsService yearlyAccommodationStatisticsService;
+        private MonthlyAccommodationStatisticsService monthlyAccommodationStatisticsService;
+        public Owner LogedInOwner { get; set; }
+        private string username;
+        private App app;
+        private const string SRB = "sr-Latn-RS";
+        private const string ENG = "en-US";
+        //private string currentLanguage;
         public OwnerWindow(string username)
         {
             InitializeComponent();
-            DataContext = this;
+            this.username = username;
             locationService = new LocationController();
             ownerService = new OwnerService();
             accommodationService = new AccommodationService(locationService, ownerService);
-            reservationService = new ReservationService(accommodationService);
+            reservationService = new ReservationService();
             ownerAccommodationGradeService = new OwnerAccommodationGradeSevice(reservationService);
             ownerGuestGradeService = new OwnerGuestGradeService(reservationService);
             superOwnerService = new SuperOwnerService(ownerAccommodationGradeService, accommodationService);
+            reservationChangeRequestService = new ReservationChangeRequestService();
+            renovationService = ServiceInjector.CreateInstance<IRenovationService>();
+            renovationRequestService = new RenovationRequestService();
+            yearlyAccommodationStatisticsService = new YearlyAccommodationStatisticsService();
+            monthlyAccommodationStatisticsService = new MonthlyAccommodationStatisticsService();
 
-            reservationsForGrading = new List<Reservation>();
             LogedInOwner = ownerService.GetByUsername(username);
             LogedInOwner.GradeAverage = superOwnerService.CalculateGradeAverage(LogedInOwner);
 
+            //OVU FJU DA AZUZIRANJE MOZDA DODATI U SUPEROWNERSERVICE
             if (LogedInOwner.GradeAverage > 4.5 && superOwnerService.GetNumberOfGrades(LogedInOwner) >= 50)
             {
                 LogedInOwner.IsSuperOwner = true;
@@ -63,86 +70,222 @@ namespace SIMS_HCI_Project_Group_5_Team_B.View
             }
 
             ownerService.Update(LogedInOwner);
-            //lastDisplayed = Properties.Settings.Default.LastShownDate;
-            AccomodationsOfLogedInOwner = new ObservableCollection<Accommodation>(accommodationService.GetAccommodationsOfLogedInOwner(LogedInOwner));
-            ReservationsForGrading = new ObservableCollection<Reservation>(reservationService.GetReservationsForGrading(LogedInOwner));
-            OwnerAccommodationGradesForShowing = new ObservableCollection<OwnerAccommodationGrade>(ownerAccommodationGradeService.GetOwnerAccommodationGradesForShowing(LogedInOwner));
 
-            reservationChangeRequestService = new ReservationChangeRequestService();
-            handleReservationChangeRequestViewModel = new HandleReservationChangeRequestViewModel(reservationChangeRequestService, reservationService, LogedInOwner, SelectedReservationChangeRequest);
-            OwnersPendingRequests = new ObservableCollection<ReservationChangeRequest>(handleReservationChangeRequestViewModel.OwnersPendingRequests);
+            app = (App)System.Windows.Application.Current;
+            if(Properties.Settings.Default.currentLanguage == "en-US")
+            {
+                LocalizationComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                LocalizationComboBox.SelectedIndex = 1;
+            }
+            if(Properties.Settings.Default.darkThemeOn == true)
+            {
+                ThemeToggleButton.IsChecked = true;
+            }
+            else
+            {
+                ThemeToggleButton.IsChecked = false;
+            }
 
-            OwnerNotificationsViewModel ownerNotificationsViewModel = new OwnerNotificationsViewModel(LogedInOwner.Id);
-            Notifications = new ObservableCollection<Notification>(ownerNotificationsViewModel.Notifications);
 
         }
 
         private void NotifyOwner(object sender, RoutedEventArgs e)
         {
-            reservationsForGrading = reservationService.GetReservationsForGrading(LogedInOwner);
-            if (reservationsForGrading.Count != 0 && Notifications.Count != 0)
+            frame.Content = new AccommodationPage(LogedInOwner.Id,reservationService);
+            List<Reservation> reservationsForGrading = reservationService.GetReservationsForGrading(LogedInOwner);
+            if (reservationsForGrading.Count != 0 )
             {
-                MessageBox.Show("You have guests to grade!!!");
-                MessageBox.Show("You have new notifications!");
+                if(Properties.Settings.Default.currentLanguage == "en-US")
+                {
+                    MessageBox.Show("You have guests to grade!!!","Notification",MessageBoxButton.OK,MessageBoxImage.Warning);
+                }
+                else
+                {
+                    MessageBox.Show("Imate goste za ocenjivanje!!!", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
-            else if (reservationsForGrading.Count != 0)
+     
+            NotificationController notificationController = new NotificationController();
+            UserController userController = new UserController();
+            User user = userController.GetByUsername(username);
+            if (notificationController.Exists(user.Id))
             {
-                MessageBox.Show("You have guests to grade!!!");
-
-            }
-            else if (Notifications.Count != 0)
-            {
-                MessageBox.Show("You have new notifications!");
-            }
-        }
-
-        private void Create_Accommodation_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationForm accommodationForm = new AccommodationForm(AccomodationsOfLogedInOwner, LogedInOwner);
-            accommodationForm.Show();
-        }
-
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void Grade_Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedReservation != null)
-            {
-                GradingGuestWindow gradingGuestWindow = new GradingGuestWindow(ownerGuestGradeService, ownerAccommodationGradeService, reservationService, SelectedReservation, ReservationsForGrading, OwnerAccommodationGradesForShowing);
-                gradingGuestWindow.Show();
+                if (Properties.Settings.Default.currentLanguage == "en-US")
+                {
+                    MessageBox.Show("You have new notifactions!", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else
+                {
+                    MessageBox.Show("Imate nove notifikacije!", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
         }
 
-        private void Details_Button_Click(object sender, RoutedEventArgs e)
+
+        private void Accommodation_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedOwnerAccommodationGrade != null)
+            frame.Content = new AccommodationPage(LogedInOwner.Id,reservationService);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
             {
-                OwnerAccommodationGradeDetailsWindow ownerAccommodationGradeDetailsWindow = new OwnerAccommodationGradeDetailsWindow(SelectedOwnerAccommodationGrade);
-                ownerAccommodationGradeDetailsWindow.Show();
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
+        }
+
+        private void Requests_For_Changing_Reservation_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new RequestsForChangingReservationPage(reservationChangeRequestService,reservationService,LogedInOwner);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
+            {
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
+
+        }
+
+        private void Grading_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new GradingPage(reservationService,ownerAccommodationGradeService,ownerGuestGradeService,LogedInOwner);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
+            {
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
+
+        }
+
+        private void Statistics_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new StatisticsPage(yearlyAccommodationStatisticsService, accommodationService, LogedInOwner, monthlyAccommodationStatisticsService);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
+            {
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
+
+        }
+
+        private void Renovation_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new RenovationPage(renovationService,reservationService,LogedInOwner,accommodationService);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
+            {
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
+
+        }
+
+        private void Owner_Forum_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new OwnerForumPage(LogedInOwner,accommodationService);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
+            {
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
+
+        }
+
+        private void Owner_Profile_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new OwnerProfilePage(LogedInOwner,superOwnerService);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
+            {
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
+
+        }
+
+        private void Owner_Notifications_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new OwnerNotificationsPage(LogedInOwner);
+            var clickedItem = (MenuItem)sender;
+
+            // Uncheck all menu items
+            foreach (MenuItem item in menu.Items)
+            {
+                item.IsCheckable = false;
+            }
+
+            // Check the clicked menu item
+            clickedItem.IsCheckable = true;
+           
+        }
+
+        private void LocalizationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cBox = (ComboBox)sender;
+            ComboBoxItem cbItem = (ComboBoxItem)cBox.SelectedItem;
+            string newType = (string)cbItem.Content;
+            if (newType == "English")
+            {
+                Properties.Settings.Default.currentLanguage = ENG;
+                app.ChangeLanguage(ENG);
+                //currentLanguage = ENG;
+                Properties.Settings.Default.Save();
+            }
+            else if (newType == "Serbian")
+            {
+                //pristupi i promeni settingsu i toj prom
+                Properties.Settings.Default.currentLanguage = SRB;
+                app.ChangeLanguage(SRB);
+                //currentLanguage = SRB;
+                Properties.Settings.Default.Save();
+                //trebao bi save iz setingsa
             }
         }
-
-        private void Report_Button_Click(object sender, RoutedEventArgs e)
+        private void Toggle2_Checked(object sender, RoutedEventArgs e)
         {
-
+            app.ChangeTheme(new Uri("Themes/DarkTheme.xaml", UriKind.Relative));
+            Properties.Settings.Default.darkThemeOn = true;
+            Properties.Settings.Default.Save();
         }
 
-
-        private void Accept_Button_Click(object sender, RoutedEventArgs e)
+        private void Toggle2_Unchecked(object sender, RoutedEventArgs e)
         {
-            AcceptReservationChangeRequestWindow acceptReservationChangeRequestWindow = new AcceptReservationChangeRequestWindow(reservationChangeRequestService, reservationService, LogedInOwner, SelectedReservationChangeRequest, OwnersPendingRequests);
-            acceptReservationChangeRequestWindow.Show();
+            app.ChangeTheme(new Uri("Themes/LightTheme.xaml", UriKind.Relative));
+            Properties.Settings.Default.darkThemeOn = false;
+            Properties.Settings.Default.Save();
         }
-
-
-        private void Decline_Button_Click(object sender, RoutedEventArgs e)
-        {
-            DeclineReservationChangeRequestForm declineReservationChangeRequestForm = new DeclineReservationChangeRequestForm(reservationChangeRequestService, reservationService, LogedInOwner, SelectedReservationChangeRequest, OwnersPendingRequests);
-            declineReservationChangeRequestForm.Show();
-        }
-
     }
 }

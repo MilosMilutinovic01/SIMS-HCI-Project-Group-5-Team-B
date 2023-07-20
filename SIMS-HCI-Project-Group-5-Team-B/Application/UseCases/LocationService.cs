@@ -12,9 +12,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
     {
         private ILocationRepository locationRepository;
 
-        public LocationService(ILocationRepository locationRepository)
+        public LocationService()
         {
-            this.locationRepository = locationRepository;
+            this.locationRepository = Injector.Injector.CreateInstance<ILocationRepository>();
         }
         
         public List<Location> GetAll()
@@ -44,14 +44,19 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Application.UseCases
             return locationRepository.GetAll().Select(location => location.State).Distinct().ToList();
         }
 
-        public Location GetLocation(Location location)
+        public Location GetLocation(string state, string city)
         {
-            return GetAll().Find(l => l.City == location.City && l.State == location.State);
+            return GetAll().Find(l => l.City == city && l.State == state);
         }
 
         public List<string> GetCityByState(string state)
         {
             return locationRepository.GetAll().Where(location => location.State.Equals(state)).Select(location => location.City).Distinct().ToList();
+        }
+
+        public Location GetByStateAndCity(string state, string city)
+        {
+            return locationRepository.GetAll().Find(l => l.State == state && l.City == city);
         }
     }
 }

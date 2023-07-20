@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls.RegularTourRequestForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest.UserControls"
+             mc:Ignorable="d" 
+             Height="380" Width="300"
+             Background="Transparent">
+    <Grid>
+        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="8">
+            <Rectangle Fill="White" RadiusX="8" RadiusY="8"/>
+        </Border>
+
+        <Grid Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"
+                       Text="Regular tour" FontSize="20" FontWeight="DemiBold" Margin="0, 15"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="1"
+                Text="State:" FontSize="15"/>
+            <TextBlock Grid.Column="0" Grid.Row="2"
+                Text="City:" FontSize="15"/>
+            <TextBlock Grid.Column="0" Grid.Row="3"
+                Text="Language:" FontSize="15"/>
+            <TextBlock Grid.Column="0" Grid.Row="4"
+                Text="Number of guests:" FontSize="15"/>
+            <TextBlock Grid.Column="0" Grid.Row="5"
+                Text="Date range start:" FontSize="15"/>
+            <TextBlock Grid.Column="0" Grid.Row="6"
+                Text="Date range end:" FontSize="15"/>
+            <TextBlock Grid.Column="0" Grid.Row="7"
+                Text="Description:" FontSize="15"/>
+
+            <ComboBox Grid.Column="1" Grid.Row="1"
+                      ItemsSource="{Binding States}" SelectedItem="{Binding RegularTourSelectedState}"/>
+            <ComboBox Grid.Column="1" Grid.Row="2"
+                      ItemsSource="{Binding RegularTourCities}" SelectedItem="{Binding RegularTourSelectedCity}"/>
+            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding SelectedTourRequest.Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding SelectedTourRequest.MaxGuests, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <DatePicker Grid.Column="1" Grid.Row="5" Text="{Binding SelectedTourRequest.DateRangeStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <DatePicker Grid.Column="1" Grid.Row="6" Text="{Binding SelectedTourRequest.DateRangeEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Background="WhiteSmoke"
+                       Text="{Binding SelectedTourRequest.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <WrapPanel Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+                <Button x:Name="SaveRegularTourRequestButton" Content="Save" Command="{Binding SaveRegularTourRequestCommand}"/>
+                <Button x:Name="CancelRegularTourRequestButton" Content="Cancel" Command="{Binding CancelRegularTourRequestCommand}"/>
+            </WrapPanel>
+        </Grid>
+    </Grid>
+</UserControl>

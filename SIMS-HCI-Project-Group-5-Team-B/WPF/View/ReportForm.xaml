@@ -1,0 +1,38 @@
+﻿<Window x:Class="SIMS_HCI_Project_Group_5_Team_B.WPF.View.ReportForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.WPF.View"
+        xmlns:ns="clr-namespace:SIMS_HCI_Project_Group_5_Team_B.Localization"
+        mc:Ignorable="d"
+        Title="ReportForm" Height="250" Width="350" Style="{DynamicResource WindowStyle}" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{ns:Loc GenerateReportLabel}" FontSize="12" FontWeight="Bold" Margin="0,0,0,30" Style="{DynamicResource TextBlockGradeStyle}"></TextBlock>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedAccommodation.Name}" FontSize="12" FontWeight="Bold" Margin="0,20,0,0" Style="{DynamicResource TextBlockGradeStyle}"></TextBlock>
+        <Label Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,0,0,0" Content="{ns:Loc WantedStartDate}" Style="{DynamicResource LabelStyle}"></Label>
+        <Label Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,60,0,0" Content="{ns:Loc WantedEndDate}" Style="{DynamicResource LabelStyle}"></Label>
+        <DatePicker Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="175,1,0,0" SelectedDate="{Binding Path=SelectedStartDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" ></DatePicker>
+        <DatePicker Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="175,60,0,0"  SelectedDate="{Binding Path=SelectedEndDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></DatePicker>
+        <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="80"  Margin="35,0,0,0" Command="{Binding GeneratePreviewCommand}" Content="{ns:Loc Generate}" Style="{DynamicResource ButtonInWindowStyle}"></Button>
+        <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="80"   Command="{Binding CloseCommand}" Content="{ns:Loc Cancel}" Style="{DynamicResource ButtonInWindowStyle}" Margin="220,0,0,0"></Button>
+    </Grid>
+</Window>

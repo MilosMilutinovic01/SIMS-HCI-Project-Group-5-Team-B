@@ -30,6 +30,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             }
         }
 
+        public string Email { get; set; }
+        public string Number { get; set; }
+
         public OwnerGuest()
         {
             
@@ -42,6 +45,8 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
             Password = values[2];
             name = values[3];
             surname = values[4];
+            Email = values[5];
+            Number = values[6];
         }
 
         public string[] ToCSV()
@@ -52,7 +57,9 @@ namespace SIMS_HCI_Project_Group_5_Team_B.Domain.Models
                 Username,
                 Password,
                 name,
-                surname
+                surname,
+                Email,
+                Number
             };
             return csvValues;
         }

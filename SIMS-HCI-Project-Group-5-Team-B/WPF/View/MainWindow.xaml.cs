@@ -17,6 +17,9 @@ using System.Windows.Navigation;
 using SIMS_HCI_Project_Group_5_Team_B.Controller;
 using System.IO;
 using SIMS_HCI_Project_Group_5_Team_B.Domain.Models;
+using SIMS_HCI_Project_Group_5_Team_B.Application.Injector;
+using SIMS_HCI_Project_Group_5_Team_B.WPF.View.GuideGuest;
+using SIMS_HCI_Project_Group_5_Team_B.Application.UseCases;
 
 namespace SIMS_HCI_Project_Group_5_Team_B
 {
@@ -28,20 +31,22 @@ namespace SIMS_HCI_Project_Group_5_Team_B
         public string Username { get; set; }
         public string Password { get; set; }
         private UserController userController;
-        //public KeyPointsController keyPointsController;
+        private GuideService guideService;
+        //public KeyPointsController keyPointsService;
         //public LocationController locationController;
         //public TourController tourController;
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = this;
-            ComboBoxType.SelectedIndex = 0;
 
             userController = new UserController();
-            //keyPointsController = new KeyPointsController();
+            guideService = new GuideService();
+            //keyPointsService = new KeyPointsController();
             //locationController = new LocationController();
             //locationController.ChangeCsvFile("../../../Resources/Data/Locations.csv");
             //tourController = new TourController(locationController);
+            Injector.LoadData();
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
@@ -59,21 +64,24 @@ namespace SIMS_HCI_Project_Group_5_Team_B
             }
             
             user = userController.LogIn(Username, Password);
+            (new UserService()).LogIn(Username, Password);
 
-            if(ComboBoxType.SelectedIndex == 0)//Guide is selected
+            if(user.Type == USERTYPE.Guide)//Guide is selected
             {
-                GuideWindow guideWindow = new GuideWindow(user.Id);
+                Guide guide = guideService.getById(user.Id);
+                GuideWindow guideWindow = new GuideWindow(guide);
                 guideWindow.Show();
 
-            } else if(ComboBoxType.SelectedIndex == 1)//Guide_Guest is selected
+            } else if(user.Type == USERTYPE.GuideGuest)//Guide_Guest is selected
             {
-
+                MainGuideGuestWindow mainGuideGuestWindow = new MainGuideGuestWindow();
+                mainGuideGuestWindow.Show();
                 //Pozovi funkciju koju hoces za GOSTA 2
-                TourWindow tourWindow = new TourWindow(user);
-                tourWindow.Show();
+                //TourWindow tourWindow = new TourWindow(user);
+                //tourWindow.Show();
 
             }
-            else if(ComboBoxType.SelectedIndex == 2)//Owner is selected
+            else if(user.Type == USERTYPE.Owner)//Owner is selected
             {
 
                 //Pozovi funkciju koju hoces za VLASNIKA
@@ -82,10 +90,12 @@ namespace SIMS_HCI_Project_Group_5_Team_B
 
 
             }
-            else if(ComboBoxType.SelectedIndex == 3)//Owner_Guest is selected
+            else if(user.Type == USERTYPE.OwnerGuest)//Owner_Guest is selected
             {
 
                 //Pozovi funkciju koju hoces za GOSTA 1
+               // OwnerGuestService ownerGuestService = new OwnerGuestService();
+                //OwnerGuestService.LoggedInOwnerGuest = ownerGuestService.GetByUsername(Username);
                OwnerGuestWindow ownerGuestWindow = new OwnerGuestWindow(Username);
                 ownerGuestWindow.Show();
             }
