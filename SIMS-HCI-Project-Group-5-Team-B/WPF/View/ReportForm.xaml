@@ -23,16 +23,16 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="1.5*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{ns:Loc GenerateReportLabel}" FontSize="12" FontWeight="Bold" Margin="0,0,0,30" Style="{DynamicResource TextBlockGradeStyle}"></TextBlock>
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedAccommodation.Name}" FontSize="12" FontWeight="Bold" Margin="0,20,0,0" Style="{DynamicResource TextBlockGradeStyle}"></TextBlock>
         <Label Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,0,0,0" Content="{ns:Loc WantedStartDate}" Style="{DynamicResource LabelStyle}"></Label>
-        <Label Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,50,0,0" Content="{ns:Loc WantedEndDate}" Style="{DynamicResource LabelStyle}"></Label>
+        <Label Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,60,0,0" Content="{ns:Loc WantedEndDate}" Style="{DynamicResource LabelStyle}"></Label>
         <DatePicker Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="175,1,0,0" SelectedDate="{Binding Path=SelectedStartDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" ></DatePicker>
-        <DatePicker Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="175,50,0,0"  SelectedDate="{Binding Path=SelectedEndDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></DatePicker>
-        <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="80"  Margin="35,0,0,0" Command="{Binding GeneratePreviewCommand}" Content="{ns:Loc Generate}" Style="{DynamicResource ButtonInWindowStyle}"></Button>
-        <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="80"   Command="{Binding CloseCommand}" Content="{ns:Loc Cancel}" Style="{DynamicResource ButtonInWindowStyle}" Margin="220,0,0,0"></Button>
+        <DatePicker Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="175,60,0,0"  SelectedDate="{Binding Path=SelectedEndDate,  Mode= TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></DatePicker>
+        <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="80"  Margin="35,0,0,0" Command="{Binding GeneratePreviewCommand}" Content="{ns:Loc Generate}" Style="{DynamicResource ButtonInWindowStyle}"></Button>
+        <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="80"   Command="{Binding CloseCommand}" Content="{ns:Loc Cancel}" Style="{DynamicResource ButtonInWindowStyle}" Margin="220,0,0,0"></Button>
     </Grid>
 </Window>
